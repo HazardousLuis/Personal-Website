@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial & Market Analysis | Luis's Career</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="career-subpage-body">
+
+    <!-- Fixed Navigation Overlay -->
+    <nav class="subpage-nav"
+        style="position: fixed; width: 100%; top: 0; background: transparent; backdrop-filter: none; pointer-events: none;">
+        <!-- Pointer events auto for links -->
+        <h1 class="subpage-title" style="pointer-events: auto; text-shadow: 0 2px 10px rgba(0,0,0,0.2); color: #C5A086;"
+            data-i18n="careerPages.finance.title">Financial &
+            Market Analysis</h1>
+
+        <div style="display: flex; align-items: center; gap: 2rem; pointer-events: auto;">
+            <ul class="nav-links" style="margin: 0; padding: 0;">
+                <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
+                <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
+                <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+                <li><a href="life.html" class="nav-link" data-i18n="nav.life">Life</a></li>
+                <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <a href="career.html" class="back-link" style="text-shadow: 0 2px 10px rgba(0,0,0,0.2);"
+                data-i18n="careerPages.common.back">
+                &#8592; Back to Career Keys
+            </a>
+        </div>
+    </nav>
+
+    <!-- Content Container (Horizontal Slider) -->
+    <div class="career-cards-slider">
+
+        <!-- Card 1: Bank of Communications (Blue) -->
+        <div class="experience-card accordion-card bocom-card">
+
+            <!-- Title Spanning Top -->
+            <div class="company-name-spanning" data-i18n="careerPages.finance.bocom.title">Bank of Communications,
+                Guangdong Branch</div>
+
+            <div class="accordion-left-panel">
+                <!-- <div class="role-title">Retail Commercial Banking</div> -->
+
+                <!-- Accordion Section 1 -->
+                <div class="accordion-item active">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.finance.bocom.s1Title">
+                        System Entry
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.finance.bocom.s1Text">
+                            I entered the retail commercial banking system at its most concrete interface: the point
+                            where institutional financial products meet individual and corporate clients. Through
+                            front-desk operations and cross-departmental rotation, I was exposed to the full spectrum of
+                            everyday banking activities—account services, credit products, wealth management, and loan
+                            issuance—within a highly standardized organizational structure.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Accordion Section 2 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.finance.bocom.s2Title">
+                        Operational Dynamics
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.finance.bocom.s2Text">
+                            Working alongside relationship managers, I began to understand how financial products are
+                            translated into practice. Product positioning, regulatory constraints, and client
+                            communication jointly determine implementation. I observed how trust, financial literacy,
+                            and process discipline shape client decision-making, and how risk awareness is embedded into
+                            routine service operations rather than treated as an isolated function.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Accordion Section 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.finance.bocom.s3Title">
+                        Applied Understanding
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.finance.bocom.s3Text">
+                            This early exposure formed my baseline understanding of how financial systems operate under
+                            real-world constraints—an understanding that later informed my approach to market analysis.
+                            Seeing how products are explained, adopted, and constrained at the front line fundamentally
+                            shaped how I interpret market behavior beyond purely quantitative signals.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Panel with Explicit Logo -->
+            <div class="accordion-right-panel">
+                <img src="assets/images/logo_bocom.png" alt="Bank of Communications Logo" class="company-logo">
+            </div>
+
+            <!-- Hint for Next Slide -->
+            <!-- Gold Arrow between pages -->
+            <div class="finance-arrow-next"
+                onclick="document.querySelector('.columbia-card').scrollIntoView({behavior: 'smooth'})">
+                &rsaquo;
+            </div>
+        </div>
+
+        <!-- Card 2: Columbia IEOR (White) -->
+        <div class="experience-card accordion-card columbia-card">
+            <!-- Title Spanning Top -->
+            <div class="company-name-spanning" data-i18n="careerPages.finance.columbia.title">Columbia Industrial
+                Engineering & Operations Research</div>
+
+            <div class="accordion-left-panel">
+                <!-- <div class="role-title">Equity Research & Quantitative Analysis</div> -->
+
+                <!-- Accordion Section 1 -->
+                <div class="accordion-item active">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.finance.columbia.s1Title">
+                        Market Mechanics
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.finance.columbia.s1Text">
+                            I transitioned from institutional finance to the secondary market, entering the equity
+                            investment system where price, liquidity, and expectation interact continuously. My role
+                            focused on analyzing publicly traded equities through technical structures, thematic
+                            rotations, and capital flow dynamics, while managing a diversified portfolio under explicit
+                            risk constraints.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Accordion Section 2 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.finance.columbia.s2Title">
+                        Structure & Flow
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.finance.columbia.s2Text">
+                            Through systematic observation, I learned that market movements are driven by the
+                            interaction match between trend structure, capital behavior, and regime shifts. Technical
+                            patterns became tools for contextualizing market states rather than isolated prediction. I
+                            developed a practical understanding of drawdown control, position sizing, and how
+                            diversification behaves differently across market phases.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Accordion Section 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.finance.columbia.s3Title">
+                        Forecasting & Risk
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.finance.columbia.s3Text">
+                            Extending analysis to macro-linked assets, I integrated real estate indices and FX dynamics
+                            using econometric models (VAR, ARIMA) and machine learning. This experience cemented the
+                            realization that market predictability is structurally limited by policy shocks and
+                            expectation regimes—a core principle guiding my work in macro modeling and portfolio
+                            construction.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Right Panel with Explicit Logo -->
+            <div class="accordion-right-panel">
+                <img src="assets/images/logo_columbia_ieor.png" alt="Columbia IEOR Logo" class="company-logo">
+            </div>
+
+            <!-- Gold Arrow Prev -->
+            <div class="finance-arrow-prev"
+                onclick="document.querySelector('.bocom-card').scrollIntoView({behavior: 'smooth'})">
+                &lsaquo;
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Accordion Script -->
+    <script>
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const container = item.parentElement;
+
+            // Check if currently active
+            const isActive = item.classList.contains('active');
+
+            // Collapse all siblings
+            const siblings = container.querySelectorAll('.accordion-item');
+            siblings.forEach(sibling => {
+                sibling.classList.remove('active');
+            });
+
+            // Toggle current: If it WAS active, leave it closed (it was removed above).
+            // If it WAS NOT active, open it.
+            if (!isActive) {
+                item.classList.add('active');
+            }
+            // If it was active, do nothing - it stays closed (standard accordion toggle behavior).
+            // Wait, standard accordion usually keeps one open? 
+            // "Apple Watch" behavior mentioned usually means folding sections.
+            // Requirement: "opening other paragraphs collapses the originally opened paragraph".
+            // AND "now cannot fold". This implies they WANT to be able to fold (close) it.
+            // So if I click active, it should close. My current logic does exactly that:
+            // remove 'active' from all. If !isActive, add it. If isActive, don't add -> remains closed.
+        }
+    </script>
+
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                window.location.href = 'career.html';
+            }
+        });
+    </script>
+    <script>
+        const slider = document.querySelector('.career-cards-slider');
+        const backLink = document.querySelector('.back-link');
+
+        if (slider && backLink) {
+            slider.addEventListener('scroll', () => {
+                const width = window.innerWidth;
+                const scroll = slider.scrollLeft;
+                // Calculate ratio (0 = Page 1, 1 = Page 2)
+                // Thresholding slightly to make it start changing earlier or purely linear
+                const ratio = Math.min(Math.max(scroll / width, 0), 1);
+
+                // Darken the silver text to dark gray
+                // Brightness 1.0 -> 0.2 (Dark)
+                const brightness = 1 - (0.8 * ratio);
+                backLink.style.filter = `brightness(${brightness})`;
+            });
+        }
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+
+</html>

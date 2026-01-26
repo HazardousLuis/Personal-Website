@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life | Listen</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            font-family: var(--font-body);
+            overflow: hidden;
+            /* Handle scrolling via container or hidden initially */
+        }
+
+        .navbar {
+            mix-blend-mode: normal !important;
+            z-index: 2100;
+        }
+
+        .nav-link {
+            color: #fff !important;
+        }
+
+        /* --- Section 1: Intro Hero (Fixed Overlay) --- */
+        .listen-hero {
+            position: fixed;
+            inset: 0;
+            background: url('assets/images/listen_hero.jpeg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 1.5s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            opacity: 1;
+            transition: opacity 1s;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- Section 2: Polygon Content --- */
+        .listen-content {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .polygons-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            /* Removed max-width to fill screen */
+        }
+
+        .poly-card {
+            position: absolute;
+            inset: 0;
+            /* Fill container, clip-path handles shape */
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s, z-index 0s;
+            filter: brightness(0.9);
+            /* Slight dim, no grayscale */
+            will-change: clip-path, transform;
+        }
+
+        .poly-card:hover {
+            filter: brightness(1.1);
+            z-index: 10;
+            /* Expand slightly on hover? Hard with full tiling, let's just brighten */
+        }
+
+        .poly-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s;
+        }
+
+        /* 
+           Image Adjustment Hooks 
+           Adjust 'background-position' (x% y%) and 'background-size' (scale) here
+        */
+        .card-performance .poly-bg {
+            background-position: 0% 0%;
+            /* Example: Shift up slightly */
+            background-size: 70%;
+            /* Or e.g. 110% */
+        }
+
+        .card-collaboration .poly-bg {
+            background-position: -40% 450%;
+            background-size: 80%;
+        }
+
+        .card-composition .poly-bg {
+            background-position: 10% 10%;
+            background-size: 50%;
+        }
+
+        .poly-card:hover .poly-bg {
+            transform: scale(1.05);
+        }
+
+        .poly-label {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+            opacity: 1;
+            transition: all 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .poly-card:hover .poly-label {
+            color: var(--accent-gold);
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        /* Specific Label Positioning */
+        .card-performance .poly-label {
+            left: 33%;
+            bottom: auto;
+            top: 25%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card-performance:hover .poly-label {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .card-collaboration .poly-label {
+            left: 30%;
+            bottom: 10%;
+            transform: translate(-50%, 0);
+        }
+
+        .card-collaboration:hover .poly-label {
+            transform: translate(-50%, 0) scale(1.1);
+        }
+
+        .card-composition .poly-label {
+            left: 82%;
+            bottom: 3rem;
+        }
+
+        /* Hover transform fix for Composition since default is translateX(-50%) */
+        .card-composition:hover .poly-label {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        /* 
+           Diagonal Split Layout (Revised)
+           Left Side ~65% Width (Top/Bottom)
+           Right Side ~35% Width
+           
+           Divider Line: Approx 70% Top -> 60% Bottom
+           Intersection with horizontal split: ~65%
+        */
+
+        /* Top Left: Performance */
+        .card-performance {
+            clip-path: polygon(0 0, 70% 0, 65% 50%, 0 60%);
+            z-index: 1;
+        }
+
+        .card-performance:hover {
+            clip-path: polygon(0 0, 72% 0, 68% 54%, 0 64%);
+            /* Expand Right & Down */
+            z-index: 2;
+        }
+
+        /* Bottom Left: Collaboration */
+        .card-collaboration {
+            clip-path: polygon(0 60%, 65% 50%, 60% 100%, 0 100%);
+            z-index: 1;
+        }
+
+        .card-collaboration:hover {
+            clip-path: polygon(0 56%, 68% 46%, 62% 100%, 0 100%);
+            /* Expand Up & Right */
+            z-index: 2;
+        }
+
+        /* Right: Composition (Narrower) */
+        .card-composition {
+            clip-path: polygon(70% 0, 100% 0, 100% 100%, 60% 100%);
+            z-index: 1;
+        }
+
+        .card-composition:hover {
+            clip-path: polygon(66% 0, 100% 0, 100% 100%, 56% 100%);
+            /* Expand Left */
+            z-index: 2;
+        }
+
+        /* Mobile Fallback: Stack Vertical */
+        @media (max-width: 768px) {
+            .poly-card {
+                position: relative;
+                height: 33.33vh;
+                width: 100%;
+                clip-path: none !important;
+                inset: auto;
+            }
+
+            .poly-label {
+                left: 2rem !important;
+                bottom: 2rem !important;
+                top: auto !important;
+                transform: none !important;
+            }
+
+            .poly-card:hover .poly-label {
+                transform: translateX(10px) !important;
+            }
+        }
+
+        /* Modal Styles (Dark Theme) */
+        .listen-modal {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            /* Fallback */
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .listen-modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-body {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 3rem;
+            background: #1a1a1a;
+            /* Dark Grey Background */
+            color: #fff;
+            /* White Text */
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .modal-subtitle {
+            font-style: italic;
+            color: #aaa;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .modal-text {
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-video-wrap {
+            width: 100%;
+            margin-bottom: 2rem;
+            background: #000;
+            aspect-ratio: 16/9;
+        }
+
+        .modal-video-wrap video {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cross-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        .cross-link:hover {
+            background: transparent;
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="life.html" data-i18n="nav.back">← Back</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
+            <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
+            <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="life.html" class="nav-link" data-i18n="nav.life">Life</a></li>
+            <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Intro Hero -->
+    <section class="listen-hero" id="listenIntro">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <h1 class="hero-title" data-i18n="life.listenPage.heroTitle">A disciplined practice of time, listening, and
+                resonance.</h1>
+            <p class="hero-desc" data-i18n="life.listenPage.heroDesc">
+                Sound, for me, is not an accessory to expression, but a way of inhabiting time.<br>
+                Across performance, collaboration, and composition, music becomes a shared space — shaped by structure,
+                attention, and restraint.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content (Polygons) -->
+    <section class="listen-content">
+        <div class="polygons-wrapper">
+
+            <!-- I. Performance -->
+            <div class="poly-card card-performance" onclick="openModal('performance')">
+                <div class="poly-bg" style="background-image: url('assets/images/listen_performance.jpg');"></div>
+                <div class="poly-label" data-i18n="life.listenPage.polygons.p1">Performance</div>
+            </div>
+
+            <!-- II. Collaboration -->
+            <div class="poly-card card-collaboration" onclick="openModal('collaboration')">
+                <div class="poly-bg" style="background-image: url('assets/images/listen_collaboration.jpg');"></div>
+                <div class="poly-label" data-i18n="life.listenPage.polygons.p2">Collaboration</div>
+            </div>
+
+            <!-- III. Composition -->
+            <div class="poly-card card-composition" onclick="openModal('composition')">
+                <div class="poly-bg" style="background-image: url('assets/images/listen_composition.jpg');"></div>
+                <!-- Alignment adjust for Composition image -->
+                <!-- Assuming the user wants Fig 4 (Right) -->
+                <div class="poly-label" data-i18n="life.listenPage.polygons.p3">Composition</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal: Performance -->
+    <div id="modal-performance" class="listen-modal">
+        <div class="modal-body">
+            <span class="modal-close" onclick="closeModal('performance')">×</span>
+            <h2 class="modal-title" data-i18n="life.listenPage.modals.perfTitle">Chopin — Scherzo No. 2</h2>
+            <p class="modal-subtitle" data-i18n="life.listenPage.modals.perfSub">A study in form, tension, and
+                architectural clarity.</p>
+
+            <div class="modal-video-wrap">
+                <video controls>
+                    <source src="assets/videos/Scherzo No.2 Final Version.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p class="modal-text" data-i18n="life.listenPage.modals.perfDesc">
+                This performance centers on structural articulation rather than virtuosity.<br>
+                Contrast, acceleration, and release are treated as architectural elements — allowing the scherzo’s
+                dramatic surface to remain grounded in proportion and continuity.
+            </p>
+
+            <!-- Concert Image & New Text Section -->
+            <div style="margin: 3rem 0; text-align: center;">
+                <img src="assets/images/listen_concert.png" alt="Concert Performance"
+                    style="width: 100%; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); margin-bottom: 2rem;">
+            </div>
+
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: #fff; margin-bottom: 1rem; text-align: center;"
+                data-i18n="life.listenPage.modals.liveTitle">
+                Sound shared in presence.
+            </h3>
+
+            <p class="modal-text" style="text-align: center; max-width: 90%; margin: 0 auto 2rem auto;"
+                data-i18n="life.listenPage.modals.liveDesc">
+                I perform not to reproduce recordings, but to restore proximity.<br>
+                In a small concert setting, sound travels without compression — breath, touch, and resonance unfold in
+                real time, shared by everyone in the room.
+            </p>
+
+            <!-- Divider -->
+            <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 3rem 0;"></div>
+
+            <a href="education_master.html?modal=juilliard-chamber" class="cross-link"
+                data-i18n="education.masterPage.modals.cham.linkText">
+                More in Master's Chamber Music →
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal: Collaboration -->
+    <div id="modal-collaboration" class="listen-modal">
+        <div class="modal-body">
+            <span class="modal-close" onclick="closeModal('collaboration')">×</span>
+            <h2 class="modal-title" data-i18n="life.listenPage.modals.collabTitle">Selected Collaborative Album</h2>
+            <p class="modal-subtitle" data-i18n="life.listenPage.modals.collabSub">Listening as a shared discipline.</p>
+
+            <p class="modal-text" data-i18n="life.listenPage.modals.collabDesc">
+                This album documents a sustained period of collaboration with campus vocalists.
+                Across diverse repertoires and voices, the piano steps away from solo authority and becomes a responsive
+                surface — shaping tempo, harmony, and silence in service of the human voice.
+            </p>
+
+            <div class="modal-video-wrap">
+                <video controls>
+                    <source src="assets/videos/Collaboration.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Album Art Section -->
+            <div
+                style="display: flex; gap: 2rem; margin-top: 3rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px; max-width: 400px;">
+                    <img src="assets/images/listen_album01.png" alt="Album Art 1"
+                        style="width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                </div>
+                <div style="flex: 1; min-width: 250px; max-width: 400px;">
+                    <img src="assets/images/listen_album02.png" alt="Album Art 2"
+                        style="width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div
+                style="text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p
+                    style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 2rem; color: #ccc; letter-spacing: 0.05em;">
+                    Listen More
+                </p>
+
+                <!-- Textured Frame Container -->
+                <div style="
+                    display: inline-block;
+                    padding: 15px;
+                    background: #1a1a1a; /* Match modal bg base */
+                    border: 1px solid #333;
+                    box-shadow: 
+                        0 0 0 1px #000, /* Inner black line */
+                        0 0 0 4px #2a2a2a, /* Dark grey outer frame */
+                        0 0 0 5px rgba(255, 255, 255, 0.1), /* Subtle highlight edge */
+                        0 20px 50px rgba(0,0,0,0.8); /* Deep shadow */
+                    border-radius: 4px;
+                    position: relative;
+                ">
+                    <!-- Gold Corner Accents -->
+                    <div
+                        style="position: absolute; top: -1px; left: -1px; width: 20px; height: 20px; border-top: 2px solid var(--accent-gold); border-left: 2px solid var(--accent-gold);">
+                    </div>
+                    <div
+                        style="position: absolute; top: -1px; right: -1px; width: 20px; height: 20px; border-top: 2px solid var(--accent-gold); border-right: 2px solid var(--accent-gold);">
+                    </div>
+                    <div
+                        style="position: absolute; bottom: -1px; left: -1px; width: 20px; height: 20px; border-bottom: 2px solid var(--accent-gold); border-left: 2px solid var(--accent-gold);">
+                    </div>
+                    <div
+                        style="position: absolute; bottom: -1px; right: -1px; width: 20px; height: 20px; border-bottom: 2px solid var(--accent-gold); border-right: 2px solid var(--accent-gold);">
+                    </div>
+
+                    <!-- The QR Image -->
+                    <img src="assets/images/listen_qr.png" alt="Scan to Listen"
+                        style="width: 180px; height: 180px; display: block; opacity: 0.9;">
+                </div>
+
+                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666; font-style: italic;">
+                    Scan to explore the full album
+                </p>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <!-- Modal: Composition -->
+    <div id="modal-composition" class="listen-modal">
+        <div class="modal-body">
+            <span class="modal-close" onclick="closeModal('composition')">×</span>
+
+            <h2 class="modal-title" data-i18n="life.listenPage.modals.compTitle">Lover’s Bay Waltz · 情侣路圆舞曲</h2>
+            <p class="modal-subtitle" style="display: block; margin-bottom: 0.5rem; color: var(--accent-gold);"
+                data-i18n="life.listenPage.modals.compSub">for
+                flute, viola, and harp</p>
+            <p class="modal-subtitle" style="margin-bottom: 2.5rem; color: #888; font-size: 0.95rem;"
+                data-i18n="life.listenPage.modals.compMeta">
+                Composition, 2025<br>
+                Dedicated to Lover’s Road, Zhuhai
+            </p>
+
+            <!-- Unified Content -->
+            <div style="margin-bottom: 3rem;">
+                <div class="modal-video-wrap">
+                    <video controls>
+                        <source src="assets/videos/Lover's Bay Waltz.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <p class="modal-text" data-i18n="life.listenPage.modals.compDesc">
+                        Lover’s Bay Waltz is a chamber work composed in memory of Lover’s Road in Zhuhai, the place
+                        where I
+                        was born. Rather than depicting a specific landscape, the piece traces a rhythm — one shaped by
+                        coastline, light, and the slow accumulation of memory.
+                    </p>
+                </div>
+            </div>
+
+            <a href="education_master.html?modal=juilliard-composition" class="cross-link"
+                style="margin-top: 3rem; display: block; text-align: center; border: none; background: rgba(255,255,255,0.05);"
+                data-i18n="life.listenPage.modals.compLink">
+                View Full Orchestral Case Study "A Spark Ignites the Horizon" →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Intro Logic (Cinematic Transition)
+        document.addEventListener('DOMContentLoaded', () => {
+            const intro = document.getElementById('listenIntro');
+            const hasPlayed = sessionStorage.getItem('listenIntroPlayed');
+            const urlParams = new URLSearchParams(window.location.search);
+            const modalId = urlParams.get('modal');
+
+            // If deep linking to a modal, skip intro immediately
+            // if (modalId) {
+            //     intro.style.display = 'none';
+            //    // sessionStorage.setItem('listenIntroPlayed', 'true'); 
+            //     openModal(modalId);
+            // } else 
+
+            // ALWAYS PLAY for now per user request to see the transition
+            // if (hasPlayed) {
+            //     intro.style.display = 'none';
+            // } else {
+
+            // Play Cinematic Intro
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                intro.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    // sessionStorage.setItem('listenIntroPlayed', 'true');
+                }, 1500);
+            }, 2500);
+            // }
+        });
+
+        function openModal(id) {
+            document.getElementById('modal-' + id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById('modal-' + id);
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            const vid = modal.querySelector('video');
+            if (vid) vid.pause();
+        }
+    </script>
+</body>
+
+</html>

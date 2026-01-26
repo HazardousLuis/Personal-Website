@@ -1,0 +1,2383 @@
+@import "career_subpages.css";
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+/* AURA Design System */
+:root {
+    /* Color Palette */
+    --bg-color: #faf9f7;
+    /* Updated to Black for new direction */
+    /* Warm Alabaster replaced */
+    --text-color: #FFFFFF;
+    /* Updated to White for contrast */
+    /* Charcoal Brown replaced */
+    --accent-gold: #C5A086;
+    /* Muted Gold */
+    --accent-dark: #5A4635;
+    /* Deep Earth */
+    --nav-color: #FFFFFF;
+    /* Nav text white */
+    --white: #FFFFFF;
+
+    /* Typography */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-script: 'Great Vibes', cursive;
+    /* New Script Font */
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Transitions */
+    --transition-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-fast: 0.3s ease;
+}
+
+/* Global Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--accent-gold);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Layout Utilities */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.section {
+    padding: var(--spacing-xl) 0;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: var(--spacing-md) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    mix-blend-mode: normal;
+    /* Disable difference mode to ensure true gold color */
+    color: var(--bg-color);
+    /* This might need adjustment if navbar relies on difference */
+}
+
+/* Navbar Scrim - optional if text readability is issue, but let's stick to user request */
+
+.nav-logo {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    padding-left: var(--spacing-md);
+    color: var(--accent-gold);
+    text-shadow: 0 0 5px rgba(197, 160, 134, 0.3);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s ease;
+
+    /* Interactive Shimmer Gradient */
+    background: linear-gradient(to right,
+            #C5A086 20%,
+            #FFE5B4 50%,
+            #C5A086 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+}
+
+/* Enhanced Interaction on Hover */
+.nav-logo:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(197, 160, 134, 0.8), 0 0 30px rgba(197, 160, 134, 0.4);
+    animation: shine 2s linear infinite;
+    /* Speed up shimmer */
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    list-style: none;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    opacity: 1;
+    /* Increased opacity for gold visibility */
+    color: var(--accent-gold);
+    /* User Request: Gold Color */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width var(--transition-fast);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Home Page */
+
+
+.hero {
+    position: fixed;
+    /* Fixed overlay */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    /* Semi-transparent Overlay settings */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* See-through black */
+    backdrop-filter: blur(8px);
+    /* Frosted glass effect */
+    z-index: 10;
+    /* Top layer */
+
+    transition: opacity 1.2s ease, visibility 1.2s;
+    /* Smooth fade out */
+}
+
+/* Class to hide hero when user enters site */
+.hero.hero-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    /* Allows clicking interactions behind it */
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+    /* Behind the hero initially, but visible through it */
+    min-height: 100vh;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    /* Center content vertically if desired, or top aligned */
+}
+
+/* Flexible Media Container */
+.hero-media-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Unified style for both Image and Video backgrounds */
+.hero-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    /* Slight transparency if needed, or 1 for full visibility */
+    transition: opacity var(--transition-slow);
+}
+
+/* Legacy support / Global Bg for subpages */
+.hero-image.global-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    padding: 48px 64px;
+    margin-left: 0;
+
+    background: rgba(0, 0, 0, 0.38);
+    backdrop-filter: blur(6px);
+
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1.5s var(--transition-slow) forwards;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.02em;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    color: #ffffff;
+
+    background: transparent;
+
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+
+    transition: all var(--transition-fast);
+}
+
+.cta-button:hover {
+    border: 1px solid #C5A086;
+    background: transparent;
+    color: #C5A086;
+}
+
+/* Language Selector Styles */
+.lang-selector-container {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    opacity: 0.9;
+}
+
+.lang-option {
+    cursor: pointer;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    display: inline-block;
+}
+
+.lang-option:hover {
+    color: var(--accent-gold);
+    transform: scale(1.05);
+}
+
+.lang-option.active {
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+/* Dark Variant for Light Backgrounds (Education Page) */
+.cta-button.dark {
+    border: 1px solid rgba(29, 29, 31, 0.8);
+    background: transparent;
+    color: #1d1d1f;
+}
+
+.cta-button.dark:hover {
+    border: 1px solid #C5A086;
+    color: #C5A086;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Photography Page */
+/* Global Background Support */
+.hero-image.global-bg {
+    position: fixed;
+    /* Fixes background for subpages so it doesn't scroll away */
+    z-index: -1;
+}
+
+/* Photography Page */
+.gallery-grid {
+    display: grid;
+    /* Force 4 columns on large screens as requested */
+    grid-template-columns: repeat(4, 1fr);
+    /* Remove gap to create a seamless strip if desired, or keep small. User said "large strips". */
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-lg);
+    width: 100%;
+    /* Ensure full width */
+    max-width: 100%;
+    /* Override any container max-width */
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+}
+
+/* Hub Grid Styles (Home & Life) */
+/* Hub Grid Styles (Home & Life) */
+.hub-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    /* Tighter gap for a cohesive "wall" feel */
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 2rem 5%;
+    /* Minimal side padding to fill screen */
+}
+
+/* User Provided Advanced Hub Card CSS */
+.hub-card {
+    position: relative;
+    display: flex;
+    /* Centering content initially */
+    align-items: center;
+    justify-content: center;
+
+    flex: 1;
+    /* Allow flex growth */
+    min-width: 220px;
+    /* Stronger minimum width */
+    height: 70vh;
+    /* Much taller */
+    max-height: 900px;
+    padding: 2rem;
+
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--white);
+
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.4s ease,
+        border-color 0.4s ease,
+        flex 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Unified Scrim */
+.hub-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.30) 0%,
+            rgba(0, 0, 0, 0.15) 35%,
+            rgba(0, 0, 0, 0.06) 60%,
+            rgba(0, 0, 0, 0.00) 100%);
+    z-index: 1;
+    transition: opacity 0.35s ease;
+}
+
+.hub-card:hover::before {
+    opacity: 1;
+}
+
+.hub-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.35);
+    flex: 1.2;
+    /* Subtle expansion */
+}
+
+/* ------- Default Centered Title Section ------- */
+/* ------- Default Centered Title Section ------- */
+.hub-card-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    transform: translateY(-6px);
+    transition: transform 0.35s ease;
+}
+
+.hub-card-center h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.hub-card-center p {
+    margin: 0.5rem 0 0 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.85rem;
+    /* Smaller to prevent wrapping */
+    line-height: 1.4;
+    opacity: 1;
+    /* Max visibility */
+    font-weight: 500;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        /* Strong immediate contrast */
+        0 4px 12px rgba(0, 0, 0, 0.4);
+    /* Glow effect */
+}
+
+/* Hover: Center text moves up slightly but stays visible */
+.hub-card:hover .hub-card-center {
+    opacity: 1;
+    transform: translateY(-12px);
+}
+
+@media (max-width: 900px) {
+    .gallery-grid {
+        /* Adaptive for tablet */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-grid {
+        /* Adaptive for mobile */
+        grid-template-columns: 1fr;
+    }
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    /* Enforce vertical aspect ratio (9:16 for very tall/cinematic feel) */
+    aspect-ratio: 9/16;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.05);
+}
+
+/* Text readability on background */
+h1,
+p {
+    color: var(--white);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    /* Shadow for readability */
+}
+
+/* Specific override for page titles if they are not in a banner */
+.section>h1 {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+}
+
+/* Music Page */
+.music-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.music-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--white);
+    padding: var(--spacing-md);
+    border: 1px solid rgba(62, 52, 43, 0.1);
+    transition: box-shadow var(--transition-fast);
+}
+
+.music-item:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.music-cover {
+    width: 120px;
+    height: 120px;
+    background-color: var(--accent-gold);
+    /* Placeholder color if no image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.music-info {
+    flex: 1;
+}
+
+.music-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.music-poem {
+    font-style: italic;
+    color: var(--accent-dark);
+    margin-bottom: var(--spacing-sm);
+}
+
+.audio-player-placeholder {
+    width: 100%;
+    height: 40px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Startups Page */
+.startups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.startup-card {
+    background: var(--white);
+    padding: var(--spacing-lg);
+    text-align: center;
+    border: 1px solid rgba(62, 52, 43, 0.1);
+    transition: transform var(--transition-fast);
+}
+
+.startup-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.startup-logo {
+    width: 80px;
+    height: 80px;
+    background: var(--text-color);
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+.startup-mission {
+    font-style: italic;
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.1rem;
+}
+
+/* Experience Page */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-md) 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    background-color: var(--accent-gold);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -0.5px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+.timeline-item.left {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item.right {
+    left: 50%;
+    text-align: left;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    right: -6px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--accent-gold);
+    top: 20px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item.right::after {
+    left: -6px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background-color: var(--white);
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-date {
+    font-size: 0.9rem;
+    color: var(--accent-dark);
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Contact Page */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    background: var(--white);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.form-input:focus {
+    border-bottom-color: var(--accent-gold);
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.social-links {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    transition: color var(--transition-fast);
+}
+
+.social-icon:hover {
+    color: var(--accent-gold);
+}
+
+/* =========================================
+   Education Scroll Snap & Split Layout
+   ========================================= */
+html,
+body {
+    /* Ensure body doesn't fight the scroll container */
+    margin: 0;
+    padding: 0;
+}
+
+.edu-scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+
+.edu-slide {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    background-color: #faf9f7;
+    /* Light background */
+}
+
+/* Split Layout */
+.split-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Left Side: Image */
+.split-image-container {
+    flex: 1;
+    /* 50% width */
+    background-color: #ddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.split-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    /* Fully visible */
+}
+
+/* Right Side: Text */
+.split-text-container {
+    flex: 1;
+    /* 50% width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 6rem;
+    position: relative;
+    /* For logo positioning */
+    background: #faf9f7;
+    /* Light background */
+    color: #1d1d1f;
+    /* Black text */
+}
+
+/* School Logo Placeholder */
+/* School Logo Placeholder */
+/* School Logo Placeholder */
+.school-logo-container {
+    position: absolute;
+    top: 8rem;
+    right: 4rem;
+    width: auto;
+    height: auto;
+    background: transparent;
+    z-index: 10;
+}
+
+
+/* =========================================
+   Finance Page Redesign (Accordion & Slider)
+   ========================================= */
+
+/* Main Container / Slider */
+.career-subpage-body {
+    overflow: hidden;
+    /* prevent body scroll */
+    margin: 0;
+    font-family: var(--font-body);
+}
+
+.career-cards-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+/* Individual Card (Slide) */
+.experience-card {
+    flex: 0 0 100vw;
+    /* Take specific viewport width */
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8rem 4rem 4rem 4rem;
+    /* Top padding for navbar */
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Accordion Card Layout (Text Left, Logo Right) */
+.accordion-card {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.accordion-left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.accordion-right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Optional: Limit logo container size */
+}
+
+/* Company Logos */
+.company-logo {
+    max-width: 80%;
+    /* Adjust as needed */
+    max-height: 400px;
+    object-fit: contain;
+}
+
+/* Company Name Title */
+.company-name {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+}
+
+/* Accordion Functionality */
+/* Accordion basic behavior */
+.accordion-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    /* Default light card separator */
+    margin-bottom: 0px;
+}
+
+.accordion-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.accordion-header:hover {
+    opacity: 0.8;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 320ms ease;
+    opacity: 1;
+    /* Rely on max-height for visibility to avoid transition issues */
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 600px;
+    /* Sufficient height */
+}
+
+.accordion-text {
+    margin: 0;
+    padding: 0 0 14px 0;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Accordion Icon */
+.accordion-icon {
+    display: inline-block;
+    transform: rotate(180deg);
+    /* Points down initially */
+    transition: transform 240ms ease;
+    opacity: 0.7;
+    font-size: 1.2rem;
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(0deg);
+    /* Points up when active */
+}
+
+/* Card Specifics */
+
+/* Bank of Communications - Custom Blue (Dark Mode) */
+.bocom-card {
+    background-color: #003366;
+    /* BoCom Navy Blue */
+    color: #FFFFFF;
+}
+
+/* Dark card specific accordion styles */
+.bocom-card .accordion-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.bocom-card .accordion-header,
+.bocom-card .accordion-text,
+.bocom-card .company-name {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.bocom-card .accordion-icon {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* Columbia IEOR - White/Light */
+.columbia-card {
+    background-color: #FFFFFF;
+    color: #1d1d1f;
+    /* Dark text */
+}
+
+.columbia-card .accordion-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Slider Hint */
+.slider-nav-hint {
+    position: absolute;
+    bottom: 2rem;
+    right: 4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+    color: inherit;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+
+.accordion-header:hover {
+    opacity: 0.8;
+}
+
+.accordion-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px;
+    /* Approximated content height */
+    opacity: 1;
+    padding-bottom: 1.5rem;
+}
+
+.accordion-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Card Specifics */
+
+/* Bank of Communications - Custom Blue */
+.bocom-card {
+    background-color: #003366;
+    /* BoCom Navy Blue */
+    color: #FFFFFF;
+}
+
+/* Columbia IEOR - White/Light */
+.columbia-card {
+    background-color: #FFFFFF;
+    color: #1d1d1f;
+    /* Dark text */
+}
+
+.columbia-card .accordion-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Slider Hint */
+.slider-nav-hint {
+    position: absolute;
+    bottom: 2rem;
+    right: 4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .accordion-card {
+        flex-direction: column-reverse;
+        /* Logo on top, Text bottom? Or just stack */
+        gap: 2rem;
+        padding-top: 0;
+        /* Adjust for mobile */
+    }
+
+    .accordion-right-panel {
+        display: none;
+        /* Hide logo on mobile to save space? Or make smaller */
+        /* Plan didn't specify, but safer to keep visible or stack */
+    }
+
+    .experience-card {
+        padding: 6rem 2rem 2rem 2rem;
+        overflow-y: auto;
+        /* Allow vertical scroll if content too tall */
+        display: block;
+        /* Break flex centering */
+    }
+
+    .company-name {
+        font-size: 2rem;
+    }
+}
+
+
+.school-logo-img {
+    max-height: 80px;
+    /* Constrain vertical height for round logos */
+    max-width: 180px;
+    /* Constrain horizontal width for banner logos */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    /* Blends white background into the page */
+}
+
+/* Typography for Slides */
+.split-title {
+    font-family: var(--font-heading);
+    font-size: 3.4rem;
+    /* User requested 3.4rem */
+    margin-bottom: 1.2rem;
+    /* Title -> Subtitle spacing */
+    line-height: 1.15;
+    color: #1d1d1f;
+}
+
+.split-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    /* User requested 1.1rem */
+    letter-spacing: 0.04em;
+    color: #1d1d1f;
+    opacity: 0.75;
+    margin-bottom: 2.4rem;
+    /* Subtitle -> Desc spacing (critical break) */
+    font-weight: 300;
+}
+
+.split-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    /* Increased breathing room */
+    color: #1d1d1f;
+    opacity: 0.85;
+    margin-bottom: 3.2rem;
+    /* Desc -> CTA spacing */
+    max-width: 520px;
+}
+
+@media (max-width: 900px) {
+    .split-layout {
+        flex-direction: column;
+    }
+
+    .split-image-container {
+        height: 40vh;
+        flex: none;
+    }
+
+    .split-text-container {
+        flex: 1;
+        padding: 2rem;
+        justify-content: flex-start;
+    }
+
+    .split-title {
+        font-size: 2.5rem;
+    }
+
+    .school-logo-container {
+        top: 2rem;
+        /* Mobile fix */
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* =========================================
+   Sub-Page Layout (Vertical Scroll Snap)
+   ========================================= */
+.sub-scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background-color: #faf9f7;
+    /* Consistent light theme */
+}
+
+.sub-section {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+    overflow: hidden;
+}
+
+/* Section 1: Hero */
+/* Section 1: Hero */
+.sub-hero-title {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    color: #000000;
+    /* Pure Black */
+    margin-bottom: 1rem;
+    text-align: center;
+    text-shadow: none;
+    /* No Glow */
+}
+
+.sub-meta {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: #000000;
+    /* Pure Black */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: none;
+}
+
+
+
+/* Section 2: Intro */
+/* Background Image Overlay Style */
+.edu-overview {
+    position: relative;
+    /* Gradient from page bg (#faf9f7) to transparent, then image */
+    background-image: linear-gradient(to bottom, #faf9f7 0%, rgba(250, 249, 247, 0.8) 15%, rgba(250, 249, 247, 0) 40%),
+        linear-gradient(to top, #faf9f7 0%, transparent 15%),
+        url('../assets/images/SYSU_campus_img.png');
+    background-size: cover;
+    background-position: center top;
+    /* Anchor building to bottom */
+}
+
+.edu-overview::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.15);
+    z-index: 0;
+}
+
+.sub-intro-text {
+    position: relative;
+    /* Ensure text is above overlay */
+    z-index: 1;
+    color: #1d1d1f;
+    text-align: center;
+    font-family: var(--font-body);
+    /* Matching sub-meta font (Inter) */
+    font-size: 0.95rem;
+    /* Adjusted for body font */
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+}
+
+.overview-band {
+    width: 70%;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 20px;
+    /* Rounded corners as requested */
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    /* Sit on top of overlay */
+}
+
+/* Force light text inside the dark band */
+.overview-band .sub-intro-text {
+    color: #f5f5f7;
+    margin: 0;
+    /* Reset margins if any */
+}
+
+.sub-intro-text p {
+    margin-bottom: 1rem;
+}
+
+/* Section 3 & 4: Horizontal Cards (Apple Watch Style) */
+.card-section-title {
+    color: #000000;
+    /* Pure Black */
+    font-family: var(--font-body);
+    /* Match sub-meta font */
+    font-size: 2.2rem;
+    /* Increased size */
+    font-weight: 300;
+    /* Elegant thin look */
+    letter-spacing: 0.05em;
+    /* Match sub-meta spacing */
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: none;
+}
+
+.card-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding: 2rem 5%;
+    /* Space for shadow/hover */
+    width: 100%;
+    max-width: 1200px;
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+}
+
+.card-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+}
+
+.apple-card {
+    flex: 0 0 300px;
+    /* Fixed width cards */
+    height: 400px;
+    background: #fff;
+    border-radius: 40px;
+    /* Large radius like Apple Watch UI */
+    scroll-snap-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.apple-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    z-index: 2;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    background: #eee;
+}
+
+.card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #000;
+}
+
+.card-plus-icon {
+    align-self: flex-end;
+    width: 32px;
+    height: 32px;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.apple-card:hover .card-plus-icon {
+    transform: rotate(90deg);
+}
+
+.card-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+    text-align: center;
+    border-radius: 40px;
+}
+
+.card-hover-overlay p {
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-style: italic;
+    font-weight: 400;
+    text-shadow: none;
+}
+
+/* Chamber Carousel Styles */
+.chamber-carousel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.chamber-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.6;
+    /* Slight dim for text readability */
+}
+
+.chamber-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.chamber-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Texture/Ken Burns Effect */
+.chamber-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(0.7);
+}
+
+.chamber-slide.active .chamber-img {
+    transform: scale(1.1);
+}
+
+/* Text Overlay */
+.chamber-text-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    text-align: center;
+    padding: 2rem;
+    /* Removed default color to apply specifically to children */
+}
+
+.chamber-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    letter-spacing: -0.02em;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.chamber-keywords {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+    max-width: 80%;
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+
+.chamber-slide.active .chamber-title,
+.chamber-slide.active .chamber-keywords {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Composition Case Study Styles */
+.comp-case-study {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    /* Minimum height for video visibility */
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+}
+
+.comp-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.6;
+    /* Dim video for readability */
+}
+
+.comp-overlay {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem;
+    color: #fff;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+}
+
+.comp-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.comp-meta {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.comp-section {
+    margin-bottom: 4rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    padding-left: 2rem;
+    backdrop-filter: blur(5px);
+    /* Frost effect behind text */
+}
+
+.comp-section-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    display: block;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.comp-text {
+    font-family: var(--font-heading);
+    /* Serif for body text looks academic/artistic */
+    font-size: 1.3rem;
+    line-height: 1.6;
+    max-width: 700px;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.design-logic-list {
+    list-style: none;
+    padding: 0;
+}
+
+.design-logic-item {
+    margin-bottom: 3rem;
+}
+
+.logic-num {
+    font-family: var(--font-body);
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 28px;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.logic-title {
+    font-size: 1.4rem;
+    font-family: var(--font-heading);
+    display: inline-block;
+    vertical-align: middle;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.logic-desc {
+    margin-top: 1rem;
+    margin-left: 3rem;
+    /* Align with title */
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.emphasis-failure {
+    color: #ff6b6b;
+    /* Red/Pink accent for 'Failure' */
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.emphasis-quote {
+    font-size: 1.4rem;
+    border-left: 3px solid var(--accent-gold);
+    padding-left: 1.5rem;
+    margin: 2rem 0 2rem 3rem;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* Navigation Dots */
+.chamber-nav {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.8rem;
+    z-index: 10;
+}
+
+.chamber-dot {
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chamber-dot.active {
+    background: #fff;
+    transform: scale(1.4);
+}
+
+/* Section 5: Growth (Glassmorphism) */
+.glass-box {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 4rem;
+    max-width: 800px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.sub-footer-nav {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.sub-footer-link {
+    text-decoration: none;
+    color: #1d1d1f;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.sub-footer-link:hover {
+    opacity: 1;
+}
+
+/* Modal System */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.modal-active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 1200px;
+    /* Increased from 800px */
+    height: 85vh;
+    /* Increased from 70vh */
+    border-radius: 30px;
+    padding: 3rem;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow-y: auto;
+    color: #1d1d1f;
+    /* Force Black Text */
+}
+
+.modal-active .modal-content {
+    transform: scale(1);
+}
+
+/* Force clean black text inside modals (No Glow) */
+.modal-content p,
+.modal-content h1,
+.modal-content h2,
+.modal-content h3,
+.modal-content h4,
+.modal-content h5,
+.modal-content h6,
+.modal-content li,
+.modal-content span,
+.modal-content strong {
+    text-shadow: none !important;
+    color: #0d0d0d !important;
+    /* Soft black for readability */
+}
+
+/* Scroll Mode (Tall Modal) Overrides */
+.modal-overlay.scroll-mode {
+    display: block !important;
+    /* Allow scrolling of the overlay itself */
+    overflow-y: auto;
+    padding: 3rem 0;
+}
+
+.modal-content.scroll-mode {
+    height: auto !important;
+    min-height: 150vh;
+    /* Force tall aspect ratio for video */
+    margin: 0 auto;
+    transform: none !important;
+    overflow: visible !important;
+    /* Let content dictate/overlay handle scroll */
+}
+
+/* Dark Theme Overrides for Modal */
+.modal-content.dark-theme {
+    background: transparent !important;
+    /* Allow video to show if needed, or stick to default */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-content.dark-theme p,
+.modal-content.dark-theme h1,
+.modal-content.dark-theme h2,
+.modal-content.dark-theme h3,
+.modal-content.dark-theme h4,
+.modal-content.dark-theme h5,
+.modal-content.dark-theme h6,
+.modal-content.dark-theme li,
+.modal-content.dark-theme span,
+.modal-content.dark-theme strong,
+.modal-content.dark-theme .modal-close {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+.modal-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Back to cover for full immersion */
+    z-index: -1;
+    border-radius: 30px;
+    /* Match modal radius */
+    opacity: 0.8;
+    background: #000;
+}
+
+.modal-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Same layer as video, but DOM order will place it on top */
+    background: rgba(40, 40, 40, 0.4);
+    /* Gray tint */
+    backdrop-filter: blur(8px);
+    /* Frosted glass effect to reduce noise */
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 30px;
+    pointer-events: none;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    color: #000000;
+    /* Pure Black */
+}
+
+/* Modal Content Grid */
+.modal-row {
+    display: flex;
+    align-items: center;
+    /* Changed from flex-start to center */
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.modal-row.reverse {
+    flex-direction: row-reverse;
+}
+
+.modal-h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    /* Large spacing */
+    color: #000000;
+}
+
+.modal-text {
+    flex: 1;
+    min-width: 300px;
+    /* Prevent shrinking too small */
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #000000;
+    /* Pure Black */
+    text-shadow: none;
+    /* Remove glow */
+}
+
+.modal-text p {
+    color: #000000;
+    /* Pure Black */
+    text-shadow: none;
+}
+
+.modal-img-box {
+    flex: 1.2;
+    /* Give images slightly more space */
+    min-width: 300px;
+}
+
+.modal-list li {
+    margin-bottom: 0.5rem;
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+/* Feature List (High-end Block Style) */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.feature-list li {
+    background: #f9f9fb;
+    /* Very subtle cool gray */
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.8rem;
+    border-radius: 6px;
+    border-left: 3px solid #1a1a1a;
+    /* Dark accent */
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #0d0d0d;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    /* Micro depth */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-list li:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+}
+
+/* Feature List Strong emphasis */
+.feature-list li strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #000;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+
+    .modal-row,
+    .modal-row.reverse {
+        flex-direction: column;
+    }
+}
+
+/* =========================================
+   Diagonal Split Layout (Master Page)
+   ========================================= */
+.diagonal-split-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.diagonal-main-title {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    width: 80%;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    /* Removed mix-blend-mode for better visibility */
+}
+
+.diagonal-item {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transition: clip-path 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Background images should aid the visual */
+.diagonal-item-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s ease, filter 0.8s ease;
+    /* Added filter transition */
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%);
+    /* Default Black & White */
+}
+
+.diagonal-item:hover .diagonal-item-bg {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+    /* Color on Hover */
+    /* Zoom effect on hover */
+}
+
+/* Left Half: Composition */
+.diagonal-item.left {
+    z-index: 10;
+    /* Slash from Top 52% to Bottom 48% (Narrower split) */
+    clip-path: polygon(0 0, 52% 0, 48% 100%, 0 100%);
+}
+
+/* Right Half: Chamber Music */
+.diagonal-item.right {
+    z-index: 5;
+    /* Full width, visible behind the left slash */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Content Positioning inside Slash */
+.diagonal-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    text-align: center;
+    z-index: 20;
+    pointer-events: none;
+    transition: all 0.5s ease;
+    opacity: 0.95;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.diagonal-item.left .diagonal-content {
+    left: 15%;
+    width: 300px;
+}
+
+.diagonal-item.right .diagonal-content {
+    right: 15%;
+    width: 300px;
+}
+
+/* Hover Interactions */
+/* Hover Left: Left expands */
+.diagonal-item.left:hover {
+    clip-path: polygon(0 0, 65% 0, 60% 100%, 0 100%);
+    z-index: 15;
+}
+
+/* Hover Right: Logic handled by Right taking over, or Left shrinking */
+/* Since Right is just background effectively, we need to shrink Left when Right is hovered.
+   Because 'Right' is theoretically BEHIND 'Left' in terms of Z (unless manipulated),
+   hovers on the 'Right' part (the exposed 40-60%) will trigger 'Right'.
+   But we can use a sibling selector if we can detect hover on Right.
+*/
+.diagonal-split-container:has(.diagonal-item.right:hover) .diagonal-item.left {
+    clip-path: polygon(0 0, 40% 0, 35% 100%, 0 100%);
+    /* Shrink Left */
+}
+
+.diagonal-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.diagonal-subtitle {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.8;
+}
+
+/* Overlay to darken images for text contrast */
+.diagonal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.4s;
+}
+
+.diagonal-item:hover .diagonal-overlay {
+    background: rgba(0, 0, 0, 0.1);
+    /* Lighten on hover */
+}
+
+/* =========================================
+   Career 3-Pane Split Layout
+   ========================================= */
+.career-split-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.career-item {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transition: clip-path 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.career-item-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s ease, filter 0.8s ease;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%) brightness(0.6);
+}
+
+.career-item:hover .career-item-bg {
+    transform: scale(1.05);
+    filter: grayscale(0%) brightness(0.9);
+}
+
+.career-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    transition: background 0.4s;
+}
+
+.career-item:hover .career-overlay {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* 
+   3-Pane Clip Paths 
+   Default: 33.3% each with ~6% slant (Left 0->33->27, Mid 33->66->60->27, Right 66->100->100->60)
+*/
+
+/* Item 1: Left */
+.career-item.left {
+    z-index: 30;
+    clip-path: polygon(0 0, 33.33% 0, 27.33% 100%, 0 100%);
+    background-color: #1a1a1a;
+}
+
+/* Item 2: Center */
+/* Note: We use full width polygons for clip-path for z-indexing to work properly */
+.career-item.center {
+    z-index: 20;
+    clip-path: polygon(0 0, 66.66% 0, 60.66% 100%, 0 100%);
+}
+
+/* Item 3: Right */
+.career-item.right {
+    z-index: 10;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Hover States - Using Sibling Selectors */
+
+/* Hover Left (Expand to 50%) */
+.career-item.left:hover {
+    clip-path: polygon(0 0, 50% 0, 44% 100%, 0 100%);
+}
+
+/* Center needs to move when Left is hovered */
+.career-split-container:has(.career-item.left:hover) .career-item.center {
+    clip-path: polygon(0 0, 75% 0, 69% 100%, 0 100%);
+}
+
+
+/* Hover Center (Expand to 50%, Push Left and Right) */
+/* Left shrink to 25% */
+.career-split-container:has(.career-item.center:hover) .career-item.left {
+    clip-path: polygon(0 0, 25% 0, 19% 100%, 0 100%);
+}
+
+/* Center expands to 75% edge */
+.career-item.center:hover {
+    clip-path: polygon(0 0, 75% 0, 69% 100%, 0 100%);
+}
+
+
+/* Hover Right (Expand to 50%, Push others Left) */
+/* Left shrink to 25% */
+.career-split-container:has(.career-item.right:hover) .career-item.left {
+    clip-path: polygon(0 0, 25% 0, 19% 100%, 0 100%);
+}
+
+/* Center shrink to 50% edge */
+.career-split-container:has(.career-item.right:hover) .career-item.center {
+    clip-path: polygon(0 0, 50% 0, 44% 100%, 0 100%);
+}
+
+
+/* Content Positioning */
+.career-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    text-align: center;
+    width: 280px;
+    z-index: 40;
+    pointer-events: none;
+    transition: all 0.5s ease;
+    opacity: 0.95;
+}
+
+/* Slice Centers defaults:
+   Left (0-33): ~16%
+   Center (33-66): ~50%
+   Right (66-100): ~83%
+*/
+.career-item.left .career-content {
+    left: 16%;
+    transform: translate(-50%, -50%);
+}
+
+.career-item.center .career-content {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.career-item.right .career-content {
+    left: 83%;
+    transform: translate(-50%, -50%);
+}
+
+/* Hover Content Adjustments */
+.career-item.left:hover .career-content {
+    left: 25%;
+}
+
+.career-item.right:hover .career-content {
+    left: 75%;
+}
+
+/* Compressed states */
+.career-split-container:has(.career-item.center:hover) .career-item.left .career-content,
+.career-split-container:has(.career-item.right:hover) .career-item.left .career-content {
+    left: 12.5%;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.career-split-container:has(.career-item.left:hover) .career-item.right .career-content,
+.career-split-container:has(.career-item.center:hover) .career-item.right .career-content {
+    left: 87.5%;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.career-split-container:has(.career-item.left:hover) .career-item.center .career-content {
+    left: 62.5%;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.career-split-container:has(.career-item.right:hover) .career-item.center .career-content {
+    left: 37.5%;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* Typography */
+.career-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.career-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.9;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.career-indicator {
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.career-item:hover .career-indicator {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Make Modal Close Button Sticky */
+.modal-close {
+    position: sticky !important;
+    top: 1rem !important;
+    float: right !important;
+    z-index: 9999 !important;
+}

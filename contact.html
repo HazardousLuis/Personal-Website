@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Luis</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Premium Dark Theme Overrides for Contact Page */
+        body {
+            background-color: #0d0d0d;
+            color: #fff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar Override */
+        .navbar {
+            mix-blend-mode: normal !important;
+        }
+
+        .nav-logo a,
+        .nav-link {
+            color: #fff !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold) !important;
+        }
+
+        /* Main Container */
+        .contact-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem 2rem;
+            position: relative;
+        }
+
+        /* Background Element (Subtle Gradient) */
+        .contact-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(30, 30, 30, 1) 0%, rgba(13, 13, 13, 1) 60%);
+            z-index: -1;
+        }
+
+        /* Content Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* Left Column: Text & Links */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-heading {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-sub {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        /* Direct Links Style */
+        .direct-link-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .direct-link {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            text-decoration: none;
+            color: #fff;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(5px);
+        }
+
+        .direct-link:hover {
+            border-color: var(--accent-gold);
+            transform: translateX(10px);
+            background: rgba(197, 160, 134, 0.05);
+        }
+
+        .link-icon {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            width: 30px;
+            text-align: center;
+        }
+
+        .link-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .link-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.2rem;
+        }
+
+        .link-value {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+        }
+
+        /* Right Column: QR Codes */
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .qr-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .qr-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 200px;
+        }
+
+        .qr-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-gold);
+        }
+
+        .qr-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            /* Invert slight filter if QRs are black on white and need to pop, 
+               but usually standard QRs are fine. 
+               If user wants "Aesthetic", maybe slightly dim until hover? */
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .qr-card:hover .qr-img {
+            opacity: 1;
+        }
+
+        .qr-label {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .qr-container {
+                flex-direction: row;
+                /* Keep side by side on tablet if fits, or wrap */
+                flex-wrap: wrap;
+            }
+
+            .contact-heading {
+                font-size: 2.5rem;
+                text-align: center;
+            }
+
+            .contact-sub {
+                margin: 0 auto 3rem auto;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .qr-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="home.html?skip=true" style="text-decoration: none; color: inherit;">LUIS</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
+            <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
+            <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="life.html" class="nav-link" data-i18n="nav.life">Life</a></li>
+            <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-bg"></div>
+
+    <div class="contact-container">
+        <div class="contact-grid">
+
+            <!-- Info Side -->
+            <div class="contact-info">
+                <h1 class="contact-heading" data-i18n="contact.title">Let's Connect</h1>
+                <p class="contact-sub" data-i18n="contact.subtitle">
+                    Open to collaborations, conversations, and new ideas. <br>
+                    Reach out via email or connect on social platforms.
+                </p>
+
+                <div class="direct-link-group">
+                    <!-- Email -->
+                    <a href="mailto:lubaicheng2024@163.com" class="direct-link">
+                        <div class="link-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="link-text">
+                            <span class="link-label" data-i18n="contact.emailLabel">Email</span>
+                            <span class="link-value">lubaicheng2024@163.com</span>
+                        </div>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/baichenglu-luis/" target="_blank" class="direct-link">
+                        <div class="link-icon"><i class="fab fa-linkedin"></i></div>
+                        <div class="link-text">
+                            <span class="link-label" data-i18n="contact.linkedInLabel">LinkedIn</span>
+                            <span class="link-value">Baicheng Lu (Luis)</span>
+                        </div>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/unfetteredluis/" target="_blank" class="direct-link">
+                        <div class="link-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="link-text">
+                            <span class="link-label" data-i18n="contact.instaLabel">Instagram</span>
+                            <span class="link-value">@unfetteredluis</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Side (QR Codes) -->
+            <div class="qr-section">
+                <!-- <h3 style="text-align: center; color: var(--accent-gold); margin-bottom: 2rem; font-family: var(--font-heading); font-style: italic;">Scan to Connect</h3> -->
+
+                <div class="qr-container">
+                    <!-- WeChat -->
+                    <div class="qr-card">
+                        <img src="assets/images/WeChatOfficial.JPG" alt="WeChat QR" class="qr-img">
+                        <div class="qr-label" data-i18n="contact.wechatLabel">WeChat</div>
+                        <div class="qr-sub" data-i18n="contact.wechatSub">Official Account</div>
+                    </div>
+
+                    <!-- Bilibili -->
+                    <div class="qr-card">
+                        <img src="assets/images/bilibiliQRcode.png" alt="Bilibili QR" class="qr-img"
+                            style="filter: invert(1); transform: scale(1.3);">
+                        <div class="qr-label" data-i18n="contact.biliLabel">Bilibili</div>
+                        <div class="qr-sub" data-i18n="contact.biliSub">Content Creator</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Translations & Logic -->
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

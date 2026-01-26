@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life | Move</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            font-family: var(--font-body);
+            overflow: hidden;
+        }
+
+        .navbar {
+            mix-blend-mode: normal !important;
+            z-index: 2100;
+        }
+
+        .nav-link {
+            color: #fff !important;
+        }
+
+        /* --- Section 1: Intro Hero (Fixed Overlay) --- */
+        .move-hero {
+            position: fixed;
+            inset: 0;
+            background: url('assets/images/move_hero.png') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 1.5s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            opacity: 1;
+            transition: opacity 1s;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-family: var(--font-heading);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            display: block;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+
+        /* --- Section 2: Main Content (Slanted Cards) --- */
+        .move-content {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+
+        /* Container for the cards */
+        .cards-container {
+            display: flex;
+            width: 100%;
+            height: 70vh;
+            gap: 10px;
+            /* Space between skewed cards */
+            padding: 0 2rem;
+        }
+
+        .move-card {
+            flex: 1;
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s;
+            border-radius: 20px;
+            transform: skewX(-10deg);
+            /* The slant */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin: 0 5px;
+            filter: grayscale(0.6) brightness(0.7);
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                height: 100vh;
+                padding: 1rem;
+                overflow-y: auto;
+                transform: none;
+            }
+
+            .move-card {
+                transform: none !important;
+                flex: none;
+                height: 200px;
+                width: 100%;
+                margin-bottom: 1rem;
+                margin-left: 0;
+            }
+
+            .move-card-inner {
+                transform: none !important;
+            }
+
+            .card-label {
+                transform: translateX(-50%) !important;
+            }
+        }
+
+        .move-card:hover {
+            flex: 2;
+            /* Expand width */
+            filter: grayscale(0) brightness(1);
+            z-index: 10;
+        }
+
+        .move-card-inner {
+            position: absolute;
+            inset: -20%;
+            /* Expanded to cover skew gaps */
+            background-size: cover;
+            background-position: center;
+            transform: skewX(10deg);
+            /* Counter skew to straighten image */
+            transition: transform 0.5s;
+        }
+
+        .move-card:hover .move-card-inner {
+            transform: skewX(10deg) scale(1.1);
+        }
+
+        /* Card Label Positioning (Above Image) */
+        .card-label {
+            position: absolute;
+            top: 2rem;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            transform: skewX(10deg);
+            /* Counter skew only */
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .move-card:hover .card-label {
+            opacity: 1;
+            color: var(--accent-gold);
+        }
+
+        /* --- Modals Redesign --- */
+        .move-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            /* Darker backdrop */
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .move-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Blurred Backdrop */
+        .modal-bg-image {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            filter: blur(30px);
+            z-index: -1;
+            transition: opacity 0.5s;
+        }
+
+        /* The Photo Card */
+        .modal-content-wrap {
+            position: relative;
+            z-index: 2;
+            width: 380px;
+            /* Fixed Card Width */
+            height: 600px;
+            /* Fixed Card Height */
+            background-color: #222;
+            /* Fallback */
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* Text at bottom */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .move-modal.active .modal-content-wrap {
+            transform: scale(1);
+        }
+
+        /* Gradient Overlay inside card for text readability */
+        .modal-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .modal-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem 2rem;
+            text-align: left;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 50;
+            /* Ensure it's above everything */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        /* Nav Arrows */
+        .modal-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            /* Very subtle bg */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+            user-select: none;
+        }
+
+        .modal-nav-arrow:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-prev {
+            left: 4rem;
+        }
+
+        .modal-next {
+            right: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .move-modal {
+                padding: 0 1rem;
+            }
+
+            .modal-content-wrap {
+                height: 75vh;
+                width: 100%;
+            }
+
+            .modal-prev {
+                left: 1rem;
+                transform: scale(0.8) translateY(-50%);
+            }
+
+            .modal-next {
+                right: 1rem;
+                transform: scale(0.8) translateY(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="life.html" data-i18n="nav.back">← Back</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
+            <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
+            <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="life.html" class="nav-link" data-i18n="nav.life">Life</a></li>
+            <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Intro Hero -->
+    <section class="move-hero" id="moveIntro">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <h1 class="hero-title" data-i18n="life.movePage.heroTitle">MOVE</h1>
+            <span class="hero-subtitle" data-i18n="life.movePage.heroSub">Learning through motion.</span>
+            <p class="hero-desc" data-i18n="life.movePage.heroDesc">
+                Movement, for me, is not escape but alignment —<br>
+                between body, environment, and attention.<br>
+                Each practice teaches a different way of inhabiting the world.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content: Parallel Cards Timeline -->
+    <section class="move-content">
+        <div class="cards-container">
+
+            <!-- 1. Hiking -->
+            <div class="move-card" onclick="openModal('hiking')">
+                <div class="card-label" data-i18n="life.movePage.cards.hiking">Hiking</div>
+                <div class="move-card-inner"
+                    style="background-image: url('assets/images/move_hiking.png'); background-position: bottom left 30%;">
+                </div>
+            </div>
+
+            <!-- 2. Golf -->
+            <div class="move-card" onclick="openModal('golf')">
+                <div class="card-label" data-i18n="life.movePage.cards.golf">Golf</div>
+                <div class="move-card-inner"
+                    style="background-image: url('assets/images/move_golf.jpeg'); background-position: center center;">
+                </div>
+            </div>
+
+            <!-- 3. Racing Car -->
+            <div class="move-card" onclick="openModal('racing')">
+                <div class="card-label" data-i18n="life.movePage.cards.racing"> Racing Car</div>
+                <div class="move-card-inner"
+                    style="background-image: url('assets/images/move_racingcar.jpg'); background-position: 40% 20%; background-repeat: no-repeat; background-size: cover;">
+                </div>
+            </div>
+
+            <!-- 4. Snowboarding -->
+            <div class="move-card" onclick="openModal('snowboard')">
+                <div class="card-label" data-i18n="life.movePage.cards.snowboard">Snowboarding</div>
+                <div class="move-card-inner" style="background-image: url('assets/images/move_snowboard.jpeg');"></div>
+            </div>
+
+            <!-- 5. Travel -->
+            <div class="move-card" onclick="openModal('travel')">
+                <div class="card-label" data-i18n="life.movePage.cards.travel">Travel</div>
+                <div class="move-card-inner"
+                    style="background-image: url('assets/images/move_travel.png'); background-position: 50% bottom;">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- MODALS CONTAINER -->
+
+    <!-- Hiking Modal -->
+    <div id="modal-hiking" class="move-modal" data-index="0">
+        <div class="modal-bg-image" style="background-image: url('assets/images/move_hiking.png');"></div>
+        <div class="modal-nav-arrow modal-prev" onclick="switchModal(-1)">‹</div>
+        <div class="modal-nav-arrow modal-next" onclick="switchModal(1)">›</div>
+
+        <div class="modal-content-wrap" style="background-image: url('assets/images/move_hiking.png');">
+            <div class="modal-card-overlay"></div>
+            <span class="modal-close" onclick="closeModal('hiking')">×</span>
+            <div class="modal-card-content">
+                <h2 class="modal-title" data-i18n="life.movePage.modals.hiking.title">Hiking</h2>
+                <span class="modal-subtitle" data-i18n="life.movePage.modals.hiking.sub">Becoming part of the
+                    landscape.</span>
+                <p class="modal-description" data-i18n="life.movePage.modals.hiking.desc">
+                    Hiking dissolves the boundary between self and terrain. Step by step, attention shifts outward,
+                    aligning breath and rhythm with the mountains — a quiet practice of Daoist unity rather than
+                    conquest.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Golf Modal -->
+    <div id="modal-golf" class="move-modal" data-index="1">
+        <div class="modal-bg-image" style="background-image: url('assets/images/move_golf.jpeg');"></div>
+        <div class="modal-nav-arrow modal-prev" onclick="switchModal(-1)">‹</div>
+        <div class="modal-nav-arrow modal-next" onclick="switchModal(1)">›</div>
+
+        <div class="modal-content-wrap" style="background-image: url('assets/images/move_golf.jpeg');">
+            <div class="modal-card-overlay"></div>
+            <span class="modal-close" onclick="closeModal('golf')">×</span>
+            <div class="modal-card-content">
+                <h2 class="modal-title" data-i18n="life.movePage.modals.golf.title">Golf</h2>
+                <span class="modal-subtitle" data-i18n="life.movePage.modals.golf.sub">Reading time through
+                    seasons.</span>
+                <p class="modal-description" data-i18n="life.movePage.modals.golf.desc">
+                    Golf slows perception. Across changing light, wind, and seasons, the game becomes a dialogue with
+                    variation. It is a shared journey—teaching patience, adjustment, and the joy of mutual encouragement
+                    and connection on the course.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Racing Modal -->
+    <div id="modal-racing" class="move-modal" data-index="2">
+        <div class="modal-bg-image" style="background-image: url('assets/images/move_racingcar.jpg');"></div>
+        <div class="modal-nav-arrow modal-prev" onclick="switchModal(-1)">‹</div>
+        <div class="modal-nav-arrow modal-next" onclick="switchModal(1)">›</div>
+
+        <div class="modal-content-wrap" style="background-image: url('assets/images/move_racingcar.jpg');">
+            <div class="modal-card-overlay"></div>
+            <span class="modal-close" onclick="closeModal('racing')">×</span>
+            <div class="modal-card-content">
+                <h2 class="modal-title" data-i18n="life.movePage.modals.racing.title">Racing Car</h2>
+                <span class="modal-subtitle" data-i18n="life.movePage.modals.racing.sub">Releasing controlled
+                    wildness.</span>
+                <p class="modal-description" data-i18n="life.movePage.modals.racing.desc">
+                    On the track, instinct and precision converge. Racing offers a sanctioned space for speed, risk, and
+                    intensity — where restraint and wildness are held in balance rather than opposition.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snowboard Modal -->
+    <div id="modal-snowboard" class="move-modal" data-index="3">
+        <div class="modal-bg-image" style="background-image: url('assets/images/move_snowboard.jpeg');"></div>
+        <div class="modal-nav-arrow modal-prev" onclick="switchModal(-1)">‹</div>
+        <div class="modal-nav-arrow modal-next" onclick="switchModal(1)">›</div>
+
+        <div class="modal-content-wrap" style="background-image: url('assets/images/move_snowboard.jpeg');">
+            <div class="modal-card-overlay"></div>
+            <span class="modal-close" onclick="closeModal('snowboard')">×</span>
+            <div class="modal-card-content">
+                <h2 class="modal-title" data-i18n="life.movePage.modals.snowboard.title">Snowboarding</h2>
+                <span class="modal-subtitle" data-i18n="life.movePage.modals.snowboard.sub">Learning resilience through
+                    repetition.</span>
+                <p class="modal-description" data-i18n="life.movePage.modals.snowboard.desc">
+                    Snowboarding measures progress in falls as much as in runs. Each descent tests endurance and
+                    resolve, reinforcing the discipline of getting up — again and again — in thinner air and colder
+                    silence.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Travel Modal -->
+    <div id="modal-travel" class="move-modal" data-index="4">
+        <div class="modal-bg-image" style="background-image: url('assets/images/move_travel.png');"></div>
+        <div class="modal-nav-arrow modal-prev" onclick="switchModal(-1)">‹</div>
+        <div class="modal-nav-arrow modal-next" onclick="switchModal(1)">›</div>
+
+        <div class="modal-content-wrap" style="background-image: url('assets/images/move_travel.png');">
+            <div class="modal-card-overlay"></div>
+            <span class="modal-close" onclick="closeModal('travel')">×</span>
+            <div class="modal-card-content">
+                <h2 class="modal-title" data-i18n="life.movePage.modals.travel.title">Travel</h2>
+                <span class="modal-subtitle" data-i18n="life.movePage.modals.travel.sub">Expanding the radius of
+                    understanding.</span>
+                <p class="modal-description" data-i18n="life.movePage.modals.travel.desc">
+                    Travel widens perception beyond familiarity. By encountering different landscapes, customs, and
+                    social rhythms, movement becomes education — cultivating perspective, empathy, and practical wisdom.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Intro Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const intro = document.getElementById('moveIntro');
+            // Play intro animation every time
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                intro.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                }, 1500);
+            }, 3000); // 3 seconds read time
+        });
+
+        const modalIds = ['hiking', 'golf', 'racing', 'snowboard', 'travel'];
+        let currentIndex = -1;
+
+        function openModal(id) {
+            const el = document.getElementById('modal-' + id);
+            el.style.display = 'flex'; // Ensure flex for centering
+            // Small delay to allow display flex to apply before opacity transition
+            setTimeout(() => {
+                el.classList.add('active');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+            currentIndex = modalIds.indexOf(id);
+        }
+
+        function closeModal(id) {
+            const el = document.getElementById('modal-' + id);
+            // If checking explicitly, we should not clear index if simply hiding for switch
+            // But we don't have a param for that. 
+            // We will just manage currentIndex in switchModal to correct it.
+            el.classList.remove('active');
+            setTimeout(() => {
+                if (!el.classList.contains('active')) {
+                    el.style.display = 'none';
+                }
+            }, 500);
+            document.body.style.overflow = '';
+            // Don't reset currentIndex here, or manage it carefully
+        }
+
+        function switchModal(dir) {
+            if (currentIndex === -1) return;
+
+            // Close current
+            const currentId = modalIds[currentIndex];
+            closeModal(currentId);
+
+            // Calculate next
+            let nextIndex = currentIndex + dir;
+            if (nextIndex < 0) nextIndex = modalIds.length - 1;
+            if (nextIndex >= modalIds.length) nextIndex = 0;
+
+            // Open next
+            // We have to update currentIndex locally because openModal sets it, 
+            // but closeModal might disturb it if we did logic there. 
+            // Actually openModal sets it correctly. 
+            const nextId = modalIds[nextIndex];
+
+            // Immediate open or slight delay? 
+            // Slight delay lets the 'fade out' start but we want 'fade in' to overlap or follow quickly.
+            // 300ms feels good.
+            setTimeout(() => {
+                openModal(nextId);
+            }, 300);
+        }
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && currentIndex !== -1) {
+                closeModal(modalIds[currentIndex]);
+                currentIndex = -1; // Explicitly reset index since we are fully closing
+            }
+        });
+    </script>
+</body>
+
+</html>

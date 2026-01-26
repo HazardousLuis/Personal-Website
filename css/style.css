@@ -2654,3 +2654,186 @@ body {
       width: 100% !important;
       height: 250px !important; /* Fixed height stack */
   }
+
+/* =========================================
+   Mobile Refinement: FINAL BATCH (Corrected)
+   ========================================= */
+@media screen and (max-width: 768px) {
+
+  /* [Issue 3] Education Images: Fix Height & Positioning */
+  .edu-overview, 
+  .sub-section[style*="height: 200vh"],
+  .master-hero-bg {
+      height: auto !important;
+      min-height: 100vh !important;
+      padding-top: 120px !important;
+      padding-bottom: 50px !important;
+      background-attachment: scroll !important; 
+      background-position: center top !important;
+  }
+  
+  /* [Issue 4] CTA Button Clickability */
+  .cta-button {
+      position: relative !important;
+      z-index: 100 !important;
+      padding: 15px 30px !important;
+      pointer-events: auto !important;
+  }
+
+  /* [Issue 5] Mobile Cards Scroll Peek */
+  .card-scroll-wrapper {
+      padding-right: 25% !important; /* Force space for peek */
+      column-gap: 15px !important;
+  }
+  .apple-card {
+      flex: 0 0 85% !important;
+      width: 85% !important;
+      height: auto !important;
+      min-height: 420px !important; /* Ensure height for content */
+  }
+
+  /* [Issue 6 & 7] Fix Modal Content (Dynamic JS Injection overrides) */
+  /* Force all grids inside modals to single column */
+  .modal-content div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr !important;
+  }
+  /* Fix spacing in modal sections */
+  .modal-h3 {
+      margin-top: 2rem !important; /* Issue 7 */
+  }
+  /* Fix logo spacing */
+  .modal-content img[src*="logo"] {
+      margin-top: 1rem !important;
+  }
+  
+  /* [Issue 8] Master Chamber Carousel */
+  .chamber-carousel {
+      height: 300px !important; /* Reduced height from 500px */
+      width: 100% !important;
+  }
+  .chamber-img {
+      object-fit: cover !important;
+      height: 100% !important;
+  }
+  /* Fix video container black bars */
+  iframe.modal-bg-video, iframe.comp-video-bg {
+      height: 100% !important;
+      min-height: 100% !important;
+  }
+
+  /* [Issue 9] Master Composition Text */
+  .comp-content {
+      padding: 1.5rem !important; /* Reduce from 4rem */
+  }
+  .comp-title {
+      font-size: 2rem !important;
+      line-height: 1.2 !important;
+  }
+  .comp-section {
+      padding: 1rem !important;
+  }
+
+  /* [Issue 10] Career Finance Overlay */
+  .career-subpage-body .career-cards-container {
+      padding-top: 140px !important; /* Explicitly clear fixed nav */
+      display: block !important; /* Remove flex centering */
+  }
+  .experience-card {
+      height: auto !important;
+      overflow-y: visible !important;
+      padding-top: 0 !important;
+  }
+  .accordion-card {
+      flex-direction: column !important;
+      padding-bottom: 50px !important;
+  }
+  /* Fix accordion overlapping headers */
+  .accordion-header {
+      font-size: 1.2rem !important;
+  }
+  .company-name-spanning {
+      font-size: 1.8rem !important;
+      margin-top: 0 !important;
+  }
+
+  /* [Issue 11] Product Page Header */
+  .product-card-header {
+      font-size: 1.1rem !important;
+      padding: 1rem !important;
+      white-space: normal !important;
+  }
+  .product-snap-section {
+      height: auto !important;
+      padding-top: 100px !important; /* Space for nav */
+  }
+  
+  /* [Issue 13] Life Listen: Remove BGs from polygons */
+  .poly-card .poly-bg {
+      display: none !important;
+  }
+  .poly-card {
+     clip-path: none !important;
+     width: 100% !important;
+     height: 15vh !important; /* Compact stacking */
+     margin-bottom: 2px !important;
+  }
+  /* Apply grey shades (Issue 13 req) */
+  .card-performance { background-color: #333 !important; }
+  .card-collaboration { background-color: #444 !important; }
+  .card-composition { background-color: #555 !important; }
+  
+  /* Fix labels in Listen */
+  .poly-label {
+      transform: translate(-50%, -50%) !important;
+      top: 50% !important;
+      bottom: auto !important;
+      left: 50% !important;
+      font-size: 1.5rem !important;
+  }
+
+  /* [Issue 14] Move Text Alignment */
+  .card-label {
+      transform: none !important; /* Remove skew compensation */
+  }
+  .move-card {
+      margin: 0 0 10px 0 !important;
+      border-radius: 12px !important;
+  }
+  .move-card-inner {
+      background-position: center !important;
+  }
+
+  /* [Issue 15] Life Main Page Grid */
+  .life-split-section {
+      height: auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+  }
+  .life-pane {
+      position: relative !important;
+      width: 100% !important;
+      height: 33vh !important;
+      clip-path: none !important;
+      left: 0 !important;
+      top: 0 !important;
+  }
+  .life-pane-bg {
+      background-position: center !important;
+      background-size: cover !important;
+  }
+  .life-pane-content {
+     left: 50% !important;
+     bottom: 50% !important;
+     transform: translate(-50%, 50%) !important;
+  }
+  .life-pane-title {
+      font-size: 2rem !important;
+  }
+  
+  /* General Modal Content Sizing */
+  .modal-content {
+      width: 95% !important;
+      padding: 1.5rem !important;
+      max-height: 85vh !important;
+  }
+}

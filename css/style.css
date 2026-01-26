@@ -1306,7 +1306,7 @@ body {
     /* Gradient from page bg (#faf9f7) to transparent, then image */
     background-image: linear-gradient(to bottom, #faf9f7 0%, rgba(250, 249, 247, 0.8) 15%, rgba(250, 249, 247, 0) 40%),
         linear-gradient(to top, #faf9f7 0%, transparent 15%),
-        url('../assets/images/SYSU_campus_img.png');
+        url('https://personal-website-images.b-cdn.net/SYSU_campus_img.png');
     background-size: cover;
     background-position: center top;
     /* Anchor building to bottom */

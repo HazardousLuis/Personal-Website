@@ -4,771 +4,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master's Degree - Columbia University</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/translations.js"></script>
-    <script src="js/script.js"></script>
+    <title>Luis | Biomedical Engineering & Creative Works</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
-    <style>
-        /* Specific overrides for this page - DARK THEME */
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #1a1a1a;
-            /* Fallback */
-        }
 
-        /* Override Global Sub-Page Light Theme */
-        .sub-scroll-container {
-            background-color: #1a1a1a !important;
-            /* Premium Dark Gray */
-        }
-
-        /* Override Hero Background for Master's Page with Dark Gradient */
-        /* Override Hero Background for Master's Page with Dark Gradient */
-        .master-hero-bg {
-            /* Top gradient for navbar visibility, Bottom gradient for smooth transition to next section */
-            background-image: linear-gradient(to bottom,
-                    #1a1a1a 0%,
-                    rgba(26, 26, 26, 0.6) 15%,
-                    rgba(26, 26, 26, 0) 40%,
-                    rgba(26, 26, 26, 0) 80%,
-                    #1a1a1a 100%), url('https://personal-website-images.b-cdn.net/CUCampus_img.jpeg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Text Color Overrides for Dark Theme */
-        .sub-hero-title,
-        .card-section-title,
-        .sub-meta,
-        .sub-footer-link,
-        .diagonal-subtitle,
-        .diagonal-title {
-            color: #ffffff !important;
-        }
-
-        .sub-meta {
-            opacity: 0.9;
-        }
-
-        /* Ensure sub-meta's sibling div (BME text) is also white */
-        .sub-hero-title~div {
-            color: #ffffff !important;
-            opacity: 0.8 !important;
-        }
-
-        /* Chamber Carousel Styles */
-        .chamber-carousel {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            /* Fixed height for slides */
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            background: #000;
-        }
-
-        .chamber-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chamber-slide.active {
-            opacity: 1;
-            z-index: 2;
-        }
-
-        .chamber-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.6);
-        }
-
-        .chamber-text-overlay {
-            position: absolute;
-            bottom: 4rem;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            padding: 0 2rem;
-        }
-
-        .chamber-nav {
-            position: absolute;
-            bottom: 1.5rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            z-index: 10;
-        }
-
-        .chamber-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .chamber-dot.active {
-            background: #fff;
-            transform: scale(1.2);
-        }
-
-        .chamber-dot:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Full Bleed Modal for Composition */
-        .modal-content.full-bleed {
-            padding: 0 !important;
-            background: #000;
-            max-width: 1100px;
-            overflow: hidden;
-        }
-
-        /* --- Revised Extension Split Section (Flex Layout) --- */
-        .diagonal-split-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            background: #000;
-            overflow: hidden;
-            display: flex;
-            /* Flexbox for side-by-side */
-        }
-
-        .diagonal-main-title {
-            position: absolute;
-            top: 15vh;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-            width: 100%;
-            text-align: center;
-            pointer-events: none;
-            transition: opacity 0.5s;
-        }
-
-        /* Hide main title when hovering either item to focus attention */
-        .diagonal-split-container:hover .diagonal-main-title {
-            opacity: 0;
-        }
-
-        .diagonal-item {
-            position: relative;
-            flex: 1;
-            /* Start at 50% each */
-            height: 100%;
-            cursor: pointer;
-            transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s;
-            overflow: hidden;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            clip-path: none !important;
-            /* Force remove any residual clip-path */
-            transform: none !important;
-            /* Force reset transform */
-        }
-
-        /* Remove clip-paths, use standard boxes */
-        .diagonal-item.left {
-            /* Adjust focus to show the person better */
-            background-position: 30% 25% !important;
-        }
-
-        .diagonal-item.right {
-            border-right: none;
-            /* Adjust focus for the hand writing */
-            background-position: center 25% !important;
-        }
-
-        /* --- HOVER STATES --- */
-
-        /* Expand hovered item */
-        .diagonal-item:hover {
-            flex: 2.5;
-            /* Expands to ~71% */
-            z-index: 10;
-        }
-
-        /* Dim sibling when container is hovered but item acts as 'not hovered' */
-        .diagonal-split-container:hover .diagonal-item:not(:hover) {
-            filter: brightness(0.4);
-            /* Dim the other one */
-        }
-
-        .diagonal-item-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.8s ease;
-            width: 100%;
-            height: 100%;
-        }
-
-        .diagonal-item:hover .diagonal-item-bg {
-            transform: scale(1.05);
-        }
-
-        .diagonal-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 100%);
-            z-index: 1;
-            transition: opacity 0.3s;
-        }
-
-        .diagonal-content {
-            position: absolute;
-            bottom: 50%;
-            /* Center vertically initially? Or keep bottom? User said "Cool hover". Let's center it and move down/up */
-            left: 50%;
-            transform: translate(-50%, 50%);
-            z-index: 5;
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            text-align: center;
-            width: 100%;
-            padding: 0 2rem;
-        }
-
-        /* Adjust content positioning for specific items if needed, but centering is safe for split */
-        .diagonal-item.left .diagonal-content,
-        .diagonal-item.right .diagonal-content {
-            left: 50%;
-            right: auto;
-            text-align: center;
-        }
-
-        /* On hover, move content to a more "active" position or scale it */
-        .diagonal-item:hover .diagonal-content {
-            transform: translate(-50%, 40%) scale(1.05);
-            /* Slight move up or just scale */
-        }
-
-        .diagonal-title {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            font-family: var(--font-heading);
-            color: #fff;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            white-space: nowrap;
-        }
-
-        .diagonal-subtitle {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--accent-gold);
-            letter-spacing: 0.05em;
-            opacity: 0.8;
-            transition: opacity 0.4s;
-        }
-
-        .diagonal-item:hover .diagonal-subtitle {
-            opacity: 1;
-            color: #fff;
-            /* Highlight on hover */
-        }
-
-        @media (max-width: 768px) {
-            .diagonal-split-container {
-                flex-direction: column;
-                display: flex;
-            }
-
-            .diagonal-item {
-                width: 100%;
-                flex: 1;
-                /* Stack equally */
-                border-left: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .diagonal-item:hover {
-                flex: 2;
-                /* Expand vertically */
-            }
-
-            .diagonal-main-title {
-                opacity: 0;
-                /* Hide on mobile to save space or adjust top */
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <!-- Simplified Nav (Absolute position to overlay) -->
-    <nav class="navbar" style="position: fixed; top: 0; width: 100%; z-index: 99;">
-        <div class="nav-logo">
-            <a href="education.html" style="text-decoration: none; color: inherit;" data-i18n="nav.back">← Back</a>
-        </div>
+
+    <!-- Simplified Navigation: Only "Contact" remains globally -->
+    <nav class="navbar">
+        <div class="nav-logo">LUIS</div>
         <ul class="nav-links">
-            <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
-            <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
-            <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
-            <li><a href="life.html" class="nav-link" data-i18n="nav.life">Life</a></li>
             <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
         </ul>
     </nav>
-    <div class="sub-scroll-container">
-        <!-- Section 1 & 2 Merged: Hero+Intro -->
-        <section class="sub-section master-hero-bg"
-            style="height: 100vh; justify-content: space-between; padding-top: 15vh; padding-bottom: 20vh;">
-            <div style="z-index: 2; text-align: center;">
-                <h1 class="sub-hero-title" data-i18n="education.masterPage.heroTitle">Master of Science</h1>
-                <p class="sub-meta" data-i18n="education.masterPage.school">Columbia University · 2024–2025</p>
-                <div style="margin-top: 1rem; font-family: var(--font-heading); font-style: italic; opacity: 0.7;"
-                    data-i18n="education.masterPage.major">
-                    Biomedical Engineering</div>
+
+    <header class="hero">
+        <!-- 
+            Hero Background Media Container 
+            Flexible structure: 
+            1. Default is black (via CSS).
+            2. Uncomment <img> or <video> to enable media background.
+            3. Future-proof for "Apple-style" scroll animations.
+        -->
+        <div class="hero-media-container">
+            <!-- Image Background (Hidden by default for now as per request for black bg) -->
+            <!-- <img src="https://personal-website-images.b-cdn.net/uploaded_image_0_1768845943384.png" alt="Aesthetic Background" class="hero-media"> -->
+
+            <!-- Video Background (Example structure for future use) -->
+            <!-- 
+            <video autoplay loop muted playsinline class="hero-media">
+                <source src="https://personal-website-images.b-cdn.net/background.mp4" type="video/mp4">
+            </video> 
+            -->
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Engineering Life, <br><em>Composing</em> Dreams.</h1>
+            <p class="hero-subtitle">
+                M.S. Biomedical Engineering @ Columbia University <br>
+                Exploring the intersection of science, culture, and sound.
+            </p>
+            <!-- Language Selector -->
+            <div class="lang-selector-container" style="margin-bottom: 2rem;">
+                <span class="lang-option active" data-lang="en" onclick="setLanguage('en')">&lt; EN</span>
+                <span style="opacity: 0.5; margin: 0 0.5rem;">/</span>
+                <span class="lang-option" data-lang="cn" onclick="setLanguage('cn')">中文 &gt;</span>
             </div>
-            <div class="overview-band">
-                <div class="sub-intro-text"
-                    style="text-align: left; border-left: 3px solid var(--accent-gold); padding-left: 1.5rem; max-width: 800px; margin: 0 auto; position: relative;">
-                    <p style="margin: 0; line-height: 1.6; color: rgba(255,255,255,0.9);"
-                        data-i18n="education.masterPage.intro">
-                        <!-- Content loaded dynamically -->
-                    </p>
-                </div>
-            </div>
-        </section>
-        <section class="sub-section">
-            <h2 class="card-section-title" data-i18n="education.masterPage.cards.title1">Academic Focus</h2>
-            <div class="card-scroll-wrapper">
-                <div class="apple-card" onclick="openModal('focus-1')">
-                    <div class="card-img-top"
-                        style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/master_card1_img.png"
-                            alt="Signal Processing" style="width: 100%; height: 100%; object-fit: cover;">
+
+            <!-- CTA triggers fade out to reveal Hub -->
+            <button onclick="enterSite()" class="cta-button" id="exploreBtn">Explore My World</button>
+        </div>
+    </header>
+
+    <!-- Main Content: The Hub (Revealed after Splash) -->
+    <main class="main-content" id="mainContent">
+        <div class="section" style="margin-top: 15vh; padding: 20px; width: 100%;">
+            <div class="hub-grid">
+
+                <!-- Education -->
+                <a href="education.html" class="hub-card"
+                    style="background-image: url('https://personal-website-images.b-cdn.net/EDUCATION_button_img.png');">
+                    <!-- Center: Default View -->
+                    <div class="hub-card-center">
+                        <h2 data-i18n="home.eduTitle">EDUCATION</h2>
+                        <p data-i18n="home.eduSub">M.S.</p>
                     </div>
-                    <div class="card-hover-overlay">
-                        <p>Inferring meaningful structure from noisy signals through model-based
-                            interpretation.</p>
+                </a>
+
+                <!-- Career -->
+                <a href="career.html" class="hub-card"
+                    style="background-image: url('https://personal-website-images.b-cdn.net/CAREER_button_img.png');">
+                    <div class="hub-card-center">
+                        <h2 data-i18n="home.careerTitle">CAREER</h2>
+                        <p data-i18n="home.careerSub">Research & Industry</p>
                     </div>
-                    <div class="card-body">
-                        <div class="card-title" data-i18n="education.masterPage.cards.c1">Signal Processing &
-                            Interpretation</div>
-                        <div class="card-plus-icon">+</div>
+                </a>
+
+                <!-- Projects -->
+                <a href="projects.html" class="hub-card"
+                    style="background-image: url('https://personal-website-images.b-cdn.net/PROJECTS_botton_img.png');">
+                    <div class="hub-card-center">
+                        <h2 data-i18n="home.projTitle">PROJECTS</h2>
+                        <p data-i18n="home.projSub">Entrepreneurial Ventures</p>
                     </div>
-                </div>
-                <div class="apple-card" onclick="openModal('focus-2')">
-                    <div class="card-img-top"
-                        style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/master_card2_img.jpg"
-                            alt="Physiological Modeling"
-                            style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%;">
+                </a>
+
+                <!-- Life: Hub for Music, Photo, etc. -->
+                <a href="life.html" class="hub-card"
+                    style="background-image: url('https://personal-website-images.b-cdn.net/LIFE_button_img.png');">
+                    <div class="hub-card-center">
+                        <h2 data-i18n="home.lifeTitle">LIFE</h2>
+                        <p data-i18n="home.lifeSub">Art · Sports · Travel</p>
                     </div>
-                    <div class="card-hover-overlay">
-                        <p>Evaluating how modeling assumptions shape physiological validity beyond
-                            automated outputs. </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title" data-i18n="education.masterPage.cards.c2">Physiological Modeling &
-                            Analysis</div>
-                        <div class="card-plus-icon">+</div>
-                    </div>
-                </div>
-                <div class="apple-card" onclick="openModal('focus-3')">
-                    <div class="card-img-top"
-                        style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/master_card3_img.jpg"
-                            alt="Financial Modeling" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="card-hover-overlay">
-                        <p>Understanding predictability limits across assets through structure,
-                            regime,
-                            and horizon.</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title" data-i18n="education.masterPage.cards.c3">Financial Modeling &
-                            Prediction</div>
-                        <div class="card-plus-icon">+</div>
-                    </div>
-                </div>
-                <div style="min-width: 5%;"></div>
-            </div>
-        </section>
-        <section class="sub-section" style="padding: 0;">
-            <div class="diagonal-split-container">
-                <div class="diagonal-main-title" data-i18n="education.masterPage.extension.title">Extension Program at
-                    Juilliard School</div>
-                <!-- Left Item: Chamber Music -->
-                <div class="diagonal-item left" onclick="openModal('juilliard-chamber')">
-                    <div class="diagonal-item-bg"
-                        style="background: url('https://personal-website-images.b-cdn.net/master_piano.png') no-repeat center 25% / cover;">
-                    </div>
-                    <div class="diagonal-overlay"></div>
-                    <div class="diagonal-content">
-                        <h2 class="diagonal-title" data-i18n="education.masterPage.extension.leftTitle">Chamber Music
-                        </h2>
-                        <p class="diagonal-subtitle" data-i18n="education.masterPage.extension.leftSub">Performance</p>
-                    </div>
-                </div>
-                <!-- Right Item: Composition -->
-                <div class="diagonal-item right" onclick="openModal('juilliard-composition')">
-                    <div class="diagonal-item-bg"
-                        style="background: url('https://personal-website-images.b-cdn.net/master_composition.jpg') no-repeat center 25% / cover;">
-                    </div>
-                    <div class="diagonal-overlay"></div>
-                    <div class="diagonal-content">
-                        <h2 class="diagonal-title" data-i18n="education.masterPage.extension.rightTitle">Composition
-                        </h2>
-                        <p class="diagonal-subtitle" data-i18n="education.masterPage.extension.rightSub">Evening
-                            Division</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="sub-section"
-            style="background-image: url('https://personal-website-images.b-cdn.net/master_lastpage_bg.png'); background-size: cover; background-position: center;">
-            <!-- Fallback image if master_img doesn't exist, maybe reuse bachelor or generic -->
-            <!-- Dark Overlay for readability -->
-            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4);">
-            </div>
-            <div class="glass-box"
-                style="z-index: 2; width: 100%; max-width: none; border-radius: 0; padding: 2.5rem 0; position: absolute; bottom: 35%; left: 0; border-left: none; border-right: none; border-bottom: none;">
-                <h2 style="font-family: var(--font-heading); margin-bottom: 1rem; font-size: 2.5rem; color: #e0ad86;"
-                    data-i18n="education.masterPage.footer.title">
-                    Future Outlook </h2>
-                <p style="line-height: 1.6; margin-bottom: 1.5rem; font-size: 1.1rem; color: #fff; text-shadow: none; max-width: 800px; margin-left: auto; margin-right: auto;"
-                    data-i18n="education.masterPage.footer.text">
-                    Continuing the journey...
-                </p>
-                <div class="sub-footer-nav" style="justify-content: center; margin-top: 1.5rem;"><a
-                        href="education.html" class="sub-footer-link" style="color: #fff; opacity: 0.8;"
-                        data-i18n="education.masterPage.footer.back">Back to
-                        Overview</a><span style="opacity: 0.3; color: #fff;">|</span><a href="index.html?skip=true"
-                        class="sub-footer-link" style="color: #fff; opacity: 0.8;"
-                        data-i18n="education.masterPage.footer.home">Home</a>
-                </div>
-            </div>
-        </section>
-    </div>
-    <!-- Modals -->
-    <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close"
-                onclick="closeModalDirect()">×</span>
-            <h2 id="modal-title" style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 1rem;">
-                Title </h2>
-            <div id="modal-body" style="line-height: 1.8;">
-                <p>Content loading...</p>
+                </a>
+
             </div>
         </div>
-    </div>
-    <script>const overlay = document.getElementById('modal-overlay');
-        const titleEl = document.getElementById('modal-title');
-        const bodyEl = document.getElementById('modal-body');
+    </main>
 
-        function getModalContent(id) {
-            const lang = localStorage.getItem('siteLang') || 'en';
-            const root = window.siteTranslations && window.siteTranslations[lang] ?
-                window.siteTranslations[lang].education.masterPage.modals : null;
-
-            // Dynamic labels for headers
-            const labels = (lang === 'cn')
-                ? { approach: "研究方法", insight: "核心洞察" }
-                : { approach: "Approach", insight: "Key Insight" };
-
-            if (!root) return { title: "Loading...", body: "" };
-
-            let d, bodyHtml = "";
-
-            if (id === 'focus-1') {
-                d = root.sig;
-                bodyHtml = `
-                    <div class="modal-row" style="gap: 3rem; align-items: flex-start;">
-                        <div class="modal-text" style="flex: 1;">
-                            <h3 class="modal-h3" style="margin-bottom: 1rem;">${d.focus.split(/[:：]/)[0]}</h3>
-                            <p>${d.focus.split(/[:：]/).slice(1).join(':').trim() || d.focus}</p>
-                            <h3 class="modal-h3" style="margin-top: 2rem; margin-bottom: 1rem;">${labels.approach}</h3>
-                            <p>${d.approach}</p>
-                            <h3 class="modal-h3" style="margin-top: 2rem; margin-bottom: 1rem;">${labels.insight}</h3>
-                            <p>${d.insight}</p>
-                        </div>
-                        <div class="modal-img-box" style="flex: 1; display: flex; flex-direction: column; gap: 2rem; margin-top: 3.5rem;">
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card1_chromatic.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Chromatic Scale Piano</figcaption></figure>
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card1_snr.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">SNR Comparison</figcaption></figure>
-                        </div>
-                    </div>`;
-            } else if (id === 'focus-2') {
-                d = root.phys;
-                bodyHtml = `
-                     <div class="modal-row reverse" style="gap: 3rem; align-items: flex-start;">
-                        <div class="modal-text" style="flex: 1; margin-top: 3.5rem;">
-                             <h3 class="modal-h3" style="margin-bottom: 1rem;">${d.focus.split(/[:：]/)[0]}</h3>
-                             <p>${d.focus.split(/[:：]/).slice(1).join(':').trim() || d.focus}</p>
-                             <h3 class="modal-h3" style="margin-top: 2rem; margin-bottom: 1rem;">${labels.approach}</h3>
-                             <p>${d.approach}</p>
-                             <h3 class="modal-h3" style="margin-top: 2rem; margin-bottom: 1rem;">${labels.insight}</h3>
-                             <p>${d.insight}</p>
-                        </div>
-                         <div class="modal-img-box" style="flex: 1; display: flex; flex-direction: column; gap: 2rem; margin-top: 3.5rem;">
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card2_doppler.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Doppler Flow</figcaption></figure>
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card2_image_recognition.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Image Recognition</figcaption></figure>
-                        </div>
-                    </div>`;
-            } else if (id === 'focus-3') {
-                d = root.fin;
-                bodyHtml = `
-                    <div class="modal-row" style="gap: 3rem; align-items: flex-start;">
-                         <div class="modal-text" style="flex: 1; margin-top: 3.5rem;">
-                            <h3 class="modal-h3" style="margin-bottom: 1rem;">${d.focus.split(/[:：]/)[0]}</h3>
-                            <p>${d.focus.split(/[:：]/).slice(1).join(':').trim() || d.focus}</p>
-                            <h3 class="modal-h3" style="margin-top: 2rem; margin-bottom: 1rem;">${labels.approach}</h3>
-                            <p>${d.approach}</p>
-                        </div>
-                         <div class="modal-img-box" style="flex: 1; margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2rem;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: end;">
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_portfolio_pairs.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Pairs Plot</figcaption></figure>
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_portfolio_dist.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Return Dist</figcaption></figure>
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_forecast_corr.jpg" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Correlation</figcaption></figure>
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_forecast_sarima.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">SARIMA</figcaption></figure>
-                            </div>
-                             <div>
-                                <h3 class="modal-h3" style="margin-top: 0; margin-bottom: 1rem;">${labels.insight}</h3>
-                                <p>${d.insight}</p>
-                             </div>
-                        </div>
-                    </div>`;
-            } else if (id === 'juilliard-composition') {
-                d = root.comp;
-                bodyHtml = `
-                    <div class="comp-case-study" style="position: relative; min-height: 80vh; color: #fff;">
-                         <div class="comp-video-container" style="position: absolute; inset: 0; z-index: 0; overflow: hidden;">
-                            <iframe src="https://iframe.mediadelivery.net/play/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=true&loop=true&muted=true&controls=false" class="comp-video-bg" style="width: 100%; height: 100%; opacity: 0.6; border: 0;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
-                            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);"></div>
-                        </div>
-                        <div class="comp-content" style="position: relative; z-index: 1; padding: 4rem;">
-                            <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem; color: #fff;">${d.title}</h2>
-                            <p style="font-style: italic; color: #ccc; margin-bottom: 3rem;">Evening Division at The Juilliard School</p>
-                            <div class="comp-overlay-content">
-                                <h1 class="comp-title" style="font-size: 3rem; margin-bottom: 0.5rem; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.8);">${d.subTitle}</h1>
-                                <div class="comp-meta" style="color: #ddd; font-size: 1.1rem; margin-bottom: 3rem; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">${d.meta}</div>
-                                <div class="comp-section" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
-                                    <span class="comp-section-title" style="display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 1rem;">${d.framingTitle}</span>
-                                    <blockquote class="emphasis-quote" style="font-size: 1.4rem; font-family: var(--font-heading); font-style: italic; line-height: 1.4; color: #fff;">"${d.framing}"</blockquote>
-                                </div>
-                                <div class="comp-section" style="margin-bottom: 3rem;">
-                                     <span class="comp-section-title" style="display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 0.5rem;">${d.whyTitle}</span>
-                                     <p class="comp-text" style="font-size: 1.1rem; line-height: 1.6; color: #eee;">${d.why}</p>
-                                </div>
-                                <div class="comp-section">
-                                    <span class="comp-section-title" style="display: block; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; margin-bottom: 1.5rem;">${d.logicTitle}</span>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                                        ${d.logic.map(l => `<div><div class="logic-title" style="color: #c5a086; font-weight: bold; margin-bottom: 0.5rem;">${l.title}</div><p style="font-size: 0.95rem; color: #ccc;">${l.desc}</p></div>`).join('')}
-                                    </div>
-                                </div>
-                                <div class="comp-section" style="margin-top: 3rem; text-align: center;">
-                                    <img src="https://personal-website-images.b-cdn.net/master_spark_score.jpg" style="max-width:80%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: 0 auto;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else if (id === 'juilliard-chamber') {
-                d = root.cham;
-                // Slides generation
-                const slidesHtml = d.slides.map((slide, index) => `
-                    <div class="chamber-slide ${index === 0 ? 'active' : ''}">
-                        <img src="https://personal-website-images.b-cdn.net/master_chamber_${index + 1}.png" class="chamber-img" alt="${slide.title}">
-                        <div class="chamber-text-overlay">
-                            <h3 class="chamber-title" style="color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">${slide.title}</h3>
-                            <p class="chamber-keywords" style="color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">${slide.keywords}</p>
-                        </div>
-                    </div>
-                `).join('');
-
-                const dotsHtml = d.slides.map((_, index) => `
-                    <div class="chamber-dot ${index === 0 ? 'active' : ''}" onclick="setChamberSlide(${index})"></div>
-                `).join('');
-
-                bodyHtml = `
-                    <iframe src="https://iframe.mediadelivery.net/play/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=true&loop=true&muted=true&controls=false" class="modal-bg-video" style="border:0;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
-                    <div class="modal-video-overlay"></div>
-                    <div id="chamberCarousel" class="chamber-carousel">
-                        ${slidesHtml}
-                        <div class="chamber-nav">${dotsHtml}</div>
-                    </div>
-                     <div style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">
-                        <a href="life_listen.html?modal=performance" style="display: inline-block; padding: 1rem 2rem; border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; text-decoration: none; font-family: var(--font-heading); transition: all 0.3s; background: rgba(0,0,0,0.3);">
-                            ${d.linkText}
-                        </a>
-                    </div>
-                `;
-            }
-
-            return { title: d.title, body: bodyHtml };
-        }
-
-        ;
-
-        // Carousel Logic
-        let currentChamberSlide = 0;
-        let chamberInterval = null;
-
-        function setChamberSlide(n) {
-            const slides = document.querySelectorAll('.chamber-slide');
-            const dots = document.querySelectorAll('.chamber-dot');
-
-            if (!slides.length) return;
-
-            // Normalize index
-            if (n >= slides.length) currentChamberSlide = 0;
-            else if (n < 0) currentChamberSlide = slides.length - 1;
-            else currentChamberSlide = n; // Update DOM
-
-            slides.forEach((slide, index) => {
-                if (index === currentChamberSlide) {
-                    slide.classList.add('active');
-                }
-
-                else {
-                    slide.classList.remove('active');
-                }
-            });
-
-            dots.forEach((dot, index) => {
-                if (index === currentChamberSlide) {
-                    dot.classList.add('active');
-                }
-
-                else {
-                    dot.classList.remove('active');
-                }
-            });
-
-            // Reset Timer on manual interaction
-            stopChamberAutoPlay();
-            startChamberAutoPlay();
-        }
-
-        function nextChamberSlide() {
-            setChamberSlide(currentChamberSlide + 1);
-        }
-
-        function startChamberAutoPlay() {
-            // Clear any existing interval to allow restarts
-            if (chamberInterval) clearInterval(chamberInterval);
-
-            chamberInterval = setInterval(() => {
-                setChamberSlide(currentChamberSlide + 1);
-            }
-
-                , 4375); // Reduced speed by 20% (3500 / 0.8 = 4375ms)
-        }
-
-        function stopChamberAutoPlay() {
-            if (chamberInterval) {
-                clearInterval(chamberInterval);
-                chamberInterval = null;
-            }
-        }
-
-        function openModal(id) {
-            const data = getModalContent(id);
-
-            if (data) {
-
-                // If special case for Composition which has its own title inside body
-                if (id === 'juilliard-composition') {
-                    titleEl.style.display = 'none';
-                }
-
-                else {
-                    titleEl.style.display = 'block';
-                    titleEl.innerText = data.title;
-                }
-
-                bodyEl.innerHTML = data.body;
-                overlay.classList.add('modal-active');
-
-                // Toggle Themes
-                const modalContent = document.querySelector('.modal-content');
-
-                // Clear all optional classes first
-                modalContent.classList.remove('dark-theme', 'scroll-mode', 'full-bleed');
-                overlay.classList.remove('scroll-mode');
-
-                if (id === 'juilliard-chamber') {
-                    modalContent.classList.add('dark-theme');
-                    modalContent.classList.add('scroll-mode');
-                    overlay.classList.add('scroll-mode');
-
-                    // Initialize Chamber Carousel
-                    currentChamberSlide = 0;
-
-                    setTimeout(() => {
-                        setChamberSlide(0);
-                        startChamberAutoPlay();
-                    }
-
-                        , 50);
-                }
-
-                else if (id === 'juilliard-composition') {
-                    // Full Bleed Mode
-                    modalContent.classList.add('dark-theme');
-                    modalContent.classList.add('scroll-mode');
-                    modalContent.classList.add('full-bleed');
-                    overlay.classList.add('scroll-mode');
-                }
-            }
-        }
-
-        function closeModal(e) {
-            if (e.target === overlay) {
-                closeModalDirect();
-            }
-        }
-
-        function closeModalDirect() {
-            overlay.classList.remove('modal-active');
-            stopChamberAutoPlay();
-
-            // Reset themes and modes
-            const modalContent = document.querySelector('.modal-content');
-            modalContent.classList.remove('dark-theme');
-            modalContent.classList.remove('scroll-mode');
-            overlay.classList.remove('scroll-mode');
-
-            // Clear content to stop video audio
-            bodyEl.innerHTML = '';
-        }
-
-        // Auto-open modal from URL param
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const modalId = urlParams.get('modal');
-
-            if (modalId) {
-                // Check if content exists via getModalContent
-                const data = getModalContent(modalId);
-                if (data && data.body) {
-                    openModal(modalId);
-                }
-            }
-        });
-    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

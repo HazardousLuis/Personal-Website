@@ -433,7 +433,7 @@
                 architectural clarity.</p>
 
             <div class="modal-video-wrap" style="position: relative;">
-                <iframe src="https://iframe.mediadelivery.net/play/586532/aa415a80-e8fb-4429-ab77-49b36e74b127"
+                <iframe src="https://iframe.mediadelivery.net/embed/586532/aa415a80-e8fb-4429-ab77-49b36e74b127"
                     loading="lazy" width="100%" height="100%"
                     style="border:0;width:100%;height:100%;position:absolute;top:0;left:0;"
                     allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
@@ -488,7 +488,7 @@
             </p>
 
             <div class="modal-video-wrap" style="position: relative;">
-                <iframe src="https://iframe.mediadelivery.net/play/586532/17ae26f0-6e03-4ba2-8a36-f84ded9fe3ba"
+                <iframe src="https://iframe.mediadelivery.net/embed/586532/17ae26f0-6e03-4ba2-8a36-f84ded9fe3ba"
                     loading="lazy" width="100%" height="100%"
                     style="border:0;width:100%;height:100%;position:absolute;top:0;left:0;"
                     allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
@@ -576,7 +576,7 @@
             <!-- Unified Content -->
             <div style="margin-bottom: 3rem;">
                 <div class="modal-video-wrap" style="position: relative;">
-                    <iframe src="https://iframe.mediadelivery.net/play/586532/f34247eb-b7b6-4cd7-84b8-a46307cf4893"
+                    <iframe src="https://iframe.mediadelivery.net/embed/586532/f34247eb-b7b6-4cd7-84b8-a46307cf4893"
                         loading="lazy" width="100%" height="100%"
                         style="border:0;width:100%;height:100%;position:absolute;top:0;left:0;"
                         allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
@@ -634,8 +634,15 @@
         });
 
         function openModal(id) {
-            document.getElementById('modal-' + id).classList.add('active');
+            const modal = document.getElementById('modal-' + id);
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // Restore Iframe Video if it was cleared
+            const iframe = modal.querySelector('iframe');
+            if (iframe && iframe.dataset.src) {
+                iframe.src = iframe.dataset.src;
+            }
         }
 
         function closeModal(id) {
@@ -644,11 +651,14 @@
             modal.classList.remove('active');
             document.body.style.overflow = '';
 
-            // Stop Iframe Video by resetting src
+            // Stop Iframe Video by clearing src (prevents background playback)
             const iframe = modal.querySelector('iframe');
             if (iframe) {
-                const src = iframe.src;
-                iframe.src = src;
+                // Save original src to data attribute if active
+                if (iframe.src) {
+                    iframe.dataset.src = iframe.src;
+                    iframe.src = '';
+                }
             }
 
             // Fallback for native video tags

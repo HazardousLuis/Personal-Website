@@ -2526,3 +2526,131 @@ body {
     height: auto !important;
   }
 }
+
+  /* =========================================
+     Mobile Refinement Batch (Addresses 14 Issues)
+     ========================================= */
+
+  /* [Issue 2] Navigation Overlap Fix */
+  .navbar {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0;
+      background: rgba(250, 249, 247, 0.95); /* Ensure readability */
+  }
+  .nav-logo {
+      padding-left: 0;
+      margin-bottom: 5px;
+  }
+  .nav-links {
+      padding-right: 0;
+      width: 100%;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap; /* allow wrap on small screens */
+  }
+
+  /* [Issue 3] Education Images Positioning */
+  .edu-overview, .hero-image, .split-image {
+      background-position: center calc(50% + 50px) !important; /* Move focal point down slightly if needed, or just center */
+      object-position: center center !important;
+  }
+
+  /* [Issue 4] Button Clickability */
+  .cta-button, .btn {
+      position: relative;
+      z-index: 50; /* Ensure above overlays */
+      pointer-events: auto;
+      min-height: 44px; /* Touch target size */
+  }
+
+  /* [Issue 5] Cards Scroll Peek */
+  .card-scroll-wrapper {
+      padding-right: 20% !important; /* Show part of next card */
+      scroll-snap-type: x mandatory;
+  }
+  .apple-card {
+      flex: 0 0 85vw !important; /* Slightly less than full width to show peek */
+      width: 85vw !important;
+      margin-right: 16px;
+  }
+
+  /* [Issue 6 & 7] Card Content Layout (Field Innovation / Activity Org) */
+  .card-body {
+      flex-direction: column !important; /* Stack internal content */
+      padding: 1.2rem !important;
+  }
+  .card-title {
+      margin-top: 0.5rem !important;
+  }
+  /* Adjust specific "tags" or "badges" if they exist */
+  .card-badges, .card-meta {
+      width: 100% !important;
+      margin-bottom: 1rem !important;
+  }
+
+  /* [Issue 8 & 9] Master Card Issues (Slides/Video/Text) */
+  .chamber-carousel {
+      height: 250px !important; /* Fixed height for consistency */
+  }
+  .chamber-slide img {
+      object-fit: cover !important;
+      height: 100% !important;
+      width: 100% !important;
+  }
+  /* Fix composition text squeeze */
+  .comp-card-content, .card-text-container {
+      width: 100% !important;
+      padding: 0 !important;
+  }
+  /* Ensure video plays inline and fills */
+  video {
+      object-fit: cover !important;
+  }
+
+  /* [Issue 10] Career Finance/Regulatory Overlap */
+  .career-subpage-body .career-cards-container {
+      padding-top: 120px !important; /* Clear the navbar */
+      align-items: flex-start !important; /* Prevent vertical center centering pushing content off */
+  }
+  .experience-card {
+      height: auto !important; /* Allow scroll */
+      min-height: 80vh;
+      padding-top: 0 !important;
+      overflow-y: visible !important;
+  }
+  /* Fix accordion overlapping */
+  .accordion-card {
+      flex-direction: column !important;
+      padding-bottom: 100px; /* Space for scroll */
+  }
+
+  /* [Issue 11] Product Page Header */
+  .product-header, .header-section {
+      height: auto !important;
+      padding: 100px 20px 40px 20px !important; /* Reduced comfortable padding */
+      min-height: 0 !important;
+  }
+
+  /* [Issue 13] Life Listen Backgrounds */
+  /* Remove BG images for listening options on mobile, use grey */
+  .life-listen-option:nth-child(1) { background-image: none !important; background-color: #333 !important; }
+  .life-listen-option:nth-child(2) { background-image: none !important; background-color: #444 !important; }
+  .life-listen-option:nth-child(3) { background-image: none !important; background-color: #555 !important; }
+
+  /* [Issue 14] Move Text Alignment */
+  .move-content, .move-text {
+      padding: 0 1.5rem !important;
+      text-align: left !important;
+      width: 100% !important;
+  }
+
+  /* [Issue 15] Life Main Grid Orientation */
+  .life-grid-options {
+      flex-direction: column !important;
+      height: auto !important;
+  }
+  .life-option-card {
+      width: 100% !important;
+      height: 250px !important; /* Fixed height stack */
+  }

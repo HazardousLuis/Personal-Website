@@ -98,7 +98,7 @@ window.siteTranslations = {
                         overview: "Leading university-level artistic organizations to drive cultural engagement and professional standardization.",
                         sections: [
                             {
-                                title: "President, Piano Club (2021–2023)",
+                                title: "President, Piano Club (2021–2022)",
                                 desc: "During my tenure, I led the club through a period of rapid growth and professional transformation. Registered membership grew from 42 to 87. Despite the impact of the pandemic, we successfully held five formal concerts in one academic year—a record in the club's history.<br><br>I introduced a tiered teaching and rehearsal system, promoting peer-to-peer instruction and professional mentorship, building the club into a sustainable, skill-focused music community.<br><br><strong>Highlights:</strong><br><span class='premium-tag'>Membership Growth: +107%</span><span class='premium-tag'>Performance Format: Thematic Concerts & Weekly Salons</span><span class='premium-tag'>Teaching Model: Tiered Instruction × Professional Guidance</span><span class='premium-tag'>Honor: Outstanding Student Organization (2022)</span>"
                             },
                             {
@@ -151,7 +151,7 @@ window.siteTranslations = {
                     leftTitle: "Chamber Music",
                     leftSub: "Performance",
                     rightTitle: "Composition",
-                    rightSub: "Evening Division"
+                    rightSub: "Imagination"
                 },
                 footer: {
                     title: "Future Outlook",
@@ -197,12 +197,14 @@ window.siteTranslations = {
                         framing: "I approach composition as a process of building systems under constraint—where musical meaning emerges from structure rather than narrative description.",
                         whyTitle: "Why this piece",
                         why: "This work explores how large-scale musical form can be driven by accumulation, breakdown, and reconfiguration of limited material.",
-                        logicTitle: "Design Logic",
+                        logicTitle: "Musical Narrative",
                         logic: [
-                            { title: "1. Constraint", desc: "The piece is constructed from a deliberately restricted palette of rhythmic cells and registral zones. Rather than introducing new themes, the form evolves through density, layering, and instrumental role-shifting." },
-                            { title: "2. Accumulation", desc: "As rhythmic activity accumulates, clarity gradually gives way to instability. What initially functions as propulsion begins to fracture under its own weight." },
-                            { title: "3. Failure", desc: "At several points, the original organizational logic is intentionally allowed to fail. Instead of correcting these failures, I treat them as structural turning points." },
-                            { title: "4. Reconfiguration", desc: "The final section does not resolve previous tensions, but reconfigures them into a more stable—yet still constrained—state." }
+                            { title: "A. In Ruins and Uncertainty", desc: "The nation lies in ruins, its people trapped in confusion and suffering. The Red Army embarks on its journey in an extremely hostile environment, bearing the heavy destiny of the nation." },
+                            { title: "B. The Charge", desc: "A rapid triple-meter rhythm symbolizes the soldiers' charge, evoking the heroic scenes of the bloody Battle of Xiangjiang and the breakthrough of enemy blockade lines during the Long March." },
+                            { title: "Transition I. The Turmoil Between Battles", desc: "Unsettled chords depict the brutality of combat. Soldiers make immense sacrifices amidst a hail of bullets, reflecting the countless bloody struggles along the Long March." },
+                            { title: "Transition II. The Second Charge", desc: "Even after suffering heavy losses, the Red Army regroups and charges again with tenacity, embodying the unyielding spirit of \"rising up after a fall.\"" },
+                            { title: "C. Dawn Among the People", desc: "Through engagement with the populace, the Red Army earns their trust and support, reflecting the deep bond often described as \"like fish and water.\" The music shifts to G Major, bringing an atmosphere of harvest and joy." },
+                            { title: "D. Triumphant Horizon", desc: "Finally, the spark of revolution starts a prairie fire, ushering in the ultimate victory. The music concludes in a brilliant climax, symbolizing that a single spark can indeed start a prairie fire." }
                         ]
                     }
                 }
@@ -567,7 +569,7 @@ window.siteTranslations = {
                         overview: "领导校级艺术组织，致力于提升校园文化参与度与社团运作的专业化水平。",
                         sections: [
                             {
-                                title: "中山大学钢琴社社长 (2021–2023)",
+                                title: "中山大学钢琴社社长 (2021–2022)",
                                 desc: "在任期间，我带领社团实现了快速增长与专业化转型。注册成员从 42 人增长至 87 人。尽管面临疫情冲击，我们仍在一个学年内成功举办了五场正式音乐会，创下社团历史之最。<br><br>我引入了分级教学与排练体系，推动成员互教与专业导师指导，将社团打造为一个可持续的、以技能为核心的音乐社区。<br><br><strong>核心亮点：</strong><br><span class='premium-tag'>成员增长：+107%</span><span class='premium-tag'>演出形式：主题化音乐会与每周音乐沙龙</span><span class='premium-tag'>教学模式：分层教学 × 专业指导</span><span class='premium-tag'>荣誉：中山大学优秀学生社团 (2022)</span>"
                             },
                             {
@@ -620,7 +622,7 @@ window.siteTranslations = {
                     leftTitle: "室内乐",
                     leftSub: "演奏艺术",
                     rightTitle: "作曲",
-                    rightSub: "夜间部"
+                    rightSub: "创作艺术"
                 },
                 footer: {
                     title: "展望与希冀",
@@ -656,7 +658,7 @@ window.siteTranslations = {
                             { title: "能量与控制", keywords: "受控能量 • 压力下的精准 • 张力而非过剩" },
                             { title: "呼吸与流动", keywords: "乐句方向 • 语言塑造声音" }
                         ],
-                        linkText: "查看演出与曲目 →"
+                        linkText: "了解更多 →"
                     },
                     comp: {
                         title: "作曲 · 案例研究",
@@ -666,12 +668,14 @@ window.siteTranslations = {
                         framing: "我将作曲视为在约束下构建系统的过程——音乐意义源于结构本身，而非叙事性描述。",
                         whyTitle: "创作初衷",
                         why: "这部作品探讨了宏大的音乐形式如何通过有限素材的积累、崩塌与重构来驱动。",
-                        logicTitle: "设计逻辑",
+                        logicTitle: "乐章叙事",
                         logic: [
-                            { title: "1. 约束", desc: "本曲构建于一组刻意受限的节奏细胞与音区调色板之上。形式的演变不依赖新主题的引入，而是通过密度、织体层次与乐器角色的转换实现内生演化。" },
-                            { title: "2. 积累", desc: "随着节奏活动的累积，原本的清晰度逐渐向不稳定性让步。最初作为推动力的因素，开始在自身的重压下崩裂。" },
-                            { title: "3. 失效", desc: "在若干时刻，原始的组织逻辑被有意允许失效。我并未修正这些“故障”，而是将其视为结构转折点。" },
-                            { title: "4. 重构", desc: "最终段落并未解决先前的张力，而是将其重构为一种更稳定——但依旧受限——的状态。" }
+                            { title: "A. 忧郁的段落 (In Ruins and Uncertainty)", desc: "山河破碎，人民陷于迷茫与苦难。红军在极端艰难的环境中起步，背负着民族的沉重命运。" },
+                            { title: "B. 三拍冲锋 (The Charge)", desc: "三拍的急促节奏象征着战士们的冲锋，正如长征途中血战湘江、突破敌军封锁线的壮烈场景。" },
+                            { title: "Transition I. 惨烈战况 (The Turmoil Between Battles)", desc: "不安的和弦描绘出战斗的惨烈，战士们在枪林弹雨中付出巨大牺牲，正如长征途中无数次浴血奋战。" },
+                            { title: "Transition II. 重新爬起再次冲锋 (The Second Charge)", desc: "即使遭受重创，红军仍然重新集结，顽强地再次冲锋，体现出“跌倒后再度爬起”的不屈精神。" },
+                            { title: "C. 曙光与民同乐 (Dawn Among the People)", desc: "在与人民的周旋中，红军赢得了群众的信任与支持，正如“鱼水情深”的故事。音乐转入 G 大调，带来丰收与喜悦的氛围。" },
+                            { title: "D. 辉煌胜利 (Triumphant Horizon)", desc: "最终，革命的火种燎原，迎来解放战争的胜利。音乐在辉煌的高潮中结束，象征着星星之火终成燎原之势。" }
                         ]
                     }
                 }

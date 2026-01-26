@@ -7,7 +7,7 @@
     <title>Bachelor's Degree - Sun Yat-sen University</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -114,7 +114,7 @@
                 <div class="apple-card" onclick="openModal('academic-1')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/BCI_card_img.jpg" alt="BCI Interfaces"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/BCI_card_img.jpg" alt="BCI Interfaces"
                             style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -127,7 +127,7 @@
                 <div class="apple-card" onclick="openModal('academic-2')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/MedicalElectronic_card_img.jpeg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/MedicalElectronic_card_img.jpeg"
                             alt="Medical Electronics" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -139,7 +139,7 @@
                 <div class="apple-card" onclick="openModal('academic-3')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/PhysiologicalChemical_card_img.jpeg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/PhysiologicalChemical_card_img.jpeg"
                             alt="Physiological Analysis" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -161,7 +161,7 @@
                 <div class="apple-card" onclick="openModal('exp-1')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/PianoChoralClubPresident_img.jpg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/PianoChoralClubPresident_img.jpg"
                             alt="Piano Club" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -174,7 +174,7 @@
                 <div class="apple-card" onclick="openModal('exp-2')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/SocialEntrepreneurship_card_img.jpg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/SocialEntrepreneurship_card_img.jpg"
                             alt="Enactus" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -187,7 +187,7 @@
                 <div class="apple-card" onclick="openModal('exp-3')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/EventsOrganisation_card_img.jpg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/EventsOrganisation_card_img.jpg"
                             alt="Events" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -285,7 +285,7 @@
                             <p>${d.pubDesc}</p>
                          </div>
                          <div class="modal-img-box" style="flex: 1.2; display: flex; justify-content: center; align-items: center;">
-                            <img src="https://personal-website-images.b-cdn.net/BCI_card_img1.jpg" alt="System" style="width: 50%; height: auto; object-fit: contain;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/BCI_card_img1.jpg" alt="System" style="width: 50%; height: auto; object-fit: contain;">
                          </div>
                     </div>
                     <!-- 2. Fabrication -->
@@ -293,14 +293,14 @@
                         <div class="modal-text">
                             <ul class="modal-list"><li><strong>${d.sections[0].title}:</strong> ${d.sections[0].desc}</li></ul>
                         </div>
-                        <div class="modal-img-box"><img src="https://personal-website-images.b-cdn.net/BCI_card_img2.png" alt="Fab" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                        <div class="modal-img-box"><img loading="lazy" src="https://personal-website-images.b-cdn.net/BCI_card_img2.png" alt="Fab" style="width: 100%; height: 100%; object-fit: contain;"></div>
                     </div>
                     <!-- 3. Signal Module -->
                     <div class="modal-row">
                         <div class="modal-text">
                             <ul class="modal-list"><li><strong>${d.sections[1].title}:</strong> ${d.sections[1].desc}</li></ul>
                         </div>
-                        <div class="modal-img-box"><img src="https://personal-website-images.b-cdn.net/bachelor_oect_graph.png" alt="Graph" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                        <div class="modal-img-box"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_oect_graph.png" alt="Graph" style="width: 100%; height: 100%; object-fit: contain;"></div>
                     </div>
                     <!-- 4. Bio -->
                      <div class="modal-row reverse">
@@ -311,7 +311,7 @@
                                 <li><strong>${d.sections[4].title}:</strong> ${d.sections[4].desc}</li>
                             </ul>
                         </div>
-                        <div class="modal-img-box"><img src="https://personal-website-images.b-cdn.net/bachelor_rat_invivo.png" alt="In vivo" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                        <div class="modal-img-box"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_rat_invivo.png" alt="In vivo" style="width: 100%; height: 100%; object-fit: contain;"></div>
                     </div>
                 `;
             } else if (id === 'academic-2') {
@@ -322,7 +322,7 @@
                             <p>${d.overview}</p>
                         </div>
                          <div class="modal-img-box" style="flex: 1.2; display: flex; justify-content: center; align-items: center;">
-                            <img src="https://personal-website-images.b-cdn.net/MedicalElectronic_card_img1.jpg" style="width: 100%; height: auto; object-fit: contain;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/MedicalElectronic_card_img1.jpg" style="width: 100%; height: auto; object-fit: contain;">
                         </div>
                     </div>
                     
@@ -334,7 +334,7 @@
                             </ul>
                         </div>
                         <div class="modal-img-box">
-                            <img src="https://personal-website-images.b-cdn.net/bachelor_med_pcb.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_med_pcb.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
                         </div>
                     </div>
 
@@ -344,7 +344,7 @@
                             <p>${d.ecgDesc}</p>
                          </div>
                          <div class="modal-img-box">
-                            <img src="https://personal-website-images.b-cdn.net/bachelor_med_ecg.png" style="width: 100%; height: auto; object-fit: contain; border-radius: 4px;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_med_ecg.png" style="width: 100%; height: auto; object-fit: contain; border-radius: 4px;">
                          </div>
                     </div>
                 `;
@@ -358,14 +358,14 @@
                             <p>${d.kinematics.desc}</p>
                          </div>
                          <div class="modal-img-box">
-                            <img src="https://personal-website-images.b-cdn.net/bachelor_phys_opensim.png" style="width: 100%; height: auto; object-fit: contain; border-radius: 4px;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_phys_opensim.png" style="width: 100%; height: auto; object-fit: contain; border-radius: 4px;">
                          </div>
                     </div>
 
                     <div class="modal-row reverse" style="gap: 2rem; border-top: 1px solid #eee; padding-top: 2.5rem;">
                          <div class="modal-text"><p>${d.overview}</p></div>
                          <div class="modal-img-box" style="flex: 1.2; display: flex; justify-content: center; align-items: center;">
-                            <img src="https://personal-website-images.b-cdn.net/bachelor_chem_workstation.png" style="width: 100%; height: auto; object-fit: contain; border-radius: 4px;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_chem_workstation.png" style="width: 100%; height: auto; object-fit: contain; border-radius: 4px;">
                         </div>
                     </div>
                     
@@ -376,7 +376,7 @@
                             </ul>
                         </div>
                          <div class="modal-img-box">
-                            <img src="https://personal-website-images.b-cdn.net/bachelor_chem_laser.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
+                            <img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_chem_laser.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
                         </div>
                     </div>
                 `;
@@ -391,8 +391,8 @@
                              <h3 class="modal-h3" style="color: #000; border-left: 4px solid var(--accent-color, #C5A086); padding-left: 1rem;">${d.sections[0].title}</h3>
                              <p style="margin-top: 1rem; color: #000;">${d.sections[0].desc}</p>
                              <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem;">
-                                 <div style="border-radius: 12px; overflow: hidden;"><img src="https://personal-website-images.b-cdn.net/bachelor_piano_group.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                                 <div style="border-radius: 12px; overflow: hidden;"><img src="https://personal-website-images.b-cdn.net/bachelor_piano_stage.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                 <div style="border-radius: 12px; overflow: hidden;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_piano_group.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                 <div style="border-radius: 12px; overflow: hidden;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_piano_stage.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
                              </div>
                         </div>
 
@@ -404,8 +404,8 @@
                             <h3 class="modal-h3" style="color: #000; border-left: 4px solid var(--accent-color, #C5A086); padding-left: 1rem;">${d.sections[1].title}</h3>
                             <p style="margin-top: 1rem; color: #000;">${d.sections[1].desc}</p>
                              <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1.8fr; gap: 1rem;">
-                                 <div style="border-radius: 12px; overflow: hidden;"><img src="https://personal-website-images.b-cdn.net/bachelor_choir_stage.jpg?v=4" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                                 <div style="border-radius: 12px; overflow: hidden;"><img src="https://personal-website-images.b-cdn.net/bachelor_choir_conduct.jpg?v=4" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                 <div style="border-radius: 12px; overflow: hidden;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_choir_stage.jpg?v=4" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                 <div style="border-radius: 12px; overflow: hidden;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_choir_conduct.jpg?v=4" style="width: 100%; height: 100%; object-fit: cover;"></div>
                             </div>
                          </div>
                     </div>
@@ -420,9 +420,9 @@
                          <!-- Image Grid -->
                         <div style="margin-bottom: 2.5rem;">
                              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem;">
-                                <div style="border-radius: 8px; overflow: hidden; height: 140px;"><img src="https://personal-website-images.b-cdn.net/bachelor_enactus_poster.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                                <div style="border-radius: 8px; overflow: hidden; height: 140px;"><img src="https://personal-website-images.b-cdn.net/bachelor_enactus_meeting.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                                <div style="border-radius: 8px; overflow: hidden; height: 140px;"><img src="https://personal-website-images.b-cdn.net/bachelor_enactus_interview.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 140px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_enactus_poster.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 140px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_enactus_meeting.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 140px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_enactus_interview.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
                             </div>
                         </div>
 
@@ -458,8 +458,8 @@
 
                             <p style="margin-bottom: 1.5rem; color: #000; line-height: 1.7;">${d.grassDesc}</p>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img src="https://personal-website-images.b-cdn.net/bachelor_event_grassland_stage.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img src="https://personal-website-images.b-cdn.net/bachelor_event_grassland_art.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_event_grassland_stage.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_event_grassland_art.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
                             </div>
                         </div>
 
@@ -474,8 +474,8 @@
 
                             <p style="margin-bottom: 1.5rem; color: #000; line-height: 1.7;">${d.concertDesc}</p>
                              <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem;">
-                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img src="https://personal-website-images.b-cdn.net/bachelor_event_piano_concert.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img src="https://personal-website-images.b-cdn.net/bachelor_event_piano_discuss.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_event_piano_concert.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                                <div style="border-radius: 8px; overflow: hidden; height: 200px;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/bachelor_event_piano_discuss.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
                             </div>
                         </div>
                     </div>

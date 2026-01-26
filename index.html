@@ -16,6 +16,10 @@
 </head>
 
 <body>
+    <!-- Lightweight Loader (Max 500ms) -->
+    <div id="hero-loader">
+        <div class="loader-spinner"></div>
+    </div>
 
     <!-- Simplified Navigation: Only "Contact" remains globally -->
     <nav class="navbar">
@@ -35,12 +39,12 @@
         -->
         <div class="hero-media-container">
             <!-- Image Background (Hidden by default for now as per request for black bg) -->
-            <!-- <img src="https://personal-website-images.b-cdn.net/uploaded_image_0_1768845943384.png" alt="Aesthetic Background" class="hero-media"> -->
+            <!-- <img loading="lazy" src="https://personal-website-images.b-cdn.net/uploaded_image_0_1768845943384.png" alt="Aesthetic Background" class="hero-media lazy-img" loading="lazy"> -->
 
             <!-- Video Background (Example structure for future use) -->
             <!-- 
             <video autoplay loop muted playsinline class="hero-media">
-                <source src="https://personal-website-images.b-cdn.net/background.mp4" type="video/mp4">
+                <source loading="lazy" src="https://personal-website-images.b-cdn.net/background.mp4" type="video/mp4">
             </video> 
             -->
         </div>
@@ -111,6 +115,7 @@
 
     <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/image-loader.js"></script>
 </body>
 
 </html>

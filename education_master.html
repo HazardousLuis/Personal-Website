@@ -7,7 +7,7 @@
     <title>Master's Degree - Columbia University</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -358,7 +358,7 @@
                 <div class="apple-card" onclick="openModal('focus-1')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/master_card1_img.png"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card1_img.png"
                             alt="Signal Processing" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-hover-overlay">
@@ -374,7 +374,7 @@
                 <div class="apple-card" onclick="openModal('focus-2')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/master_card2_img.jpg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card2_img.jpg"
                             alt="Physiological Modeling"
                             style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%;">
                     </div>
@@ -391,7 +391,7 @@
                 <div class="apple-card" onclick="openModal('focus-3')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img src="https://personal-website-images.b-cdn.net/master_card3_img.jpg"
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_img.jpg"
                             alt="Financial Modeling" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-hover-overlay">
@@ -506,8 +506,8 @@
                             <p>${d.insight}</p>
                         </div>
                         <div class="modal-img-box" style="flex: 1; display: flex; flex-direction: column; gap: 2rem; margin-top: 3.5rem;">
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card1_chromatic.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Chromatic Scale Piano</figcaption></figure>
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card1_snr.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">SNR Comparison</figcaption></figure>
+                            <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card1_chromatic.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Chromatic Scale Piano</figcaption></figure>
+                            <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card1_snr.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">SNR Comparison</figcaption></figure>
                         </div>
                     </div>`;
             } else if (id === 'focus-2') {
@@ -523,8 +523,8 @@
                              <p>${d.insight}</p>
                         </div>
                          <div class="modal-img-box" style="flex: 1; display: flex; flex-direction: column; gap: 2rem; margin-top: 3.5rem;">
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card2_doppler.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Doppler Flow</figcaption></figure>
-                            <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card2_image_recognition.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Image Recognition</figcaption></figure>
+                            <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card2_doppler.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Doppler Flow</figcaption></figure>
+                            <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card2_image_recognition.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; font-style: italic; text-align: center;">Image Recognition</figcaption></figure>
                         </div>
                     </div>`;
             } else if (id === 'focus-3') {
@@ -539,10 +539,10 @@
                         </div>
                          <div class="modal-img-box" style="flex: 1; margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2rem;">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: end;">
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_portfolio_pairs.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Pairs Plot</figcaption></figure>
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_portfolio_dist.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Return Dist</figcaption></figure>
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_forecast_corr.jpg" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Correlation</figcaption></figure>
-                                <figure style="margin: 0;"><img src="https://personal-website-images.b-cdn.net/master_card3_forecast_sarima.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">SARIMA</figcaption></figure>
+                                <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_portfolio_pairs.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Pairs Plot</figcaption></figure>
+                                <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_portfolio_dist.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Return Dist</figcaption></figure>
+                                <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_forecast_corr.jpg" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">Correlation</figcaption></figure>
+                                <figure style="margin: 0;"><img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_forecast_sarima.png" style="width: 100%; border-radius: 8px;"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; color: #666; font-style: italic; text-align: center;">SARIMA</figcaption></figure>
                             </div>
                              <div>
                                 <h3 class="modal-h3" style="margin-top: 0; margin-bottom: 1rem;">${labels.insight}</h3>
@@ -579,7 +579,7 @@
                                     </div>
                                 </div>
                                 <div class="comp-section" style="margin-top: 3rem; text-align: center;">
-                                    <img src="https://personal-website-images.b-cdn.net/master_spark_score.jpg" style="max-width:80%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: 0 auto;">
+                                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_spark_score.jpg" style="max-width:80%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin: 0 auto;">
                                 </div>
                             </div>
                         </div>
@@ -590,7 +590,7 @@
                 // Slides generation
                 const slidesHtml = d.slides.map((slide, index) => `
                     <div class="chamber-slide ${index === 0 ? 'active' : ''}">
-                        <img src="https://personal-website-images.b-cdn.net/master_chamber_${index + 1}.png" class="chamber-img" alt="${slide.title}">
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_chamber_${index + 1}.png" class="chamber-img" alt="${slide.title}">
                         <div class="chamber-text-overlay">
                             <h3 class="chamber-title" style="color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">${slide.title}</h3>
                             <p class="chamber-keywords" style="color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">${slide.keywords}</p>

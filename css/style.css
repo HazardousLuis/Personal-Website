@@ -2446,3 +2446,83 @@ body {
     float: right !important;
     z-index: 9999 !important;
 }
+/* =========================
+   Mobile Patch (<= 768px)
+   Safe band-aid for all pages
+   ========================= */
+@media screen and (max-width: 768px) {
+
+  /* Prevent horizontal overflow */
+  html, body { overflow-x: hidden; }
+
+  /* ---------- Typography (targeted) ---------- */
+  .hero-title { font-size: 2.2rem !important; line-height: 1.15 !important; }
+  .hero-subtitle { font-size: 1rem !important; line-height: 1.5 !important; }
+  h1 { font-size: 1.8rem; line-height: 1.2; }
+  h2 { font-size: 1.35rem; line-height: 1.25; }
+  p { font-size: 1rem; line-height: 1.6; }
+
+  /* ---------- Hub / Index cards ---------- */
+  .hub-grid {
+    padding: 1rem !important;
+    gap: 16px !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .hub-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 250px !important;
+    margin: 0 0 1.5rem 0 !important;
+  }
+
+  /* Make center content visible on mobile */
+  .hub-card-center {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .hub-card:hover .hub-card-center {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* ---------- Split layout (education/detail pages) ---------- */
+  .split-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .split-left, .split-right {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* ---------- 100vh clipping fix ---------- */
+  .edu-slide, .full-screen, .hero {
+    height: auto !important;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+  }
+
+  /* ---------- Galleries (life page) ---------- */
+  .gallery-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Images/Video */
+  img, video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}

@@ -160,15 +160,17 @@ img {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: var(--spacing-md) 0;
+    padding: 1rem 0;
+    /* Reduced padding from 2rem to 1rem */
     display: flex;
     justify-content: space-between;
+    /* Ensure logo is left */
     align-items: center;
     z-index: 1000;
     mix-blend-mode: normal;
-    /* Disable difference mode to ensure true gold color */
+    background: transparent !important;
+    /* Remove any potential white background */
     color: var(--bg-color);
-    /* This might need adjustment if navbar relies on difference */
 }
 
 /* Navbar Scrim - optional if text readability is issue, but let's stick to user request */
@@ -2446,394 +2448,634 @@ body {
     float: right !important;
     z-index: 9999 !important;
 }
+
 /* =========================
    Mobile Patch (<= 768px)
    Safe band-aid for all pages
    ========================= */
 @media screen and (max-width: 768px) {
 
-  /* Prevent horizontal overflow */
-  html, body { overflow-x: hidden; }
+    /* Prevent horizontal overflow */
+    html,
+    body {
+        overflow-x: hidden;
+    }
 
-  /* ---------- Typography (targeted) ---------- */
-  .hero-title { font-size: 2.2rem !important; line-height: 1.15 !important; }
-  .hero-subtitle { font-size: 1rem !important; line-height: 1.5 !important; }
-  h1 { font-size: 1.8rem; line-height: 1.2; }
-  h2 { font-size: 1.35rem; line-height: 1.25; }
-  p { font-size: 1rem; line-height: 1.6; }
+    /* ---------- Typography (targeted) ---------- */
+    .hero-title {
+        font-size: 2.2rem !important;
+        line-height: 1.15 !important;
+    }
 
-  /* ---------- Hub / Index cards ---------- */
-  .hub-grid {
-    padding: 1rem !important;
-    gap: 16px !important;
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-  }
+    .hero-subtitle {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
 
-  .hub-card {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: auto !important;
-    min-height: 250px !important;
-    margin: 0 0 1.5rem 0 !important;
-  }
+    h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
 
-  /* Make center content visible on mobile */
-  .hub-card-center {
-    opacity: 1 !important;
-    transform: none !important;
-    pointer-events: auto !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
+    h2 {
+        font-size: 1.35rem;
+        line-height: 1.25;
+    }
 
-  .hub-card:hover .hub-card-center {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
 
-  /* ---------- Split layout (education/detail pages) ---------- */
-  .split-layout {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
-  }
-  .split-left, .split-right {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
+    /* ---------- Hub / Index cards ---------- */
+    .hub-grid {
+        padding: 1rem !important;
+        gap: 16px !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+    }
 
-  /* ---------- 100vh clipping fix ---------- */
-  .edu-slide, .full-screen, .hero {
-    height: auto !important;
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
-  }
+    .hub-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+        min-height: 250px !important;
+        margin: 0 0 1.5rem 0 !important;
+    }
 
-  /* ---------- Galleries (life page) ---------- */
-  .gallery-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
+    /* Make center content visible on mobile */
+    .hub-card-center {
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
 
-  /* Images/Video */
-  img, video {
-    max-width: 100% !important;
-    height: auto !important;
-  }
+    .hub-card:hover .hub-card-center {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* ---------- Split layout (education/detail pages) ---------- */
+    .split-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    .split-left,
+    .split-right {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* ---------- 100vh clipping fix ---------- */
+    .edu-slide,
+    .full-screen,
+    .hero {
+        height: auto !important;
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
+    }
+
+    /* ---------- Galleries (life page) ---------- */
+    .gallery-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Images/Video */
+    img,
+    video {
+        max-width: 100% !important;
+        height: auto !important;
+    }
 }
 
-  /* =========================================
+/* =========================================
      Mobile Refinement Batch (Addresses 14 Issues)
      ========================================= */
 
-  /* [Issue 2] Navigation Overlap Fix */
-  .navbar {
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px 0;
-      background: rgba(250, 249, 247, 0.95); /* Ensure readability */
-  }
-  .nav-logo {
-      padding-left: 0;
-      margin-bottom: 5px;
-  }
-  .nav-links {
-      padding-right: 0;
-      width: 100%;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap; /* allow wrap on small screens */
-  }
+/* [Issue 2] Navigation Overlap Fix */
+.navbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+    background: rgba(250, 249, 247, 0.95);
+    /* Ensure readability */
+}
 
-  /* [Issue 3] Education Images Positioning */
-  .edu-overview, .hero-image, .split-image {
-      background-position: center calc(50% + 50px) !important; /* Move focal point down slightly if needed, or just center */
-      object-position: center center !important;
-  }
+.nav-logo {
+    padding-left: 0;
+    margin-bottom: 5px;
+}
 
-  /* [Issue 4] Button Clickability */
-  .cta-button, .btn {
-      position: relative;
-      z-index: 50; /* Ensure above overlays */
-      pointer-events: auto;
-      min-height: 44px; /* Touch target size */
-  }
+.nav-links {
+    padding-right: 0;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    /* allow wrap on small screens */
+}
 
-  /* [Issue 5] Cards Scroll Peek */
-  .card-scroll-wrapper {
-      padding-right: 20% !important; /* Show part of next card */
-      scroll-snap-type: x mandatory;
-  }
-  .apple-card {
-      flex: 0 0 85vw !important; /* Slightly less than full width to show peek */
-      width: 85vw !important;
-      margin-right: 16px;
-  }
+/* [Issue 3] Education Images Positioning */
+.edu-overview,
+.hero-image,
+.split-image {
+    background-position: center calc(50% + 50px) !important;
+    /* Move focal point down slightly if needed, or just center */
+    object-position: center center !important;
+}
 
-  /* [Issue 6 & 7] Card Content Layout (Field Innovation / Activity Org) */
-  .card-body {
-      flex-direction: column !important; /* Stack internal content */
-      padding: 1.2rem !important;
-  }
-  .card-title {
-      margin-top: 0.5rem !important;
-  }
-  /* Adjust specific "tags" or "badges" if they exist */
-  .card-badges, .card-meta {
-      width: 100% !important;
-      margin-bottom: 1rem !important;
-  }
+/* [Issue 4] Button Clickability */
+.cta-button,
+.btn {
+    position: relative;
+    z-index: 50;
+    /* Ensure above overlays */
+    pointer-events: auto;
+    min-height: 44px;
+    /* Touch target size */
+}
 
-  /* [Issue 8 & 9] Master Card Issues (Slides/Video/Text) */
-  .chamber-carousel {
-      height: 250px !important; /* Fixed height for consistency */
-  }
-  .chamber-slide img {
-      object-fit: cover !important;
-      height: 100% !important;
-      width: 100% !important;
-  }
-  /* Fix composition text squeeze */
-  .comp-card-content, .card-text-container {
-      width: 100% !important;
-      padding: 0 !important;
-  }
-  /* Ensure video plays inline and fills */
-  video {
-      object-fit: cover !important;
-  }
+/* [Issue 5] Cards Scroll Peek */
+.card-scroll-wrapper {
+    padding-right: 20% !important;
+    /* Show part of next card */
+    scroll-snap-type: x mandatory;
+}
 
-  /* [Issue 10] Career Finance/Regulatory Overlap */
-  .career-subpage-body .career-cards-container {
-      padding-top: 120px !important; /* Clear the navbar */
-      align-items: flex-start !important; /* Prevent vertical center centering pushing content off */
-  }
-  .experience-card {
-      height: auto !important; /* Allow scroll */
-      min-height: 80vh;
-      padding-top: 0 !important;
-      overflow-y: visible !important;
-  }
-  /* Fix accordion overlapping */
-  .accordion-card {
-      flex-direction: column !important;
-      padding-bottom: 100px; /* Space for scroll */
-  }
+.apple-card {
+    flex: 0 0 85vw !important;
+    /* Slightly less than full width to show peek */
+    width: 85vw !important;
+    margin-right: 16px;
+}
 
-  /* [Issue 11] Product Page Header */
-  .product-header, .header-section {
-      height: auto !important;
-      padding: 100px 20px 40px 20px !important; /* Reduced comfortable padding */
-      min-height: 0 !important;
-  }
+/* [Issue 6 & 7] Card Content Layout (Field Innovation / Activity Org) */
+.card-body {
+    flex-direction: column !important;
+    /* Stack internal content */
+    padding: 1.2rem !important;
+}
 
-  /* [Issue 13] Life Listen Backgrounds */
-  /* Remove BG images for listening options on mobile, use grey */
-  .life-listen-option:nth-child(1) { background-image: none !important; background-color: #333 !important; }
-  .life-listen-option:nth-child(2) { background-image: none !important; background-color: #444 !important; }
-  .life-listen-option:nth-child(3) { background-image: none !important; background-color: #555 !important; }
+.card-title {
+    margin-top: 0.5rem !important;
+}
 
-  /* [Issue 14] Move Text Alignment */
-  .move-content, .move-text {
-      padding: 0 1.5rem !important;
-      text-align: left !important;
-      width: 100% !important;
-  }
+/* Adjust specific "tags" or "badges" if they exist */
+.card-badges,
+.card-meta {
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+}
 
-  /* [Issue 15] Life Main Grid Orientation */
-  .life-grid-options {
-      flex-direction: column !important;
-      height: auto !important;
-  }
-  .life-option-card {
-      width: 100% !important;
-      height: 250px !important; /* Fixed height stack */
-  }
+/* [Issue 8 & 9] Master Card Issues (Slides/Video/Text) */
+.chamber-carousel {
+    height: 250px !important;
+    /* Fixed height for consistency */
+}
+
+.chamber-slide img {
+    object-fit: cover !important;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+/* Fix composition text squeeze */
+.comp-card-content,
+.card-text-container {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+/* Ensure video plays inline and fills */
+video {
+    object-fit: cover !important;
+}
+
+/* [Issue 10] Career Finance/Regulatory Overlap */
+.career-subpage-body .career-cards-container {
+    padding-top: 120px !important;
+    /* Clear the navbar */
+    align-items: flex-start !important;
+    /* Prevent vertical center centering pushing content off */
+}
+
+.experience-card {
+    height: auto !important;
+    /* Allow scroll */
+    min-height: 80vh;
+    padding-top: 0 !important;
+    overflow-y: visible !important;
+}
+
+/* Fix accordion overlapping */
+.accordion-card {
+    flex-direction: column !important;
+    padding-bottom: 100px;
+    /* Space for scroll */
+}
+
+/* [Issue 11] Product Page Header */
+.product-header,
+.header-section {
+    height: auto !important;
+    padding: 100px 20px 40px 20px !important;
+    /* Reduced comfortable padding */
+    min-height: 0 !important;
+}
+
+/* [Issue 13] Life Listen Backgrounds */
+/* Remove BG images for listening options on mobile, use grey */
+.life-listen-option:nth-child(1) {
+    background-image: none !important;
+    background-color: #333 !important;
+}
+
+.life-listen-option:nth-child(2) {
+    background-image: none !important;
+    background-color: #444 !important;
+}
+
+.life-listen-option:nth-child(3) {
+    background-image: none !important;
+    background-color: #555 !important;
+}
+
+/* [Issue 14] Move Text Alignment */
+.move-content,
+.move-text {
+    padding: 0 1.5rem !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+/* [Issue 15] Life Main Grid Orientation */
+.life-grid-options {
+    flex-direction: column !important;
+    height: auto !important;
+}
+
+.life-option-card {
+    width: 100% !important;
+    height: 250px !important;
+    /* Fixed height stack */
+}
 
 /* =========================================
    Mobile Refinement: FINAL BATCH (Corrected)
    ========================================= */
 @media screen and (max-width: 768px) {
 
-  /* [Issue 3] Education Images: Fix Height & Positioning */
-  .edu-overview, 
-  .sub-section[style*="height: 200vh"],
-  .master-hero-bg {
-      height: auto !important;
-      min-height: 100vh !important;
-      padding-top: 120px !important;
-      padding-bottom: 50px !important;
-      background-attachment: scroll !important; 
-      background-position: center top !important;
+    /* [Issue 3] Education Images: Fix Height & Positioning */
+    .edu-overview,
+    .sub-section[style*="height: 200vh"],
+    .master-hero-bg {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding-top: 120px !important;
+        padding-bottom: 50px !important;
+        background-attachment: scroll !important;
+        background-position: center top !important;
+    }
+
+    /* [Issue 4] CTA Button Clickability */
+    .cta-button {
+        position: relative !important;
+        z-index: 100 !important;
+        padding: 15px 30px !important;
+        pointer-events: auto !important;
+    }
+
+    /* [Issue 5] Mobile Cards Scroll Peek */
+    .card-scroll-wrapper {
+        padding-right: 25% !important;
+        /* Force space for peek */
+        column-gap: 15px !important;
+    }
+
+    .apple-card {
+        flex: 0 0 85% !important;
+        width: 85% !important;
+        height: auto !important;
+        min-height: 420px !important;
+        /* Ensure height for content */
+    }
+
+    /* [Issue 6 & 7] Fix Modal Content (Dynamic JS Injection overrides) */
+    /* Force all grids inside modals to single column */
+    .modal-content div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Fix spacing in modal sections */
+    .modal-h3 {
+        margin-top: 2rem !important;
+        /* Issue 7 */
+    }
+
+    /* Fix logo spacing */
+    .modal-content img[src*="logo"] {
+        margin-top: 1rem !important;
+    }
+
+    /* [Issue 8] Master Chamber Carousel */
+    .chamber-carousel {
+        height: 300px !important;
+        /* Reduced height from 500px */
+        width: 100% !important;
+    }
+
+    .chamber-img {
+        object-fit: cover !important;
+        height: 100% !important;
+    }
+
+    /* Fix video container black bars */
+    iframe.modal-bg-video,
+    iframe.comp-video-bg {
+        height: 100% !important;
+        min-height: 100% !important;
+    }
+
+    /* [Issue 9] Master Composition Text */
+    .comp-content {
+        padding: 1.5rem !important;
+        /* Reduce from 4rem */
+    }
+
+    .comp-title {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .comp-section {
+        padding: 1rem !important;
+    }
+
+    /* [Issue 10] Career Finance Overlay */
+    .career-subpage-body .career-cards-container {
+        padding-top: 140px !important;
+        /* Explicitly clear fixed nav */
+        display: block !important;
+        /* Remove flex centering */
+    }
+
+    .experience-card {
+        height: auto !important;
+        overflow-y: visible !important;
+        padding-top: 0 !important;
+    }
+
+    .accordion-card {
+        flex-direction: column !important;
+        padding-bottom: 50px !important;
+    }
+
+    /* Fix accordion overlapping headers */
+    .accordion-header {
+        font-size: 1.2rem !important;
+    }
+
+    .company-name-spanning {
+        font-size: 1.8rem !important;
+        margin-top: 0 !important;
+    }
+
+    /* [Issue 11] Product Page Header */
+    .product-card-header {
+        font-size: 1.1rem !important;
+        padding: 1rem !important;
+        white-space: normal !important;
+    }
+
+    .product-snap-section {
+        height: auto !important;
+        padding-top: 100px !important;
+        /* Space for nav */
+    }
+
+    /* [Issue 13] Life Listen: Remove BGs from polygons */
+    .poly-card .poly-bg {
+        display: none !important;
+    }
+
+    .poly-card {
+        clip-path: none !important;
+        width: 100% !important;
+        height: 15vh !important;
+        /* Compact stacking */
+        margin-bottom: 2px !important;
+    }
+
+    /* Apply grey shades (Issue 13 req) */
+    .card-performance {
+        background-color: #333 !important;
+    }
+
+    .card-collaboration {
+        background-color: #444 !important;
+    }
+
+    .card-composition {
+        background-color: #555 !important;
+    }
+
+    /* Fix labels in Listen */
+    .poly-label {
+        transform: translate(-50%, -50%) !important;
+        top: 50% !important;
+        bottom: auto !important;
+        left: 50% !important;
+        font-size: 1.5rem !important;
+    }
+
+    /* [Issue 14] Move Text Alignment */
+    .card-label {
+        transform: none !important;
+        /* Remove skew compensation */
+    }
+
+    .move-card {
+        margin: 0 0 10px 0 !important;
+        border-radius: 12px !important;
+    }
+
+    .move-card-inner {
+        background-position: center !important;
+    }
+
+    /* [Issue 15] Life Main Page Grid */
+    .life-split-section {
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .life-pane {
+        position: relative !important;
+        width: 100% !important;
+        height: 33vh !important;
+        clip-path: none !important;
+        left: 0 !important;
+        top: 0 !important;
+    }
+
+    .life-pane-bg {
+        background-position: center !important;
+        background-size: cover !important;
+    }
+
+    .life-pane-content {
+        left: 50% !important;
+        bottom: 50% !important;
+        transform: translate(-50%, 50%) !important;
+    }
+
+    .life-pane-title {
+        font-size: 2rem !important;
+    }
+
+    /* General Modal Content Sizing */
+    .modal-content {
+        width: 95% !important;
+        padding: 1.5rem !important;
+        max-height: 85vh !important;
+    }
+}
+/* =========================
+   Mobile Patch Extended (14-Point Fix)
+   ========================= */
+@media screen and (max-width: 768px) {
+
+  /* 2. Fix Nav overlap */
+  .navbar {
+    padding: 1rem !important;
+    justify-content: space-between !important;
+  }
+  .nav-links {
+    display: none !important; /* Quick fix for squeeze */
+    gap: 0.5rem !important;
+  }
+  .nav-link { font-size: 0.7rem !important; }
+  .nav-logo { font-size: 1.2rem !important; }
+
+  /* 3. Education Image Position */
+  .edu-overview {
+    background-position: center bottom !important; 
+    align-items: flex-start !important; 
   }
   
-  /* [Issue 4] CTA Button Clickability */
+  /* 4. CTA Button Clickability */
   .cta-button {
-      position: relative !important;
-      z-index: 100 !important;
-      padding: 15px 30px !important;
-      pointer-events: auto !important;
+    position: relative !important; 
+    z-index: 999 !important;
+    padding: 1.2rem 2rem !important; 
   }
 
-  /* [Issue 5] Mobile Cards Scroll Peek */
+  /* 5. Card Scroll Hint (Partial Reveal) */
   .card-scroll-wrapper {
-      padding-right: 25% !important; /* Force space for peek */
-      column-gap: 15px !important;
-  }
-  .apple-card {
-      flex: 0 0 85% !important;
-      width: 85% !important;
-      height: auto !important;
-      min-height: 420px !important; /* Ensure height for content */
+    padding-right: 20% !important; 
+    scroll-padding-right: 20%;
   }
 
-  /* [Issue 6 & 7] Fix Modal Content (Dynamic JS Injection overrides) */
-  /* Force all grids inside modals to single column */
-  .modal-content div[style*="grid-template-columns"] {
-      grid-template-columns: 1fr !important;
+  /* 6. Business Card (Field Innovation) Layout */
+  .modal-row {
+    flex-direction: column !important;
   }
-  /* Fix spacing in modal sections */
+  .modal-text, .modal-img-box {
+    width: 100% !important;
+    margin-top: 1rem !important;
+  }
+  /* Fix label/content ratio */
+  .modal-list-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .modal-list-badge { margin-bottom: 0.5rem !important; }
+
+  /* 7. Event Org Card Spacing */
   .modal-h3 {
-      margin-top: 2rem !important; /* Issue 7 */
-  }
-  /* Fix logo spacing */
-  .modal-content img[src*="logo"] {
-      margin-top: 1rem !important;
+    margin-top: 1.5rem !important; 
+    padding-left: 0.5rem !important;
   }
   
-  /* [Issue 8] Master Chamber Carousel */
+  /* 8. Master Chamber Slides */
   .chamber-carousel {
-      height: 300px !important; /* Reduced height from 500px */
-      width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
   }
   .chamber-img {
-      object-fit: cover !important;
-      height: 100% !important;
-  }
-  /* Fix video container black bars */
-  iframe.modal-bg-video, iframe.comp-video-bg {
-      height: 100% !important;
-      min-height: 100% !important;
+    object-fit: cover !important;
+    height: 100% !important;
   }
 
-  /* [Issue 9] Master Composition Text */
+  /* 9. Composition Card */
   .comp-content {
-      padding: 1.5rem !important; /* Reduce from 4rem */
+    padding: 2rem 1rem !important; 
   }
-  .comp-title {
-      font-size: 2rem !important;
-      line-height: 1.2 !important;
+  .comp-overlay-content {
+    width: 100% !important;
   }
-  .comp-section {
-      padding: 1rem !important;
+  .comp-title, .diagonal-title { white-space: normal !important; }
+  
+  /* 10. Career Subpages (Finance/Reg) */
+  .career-subpage-body {
+    padding-top: 80px !important; 
+    overflow-y: auto !important; 
   }
-
-  /* [Issue 10] Career Finance Overlay */
-  .career-subpage-body .career-cards-container {
-      padding-top: 140px !important; /* Explicitly clear fixed nav */
-      display: block !important; /* Remove flex centering */
+  .card-image-section {
+    display: none !important; 
   }
   .experience-card {
-      height: auto !important;
-      overflow-y: visible !important;
-      padding-top: 0 !important;
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 6rem 1.5rem 2rem !important;
+    display: block !important; 
   }
-  .accordion-card {
-      flex-direction: column !important;
-      padding-bottom: 50px !important;
-  }
-  /* Fix accordion overlapping headers */
-  .accordion-header {
-      font-size: 1.2rem !important;
-  }
-  .company-name-spanning {
-      font-size: 1.8rem !important;
-      margin-top: 0 !important;
-  }
+  .product-snap-section { height: auto !important; min-height: 100vh; }
 
-  /* [Issue 11] Product Page Header */
+  /* 11. Product Craft Header */
   .product-card-header {
-      font-size: 1.1rem !important;
-      padding: 1rem !important;
-      white-space: normal !important;
-  }
-  .product-snap-section {
-      height: auto !important;
-      padding-top: 100px !important; /* Space for nav */
-  }
-  
-  /* [Issue 13] Life Listen: Remove BGs from polygons */
-  .poly-card .poly-bg {
-      display: none !important;
-  }
-  .poly-card {
-     clip-path: none !important;
-     width: 100% !important;
-     height: 15vh !important; /* Compact stacking */
-     margin-bottom: 2px !important;
-  }
-  /* Apply grey shades (Issue 13 req) */
-  .card-performance { background-color: #333 !important; }
-  .card-collaboration { background-color: #444 !important; }
-  .card-composition { background-color: #555 !important; }
-  
-  /* Fix labels in Listen */
-  .poly-label {
-      transform: translate(-50%, -50%) !important;
-      top: 50% !important;
-      bottom: auto !important;
-      left: 50% !important;
-      font-size: 1.5rem !important;
+    font-size: 1rem !important;
+    padding: 1rem !important;
+    min-height: auto !important;
+    max-height: 80px !important; 
   }
 
-  /* [Issue 14] Move Text Alignment */
-  .card-label {
-      transform: none !important; /* Remove skew compensation */
+  /* 12. Life Listen (Grey Backgrounds) */
+  .life-section-bg {
+    background-image: none !important;
+    background-color: #333 !important; 
   }
-  .move-card {
-      margin: 0 0 10px 0 !important;
-      border-radius: 12px !important;
-  }
-  .move-card-inner {
-      background-position: center !important;
-  }
+  .music-item:nth-child(odd) { background-color: #f5f5f5 !important; }
+  .music-item:nth-child(even) { background-color: #e0e0e0 !important; }
 
-  /* [Issue 15] Life Main Page Grid */
-  .life-split-section {
-      height: auto !important;
-      display: flex !important;
-      flex-direction: column !important;
+  /* 13. Life Hub Orientation */
+  .life-hub-grid {
+    flex-direction: column !important;
   }
-  .life-pane {
-      position: relative !important;
-      width: 100% !important;
-      height: 33vh !important;
-      clip-path: none !important;
-      left: 0 !important;
-      top: 0 !important;
+  .life-option-card {
+    width: 100% !important;
+    height: 200px !important; 
+    background-image: none !important;
+    background-color: #ccc !important; 
   }
-  .life-pane-bg {
-      background-position: center !important;
-      background-size: cover !important;
-  }
-  .life-pane-content {
-     left: 50% !important;
-     bottom: 50% !important;
-     transform: translate(-50%, 50%) !important;
-  }
-  .life-pane-title {
-      font-size: 2rem !important;
-  }
-  
-  /* General Modal Content Sizing */
-  .modal-content {
-      width: 95% !important;
-      padding: 1.5rem !important;
-      max-height: 85vh !important;
+  .life-option-card:nth-child(2) { background-color: #bbb !important; }
+  .life-option-card:nth-child(3) { background-color: #aaa !important; }
+
+  /* 14. Life Move Text */
+  .move-text-container {
+    padding: 1rem !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
   }
 }

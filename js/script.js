@@ -17,6 +17,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Language
     const savedLang = localStorage.getItem('siteLang') || 'en';
     setLanguage(savedLang);
+
+    // Mobile Menu Toggle
+    const navLogo = document.querySelector('.nav-logo');
+    const navbar = document.querySelector('.navbar');
+
+    if (navLogo && navbar) {
+        navLogo.addEventListener('click', (e) => {
+            const isHomePage = window.location.pathname.endsWith('index.html') ||
+                window.location.pathname.endsWith('/') ||
+                window.location.pathname === '/personal_website/';
+
+            if (window.innerWidth <= 768 && !isHomePage) {
+                // Prevent navigation to index.html when we just want to toggle menu
+                e.preventDefault();
+                navbar.classList.toggle('menu-open');
+                // stopPropagation to prevent the window click handler from immediately closing it
+                e.stopPropagation();
+            }
+        });
+    }
+
+    // Close menu when clicking outside
+    window.addEventListener('click', (e) => {
+        const navLinks = document.querySelector('.nav-links');
+        if (navbar && navbar.classList.contains('menu-open')) {
+            // If click is not inside the nav-links AND not on the nav-logo, close it
+            const isClickInsideMenu = navLinks && navLinks.contains(e.target);
+            const isClickOnLogo = navLogo && navLogo.contains(e.target);
+
+            if (!isClickInsideMenu && !isClickOnLogo) {
+                navbar.classList.remove('menu-open');
+            }
+        }
+    });
 });
 
 // Assuming window.siteTranslations is loaded from js/translations.js
@@ -24,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function setLanguage(lang) {
     // 1. Update State
     localStorage.setItem('siteLang', lang);
+    document.documentElement.lang = lang;
 
     // 2. Update UI (Selector Active State)
     document.querySelectorAll('.lang-option').forEach(opt => {

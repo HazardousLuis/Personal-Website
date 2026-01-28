@@ -6,7 +6,7 @@ window.siteTranslations = {
             career: "Career",
             projects: "Projects",
             life: "Life",
-            back: "← Back",
+            back: "Back",
             home: "Home",
             overview: "Back to Overview"
         },
@@ -279,6 +279,10 @@ window.siteTranslations = {
                     subtitle: "Kinetic & Travel"
                 },
                 seePage: {
+                    loader: {
+                        title: "Developing Vision",
+                        sub: "Curating light, composition, and time."
+                    },
                     hero: "See",
                     photoTitle: "Photography",
                     photoDesc: "Observing the world as it is. <br><br>Photography is an act of attention—a discipline of noticing light, composition, and the fleeting moments that define our reality.",
@@ -393,7 +397,7 @@ window.siteTranslations = {
                 },
                 careerPages: {
                     common: {
-                        back: "&#8592; Back to Career Keys"
+                        back: "Back"
                     },
                     finance: {
                         title: "Financial & Market Analysis",
@@ -477,7 +481,7 @@ window.siteTranslations = {
             career: "行迹",
             projects: "造物",
             life: "浮生",
-            back: "← 返回",
+            back: "返回",
             home: "首页",
             overview: "返回概览"
         },
@@ -725,7 +729,7 @@ window.siteTranslations = {
         },
         careerPages: {
             common: {
-                back: "&#8592; 返回职业生涯核心点"
+                back: "返回"
             },
             finance: {
                 title: "金融与市场分析",
@@ -828,7 +832,11 @@ window.siteTranslations = {
                 subtitle: "运动 · 行旅"
             },
             seePage: {
-                hero: "观",
+                loader: {
+                    title: "显影中...",
+                    sub: "正在捕捉光影、构图与时间的共鸣"
+                },
+                hero: "See",
                 photoTitle: "摄影",
                 photoDesc: "如是阅世。<br><br>摄影是一种关注的修炼——捕捉光线、构图以及定义我们现实的转瞬即逝。",
                 calligTitle: "书画",

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Preview - Luis Website</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        button.active {
+            background-color: #C5A086;
+            /* Gold accent from main site */
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            /* iPhone X dimension */
+            background-color: white;
+            border: 12px solid #333;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 24px;
+            background-color: #333;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 100;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Mobile Layout Preview</h1>
+
+    <div class="controls">
+        <button onclick="loadPage('index.html', this)" class="active">Home</button>
+        <button onclick="loadPage('education.html', this)">Education</button>
+        <button onclick="loadPage('career.html', this)">Career</button>
+        <button onclick="loadPage('life.html', this)">Life</button>
+        <button onclick="loadPage('projects.html', this)">Projects</button>
+        <button onclick="loadPage('contact.html', this)">Contact</button>
+    </div>
+
+    <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <iframe id="previewFrame" src="index.html"></iframe>
+    </div>
+
+    <script>
+        function loadPage(page, btn) {
+            document.getElementById('previewFrame').src = page;
+
+            // Update active button state
+            document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>

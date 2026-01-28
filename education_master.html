@@ -7,7 +7,8 @@
     <title>Master's Degree - Columbia University</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/image-loader.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -16,7 +17,8 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             background-color: #1a1a1a;
             /* Fallback */
         }
@@ -259,6 +261,18 @@
             text-align: center;
         }
 
+        @media (max-width: 768px) {
+            .chamber-title {
+                font-size: 1.1rem !important;
+                /* Approx half of desktop H3 (usually ~2.2rem or 1.5rem depending on base) */
+            }
+
+            .chamber-keywords {
+                font-size: 0.5rem !important;
+                /* Approx half of 1rem */
+            }
+        }
+
         /* On hover, move content to a more "active" position or scale it */
         .diagonal-item:hover .diagonal-content {
             transform: translate(-50%, 40%) scale(1.05);
@@ -320,8 +334,13 @@
 <body>
     <!-- Simplified Nav (Absolute position to overlay) -->
     <nav class="navbar" style="position: fixed; top: 0; width: 100%; z-index: 99;">
-        <div class="nav-logo">
-            <a href="education.html" style="text-decoration: none; color: inherit;" data-i18n="nav.back">← Back</a>
+        <div class="nav-logo-subpage">
+            <a href="education.html"
+                style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;"
+                data-i18n="nav.back">
+                <span class="back-icon" style="font-size: 1.2em;">←</span>
+                <span class="back-text">Back</span>
+            </a>
         </div>
         <ul class="nav-links">
             <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
@@ -344,125 +363,141 @@
             </div>
             <div class="overview-band">
                 <div class="sub-intro-text"
-                    style="text-align: left; border-left: 3px solid var(--accent-gold); padding-left: 1.5rem; max-width: 800px; margin: 0 auto; position: relative;">
-                    <p style="margin: 0; line-height: 1.6; color: rgba(255,255,255,0.9);"
+                    style="text-align: left; border-left: 3px solid var(--accent-gold); padding-left: 1.5rem; position: relative;">
+                    <p class="edu-page-intro-text" style="margin: 0; line-height: 1.6; color: rgba(255,255,255,0.9);"
                         data-i18n="education.masterPage.intro">
                         <!-- Content loaded dynamically -->
                     </p>
                 </div>
             </div>
-        </section>
-        <section class="sub-section">
-            <h2 class="card-section-title" data-i18n="education.masterPage.cards.title1">Academic Focus</h2>
-            <div class="card-scroll-wrapper">
-                <div class="apple-card" onclick="openModal('focus-1')">
-                    <div class="card-img-top"
-                        style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card1_img.png"
-                            alt="Signal Processing" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="card-hover-overlay">
-                        <p>Inferring meaningful structure from noisy signals through model-based
-                            interpretation.</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title" data-i18n="education.masterPage.cards.c1">Signal Processing &
-                            Interpretation</div>
-                        <div class="card-plus-icon">+</div>
-                    </div>
+    </div>
+    <!-- Mobile Scroll Down Hint -->
+    <div class="scroll-hint-icon scroll-hint-down" style="position: absolute; top: 90vh;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </div>
+    </section>
+    <section class="sub-section" style="position: relative;">
+        <h2 class="card-section-title" data-i18n="education.masterPage.cards.title1">Academic Focus</h2>
+        <div class="card-scroll-wrapper">
+            <div class="apple-card" onclick="openModal('focus-1')">
+                <div class="card-img-top"
+                    style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
+                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card1_img.png"
+                        alt="Signal Processing" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-                <div class="apple-card" onclick="openModal('focus-2')">
-                    <div class="card-img-top"
-                        style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card2_img.jpg"
-                            alt="Physiological Modeling"
-                            style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%;">
-                    </div>
-                    <div class="card-hover-overlay">
-                        <p>Evaluating how modeling assumptions shape physiological validity beyond
-                            automated outputs. </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title" data-i18n="education.masterPage.cards.c2">Physiological Modeling &
-                            Analysis</div>
-                        <div class="card-plus-icon">+</div>
-                    </div>
+                <div class="card-hover-overlay">
+                    <p>Inferring meaningful structure from noisy signals through model-based
+                        interpretation.</p>
                 </div>
-                <div class="apple-card" onclick="openModal('focus-3')">
-                    <div class="card-img-top"
-                        style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_img.jpg"
-                            alt="Financial Modeling" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="card-hover-overlay">
-                        <p>Understanding predictability limits across assets through structure,
-                            regime,
-                            and horizon.</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title" data-i18n="education.masterPage.cards.c3">Financial Modeling &
-                            Prediction</div>
-                        <div class="card-plus-icon">+</div>
-                    </div>
-                </div>
-                <div style="min-width: 5%;"></div>
-            </div>
-        </section>
-        <section class="sub-section" style="padding: 0;">
-            <div class="diagonal-split-container">
-                <div class="diagonal-main-title" data-i18n="education.masterPage.extension.title">Extension Program at
-                    Juilliard School</div>
-                <!-- Left Item: Chamber Music -->
-                <div class="diagonal-item left" onclick="openModal('juilliard-chamber')">
-                    <div class="diagonal-item-bg"
-                        style="background: url('https://personal-website-images.b-cdn.net/master_piano.png') no-repeat center 25% / cover;">
-                    </div>
-                    <div class="diagonal-overlay"></div>
-                    <div class="diagonal-content">
-                        <h2 class="diagonal-title" data-i18n="education.masterPage.extension.leftTitle">Chamber Music
-                        </h2>
-                        <p class="diagonal-subtitle" data-i18n="education.masterPage.extension.leftSub">Performance</p>
-                    </div>
-                </div>
-                <!-- Right Item: Composition -->
-                <div class="diagonal-item right" onclick="openModal('juilliard-composition')">
-                    <div class="diagonal-item-bg"
-                        style="background: url('https://personal-website-images.b-cdn.net/master_composition.jpg') no-repeat center 25% / cover;">
-                    </div>
-                    <div class="diagonal-overlay"></div>
-                    <div class="diagonal-content">
-                        <h2 class="diagonal-title" data-i18n="education.masterPage.extension.rightTitle">Composition
-                        </h2>
-                        <p class="diagonal-subtitle" data-i18n="education.masterPage.extension.rightSub">Evening
-                            Division</p>
-                    </div>
+                <div class="card-body">
+                    <div class="card-title" data-i18n="education.masterPage.cards.c1">Signal Processing &
+                        Interpretation</div>
+                    <div class="card-plus-icon">+</div>
                 </div>
             </div>
-        </section>
-        <section class="sub-section"
-            style="background-image: url('https://personal-website-images.b-cdn.net/master_lastpage_bg.png'); background-size: cover; background-position: center;">
-            <!-- Fallback image if master_img doesn't exist, maybe reuse bachelor or generic -->
-            <!-- Dark Overlay for readability -->
-            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4);">
-            </div>
-            <div class="glass-box"
-                style="z-index: 2; width: 100%; max-width: none; border-radius: 0; padding: 2.5rem 0; position: absolute; bottom: 35%; left: 0; border-left: none; border-right: none; border-bottom: none;">
-                <h2 style="font-family: var(--font-heading); margin-bottom: 1rem; font-size: 2.5rem; color: #e0ad86;"
-                    data-i18n="education.masterPage.footer.title">
-                    Future Outlook </h2>
-                <p style="line-height: 1.6; margin-bottom: 1.5rem; font-size: 1.1rem; color: #fff; text-shadow: none; max-width: 800px; margin-left: auto; margin-right: auto;"
-                    data-i18n="education.masterPage.footer.text">
-                    Continuing the journey...
-                </p>
-                <div class="sub-footer-nav" style="justify-content: center; margin-top: 1.5rem;"><a
-                        href="education.html" class="sub-footer-link" style="color: #fff; opacity: 0.8;"
-                        data-i18n="education.masterPage.footer.back">Back to
-                        Overview</a><span style="opacity: 0.3; color: #fff;">|</span><a href="index.html?skip=true"
-                        class="sub-footer-link" style="color: #fff; opacity: 0.8;"
-                        data-i18n="education.masterPage.footer.home">Home</a>
+            <div class="apple-card" onclick="openModal('focus-2')">
+                <div class="card-img-top"
+                    style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
+                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card2_img.jpg"
+                        alt="Physiological Modeling"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%;">
+                </div>
+                <div class="card-hover-overlay">
+                    <p>Evaluating how modeling assumptions shape physiological validity beyond
+                        automated outputs. </p>
+                </div>
+                <div class="card-body">
+                    <div class="card-title" data-i18n="education.masterPage.cards.c2">Physiological Modeling &
+                        Analysis</div>
+                    <div class="card-plus-icon">+</div>
                 </div>
             </div>
-        </section>
+            <div class="apple-card" onclick="openModal('focus-3')">
+                <div class="card-img-top"
+                    style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
+                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/master_card3_img.jpg"
+                        alt="Financial Modeling" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="card-hover-overlay">
+                    <p>Understanding predictability limits across assets through structure,
+                        regime,
+                        and horizon.</p>
+                </div>
+                <div class="card-body">
+                    <div class="card-title" data-i18n="education.masterPage.cards.c3">Financial Modeling &
+                        Prediction</div>
+                    <div class="card-plus-icon">+</div>
+                </div>
+            </div>
+            <div style="min-width: 5%;"></div>
+        </div>
+        <!-- Horizontal Scroll Hint -->
+        <div class="scroll-hint-icon scroll-hint-right">
+            <svg viewBox="0 0 24 24">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" fill="none" />
+            </svg>
+        </div>
+    </section>
+    <section class="sub-section" style="padding: 0;">
+        <div class="diagonal-split-container">
+            <div class="diagonal-main-title" data-i18n="education.masterPage.extension.title">Extension Program at
+                Juilliard School</div>
+            <!-- Left Item: Chamber Music -->
+            <div class="diagonal-item left" onclick="openModal('juilliard-chamber')">
+                <div class="diagonal-item-bg"
+                    style="background: url('https://personal-website-images.b-cdn.net/master_piano.png') no-repeat center 25% / cover;">
+                </div>
+                <div class="diagonal-overlay"></div>
+                <div class="diagonal-content">
+                    <h2 class="diagonal-title" data-i18n="education.masterPage.extension.leftTitle">Chamber Music
+                    </h2>
+                    <p class="diagonal-subtitle" data-i18n="education.masterPage.extension.leftSub">Performance</p>
+                </div>
+            </div>
+            <!-- Right Item: Composition -->
+            <div class="diagonal-item right" onclick="openModal('juilliard-composition')">
+                <div class="diagonal-item-bg"
+                    style="background: url('https://personal-website-images.b-cdn.net/master_composition.jpg') no-repeat center 25% / cover;">
+                </div>
+                <div class="diagonal-overlay"></div>
+                <div class="diagonal-content">
+                    <h2 class="diagonal-title" data-i18n="education.masterPage.extension.rightTitle">Composition
+                    </h2>
+                    <p class="diagonal-subtitle" data-i18n="education.masterPage.extension.rightSub">Evening
+                        Division</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sub-section"
+        style="background-image: url('https://personal-website-images.b-cdn.net/master_lastpage_bg.png'); background-size: cover; background-position: center;">
+        <!-- Fallback image if master_img doesn't exist, maybe reuse bachelor or generic -->
+        <!-- Dark Overlay for readability -->
+        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4);">
+        </div>
+        <div class="glass-box"
+            style="z-index: 2; width: 100%; max-width: none; border-radius: 0; padding: 2.5rem 0; position: absolute; bottom: 35%; left: 0; border-left: none; border-right: none; border-bottom: none;">
+            <h2 style="font-family: var(--font-heading); margin-bottom: 1rem; font-size: 2.5rem; color: #e0ad86;"
+                data-i18n="education.masterPage.footer.title">
+                Future Outlook </h2>
+            <p class="master-footer-text"
+                style="line-height: 1.6; margin-bottom: 1.5rem; font-size: 1.1rem; color: #fff; text-shadow: none; max-width: 800px; margin-left: auto; margin-right: auto;"
+                data-i18n="education.masterPage.footer.text">
+                Continuing the journey...
+            </p>
+            <div class="sub-footer-nav" style="justify-content: center; margin-top: 1.5rem;"><a href="education.html"
+                    class="sub-footer-link" style="color: #fff; opacity: 0.8;"
+                    data-i18n="education.masterPage.footer.back">Back to
+                    Overview</a><span style="opacity: 0.3; color: #fff;">|</span><a href="index.html?skip=true"
+                    class="sub-footer-link" style="color: #fff; opacity: 0.8;"
+                    data-i18n="education.masterPage.footer.home">Home</a>
+            </div>
+        </div>
+    </section>
     </div>
     <!-- Modals -->
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">

@@ -10,7 +10,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/image-loader.js"></script>
     <style>
         body {
             background-color: #000;
@@ -247,17 +248,30 @@
                 width: 100%;
                 clip-path: none !important;
                 inset: auto;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            .poly-label {
-                left: 2rem !important;
-                bottom: 2rem !important;
-                top: auto !important;
+            .poly-bg {
+                background-size: cover !important;
+                background-position: center !important;
                 transform: none !important;
             }
 
+            /* Fix: Composition image needs to be top-aligned to show the person's head */
+            .card-composition .poly-bg {
+                background-position: center top !important;
+            }
+
+            .poly-label {
+                left: 50% !important;
+                bottom: 50% !important;
+                top: auto !important;
+                transform: translate(-50%, 50%) !important;
+                font-size: 1.8rem !important;
+            }
+
             .poly-card:hover .poly-label {
-                transform: translateX(10px) !important;
+                transform: translate(-50%, 50%) scale(1.1) !important;
             }
         }
 
@@ -297,7 +311,8 @@
         .modal-close {
             position: absolute;
             top: 1.5rem;
-            right: 2rem;
+            right: 1.5rem !important;
+            left: auto !important;
             font-size: 2rem;
             color: #fff;
             cursor: pointer;
@@ -448,7 +463,8 @@
 
             <!-- Concert Image & New Text Section -->
             <div style="margin: 3rem 0; text-align: center;">
-                <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_concert.jpeg" alt="Concert Performance"
+                <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_concert.jpeg"
+                    alt="Concert Performance"
                     style="width: 100%; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); margin-bottom: 2rem;">
             </div>
 
@@ -499,11 +515,13 @@
             <div
                 style="display: flex; gap: 2rem; margin-top: 3rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 250px; max-width: 400px;">
-                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_album01.png" alt="Album Art 1"
+                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_album01.png"
+                        alt="Album Art 1"
                         style="width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 </div>
                 <div style="flex: 1; min-width: 250px; max-width: 400px;">
-                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_album02.png" alt="Album Art 2"
+                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_album02.png"
+                        alt="Album Art 2"
                         style="width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 </div>
             </div>
@@ -545,8 +563,8 @@
                     </div>
 
                     <!-- The QR Image -->
-                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_qr.png" alt="Scan to Listen"
-                        style="width: 180px; height: 180px; display: block; opacity: 0.9;">
+                    <img loading="lazy" src="https://personal-website-images.b-cdn.net/listen_qr.png"
+                        alt="Scan to Listen" style="width: 180px; height: 180px; display: block; opacity: 0.9;">
                 </div>
 
                 <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666; font-style: italic;">

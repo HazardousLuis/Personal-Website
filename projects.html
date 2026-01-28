@@ -209,19 +209,36 @@
         }
 
         /* Responsive */
-        @media (max-width: 100px) {
+        @media (max-width: 768px) {
+            .project-tabs {
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .project-tab {
+                font-size: 1rem;
+            }
+
             .project-logo-container {
-                width: 200px;
-                height: 200px;
+                width: 260px;
+                height: 260px;
             }
 
             .project-title-cn {
-                font-size: 2rem;
+                font-size: 2.1rem !important;
+                /* ~30% reduction from 3rem */
+            }
+
+            .project-title-en {
+                font-size: 0.8rem !important;
+                /* ~30% reduction from 1.1rem */
+                margin-bottom: 1.5rem !important;
             }
 
             .project-desc {
-                font-size: 1.2rem;
-                padding-left: 1rem;
+                font-size: 1.1rem !important;
+                /* ~30% reduction from 1.6rem */
+                padding-left: 1.2rem;
             }
         }
     </style>
@@ -235,6 +252,7 @@
             <a href="index.html?skip=true" style="text-decoration: none; color: inherit;">LUIS</a>
         </div>
         <ul class="nav-links">
+            <li class="mobile-only"><a href="index.html?skip=true" class="nav-link" data-i18n="nav.home">Home</a></li>
             <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
             <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
             <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
@@ -258,8 +276,8 @@
         <!-- Project 1: XiaJourney -->
         <div id="xia" class="project-content active">
             <div class="project-logo-container">
-                <img loading="lazy" src="https://personal-website-images.b-cdn.net/project_xiajourney_logo.jpg" alt="XiaJourney Logo"
-                    class="project-logo-img">
+                <img loading="lazy" src="https://personal-website-images.b-cdn.net/project_xiajourney_logo.jpg"
+                    alt="XiaJourney Logo" class="project-logo-img">
             </div>
 
             <div class="project-text-block">
@@ -275,8 +293,8 @@
         <!-- Project 2: GoldenCarp -->
         <div id="carp" class="project-content">
             <div class="project-logo-container">
-                <img loading="lazy" src="https://personal-website-images.b-cdn.net/project_goldencarp_logo.jpg" alt="GoldenCarp Logo"
-                    class="project-logo-img">
+                <img loading="lazy" src="https://personal-website-images.b-cdn.net/project_goldencarp_logo.jpg"
+                    alt="GoldenCarp Logo" class="project-logo-img">
             </div>
 
             <div class="project-text-block">
@@ -293,7 +311,8 @@
 
     <!-- Script -->
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/image-loader.js"></script>
     <script>
         function updateArrow() {
             // Find ACTIVE tab (Current Selection)
@@ -331,7 +350,11 @@
         }
 
         // Init arrow position
-        window.addEventListener('load', updateArrow);
+        window.addEventListener('load', () => {
+            updateArrow(); // Immediate call
+            setTimeout(updateArrow, 100); // Short delay for initial DOM stabilization
+            setTimeout(updateArrow, 500); // 500ms delay to catch the 300ms translation timeout in script.js
+        });
         window.addEventListener('resize', updateArrow);
     </script>
 </body>

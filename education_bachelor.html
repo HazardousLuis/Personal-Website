@@ -7,7 +7,8 @@
     <title>Bachelor's Degree - Sun Yat-sen University</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/image-loader.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -16,7 +17,8 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Let scroll container handle scroll */
@@ -62,6 +64,27 @@
             flex-shrink: 0;
             margin-right: 10px;
         }
+
+        /* --- Master-Style Hero Overrides --- */
+        .bachelor-hero-bg {
+            /* Dark gradient at top for white text, fading to light at bottom for seamless transition */
+            background-image: linear-gradient(to bottom,
+                    rgba(26, 26, 26, 0.9) 0%,
+                    rgba(26, 26, 26, 0.6) 20%,
+                    rgba(26, 26, 26, 0) 50%,
+                    rgba(250, 249, 247, 0.8) 90%,
+                    #faf9f7 100%),
+                url('https://personal-website-images.b-cdn.net/SYSU_campus_img.png');
+            background-size: cover;
+            background-position: center top;
+        }
+
+        .sub-hero-title,
+        .sub-meta {
+            color: #ffffff !important;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            /* Slight shadow for readability */
+        }
     </style>
 </head>
 
@@ -69,8 +92,13 @@
 
     <!-- Simplified Nav (Absolute position to overlay) -->
     <nav class="navbar" style="position: fixed; top: 0; width: 100%; z-index: 99;">
-        <div class="nav-logo">
-            <a href="education.html" style="text-decoration: none; color: inherit;" data-i18n="nav.back">← Back</a>
+        <div class="nav-logo-subpage">
+            <a href="education.html"
+                style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;"
+                data-i18n="nav.back">
+                <span class="back-icon" style="font-size: 1.2em;">←</span>
+                <span class="back-text">Back</span>
+            </a>
         </div>
         <ul class="nav-links">
             <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
@@ -85,28 +113,40 @@
     <div class="sub-scroll-container">
 
         <!-- Section 1 & 2 Merged: Hero + Intro -->
-        <section class="sub-section edu-overview"
+        <section class="sub-section bachelor-hero-bg"
             style="height: 200vh; justify-content: space-between; padding-top: 15vh; padding-bottom: 20vh;">
-
-            <!-- Top: Hero Content -->
             <div style="z-index: 2; text-align: center;">
                 <h1 class="sub-hero-title" data-i18n="education.bachelorPage.heroTitle">Bachelor of Engineering</h1>
                 <p class="sub-meta" data-i18n="education.bachelorPage.school">Sun Yat-sen University · 2020–2024</p>
+                <div style="margin-top: 1rem; font-family: var(--font-heading); font-style: italic; opacity: 0.7;"
+                    data-i18n="education.bachelorPage.major">
+                    Biomedical Engineering</div>
+
             </div>
 
             <!-- Bottom: Intro Text Band -->
             <div class="overview-band">
                 <div class="sub-intro-text"
-                    style="text-align: left; border-left: 3px solid #C5A086; padding-left: 1.5rem; max-width: 800px; margin: 0 auto; position: relative;">
-                    <p style="margin: 0; line-height: 1.6; color: #ffffff;" data-i18n="education.bachelorPage.intro">
+                    style="text-align: left; border-left: 3px solid var(--accent-gold); padding-left: 1.5rem; position: relative;">
+                    <p class="edu-page-intro-text" style="margin: 0; line-height: 1.6; color: rgba(255,255,255,0.9);"
+                        data-i18n="education.bachelorPage.intro">
                         <!-- Content loaded dynamically -->
                     </p>
                 </div>
             </div>
+
+            <!-- Mobile Scroll Down Hint -->
+            <div class="scroll-hint-icon scroll-hint-down" style="position: absolute; top: 90vh; bottom: auto;">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
         </section>
 
         <!-- Section 3: Academic Focus (Cards) -->
-        <section class="sub-section">
+        <!-- Section 3: Academic Focus (Cards) -->
+        <section class="sub-section" style="position: relative;">
             <h2 class="card-section-title" data-i18n="education.bachelorPage.cards.title1">Academic Focus
             </h2>
             <div class="card-scroll-wrapper">
@@ -114,8 +154,8 @@
                 <div class="apple-card" onclick="openModal('academic-1')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/BCI_card_img.jpg" alt="BCI Interfaces"
-                            style="width: 100%; height: 100%; object-fit: cover;">
+                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/BCI_card_img.jpg"
+                            alt="BCI Interfaces" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
                         <div class="card-title" data-i18n="education.bachelorPage.cards.c1">Brain-Computer Interfaces
@@ -127,7 +167,8 @@
                 <div class="apple-card" onclick="openModal('academic-2')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/MedicalElectronic_card_img.jpeg"
+                        <img loading="lazy"
+                            src="https://personal-website-images.b-cdn.net/MedicalElectronic_card_img.jpeg"
                             alt="Medical Electronics" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -139,7 +180,8 @@
                 <div class="apple-card" onclick="openModal('academic-3')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/PhysiologicalChemical_card_img.jpeg"
+                        <img loading="lazy"
+                            src="https://personal-website-images.b-cdn.net/PhysiologicalChemical_card_img.jpeg"
                             alt="Physiological Analysis" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -150,10 +192,18 @@
                 <!-- Spacer for scroll -->
                 <div style="min-width: 5%;"></div>
             </div>
+            <!-- Horizontal Scroll Hint -->
+            <div class="scroll-hint-icon scroll-hint-right">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" fill="none" />
+                </svg>
+            </div>
         </section>
 
         <!-- Section 4: Key Experiences (Cards) -->
-        <section class="sub-section">
+        <!-- Section 4: Key Experiences (Cards) -->
+        <section class="sub-section" style="position: relative;">
             <h2 class="card-section-title" data-i18n="education.bachelorPage.cards.title2">Key
                 Experiences</h2>
             <div class="card-scroll-wrapper">
@@ -161,7 +211,8 @@
                 <div class="apple-card" onclick="openModal('exp-1')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/PianoChoralClubPresident_img.jpg"
+                        <img loading="lazy"
+                            src="https://personal-website-images.b-cdn.net/PianoChoralClubPresident_img.jpg"
                             alt="Piano Club" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -174,7 +225,8 @@
                 <div class="apple-card" onclick="openModal('exp-2')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/SocialEntrepreneurship_card_img.jpg"
+                        <img loading="lazy"
+                            src="https://personal-website-images.b-cdn.net/SocialEntrepreneurship_card_img.jpg"
                             alt="Enactus" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
@@ -187,8 +239,9 @@
                 <div class="apple-card" onclick="openModal('exp-3')">
                     <div class="card-img-top"
                         style="display: flex; align-items: center; justify-content: center; background: #f0f0f0; padding: 0;">
-                        <img loading="lazy" src="https://personal-website-images.b-cdn.net/EventsOrganisation_card_img.jpg"
-                            alt="Events" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img loading="lazy"
+                            src="https://personal-website-images.b-cdn.net/EventsOrganisation_card_img.jpg" alt="Events"
+                            style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="card-body">
                         <div class="card-title" data-i18n="education.bachelorPage.cards.c6">Events Organisation</div>
@@ -197,6 +250,13 @@
                 </div>
                 <!-- Spacer for scroll -->
                 <div style="min-width: 5%;"></div>
+            </div>
+            <!-- Horizontal Scroll Hint -->
+            <div class="scroll-hint-icon scroll-hint-right">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" fill="none" />
+                </svg>
             </div>
         </section>
 
@@ -212,7 +272,8 @@
                     data-i18n="education.bachelorPage.footer.title">
                     Growth & Reflection
                 </h2>
-                <p style="line-height: 1.8; margin-bottom: 2rem; font-size: 1.25rem; color: #ffffff; text-shadow: none; max-width: 800px; margin-left: auto; margin-right: auto;"
+                <p class="bachelor-footer-text"
+                    style="line-height: 1.8; margin-bottom: 2rem; font-size: 1.25rem; color: #ffffff; text-shadow: none; max-width: 800px; margin-left: auto; margin-right: auto;"
                     data-i18n="education.bachelorPage.footer.text">
                     Looking back...
                 </p>

@@ -61,25 +61,72 @@
             line-height: 1.4;
             font-style: italic;
             opacity: 0;
-            animation: fadeInSlow 1.5s ease forwards 0.5s;
+            transform: translateY(20px);
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: opacity 1.5s ease, transform 1.5s ease;
         }
 
-        .scroll-hint {
+        .life-hero-text.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Page Loader --- */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader-bg-blur {
             position: absolute;
-            bottom: 2rem;
-            color: #fff;
-            animation: bounce 2s infinite;
-            font-size: 1.5rem;
-            opacity: 0.8;
-            cursor: pointer;
+            inset: 0;
+            background: url('https://personal-website-images.b-cdn.net/life_hero.jpg') no-repeat center center/cover;
+            filter: blur(30px) brightness(0.5);
+            transform: scale(1.1);
         }
 
-        @keyframes fadeInSlow {
+        .loader-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .loader-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .loader-text {
+            font-family: var(--font-body);
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        @keyframes spin {
             to {
-                opacity: 1;
-                transform: translateY(0);
+                transform: rotate(360deg);
             }
+        }
+
+        .loading-active .sub-scroll-container,
+        .loading-active .life-hero,
+        .loading-active .life-split-section {
+            filter: blur(20px);
+            transition: filter 1s ease;
         }
 
         /* Section 2: The Tri-Split */
@@ -238,13 +285,23 @@
     </style>
 </head>
 
-<body>
+<body class="loading-active">
+
+    <!-- Page Loader -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-bg-blur"></div>
+        <div class="loader-content">
+            <div class="loader-circle"></div>
+            <div class="loader-text" data-i18n="life.loader">Loading Harmony...</div>
+        </div>
+    </div>
 
     <nav class="navbar">
         <div class="nav-logo">
             <a href="index.html?skip=true" style="text-decoration: none;">LUIS</a>
         </div>
         <ul class="nav-links">
+            <li class="mobile-only"><a href="index.html?skip=true" class="nav-link" data-i18n="nav.home">Home</a></li>
             <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
             <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
             <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
@@ -301,31 +358,66 @@
     </section>
 
     <script src="js/translations.js"></script>
-    <script src="js/script.js"></script><script src="js/image-loader.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/image-loader.js"></script>
     <script>
-        // Intro Logic
-        document.addEventListener('DOMContentLoaded', () => {
+        // Precise Preloading Logic (ensures no partial/top-to-bottom loading)
+        const imagesToLoad = [
+            'https://personal-website-images.b-cdn.net/life_hero.jpg',
+            'https://personal-website-images.b-cdn.net/life_see.jpg',
+            'https://personal-website-images.b-cdn.net/life_listen.jpg',
+            'https://personal-website-images.b-cdn.net/life_move.jpg'
+        ];
+
+        function startIntroSequence() {
+            const loader = document.getElementById('page-loader');
+            const introText = document.querySelector('.life-hero-text');
+            const body = document.body;
+
+            // 1. Hide Loader
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.visibility = 'hidden';
+            }, 800);
+            body.classList.remove('loading-active');
+
+            // 2. Start Hero Animation (starts while loader is fading)
+            setTimeout(() => {
+                introText.classList.add('animate');
+            }, 200);
+
+            // 3. Slide Up (optimized duration after load)
             const intro = document.getElementById('lifeIntro');
-            const hasPlayed = sessionStorage.getItem('lifeIntroPlayed');
-
-            if (hasPlayed) {
-                // Skip intro
-                intro.style.display = 'none';
-            } else {
-                // Play intro
-                // 1. Wait a bit for reading
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                intro.style.transform = 'translateY(-100%)';
                 setTimeout(() => {
-                    // 2. Animate out
-                    intro.style.opacity = '0';
-                    intro.style.transform = 'translateY(-100%)'; // Slide up curtain effect
+                    intro.style.display = 'none';
+                    sessionStorage.setItem('lifeIntroPlayed', 'true');
+                }, 1500);
+            }, 2800); // Shortened duration to 2.8s total stay
+        }
 
-                    // 3. Remove from DOM after anim
-                    setTimeout(() => {
-                        intro.style.display = 'none';
-                        sessionStorage.setItem('lifeIntroPlayed', 'true');
-                    }, 1500); // Match CSS transition
-                }, 2000); // 2 seconds display time
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Using modern decode() to ensure images are fully rendered in memory
+            const preloadImage = (src) => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = () => {
+                        // decode() returns a promise that resolves when image is fully ready to display
+                        img.decode().then(resolve).catch(resolve);
+                    };
+                    img.onerror = resolve; // Continue even on error
+                });
+            };
+
+            const preloaderTimeout = setTimeout(startIntroSequence, 5000); // 5s absolute cutoff
+
+            Promise.all(imagesToLoad.map(preloadImage)).then(() => {
+                clearTimeout(preloaderTimeout);
+                startIntroSequence();
+            });
         });
 
         function openGallery(type) {

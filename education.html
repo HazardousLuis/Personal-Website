@@ -29,6 +29,14 @@
             /* Smooth micro-adjustments */
         }
 
+        /* Mobile Scroll Fix: Use proximity or disable snap to allow reading tall content */
+        @media (max-width: 768px) {
+            .edu-scroll-container {
+                scroll-snap-type: y proximity;
+                /* proximity is less aggressive than mandatory, allowing scrolling to bottom of tall cards */
+            }
+        }
+
         /* 
            Crucial: Make slides and inner containers transparent 
            so they show the scroll-container's changing background.

@@ -144,6 +144,17 @@ img {
     }
 }
 
+/* Visibility Utilities */
+.mobile-only {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block !important;
+    }
+}
+
 /* Layout Utilities */
 .container {
     max-width: 1200px;
@@ -156,24 +167,28 @@ img {
 }
 
 /* Navigation */
+/* Base Navbar (Desktop Default) */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: var(--spacing-md) 0;
+    padding: 1rem 2rem;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row !important;
+    /* STRICTLY ROW */
+    justify-content: space-between !important;
     align-items: center;
+    flex-wrap: nowrap !important;
     z-index: 1000;
     mix-blend-mode: normal;
-    /* Disable difference mode to ensure true gold color */
+    background: transparent !important;
     color: var(--bg-color);
-    /* This might need adjustment if navbar relies on difference */
 }
 
 /* Navbar Scrim - optional if text readability is issue, but let's stick to user request */
 
-.nav-logo {
+.nav-logo,
+.nav-logo-subpage {
     font-family: var(--font-heading);
     font-style: italic;
     font-size: 1.5rem;
@@ -198,11 +213,82 @@ img {
 }
 
 /* Enhanced Interaction on Hover */
-.nav-logo:hover {
-    transform: scale(1.1);
-    text-shadow: 0 0 15px rgba(197, 160, 134, 0.8), 0 0 30px rgba(197, 160, 134, 0.4);
+.nav-logo:hover,
+.nav-logo-subpage:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 15px rgba(197, 160, 134, 0.8);
     animation: shine 2s linear infinite;
-    /* Speed up shimmer */
+}
+
+/* Clever Home Hint - Permanently visible sub-label */
+.nav-logo::after {
+    content: 'HOME';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--accent-gold);
+    opacity: 0.5;
+    /* Subtle but visible */
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+    -webkit-text-fill-color: var(--accent-gold);
+    white-space: nowrap;
+}
+
+/* Chinese Translation for Home Label */
+html[lang="cn"] .nav-logo::after {
+    content: '主页';
+    font-size: 0.65rem;
+    /* Slightly larger for Chinese characters */
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+    .nav-logo::after {
+        content: 'MENU' !important;
+    }
+
+    /* Hide menu label on home page as it has no menu */
+    .home-page .nav-logo::after {
+        display: none !important;
+    }
+
+    html[lang="cn"] .nav-logo::after {
+        content: '菜单' !important;
+    }
+}
+
+.nav-logo:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-1px);
+}
+
+/* Subtle breathing effect on load to draw attention to the home button */
+@keyframes logoPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.navbar:not(.hero-visible) .nav-logo {
+    animation: logoPulse 3s ease-in-out infinite;
 }
 
 @keyframes shine {
@@ -213,9 +299,12 @@ img {
 
 .nav-links {
     display: flex;
-    gap: var(--spacing-md);
-    padding-right: var(--spacing-md);
+    flex-direction: row;
+    gap: 2rem;
+    padding-right: 0;
+    width: auto;
     list-style: none;
+    margin: 0;
 }
 
 .nav-link {
@@ -1291,8 +1380,12 @@ body {
     }
 
     .split-image-container {
-        height: 40vh;
+        height: 80vh;
         flex: none;
+    }
+
+    .split-image {
+        object-position: 80% 50%;
     }
 
     .split-text-container {
@@ -1318,18 +1411,18 @@ body {
    Sub-Page Layout (Vertical Scroll Snap)
    ========================================= */
 .sub-scroll-container {
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
     background-color: #faf9f7;
     /* Consistent light theme */
 }
 
 .sub-section {
-    height: 100vh;
+    min-height: 100vh;
+    /* Changed from height: 100vh to min-height to allow content to grow */
     width: 100%;
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; - Removed for normal scrolling */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1400,18 +1493,19 @@ body {
 }
 
 .overview-band {
-    width: 70%;
-    padding: 1rem 2rem;
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(6px);
+    width: 90%;
+    max-width: 800px;
+    padding: 1.5rem 2.5rem;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 20px;
-    /* Rounded corners as requested */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     position: relative;
-    z-index: 2;
-    /* Sit on top of overlay */
+    z-index: 5;
 }
 
 /* Force light text inside the dark band */
@@ -2439,90 +2533,691 @@ body {
     transform: translateY(0);
 }
 
-/* Make Modal Close Button Sticky */
-.modal-close {
-    position: sticky !important;
-    top: 1rem !important;
-    float: right !important;
-    z-index: 9999 !important;
-}
+
+
 /* =========================
    Mobile Patch (<= 768px)
    Safe band-aid for all pages
    ========================= */
 @media screen and (max-width: 768px) {
 
-  /* Prevent horizontal overflow */
-  html, body { overflow-x: hidden; }
+    /* Prevent horizontal overflow */
+    html,
+    body {
+        overflow-x: hidden;
+    }
 
-  /* ---------- Typography (targeted) ---------- */
-  .hero-title { font-size: 2.2rem !important; line-height: 1.15 !important; }
-  .hero-subtitle { font-size: 1rem !important; line-height: 1.5 !important; }
-  h1 { font-size: 1.8rem; line-height: 1.2; }
-  h2 { font-size: 1.35rem; line-height: 1.25; }
-  p { font-size: 1rem; line-height: 1.6; }
+    /* ---------- Typography (targeted) ---------- */
+    .hero-title {
+        font-size: 2.2rem !important;
+        line-height: 1.15 !important;
+    }
 
-  /* ---------- Hub / Index cards ---------- */
-  .hub-grid {
-    padding: 1rem !important;
-    gap: 16px !important;
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-  }
+    .hero-subtitle {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
 
-  .hub-card {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: auto !important;
-    min-height: 250px !important;
-    margin: 0 0 1.5rem 0 !important;
-  }
+    h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
 
-  /* Make center content visible on mobile */
-  .hub-card-center {
-    opacity: 1 !important;
-    transform: none !important;
-    pointer-events: auto !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
+    h2 {
+        font-size: 1.35rem;
+        line-height: 1.25;
+    }
 
-  .hub-card:hover .hub-card-center {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
 
-  /* ---------- Split layout (education/detail pages) ---------- */
-  .split-layout {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
-  }
-  .split-left, .split-right {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
+    /* ---------- Hub / Index cards ---------- */
+    .hub-grid {
+        padding: 1rem !important;
+        gap: 16px !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+    }
 
-  /* ---------- 100vh clipping fix ---------- */
-  .edu-slide, .full-screen, .hero {
-    height: auto !important;
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
-  }
+    .hub-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+        min-height: 250px !important;
+        margin: 0 0 1.5rem 0 !important;
+    }
 
-  /* ---------- Galleries (life page) ---------- */
-  .gallery-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
+    /* Make center content visible on mobile */
+    .hub-card-center {
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
 
-  /* Images/Video */
-  img, video {
-    max-width: 100% !important;
-    height: auto !important;
-  }
+    .hub-card:hover .hub-card-center {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* ---------- Split layout (education/detail pages) ---------- */
+    .split-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    .split-left,
+    .split-right {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* ---------- 100vh clipping fix ---------- */
+    .edu-slide,
+    .full-screen,
+    .hero {
+        height: auto !important;
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
+    }
+
+    /* ---------- Galleries (life page) ---------- */
+    .gallery-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Images/Video */
+    img,
+    video {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* ---------- Career 3-Pane Split (Career page mobile) ---------- */
+    .career-split-container {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+    }
+
+    .career-item {
+        position: relative !important;
+        width: 100% !important;
+        height: 33.33% !important;
+        clip-path: none !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        z-index: 1 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .career-item-bg {
+        filter: none !important;
+        /* Grayscale removed */
+        opacity: 1 !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    .career-overlay {
+        background: rgba(0, 0, 0, 0.4) !important;
+        /* Constant overlay for readability */
+    }
+
+    .career-content {
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90% !important;
+        text-align: center !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    .career-title {
+        font-size: 1.6rem !important;
+        /* Slightly smaller for mobile */
+        margin-bottom: 0.2rem !important;
+    }
+
+    .career-subtitle {
+        font-size: 0.75rem !important;
+        display: block !important;
+        opacity: 0.8 !important;
+    }
+
+    .career-indicator {
+        margin-top: 0.5rem !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* ---------- Life 3-Pane Split (Life page mobile) ---------- */
+    .life-split-section {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+        background-color: #000;
+    }
+
+    .life-pane {
+        position: relative !important;
+        width: 100% !important;
+        height: 33.33% !important;
+        clip-path: none !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        z-index: 1 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .life-pane-bg {
+        transform: none !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    .life-pane-overlay {
+        background: rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .life-pane-content {
+        left: 50% !important;
+        bottom: 20% !important;
+        transform: translateX(-50%) !important;
+        text-align: center !important;
+        width: 90% !important;
+        pointer-events: auto !important;
+    }
+
+    .life-pane-title {
+        font-size: 2.2rem !important;
+        margin: 0 !important;
+        color: #fff !important;
+    }
+
+    .life-pane-subtitle {
+        opacity: 0.9 !important;
+        transform: none !important;
+        font-size: 0.85rem !important;
+        display: block !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+}
+
+
+/* =========================
+   Mobile Patch Extended (14-Point Fix) - CORRECTLY WRAPPED
+   ========================= */
+@media screen and (max-width: 768px) {
+
+    /* 2. Fix Nav overlap */
+    .navbar {
+        padding: 1rem !important;
+        justify-content: space-between !important;
+        flex-direction: column !important;
+        /* Base column to allow stacking */
+        height: auto !important;
+        /* Default solid for subpages, BUT we need transparency for home. */
+        /* Since CSS doesn't know "Home", we rely on the fact that Home usually has darker hero. */
+        /* Actually, let's keep it solid for menu open state, or universally solid on mobile for readability? */
+        /* User wants subpages to have menu. Home has NO menu. */
+        /* So for Home, we can keep transparency if we want, or just stick to solid if it looks cleaner. */
+        /* Let's set a default, but handle Home specific via JS class if needed or just let it be white. */
+        /* Per "Index logo no popup", index is just a logo. Transparents bg is nicer there. */
+        /* User explicitly requested to remove the white strip behind the logo */
+        background: transparent !important;
+    }
+
+    /* SPECIAL: If body has "home-page" class or update JS to add class for home? */
+    /* Alternatively, rely on the fact that we won't toggle menu on home. */
+
+    /* SPECIAL: Keep Home Page Transparent on Mobile since no menu */
+    .home-page .navbar {
+        background: transparent !important;
+    }
+
+    .navbar .nav-logo {
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        /* Indicate clickable */
+        z-index: 1001;
+        /* Above menu */
+    }
+
+    /* Subpage Back Button Mobile Styling */
+    .navbar .nav-logo-subpage {
+        margin-bottom: 0 !important;
+        padding-left: 1rem !important;
+        width: auto !important;
+        text-align: left !important;
+        z-index: 1001;
+        align-self: flex-start;
+        /* Ensure it stays left */
+    }
+
+    .nav-logo-subpage a {
+        background: transparent;
+        backdrop-filter: none;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        display: inline-flex !important;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-logo-subpage .back-text {
+        font-size: 0.63rem;
+        font-family: var(--font-body);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .nav-logo-subpage .back-icon {
+        font-size: 0.84em !important;
+    }
+
+    .navbar .nav-links {
+        display: none !important;
+        flex-direction: column;
+        width: auto !important;
+        min-width: 200px;
+        margin: 1rem auto;
+        gap: 1.5rem !important;
+        padding: 2rem 2.5rem !important;
+        align-items: center;
+
+        /* Glassmorphism Effect */
+        background: rgba(10, 10, 10, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+        /* Animation setup */
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Sub-page Navigation: Force hide links and show clean back button on mobile */
+    .subpage-nav .nav-links,
+    .navbar:has(.nav-logo-subpage) .nav-links {
+        display: none !important;
+    }
+
+    .subpage-nav,
+    .navbar:has(.nav-logo-subpage) {
+        flex-direction: row !important;
+        /* Keep title and back button on same line */
+        justify-content: space-between !important;
+        padding: 2.5rem 1rem 1rem 1rem !important;
+        /* Moved down by approx 1 line */
+        pointer-events: auto !important;
+        /* Ensure it's clickable */
+    }
+
+    .subpage-nav .subpage-title {
+        font-size: 1.2rem !important;
+        max-width: 70%;
+    }
+
+    .subpage-nav .back-link,
+    .nav-logo-subpage a {
+        font-size: 0.9rem !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    /* Remove arrows if any hardcoded ones persist on mobile */
+    .nav-logo-subpage .back-icon,
+    .subpage-nav .back-link::before,
+    .nav-logo-subpage a::before,
+    .nav-logo-subpage span:not(.back-text) {
+        display: none !important;
+    }
+
+    /* Force the back button to show ONLY text on mobile */
+    .nav-logo-subpage span.back-icon {
+        display: none !important;
+    }
+
+    /* Sub-page Specific: Ensure the back button is just text */
+    .nav-logo-subpage a .back-text {
+        font-size: 0.9rem !important;
+    }
+
+    /* Active state for menu toggle */
+    .navbar.menu-open .nav-links {
+        display: flex !important;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .navbar.menu-open .nav-logo {
+        /* Optional: Change logo style when open? User said "Replace", but usually we just expand below */
+        /* If user wants total replacement, we hide logo? Let's keep logo as "Close" anchor for now or just toggle */
+    }
+
+    /* 3. Education Image Position & Layout */
+    .edu-overview {
+        background-position: center bottom !important;
+        align-items: flex-start !important;
+        /* This aligns children to left, so specific children need auto margins if center is desired */
+        padding-bottom: 50% !important;
+        /* More space for background image effectively? */
+    }
+
+    /* Fix: Center the frosted text box */
+    .overview-band {
+        width: 90% !important;
+        margin: 0 auto !important;
+        /* Force center alignment despite parent flex-start */
+        align-self: center !important;
+        /* Overrides align-items: flex-start from parent */
+    }
+
+    /* 4. CTA Button Clickability */
+    .cta-button {
+        position: relative !important;
+        z-index: 999 !important;
+        padding: 1.2rem 2rem !important;
+    }
+
+    /* 5. Card Scroll Hint (Partial Reveal) */
+    .card-scroll-wrapper {
+        padding-right: 20% !important;
+        scroll-padding-right: 20%;
+    }
+
+    /* 6. Business Card (Field Innovation) Layout */
+    .modal-row {
+        flex-direction: column !important;
+    }
+
+    .modal-text,
+    .modal-img-box {
+        width: 100% !important;
+        margin-top: 1rem !important;
+    }
+
+    /* Fix label/content ratio */
+    .modal-list-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .modal-list-badge {
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* 7. Event Org Card Spacing */
+    .modal-h3 {
+        margin-top: 1.5rem !important;
+        padding-left: 0.5rem !important;
+    }
+
+    /* 8. Master Chamber Slides */
+    .chamber-carousel {
+        height: auto !important;
+        aspect-ratio: 16/9 !important;
+    }
+
+    .chamber-img {
+        object-fit: cover !important;
+        height: 100% !important;
+    }
+
+    /* 9. Composition Card */
+    .comp-content {
+        padding: 2rem 1rem !important;
+    }
+
+    .comp-overlay-content {
+        width: 100% !important;
+    }
+
+    .comp-title,
+    .diagonal-title {
+        white-space: normal !important;
+    }
+
+    /* 10. Career Subpages (Finance/Reg) */
+    .career-subpage-body {
+        padding-top: 80px !important;
+        overflow-y: auto !important;
+    }
+
+    .card-image-section {
+        display: none !important;
+    }
+
+    .experience-card {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 6rem 1.5rem 2rem !important;
+        display: block !important;
+    }
+
+    .product-snap-section {
+        height: auto !important;
+        min-height: 100vh;
+    }
+
+    /* 11. Product Craft Header */
+    .product-card-header {
+        font-size: 1rem !important;
+        padding: 1rem !important;
+        min-height: auto !important;
+        max-height: 80px !important;
+    }
+
+
+    /* 12. Life Listen (Grey Backgrounds) */
+    .life-section-bg {
+        background-image: none !important;
+        background-color: #333 !important;
+    }
+
+    .music-item:nth-child(odd) {
+        background-color: #f5f5f5 !important;
+    }
+
+    .music-item:nth-child(even) {
+        background-color: #e0e0e0 !important;
+    }
+
+    /* 13. Life Hub Orientation */
+    .life-hub-grid {
+        flex-direction: column !important;
+    }
+
+    .life-option-card {
+        width: 100% !important;
+        height: 200px !important;
+        background-image: none !important;
+        background-color: #ccc !important;
+    }
+
+    .life-option-card:nth-child(2) {
+        background-color: #bbb !important;
+    }
+
+    .life-option-card:nth-child(3) {
+        background-color: #aaa !important;
+    }
+
+    /* 14. Life Move Text */
+    .move-text-container {
+        padding: 1rem !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+}
+
+/* =========================
+   Desktop Navbar Enforcement (Final Override)
+   ========================= */
+@media screen and (min-width: 769px) {
+    .navbar {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        position: fixed !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 1rem 2rem !important;
+        background: transparent !important;
+    }
+
+    .nav-logo {
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;
+        width: auto !important;
+    }
+
+    .nav-links {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: flex-end !important;
+        width: auto !important;
+        gap: 2rem !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* Global Scroll Hints (Hidden on Desktop) */
+.scroll-hint-icon {
+    display: none;
+}
+
+/* Mobile Scroll Hints */
+@media (max-width: 768px) {
+    .scroll-hint-icon {
+        display: block;
+        position: absolute;
+        z-index: 10;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 2rem;
+        pointer-events: none;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+
+    .scroll-hint-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Vertical Scroll Hint (Down) */
+    .scroll-hint-down {
+        bottom: 120px;
+        /* Positioned above the bottom edge */
+        left: 50%;
+        transform: translateX(-50%);
+        animation-name: bounce-down;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Horizontal Scroll Hint (Right) */
+    .scroll-hint-right {
+        right: 15px;
+        top: 50%;
+        /* Vertically centered relative to parent container */
+        transform: translateY(-50%);
+        animation-name: bounce-right;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .scroll-hint-right svg {
+        width: 24px;
+        height: 24px;
+        fill: #333;
+    }
+}
+
+@keyframes bounce-down {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(5px);
+    }
+}
+
+@keyframes bounce-right {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(-50%) translateX(0);
+    }
+
+    40% {
+        transform: translateY(-50%) translateX(10px);
+    }
+
+    60% {
+        transform: translateY(-50%) translateX(5px);
+    }
+}
+
+/* Reduce font size for Bachelor/Master footer and intro text on mobile to reduce box height */
+@media (max-width: 768px) {
+
+    .bachelor-footer-text,
+    .master-footer-text,
+    .edu-page-intro-text {
+        font-size: 0.875rem !important;
+        /* 30% reduction from 1.25rem/1.1rem/1rem */
+    }
 }

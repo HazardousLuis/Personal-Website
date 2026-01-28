@@ -394,37 +394,119 @@
 
 @media (max-width: 768px) {
     .career-cards-slider {
-        flex-direction: column;
-        overflow-y: auto;
-        overflow-x: hidden;
-        height: auto;
-        scroll-snap-type: y mandatory;
-        padding: 10px;
+        flex-direction: row !important;
+        /* Restore horizontal layout */
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        scroll-snap-type: x mandatory !important;
+        padding: 0 !important;
     }
 
     .accordion-card {
-        flex-direction: column-reverse;
-        /* Logo on top usually better, or bottom? Let's keep bottom logic or standard */
-        /* User image example: Logo Top? Actually Apple Watch is Image Right on Desktop. On Mobile it disrupts. */
-        min-height: 90vh;
-        /* Full screen mobile */
-        margin-right: 0;
-        margin-bottom: 20px;
-        scroll-snap-align: start;
+        flex-direction: column !important;
+        min-width: 100vw !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        scroll-snap-align: start !important;
+        padding-top: 60px !important;
+        /* Space for subpage header */
+        justify-content: flex-start !important;
     }
 
-    .accordion-left-panel {
-        max-width: 100%;
-        padding: 2rem;
-        flex: 2;
+    .company-name-spanning {
+        order: 1 !important;
+        position: relative !important;
+        top: 0 !important;
+        padding: 1rem 2rem !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
     }
 
     .accordion-right-panel {
-        width: 100%;
-        height: 150px;
-        flex: 0 0 150px;
-        background-color: rgba(0, 0, 0, 0.02);
-        /* Slight tint for logo area */
+        order: 2 !important;
+        width: 100% !important;
+        height: 180px !important;
+        flex: 0 0 180px !important;
+        background-color: rgba(0, 0, 0, 0.02) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 1rem !important;
+    }
+
+    .accordion-left-panel {
+        order: 3 !important;
+        max-width: 100% !important;
+        padding: 1rem 2rem !important;
+        flex: 1 !important;
+        overflow-y: auto !important;
+    }
+
+    /* Product Page Mobile Overrides */
+    .product-snap-section {
+        padding: 0 !important;
+    }
+
+    .product-snap-section .experience-card {
+        display: flex !important;
+        flex-direction: column !important;
+        background-color: #0a0a0a !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        padding: 4rem 1.5rem 1rem 1.5rem !important;
+        /* Moved up by reducing top padding from 7rem to 4rem */
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+    }
+
+    .product-card-header {
+        position: relative !important;
+        top: 0 !important;
+        order: 1 !important;
+        margin-bottom: 3.5rem !important;
+        /* Increased margin to push text down, moving title 'up' relative to content */
+        padding: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+    .product-card-header::before,
+    .product-card-header::after {
+        display: none !important;
+        /* Remove lines on mobile for cleaner look if needed, or keep for style */
+    }
+
+    .product-card-body {
+        order: 2 !important;
+        padding: 0 !important;
+        flex: 1 !important;
+        overflow-y: auto !important;
+    }
+
+    .product-snap-section .card-image-section {
+        display: block !important;
+        /* Overriding display:none from style.css */
+        order: 3 !important;
+        flex: 0 0 35% !important;
+        /* Bottom image section */
+        width: calc(100% + 3rem) !important;
+        margin-left: -1.5rem !important;
+        margin-right: -1.5rem !important;
+        margin-top: 1rem !important;
+        background-size: cover !important;
+    }
+
+    .role-title {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .role-description {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1rem !important;
     }
 }
 
@@ -752,13 +834,15 @@
     align-items: center;
     justify-content: center;
 }
+
 /* Dynamic Header Colors for White Backgrounds */
 .subpage-nav {
     transition: all 0.5s ease;
 }
 
 .subpage-nav.light-mode-header .subpage-title {
-    color: #1d1d1f !important; /* Apple Dark Grey */
+    color: #1d1d1f !important;
+    /* Apple Dark Grey */
     text-shadow: none !important;
 }
 

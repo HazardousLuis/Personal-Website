@@ -28,7 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.pathname.endsWith('/') ||
                 window.location.pathname === '/personal_website/';
 
-            if (window.innerWidth <= 768 && !isHomePage) {
+            // detailed checking for back link
+            const isBackLink = navLogo.querySelector('[data-i18n="nav.back"]');
+
+            if (window.innerWidth <= 768 && !isHomePage && !isBackLink) {
                 // Prevent navigation to index.html when we just want to toggle menu
                 e.preventDefault();
                 navbar.classList.toggle('menu-open');
@@ -143,3 +146,5 @@ function enterSite() {
         hero.classList.add('hero-hidden');
     }
 }
+
+

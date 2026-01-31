@@ -8,7 +8,8 @@ window.siteTranslations = {
             life: "Life",
             back: "Back",
             home: "Home",
-            overview: "Back to Overview"
+            overview: "Back to Overview",
+            explore: "Explore"
         },
         home: {
             heroTitle: "Engineering Life, <br><em>Composing</em> Dreams.",
@@ -16,12 +17,78 @@ window.siteTranslations = {
             exploreBtn: "Explore My World",
             eduTitle: "EDUCATION",
             eduSub: "M.S.",
+            eduBtn: "Quest",
             careerTitle: "CAREER",
             careerSub: "Research & Industry",
+            careerBtn: "Mission",
             projTitle: "PROJECTS",
             projSub: "Entrepreneurial Ventures",
+            projBtn: "Venture",
             lifeTitle: "LIFE",
-            lifeSub: "Art · Sports · Travel"
+            lifeSub: "Art · Sports · Travel",
+            lifeBtn: "Voyage",
+            editorial1: "I didn’t arrive here by following a single path.",
+            editorial2: "I once valued cleverness over rhythm, novelty over order,<br>and influence over responsibility.<br><br>But I learned early: it is not authority that gathers people, but resonance.<br>A wrong turn is not an end, but a hidden opening.<br><br>I was not born a polished gem, but shaped slowly by trial and error—<br>Nothing here was inherited; everything was built, step by quiet step.",
+            editorial3: "My path now is defined by its windings—<br>Learning to listen for the pattern before speaking the sound,<br>To find stillness in the midst of speed,<br>To build stages that stand without me at the center,<br>And to light lamps that shine outward, not inward.",
+            editorialRec: "This is not a résumé,<br>But a record of inquiry—<br>Finding cadence between the notes,<br>Finding truth within the detours,<br>And finding the grace to step back when the work is done.",
+            storyLabel: "Some stories flow like currents, refusing the geometry of a grid.",
+            storyBtn: "Trace the Source",
+            story: {
+                music: {
+                    title: "Music",
+                    flow: "Before Requirements, Before the Stage",
+                    chapters: [
+                        {
+                            title: "The Silent Castle",
+                            content: "When I first began learning the piano, there was no dramatic “discovery of talent”—no cinematic moment where parents overheard a perfect pitch, no teacher exclaiming they had found a genius.<br><br>It was kindergarten. Every day after school, I was taken to a practice room that always smelled faintly of wood and dust. My feet dangled above the polished pedals, resting on a small stool. My gaze just cleared the black fallboard, revealing the rows of hammers like giant, orderly teeth. Compared to my small frame, the tall upright piano was a silent castle, and I was the tiny intruder destined never to conquer it. The practice material was always short, repetitive pieces—mechanical, like gum chewed until tasteless, devoid of melody or anything that could stir a ripple in my heart. “Practicing” then was just a task to be checked off—a chore unrelated to joy.<br><br>I played fast. Not out of proficiency, but out of haste. Haste to finish, haste to leave, as if moving my fingers fast enough could steal time away. The notes flattened into a taut, lifeless line under my hands, without pause or breath, like a spell recited in a rush. My teacher frowned, saying I played like I was “chasing ducks”—fingers running blindly across the keys, rhythm out of control, leaving behind a panicked flurry of sound. Looking back, it wasn’t that I didn’t understand music, but that I hadn’t found a reason to truly understand what lay beneath those black and white blocks.<br><br><strong>To me then, music had no meaning; it was just a piece of furniture that made noise.</strong>"
+                        },
+                        {
+                            title: "The Warm Defection",
+                            content: "True change happened quietly in elementary school, like vines creeping in a corner.<br><br>My mother worked in a sales office—a bright, busy place smelling of coffee and new carpet. A grand piano stood in the corner. Later, a teacher was invited to play there—mostly pop music, soft melodies that acted like invisible spice, warming the serious space of numbers and contracts. One day, that teacher let me try. He didn’t ask for dry études, but opened a pop music book and said something that smashed a hole in my heart:<br>“If you don’t like classical, start with what sounds good to you.”<br><br>That sentence was permission to “defect”—to swim from a cold kingdom of rules to a warm sea of preference. I started playing Richard Clayderman. The melodies were clear, the harmonies gentle. Strangers in the sales office began to stop and listen. I wasn’t just “smashing” keys anymore; I felt a connection. <strong>I realized music is not just for teachers or for accuracy. It can travel through the air and land in a stranger’s silence.</strong><br><br>Years later, another turning point arrived. A classmate introduced me to Animenz, who reconstructed anime melodies with rigorous classical technique. It shattered the wall between “what I liked” and “serious skill.” Driven by a primitive desire to reproduce those sounds, I rebuilt my technique—independence, speed, control—not as homework, but as necessary weapons for expression. Technique was not armor prepared at the start, but a weapon forged in the cycle of attack and failure."
+                        },
+                        {
+                            title: "The Silent Coordinate",
+                            content: "In middle school, during a brief trip to the US, I visited the Juilliard School. It was just a cold Name then, a textbook image separated from my reality by a universe. I didn’t know that name would act as a seed, a silent coordinate.<br><br>In high school, I returned to the stage as a choir accompanist. Performing in Vienna’s Golden Hall, I learned that the silence before the music begins is more powerful than applause. I realized music is not for winning, but for creating a shared experience in time and space.<br><br>Many years later, I came to New York for a master’s degree seemingly unrelated to performing arts. Yet, the memory of Juilliard surfaced. This time, I walked in not as a tourist, but as a student in the Extension Division. Sunlight hit the dark wooden floors, and the sounds of practice overlapped with my memory.<br><br>I realized that my casual visit ten years ago wasn’t the start, but a marker placed by fate. I had spent a decade walking a winding path—seeing different views, experiencing disillusionment and love—to finally return to this coordinate with a complete self.<br><br><strong>I didn’t come to be a legend, but to meet this symbol of musical perfection again—calmly, curiously, and on my own terms.</strong>"
+                        }
+                    ]
+                },
+                acad: {
+                    title: "Learning",
+                    flow: "The Moment Learning Truly Begins",
+                    chapters: [
+                        {
+                            title: "The Wall of Silence",
+                            content: "<strong>Passive Coping</strong><br><br>For a long time, I wasn't actually good at learning—or rather, I was good at “coping” with it, not mastering it.<br><br>In elementary school, my grades were like an old rubber band, stretched loosely between “acceptable” and “poor.” I was the type of student whose name was rarely praised at parent-teacher conferences, but whose report card always caused my parents to frown slightly. I had a bit of cleverness and a decent short-term memory; before exams, I would stuff knowledge into my brain like a hamster hoarding food, managing to stay in the safe, gray middle of the class. But my mind never truly sank into the textbooks. To me, those words and numbers were just codes printed on glossy paper, unrelated to my life.<br><br>I resented the main subjects. They felt too abstract, like looking at the world through frosted glass, and too coercive, occupying time I wanted for fantasy and play. Fourth-grade math—geometry—broke the calm surface. Questions suddenly had “layers,” and answers no longer lay on the surface. I attacked them with my usual reckless speed, thinking only of finishing, and ended up with a mess of errors.<br><br>I remember that humid afternoon. The teacher kept a few of us behind to correct mistakes. Eventually, only I remained, accompanied by the monotonous drone of the old ceiling fan. I looked at the red crosses covering my paper, and a hot shame surged from my stomach—not grievance, but the sudden, stark realization that I really <em>didn't know</em>. Tears fell, blurring the red ink. That was the first time I felt shame in the face of learning.<br><br>My escape was online gaming. I was hooked by its precise, immediate feedback loops—every victory brought golden flashes and rising stats. That certainty of “effort equals reward” was something dry textbooks couldn’t give. I even secretly traded my allowance for game point cards, hiding them under my bed.<br><br>One day, my father found them. He didn’t rage. Instead, he did something I will never forget: he took those colorful cards and taped them, one by one, continuously across the white wall of my bedroom. Soon, the wall became a mural of evidence, a silent, striking mosaic of my “crimes.” It stood there, judging me silently every moment. That visual weight was sharper than any lecture. Years later, I understood it wasn’t punishment, but a cruel kind of mercy—he forced me to face the visible consequences of my choices."
+                        },
+                        {
+                            title: "The Autopsy",
+                            content: "<strong>The Shift to Active Review</strong><br><br>The true, inner shift happened in middle school, like a seed finally breaking through hard soil.<br><br>I entered a decent school but was placed in an average class. My grades were mediocre, vanishing into the median. In eighth grade, geometry returned—complex auxiliary lines and spatial imagination. Surprisingly, facing this thorn patch where I had once fallen, I felt a vague sense of defiance alongside my fear.<br><br>After one unit test where I missed many questions, I didn't close my notebook to escape the red crosses as usual. I stared at them, and a thought struck me like lightning: <strong>Where exactly did I “die”?</strong><br><br>I picked up a red pen. I didn't just write the correct answer. Below each error, I began to “autopsy” my own thinking: Was it a misread condition? Did my logic hit a dead end? Did I fail to see the auxiliary line? Or did I never memorize the theorem? I wasn't writing for the teacher; it was a severe interrogation of my own mental gaps.<br><br>The next day, the math teacher held up my notebook in front of the class. He didn't just praise the corrections; he showed them my “autopsy report.” He said, “Look, this is what true correction means.” That moment was a revelation. I realized that the engine of progress isn't blind repetition, but precise review. From then on, my “error notebook” became a “medical record” and a “battle map.” I began to trace the source of every mistake like a detective."
+                        },
+                        {
+                            title: "The Calibration",
+                            content: "<strong>The Mental Game</strong><br><br>Change came faster than expected. My rankings climbed. By ninth grade, I touched the top. I felt lifted by a gentle elevator of success—praise, envy, smooth exams. This smoothness bred a dangerous illusion: <strong>I had “mastered” learning. It was easy.</strong><br><br>The blow came at the high school entrance exam. I had dismissed a previous slip in a mock exam as an accident. In the real exam, I used a foolish strategy: rushing through the “easy” foundation questions to save time for the “hard” ones, hoping to prove my brilliance. I got lost in the maze of the difficult problems, running out of time, while the simple questions I had scorned were full of traps I had rushed into. I failed to reach the priority high school class. The “excellent self” I had built on rankings collapsed like a sandcastle.<br><br>I entered high school carrying that defeat. I became silent and cautious. In the high-pressure environment of twelfth grade, I watched classmates crumble or withdraw. I realized this long race wasn't just about knowledge, but about emotional resilience.<br><br>Before the college entrance exam (Gaokao), I made a psychological construction opposite to my middle school arrogance. I deliberately lowered my expectations. I told myself: even a second-tier university is not the end of the world. This strategic “retreat” wasn't giving up; it was unlocking the shackles of “needing to prove myself.”<br><br>My goal became clear: <strong>Secure every point I am supposed to get.</strong> I stopped coveting the flashy hard problems and worked like a patient craftsman on the foundation. The result? I scored higher than I ever had in high school, far exceeding my disastrous middle school performance, and was admitted to Sun Yat-sen University.<br><br>Looking back, my academic journey isn't a legend of genius awakening.<br><br>It is a voyage of constant <strong>“calibration.”</strong> I learned not how to always be first, but how to clear the stones I tripped over; how to spot the reefs of arrogance when sailing smoothly; and how to manage fear and greed at critical junctures. I’m grateful for that early failure. It taught me that learning isn't about solving an epic puzzle, but about leading a sometimes impetuous, sometimes fearful self through the jungle of exams to a wider clearing."
+                        }
+                    ]
+                },
+                lead: {
+                    title: "Leadership",
+                    flow: "The Awakening and Restraint of Influence",
+                    chapters: [
+                        {
+                            title: "Refining Influence",
+                            content: "<strong>The Awakening of Influence</strong><br><br>I seemed to discover early on that I had a trait that made me easily seen and noticed.<br><br>But for a long time, I didn't know what it meant, nor the heavy weight behind it.<br><br>In early elementary school, my presence was as thin as morning mist. Friendships were loose and fleeting. I was an ordinary child with a few playmates, going home separately after school. The world was light then, with no roles to play or centers to be. Days flowed smoothly in ignorance. Until an accident started by “play” quietly rewrote the trajectory.<br><br>During those years, some rythmic pop music and dance videos suddenly became popular. A few close classmates and I started awkwardly mimicking the moves after class. At first, it was just gesturing in the hallway during breaks, laughing. Later, someone brought a portable speaker. When the music first blasted in the empty classroom after school, the nature of things changed. Notes acted like magnets, drawing curious eyes and figures from all directions. The crowd grew—from three or five to a dozen; movements went from ragged to accidentally synchronized. We were no longer satisfied with the classroom; the stage spread to the echoing underground garage of residental buildings, and sometimes even daringly to the empty school restrooms, releasing restless energy in front of the mirrors.<br><br>Unknowingly, I found myself standing in the center of that circle.<br><br>A tender, primitive instinct for organization began to sprout. I assigned roles to partners, gave them nicknames, and even subconsciously mimicked guild systems from online games, setting symbolic “ranks” and “titles.” Whoever came often or danced hard got more attention and “voice” in the group. That rule set was childish and random, born of a child's imagination, yet surprisingly effective. People stayed not because of discipline, but because they were attracted by that shared liveliness and belonging.<br><br>Eventually, we “played” past the boundary. The noise and laughter penetrated floors, and it was said even the principal's desk felt the “tremor.” We were called for a talk. It ended flatly with a few warnings and no real punishment. But when I walked out of that office, my mind was clear as a mirror: Something had <strong>irrevocably</strong> changed. A seed about “gathering” had fallen into my conscious soil.<br><br>I vaguely realized for the first time: <strong>People can be attracted and condensed. And I, seemingly unintentionally, had touched that switch.</strong><br><br>In middle school, as my academic ranking climbed, this feeling of “being seen” was rapidly amplified and given a new energy field.<br><br>My presence was no longer transparent. I was given small public roles: eye exercise inspector, class meeting recorder, event materials coordinator. These positions were trivial, but they acted as special observation windows, allowing me to scrutinize the subtle reactions of the crowd from different angles.<br><br>I discovered experimentally that many things were not about authority, but presentation. Lowering or raising the voice a few degrees, slowing down or speeding up speech, or even choosing to stand slightly left or right on the podium could invisibly change the flow of air in a room. Some commands, if spoken with a more certain, distinct manner, could instantly silence the noise. When I patrolled, a deliberately designed, slightly theatrical pause and scan harvested eyes faster than any words. When other monitors wrote a neat “A+” on the blackboard, I would mischievously leave an “A√2+”—using this small math joke to highlight my expanding personal identity.<br><br>For a time, I was addicted to this almost magical sense of control.<br><br>I started to perform consciously. I mimicked impassioned speakers in my memory, deliberately training my tone, gesture amplitude, and even pause rhythm, all to maximize attention capture. The crowd's feedback was direct and hot: some followed, some imitated, some saw me as a weather vane. My name, like a stone thrown into a pond, spread rapidly in the small pond of the school, as if everyone knew it.<br><br>Now, looking back with distance, I know clearly: <strong>That was not leadership.</strong> <strong>That was more like a primitive, rough, unrefined “influence.”</strong><br><br>It was like wild fire, burning fiercely, illuminating a corner, but easily out of control, burning oneself."
+                        },
+                        {
+                            title: "Active Constraint",
+                            content: "<strong>From Performance to Architecture</strong><br><br>What truly made me feel uneasy and actively restrained was not a severe punishment, but a double attack of continuous internal consumption and external frustration. The academic Waterloo was like a basin of ice water, making me clearly see a fact in the shiver: <strong>Standing in the center of the crowd does not mean controlling the overall situation; winning attention and cheers does not mean gaining sincere recognition and trust.</strong><br><br>Entering high school, I actively chose a lower profile.<br><br>This was not a sudden mutation of character, but an instinctive vigilance against “being striking.” I still joined the student union, but was willing to start as an executor and assistant, observing silently and learning quietly. I began to realize that if influence does not have a clear boundary and heavy responsibility as a base, it is like a tree without roots—the higher it grows, the easier it is to be broken by the wind, or even fall on oneself.<br><br>Later, an opportunity lay before me: someone encouraged me to run for a higher core position. It was a role I was fully capable of striving for, with a good chance of winning. But after deep thought, I refused.<br><br>The reason at the time was realistic and sober: academic pressure was like a mountain, personal energy was limited, and I didn't want to dissipate my limited inner energy in the endless performance and complex balance required to maintain a “dazzling position.” Coincidentally, I read some Taoist classics at that time, and resonated deeply with the wisdom of “The highest good is like water, water benefits all things without competing” and “Know the masculine, keep to the feminine.” I longed for a more resilient and lasting way of existence.<br><br>So, on the available paths, I did not walk into the spotlight of power, but turned to a role that seemed marginal but contained unique energy—<strong>School Event Host.</strong><br><br>Hosting seems to be just standing in front of the stage and talking. But when I truly held the microphone, I realized it was a completely different art of “influence.” I was no longer the “performer” who output views and incited emotions, but became the “architect” and “guide” of the atmosphere of the entire event. I started writing scripts seriously for every hosting, studying the background and meaning of the event in advance, and even in the extremely limited appearance time, carefully designing the transition of words, trying to build an emotional curve and memory anchor for an ordinary ceremony. My voice became steady and clear, my posture calm and reserved.<br><br>I no longer deliberately chased the focus, but miraculously never truly left it. That feeling was completely different. <strong>Influence no longer comes from external publicity and conquest, but from internal credibility and constructive ability.</strong><br><br>A key school-level honor selection became a touchstone of my philosophy. That honor was traditionally reserved practically for top students, and my academic ranking did not meet the standard. But I didn't choose to complain publicly about unfair rules or campaign for votes.<br><br>I took a quieter path: I had a frank communication with the teacher in charge in private. I wrote a letter, clearly and specifically stating the organizational work I undertook in various activities, the coordination problems I solved, and the unpaid time I invested. I didn't try hard to prove “how excellent” I was, but objectively presented: <strong>In the context of this collective operation, which links I was the gear that actively engaged.</strong><br><br>Finally, the list was announced, and my name was impressively on it.<br><br>The realization at that moment was more important than the honor itself: <strong>The deepest operation of truly effective and lasting influence often happens in silent cultivation and sincere dialogue off stage, rather than noisy declarations on stage.</strong>"
+                        },
+                        {
+                            title: "Reconstruction and Trust",
+                            content: "<strong>Leadership as Trust</strong><br><br>In university, this cognition became clearer and more solid in practice.<br><br>I participated in the election of club leaders, and the starting point was no longer “proving I can lead,” but “someone needs to coordinate here, and I happen to be good at it.” I shuttled between different clubs and colleges, aligning expectations of all parties, integrating scattered resources, and promoting cross-field art activities from conception to reality. More often, my work was hidden behind the scenes: communicating, polishing plans, clearing obstacles, and ensuring smooth processes. I didn't need to stand in the center of the stage to receive applause all the time, but I knew deeply that I must become the person who can steady the helm or stand out decisively at key nodes.<br><br>Looking back, my understanding of leadership was by no means an overnight epiphany.<br><br>It is a winding road of trial, experiencing <strong>ignorant publicity, swelling loss of control, painful restraint, and sober reconstruction</strong>. What I finally learned was not how to make others obey me, but how to learn a more important judgment: <strong>When to step forward and take responsibility; when to step back and lift others; when to guard silently and let the stage itself shine.</strong><br><br>I have not lost the desire to influence others and bring about change.<br><br>I just finally understand that <strong>unrestrained, self-centered influence is ultimately a fragile burden; and guidance based on trust, cooperation, and common goals can go steady and far.</strong><br><br>When I began to try to build a team and explore various possibilities of business models after graduation, what I pictured in my heart was never a strict hierarchical authoritarian structure, nor a one-man show of personal charm. My deepest hope is to gain a precious trust from team members—trust in my judgment, trust in my arrangements, and trust that the future we rush to together is worth entrusting to each other. Because the destination of true leadership is not domination, but trustworthy entrustment."
+                        }
+                    ]
+                }
+            }
         },
         education: {
             bachelor: {
@@ -483,31 +550,98 @@ window.siteTranslations = {
             life: "浮生",
             back: "返回",
             home: "首页",
-            overview: "返回概览"
+            overview: "返回概览",
+            explore: "探索"
         },
         home: {
-            heroTitle: "以工程拓宽生命疆界，以音律谱写梦想华章。",
-            heroSubtitle: "哥伦比亚大学 · 生物医学工程硕士， <br> 探索科学、人文与声响的交汇之境。",
+            heroTitle: "以工程拓宽生命之疆界，以韵律谱写梦想之华章。",
+            heroSubtitle: "哥伦比亚大学 · 生物医学工程硕士， <br> 探索科学、人文与韵律的交汇之境。",
             exploreBtn: "探索我的世界",
             eduTitle: "求索",
             eduSub: "硕士求学 · 知识求索",
+            eduBtn: "问知",
             careerTitle: "行迹",
             careerSub: "职场探索 · 社会历练",
+            careerBtn: "入世",
             projTitle: "造物",
             projSub: "商业构想 · 落地实践",
+            projBtn: "兴业",
             lifeTitle: "浮生",
-            lifeSub: "艺术 · 运动 · 行旅"
+            lifeSub: "艺术 · 运动 · 行旅",
+            lifeBtn: "游心",
+            editorial1: "我曾经从稚嫩与迷茫中走来：",
+            editorial2: "重机巧而轻律动，尚奇趣而略章法，<br>慕影响而忽担当。<br><br>然早岁便知：聚人者非威仪，而在共感；<br>失马者非祸端，反伏机缘。<br><br>此身非天成璞玉，实为试错中渐琢之器——<br>所有种种，皆非与生俱来，尽是跬步积成。",
+            editorial3: "如今我所行之路，皆由那些蜿蜒塑造——<br>学会在开口前静听（如《礼记》\"声成文，谓之音\"），<br>在疾行时知止（暗合《道德经》\"知止不殆\"），<br>筑台阁不居中央（化用《淮南子》\"高台不劳而自成\"），<br>立灯火未必自照。",
+            editorialRec: "此地非名录，<br>实为问道之牒——<br>习于音律间得节奏，<br>习于歧路上见真章，<br>习于该退场时知收敛。",
+            storyLabel: "有些故事如溪涧，无法被方正的板块定义。",
+            storyBtn: "溯流寻源",
+            story: {
+                music: {
+                    title: "音乐",
+                    flow: "先于要求，早于舞台",
+                    chapters: [
+                        {
+                            title: "沉默的城堡",
+                            content: "我最早学钢琴的时候，并没有任何“天赋被发现”的戏剧性——没有电影里那种父母偶然听到孩子哼出完美音准的瞬间，也没有老师激动地宣布找到了一个天才。<br><br>那是幼儿园大班。每天放学之后，我被带到那间总飘着淡淡木头和灰尘气味的琴房。脚悬在光亮的踏板之上，底下垫着小凳子，我的视线刚好越过漆黑的琴盖，看到里面一排排整齐的、仿佛巨大牙齿的琴槌。高大的立式钢琴和我矮小的身躯相比，像一座沉默的城堡，而我，仿佛注定是那个无法驾驭它的、小小的外来者。练习的内容永远是那些短小的曲子，重复、机械，像嚼了很久早已无味的口香糖，没有旋律感，也没有任何能在我心里激起一丝涟漪的地方。那时候的“练琴”，更像是在完成一项必须被检查、被打勾的任务——一项与快乐无关的功课。<br><br>我练得很快。不是因为熟练，而是因为着急。着急结束，着急离开，好像只要手指动得够快，时间就能被偷走。音符在我手下连成一条紧绷的、没有起伏的直线，没有停顿，也没有呼吸，像一篇被仓促念完的咒语。老师后来皱着眉头评价我，说我弹琴像是在“赶鸭子”——手指在琴键上盲目地奔跑追赶，节奏却完全失控，留下一片慌乱的噗通声。现在回想起来，那并不是我不懂音乐，而是我根本没有找到一个理由，去真正理解那黑白色块之下到底藏着什么。<br><br><strong>那时对于我，音乐还没有意义，它只是一个发出响声的家具。</strong>"
+                        },
+                        {
+                            title: "温柔的叛逃",
+                            content: "真正的变化，是在小学时悄悄发生的，像墙角悄悄蔓延的藤蔓。<br><br>我母亲当时在售楼部工作，那是一个窗明几净、人来人往的地方。角落里摆着一台被擦得锃亮的三角钢琴。后来她请来一位钢琴老师，在售楼部弹琴，主要是一些流行乐，柔软的旋律像无形的香料，让那个充满数字与合同的严肃空间，显得不那么拘谨，有了一丝人情味的温度。我第一次意识到，钢琴原来可以不属于那间令人窒息的琴房，它可以活在阳光、人声和生活的气息里。<br><br>那位老师有一天让我坐下来试试。他随手翻开一本流行乐谱，随口说了一句，那句话轻飘飘的，却在我心里砸出了一个洞：“如果你不喜欢古典，那就先弹你觉得好听的。”这句话对当时的我来说，几乎是被允许“叛逃”，被允许从冰冷的规则国度，游向一片名为“喜好”的温暖海域。<br><br>我开始弹理查德·克莱德曼。它们的旋律明确而优美，和声温和得像春天的风。练熟之后，母亲鼓励我在售楼部的那台钢琴上弹一会儿。起初我很紧张，但慢慢地，眼角的余光告诉我，有些东西改变了：会有人在不远处停下来，手里端着纸杯；眼神飘了过来。有一次，我弹完抬头，看见一位穿着西装的男士，静静地靠在柱子旁边，认真地听着。那一刻，我意识到：<strong>音乐不是只弹给老师听的，也不是只为了对错。它可以穿越空气，抵达一个陌生人的沉默里。</strong><br><br>真正改变我方向的，是后来一位同学把Animenz的视频链接发给我。那些动漫旋律被用极其复杂、严谨的古典技法重新构建。它完全游离在我所熟悉的传统教学体系之外，却直接叩响了我的热爱。我第一次如此清晰地意识到：原来“我喜欢的音乐”和“我所敬畏的严肃技术”之间，并不存在一堵墙。技术不是一开始就准备好的盔甲，而是在不断进攻、失败、重整旗鼓的循环中，慢慢打磨出来的兵器。"
+                        },
+                        {
+                            title: "远方的坐标",
+                            content: "初二那年，学校乐团组织去美国交流，行程中有一站是纽约的茱莉亚音乐学院 (Juilliard School)。那天我并没有特别兴奋，只觉得这个名字听起来遥远、冰冷，像教科书上的一张图片。我不知道，在未来的某一天，这个名字会携带着完全不同的重量，再次出现在我的生命里。<br><br>高中时，我成为了合唱团的钢琴伴奏，随团去了奥地利，在维也纳的“金色大厅”演出。真正让我印象最深的，并不是光环，而是演奏开始前的那几秒绝对安静。几百人的注意力凝结成一股无形的力场，集中到那架钢琴上。那种寂静，比任何掌声都更有力量。<strong>那一刻，我很清楚：音乐不是为了赢，不是为了征服。它是为了在特定的时空里，创造一份共同的、沉浸的体验。</strong><br><br>很多年后，我真正来到纽约，攻读哥大的硕士学位。当我得知我即将赴纽约深造时，那段几乎被遗忘的记忆突然浮现——Juilliard School。这一次，我没有被任何人带领，而是以一名Extension Division旁听生的身份，自己走了进去。阳光透过高大的窗户，空气里流淌着琴声，与多年前我依稀听到的片段微妙重叠。<br><br>那一刻我才惊觉，当年那次偶然的途经，并不是我音乐故事的起点。它更像是一枚被命运提前放置的、沉默的坐标。而我，用了整整十年的时光，沿着一条曲折的小路绕行，看过了不同的风景，才终于带着一个更完整的自己，回到了它真正该出现、并被理解的位置。<br><br><strong>我并不是为了成为“茱莉亚传奇的一部分”而走进那里，而是选择以一种平等、好奇、开放的心态，再次与这个代表着音乐世界某个极致的象征，平静而从容地相遇。</strong>"
+                        }
+                    ]
+                },
+                acad: {
+                    title: "学业",
+                    flow: "当学习真正“开始”的那一刻",
+                    chapters: [
+                        {
+                            title: "沉默的审判",
+                            content: "<strong>被动应付</strong><br><br>很长一段时间里，我其实并不擅长学习——或者说，我擅长的是“应付学习”，而非真正掌握它。<br><br>小学的时候，我的成绩像一根弹性不足的皮筋，被拉扯在“尚可”与“欠佳”之间。属于那种名字很少被老师在家长会上单独提及表扬，但父母翻阅成绩单时，眉头总会微微蹙起的类型。我有点小聪明，短期记忆力不错，考试前像仓鼠囤粮般把知识点匆匆塞进脑子，也能侥幸维持在班级二三十名的位置，一个安全的、不被注意的灰色地带。但问题在于，我的心思从未真正沉入过课本。那些文字与数字对我来说，是印刷在光滑纸面上的、与我无关的密码。<br><br>我不喜欢语文、数学、英语这些主科。它们太抽象，像隔着毛玻璃看世界；又太强制，不容分说地占据了我本该用于幻想和玩耍的时间。尤其是数学。四年级，当学到几何图形和面积计算时，平静的水面被打破了。题目忽然变得有了“层数”，答案不再明晃晃地躺在表面。我却依旧沿用以前那套莽撞的方式——做得飞快，笔尖几乎要在纸上擦出火星，心里只想着“赶紧写完”，结果错得一片狼藉。<br><br>我记得那个闷热的下午。一次作业批改下来，满页刺目的红叉。老师让出错的几个同学留堂。其他人陆续改正离开，最后教室里只剩下我和头顶老旧电扇单调的“嗡嗡”声。我看着自己那张被红色覆盖的纸，一种滚烫的难堪从胃里涌上来，不是委屈，而是忽然看清了自己“不会”这个事实。眼泪掉下来，砸在纸上的红叉上，把它晕染得更大、更模糊。那是我第一次，在学习面前感到羞耻。<br><br>家里当然着急。母亲下班后，会拿着英语书坐在我旁边，一个单词一个单词地过；父亲则会摊开数学和语文试卷，试图用他的逻辑解开我脑中的乱麻。那些学习都是被动的，像给一株蔫了的植物机械地浇水，效率不高，根也没有真的扎下去。我真正的心跳，在电脑屏幕后面。那时我沉迷一款网络游戏，被它精准的即时反馈系统牢牢吸住——每升级一个战斗卡，就有金光闪烁和迅猛的数值增长；每和虚拟的网友战胜一个关卡，就有跨越网线的喝彩。那种“付出即有回报”的确定性，是枯燥课本无法给予的。我甚至偷偷把零花钱，换成了藏在床底下的游戏点卡。<br><br>后来，秘密还是被父亲发现了。他没有预想中的暴怒，只是沉默地把我所有的点卡收集起来。然后，他做了一件让我终生难忘的事：他用透明胶带，把那些色彩鲜艳的卡片，一张一张，整齐地贴在了我卧室那面空白的墙上。不一会儿，那面墙变成了一幅由我的“罪证”拼贴而成的、触目惊心的壁画。它沉默地矗立在那里，每一天、每一刻都在对我进行无声的审判。那一整面墙的视觉重量，比任何疾言厉色的说教都更让我清醒和刺痛。很多年后回头看，我才明白，那不是惩罚，而是一种近乎残酷的慈悲——他让我无法逃避，必须直面自己行为的“后果”。"
+                        },
+                        {
+                            title: "刮骨疗毒",
+                            content: "<strong>真正的主动复盘</strong><br><br>真正的、内在的转变，像地下的种子终于顶破硬壳，发生在初中。<br><br>我进入了一所口碑不错的学校，但被分在普通班。刚进校时，我的成绩毫不起眼，班级四十多人，我大概排在二十多名，一个妥妥的、淹没在人群里的中位数。既不出众，也不垫底，就像水消失在水中。初二，数学课再次迎来几何，这一次是复杂的辅助线与空间想象。奇怪的是，面对这片曾让我栽倒的荆棘地，我心里除了畏惧，竟生出了一丝模糊的不服。<br><br>有一次单元作业，我错了不少题。那天晚上，我没有像往常一样，把红叉看作终审判决，合上本子就逃避。我盯着那些错题，忽然一个念头像闪电般劈进脑海：<strong>我到底“死”在哪儿？</strong> 我拿起红笔，不再只是写下正确答案，而是在每一道题下面，开始用文字给自己“验尸”：是看错了条件，把“射线AB”当成了“线段AB”？是思路在某个岔路口彻底堵死，根本没找到那根该画的辅助线？还是相关的定理公式，我压根就没记牢？我不是为了给老师看，那晚的书写，更像是一场对自己思维漏洞的严厉盘问。<br><br>第二天，数学老师捧着作业走进教室，竟抽出我的本子，在全班面前展示了那写满红字的“验尸报告”。他说：“大家看看，什么叫做真正的‘改错’。”那一刻的触动，并非源于表扬，而是一种豁然开朗的震撼。我第一次，如此清晰地触摸到一个道理：学习进步的引擎，或许不是盲目地“多做”，而是精准地“复盘”。从那以后，“错题本”不再是一个被迫完成的任务，它成了我的“病历本”和“作战地图”。我开始系统地归纳题型，总结思路，像侦探一样追踪自己每一个错误的源头。"
+                        },
+                        {
+                            title: "重启自我",
+                            content: "<strong>心智博弈</strong><br><br>变化，像被推倒的第一张多米诺骨牌，来得比想象中更快。<br><br>初二下学期，我的名字在成绩单上的位置开始稳定上移，进入了班级前十。到了初三，甚至一度触碰到榜首。那段时间，我仿佛乘上了一架自动上升的电梯，被接连的成功（考试顺利、排名攀升、老师赞许的目光、同学的羡慕）温柔地托举着。这种顺境，让我不知不觉滋生出一种危险的错觉：<strong>我已经“掌握”了学习这件事，它不过如此。</strong><br><br>中考前的一次关键模拟考，我发挥失常，掉到了班级第二。面对这个微小的下滑，我非但没有警惕，反而用一种轻慢的心态将它归结为“偶然失误”。在随后一次难度较高的模拟考中，我超常发挥，夺回了第一，这更加深了我盲目的自信，认为中考不过是一次按剧本演出的终场秀。<br><br>真正的重击，毫无预兆地降临在中考考场上。<br><br>我采用了一种事后证明极其愚蠢的策略：对基础题，追求速度，潦草过场，仿佛它们是碍事的石子，要尽快踢开；把省下的、大量宝贵时间，全部押注在最后几道难题上，试图用它们的“攻克”来证明自己的“卓越”。我在那些难题的迷宫里左冲右突，绞尽脑汁，耗尽了时间，却终究没能找到出口。而当交卷铃声残酷响起时，我才惊觉，前面那些被我轻视的“石子”，因为匆忙，早已布满了疏忽的陷阱。<br><br>成绩查询那天，屏幕上的数字冰冷而陌生。我反复刷新，甚至怀疑自己输错了准考证号。原本笃定能进入目标高中重点班的我，连普通班的门槛都未能触及，直接滑档。那个夏天，蝉鸣声嘶力竭，而我却感觉自己被抽成了真空。曾经建立在排名与分数之上的、那个看似牢固的“优秀自我”，像一座沙堡，在现实的海浪前，瞬间崩塌，流散无踪。<br><br>带着这份深刻的挫败感，我走进了高中。<br><br>我变得异常沉默和谨慎。排名在精英云集的新环境里，不再耀眼，勉强维持在年级中上的水平。高三那年，高考的压力像持续的低气压笼罩教室。我亲眼目睹身边的同学有的在模拟考后崩溃大哭，有的日渐沉默，眼神失去了焦点。我第一次如此切身地体会到，这场漫长的竞赛，考核的远不止知识储备，更是情绪的韧性、压力的耐受度，以及如何在重压下保持心智的平衡。<br><br>高考前夜，我做了一个与中考时完全相反的心理建设。<br><br>我刻意地、主动地降低了自己的心理预期。我认真地对自己说：即使最终去了一所“二本”院校，那也不是世界的尽头。那里依然会有图书馆的灯光，会有志同道合的朋友，会有继续成长的空间。这种战略性的“心理退防”，并非放弃，而是为了卸下那副名为“必须证明自己”的沉重枷锁。走进考场时，我的心情是一种罕见的平静。<br><br>那一次，我的目标极其清晰：<strong>牢牢攥紧所有我本应拿下的分数。</strong> 我不再眼红那些高悬的难题，而是像一位耐心的工匠，对待每一道基础题和中等题，反复演算，细心检查，确保我的阵地固若金汤。结果，我的高考总分，不仅远远超越了中考的惨淡，也超过了我高中三年的平均水位。我最终被中山大学录取，这个结果让我在庆幸之余，更感到一种踏实的确信。<br><br>如今回头看，我的学业生涯从来不是一个“天才觉醒”或“逆袭登顶”的传奇故事。<br><br>它更像是一段不断 <strong>“校准”</strong> 的航程。我从中学到的，最重要的不是如何永远考第一，而是<strong>如何在跌倒后，看清绊倒自己的石头，然后学习绕行或将其搬开；如何在顺风顺水时，警惕自大的暗礁；如何在决定命运的关口，管理好自己的恐惧与贪婪，不让自己成为最大的那个“变量”与“风险源”。</strong><br><br>很多年后，当我可以平静地讲述中考的“滑铁卢”时，心中已无遗憾，唯有感激。感激那次早来的失败，它在我还输得起的年纪，教会了我关于学习、关于自我认知，最宝贵的一课。我真正学会的，或许从来不是解开某一道史诗般的难题，而是学会了如何与那个时而浮躁、时而恐惧、时而自负的自我和解，并引领他，穿过一次次考试的丛林，走向更开阔的地方。"
+                        }
+                    ]
+                },
+                lead: {
+                    title: "领导力",
+                    flow: "影响力的觉醒与收敛",
+                    chapters: [
+                        {
+                            title: "觉醒与野火",
+                            content: "<strong>原始的影响力</strong><br><br>我似乎很早就发现，自己身上有一种特质，让我容易被看见、被注意。<br><br>但在很长一段时间里，我并不知道这意味着什么，更不知道它背后需要承担的重重。<br><br>小学低年级的时候，我的存在感稀薄得像清晨的雾气。朋友关系松散而短暂，在班级版图的小小角落里，我永远只是那个有两三个玩伴、一放学就各自回家的普通孩子。那时的世界很轻，没有必须扮演的角色，也没有非要成为的中心，日子在懵懂中平滑地流过。直到一场始于“玩闹”的意外，悄然改写了轨迹。<br><br>那几年，一些节奏强烈的流行音乐和编舞视频突然风靡。我和几个要好的同学，开始在下课后笨拙地模仿视频里的动作。一开始只是课间十分钟在走廊比划几下，嘻嘻哈哈。后来，有人从家里带来了一个便携小音响。当音乐第一次在放学后的空旷教室里炸响时，事情的性质开始改变。音符像磁石，把好奇的目光和身影从四面八方吸引过来。人越聚越多，从三五人到十几人；动作从参差不齐到偶然的整齐划一。我们不再满足于教室，舞台蔓延到了回声隆隆的居民楼地下车库，甚至偶尔胆大包天，在空旷无人的教学楼洗手间里，对着镜子肆意释放那股无处安放的精力。<br><br>不知从哪一刻起，我发现自己站到了那个圆圈的中心。<br><br>一种稚嫩而原始的组织本能开始萌发。我给参与的伙伴分派角色，起各种中二的外号，甚至下意识地模仿网游里的公会制度，设定了些象征性的“等级”和“头衔”。谁来得勤，谁跳得卖力，谁就更受关注，在群体里更有“话语权”。那套规则幼稚、随意，完全出自孩童的想象，却出奇的有效。大家不是被纪律约束留下的，而是被那种共同创造的热闹与归属感主动吸引而来的。<br><br>后来，我们终究“玩”出了边界。舞蹈的动静和欢声笑语穿透了楼层，据说连校长室的办公桌都感到了“震感”。我们被叫去谈话，事情在几句告诫中平淡收场，没有实质惩罚。但当我走出办公室时，心里清楚得像明镜：有些东西已经不可逆转地发生了变化。一粒关于“聚集”的种子，已经落进了我的意识土壤。<br><br>我第一次朦胧地意识到：<br>人是可以被吸引、被凝聚的。而我，似乎无意中触碰到了那个开关。<br><br>进入初中，随着学业排名攀升，这种“被看见”的感觉被迅速放大，并被赋予了新的能量场。<br><br>我的存在感不再透明。我开始被赋予一些小小的公共角色：眼保健操的督查员、班会记录的整理者、活动物资的协调人。这些职位本身无足轻重，却像一个个特制的观察窗，让我得以近距离地、从不同角度审视人群的微妙反应。<br><br>我实验般地发现，许多事情无关职权，只关乎呈现。声音压低或抬高几度，语速放慢或加快，甚至只是在讲台上站立时选择偏左或偏右一些，都会无形中改变一间教室气流的走向。某些指令，只要用一种更笃定、更与众不同的方式说出，就能让嘈杂瞬间归于寂静。我巡逻检查时，一个刻意设计的、略带舞台感的停顿与环视，比任何言语都能更快地收割所有目光。当别的班干部只在黑板角落规整地写下“A+”，我会恶作剧般地留下一个“A√2+”——用这种小小的“出格”数学梗，来彰显我那正在膨胀的个性标识。<br><br>那段时间，我沉迷于这种近乎魔术般的掌控感。<br><br>我开始有意识地表演。我模仿记忆中激昂的演讲者，刻意训练自己说话的语调、手势的幅度、甚至停顿的节奏，一切只为最大化地攫取注意力。人群的反馈直接而热烈：有人跟随，有人模仿，有人将我视为某种风向标。我的名字，如同投入池塘的石子激起的涟漪，迅速在学校这个不大的池塘里扩散，仿佛到了无人不晓的地步。<br><br>现在，带着距离回望，我清楚地知道：那并不是领导力。<br>那更像是一种原始、粗糙、未经淬炼的“影响力”。<br><br>它像野火，燃得迅猛，照亮一方，却也极易失控，灼伤自己。"
+                        },
+                        {
+                            title: "主动收敛",
+                            content: "<strong>从表演者到建筑师</strong><br><br>真正让我开始感到不安并主动收敛的，并非某次严厉的惩戒，而是一种持续的内在消耗与外在挫败的双重夹击。学业的滑铁卢像一盆冰水，让我在寒颤中看清了一个事实：<br>站在人群中心，不等于掌控了全局；<br>赢得瞩目与欢呼，不代表收获了真诚的认可与信任。<br><br>步入高中，我主动选择了一种更低的姿态。<br><br>这不是性格的突变，而是我对“引人注目”这件事，产生了本能般的警惕。我依然加入了学生会，但甘愿从执行者、协助者做起，默默观察，安静学习。我开始领悟，影响力若没有清晰的边界与厚重的责任作为底座，就如同无根之木，长得越高，越易被风折断，甚至可能倒向自己。<br><br>后来，一个机会摆在面前：有人鼓励我竞选一个更高的核心职位。那是一个我完全有能力去争取、甚至胜算不小的角色。但经过深思，我拒绝了。<br><br>当时的理由现实而清醒：学业压力如山，个人精力有限，我不愿再将有限的内心能量，耗散在维持一个“耀眼位置”所需的无尽表演与复杂平衡中。恰逢那时，我读了一些道家典籍，对“上善若水，水善利万物而不争”、“知其雄，守其雌”的智慧产生了深深的共鸣。我渴望一种更有韧性、更持久的存在方式。<br><br>于是，在可供选择的道路上，我没有走向权力的聚光灯下，而是转向了一个看似边缘、实则蕴含独特能量的角色——校园活动主持人。<br><br>主持，看起来只是站在台前串场说话。但当我真正握起话筒，我才明白这是一种截然不同的“影响”艺术。我不再是那个输出观点、煽动情绪的“表演者”，而是成为了整场活动氛围的“建筑师”与“引导者”。我开始为每一场主持认真撰写稿件，提前研究活动背景、节日内涵，甚至在极有限的出场时间里，精心设计串词的起承转合，尝试为一场普通的仪式构建情绪的曲线和记忆的锚点。我的声音变得平稳而清晰，姿态从容而含蓄。<br><br>我不再刻意追逐焦点，却奇妙地未曾真正离开过焦点。<br>那种感觉，与以往截然不同。<br>影响力不再来源于外在的张扬与征服，而源于内在的可信度与构建能力。<br><br>一次关键的校级荣誉评选，成了我理念的试金石。那项荣誉传统上几乎是为成绩顶尖者预留的，我的学术排名并不达标。但我没有选择公开抱怨规则不公，或进行拉票竞争。<br><br>我走了一条更安静的路：私下与负责老师进行了坦诚沟通。我写信，清晰、具体地陈述了自己在各类活动中承担的组织工作、解决的协调难题、投入的无偿时间。我没有竭力证明自己“多优秀”，只是客观地呈现：在这个集体运行的脉络里，我曾是哪些环节中那个主动咬合的齿轮。<br><br>最终，名单公布，我的名字赫然在列。<br><br>那一刻的领悟，比荣誉本身更重要：真正有效、持久的影响力，其最深层的运作，往往发生在台下静默的耕耘与真诚的对话之中，而非台上喧嚣的宣告。"
+                        },
+                        {
+                            title: "重建与托付",
+                            content: "<strong>领导力是值得信赖的托付</strong><br><br>到了大学，这种认知在实践中变得更加清晰、结实。<br><br>我参与竞选社团负责人，出发点不再是“证明我能领导”，而是“这里需要有人协调，而我恰巧擅长”。我穿梭于不同社团、不同学院之间， aligning （对齐）各方期待，整合分散资源，推动一场场跨领域的艺术活动从构想落地为现实。更多时候，我的工作隐在幕后：沟通、打磨方案、扫清障碍、确保流程顺畅。我不需要时时站在舞台中央接受掌声，但我深知，自己必须在关键节点上，成为那个能稳住舵盘、或果断站出来的人。<br><br>回头看，我对于领导力的理解，绝非一蹴而就的顿悟。<br><br>它是一条蜿蜒的试炼之路，经历了无知的张扬、膨胀的失控、痛苦的收敛、直至清醒的重建。我最终学会的，并非如何让别人对我言听计从，而是如何学习一种更重要的判断力：<br>何时该挺身而出，担起责任；<br>何时该侧身退后，托举他人；<br>何时该沉默守护，让舞台本身发光。<br><br>我并未失去影响他人、促成变化的渴望。<br><br>我只是终于懂得，<br>未经节制的、以自我为中心的影响力，终究是一种脆弱的负担；<br>而建立在信任、合作与共同目标之上的引导力，才能走得沉稳而长远。<br><br>当毕业后的我开始尝试组建团队，探索商业模式的种种可能时，我心中所构画的，从不是层级森严的威权架构，也非个人魅力的独角戏。我最深的期望，是能收获团队成员一份珍贵的信任——信任我的判断，信任我的安排，信任我们一起奔赴的那个未来，值得彼此托付。因为真正的领导力，其终点并非支配，而是值得信赖的托付。"
+                        }
+                    ]
+                }
+            },
         },
         education: {
             bachelor: {
                 title: "工学学士",
                 school: "中山大学 · 2020-2024",
-                desc: "大学之道，在明明德。从生物传感之微观，到策划活动之宏大，不仅精修于技术之准度，更深谙表达之张力。<br><br>于田野调查中磨砺创新思维，于社团管理中凝聚团队力量。"
+                desc: "大学之道，在明明德。从生物传感之微观，到策划活动之宏大，不仅专注于挑战技术之准度，更注重培养表达之张力。<br><br>于田野调查中磨砺创新思维，于社团管理中凝聚团队力量。"
             },
             master: {
                 title: "理学硕士",
                 school: "哥伦比亚大学 · 2024-2025",
-                desc: "蜕变之年，于纽约探索理工商之交融。<br><br>在生命科学与商业策略的经纬之间，编织跨学科的创新图景。不仅是知识的深造，更是视野的重塑。"
+                desc: "蜕变之年，于纽约探索理工、商之交融。<br><br>在生命科学与商业策略的经纬之间，编织跨学科的创新图景。不仅是知识的深造，更是视野的重塑。"
             },
             learnMore: "了解更多",
             scroll: "滑动查看",
@@ -950,4 +1084,4 @@ window.siteTranslations = {
             biliSub: "UP主"
         }
     }
-};
+}

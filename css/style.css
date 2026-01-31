@@ -374,8 +374,11 @@ html[lang="cn"] .nav-logo::after {
     min-height: 100vh;
     padding-top: 0;
     display: flex;
+    flex-direction: column;
+    /* Stack children vertically */
     align-items: center;
-    /* Center content vertically if desired, or top aligned */
+    justify-content: flex-start;
+    /* Start from top */
 }
 
 /* Flexible Media Container */
@@ -417,7 +420,7 @@ html[lang="cn"] .nav-logo::after {
     padding: 48px 64px;
     margin-left: 0;
 
-    background: rgba(0, 0, 0, 0.38);
+    background: rgba(91, 91, 91, 0.35);
     backdrop-filter: blur(6px);
 
     color: var(--white);
@@ -582,6 +585,46 @@ html[lang="cn"] .nav-logo::after {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+@media (max-width: 768px) {
+    .hub-grid {
+        flex-direction: column;
+        /* Stack cards vertically */
+        align-items: center;
+        gap: 2rem;
+        padding: 6rem 1.5rem 2rem;
+        /* More top padding for nav */
+    }
+
+    .hub-card {
+        width: 100%;
+        min-height: 250px;
+        height: auto;
+        aspect-ratio: 16/9;
+        /* Cinematic landscape ratio on mobile */
+        flex: none;
+        /* Disable flex growth logic from desktop */
+    }
+
+    /* Ensure CTA is visible without hover on mobile */
+    .hub-card .hub-card-cta {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1);
+        margin-top: 1rem;
+    }
+
+    /* Position content towards bottom if "below" was implied */
+    .hub-card-center {
+        /* Move content slightly lower */
+        transform: translateY(10px);
+    }
+
+    /* User Request: Adjust first card (Education) image alignment on mobile */
+    .hub-card:nth-child(1) {
+        background-position: center bottom !important;
+    }
+}
+
 /* Unified Scrim */
 .hub-card::before {
     content: '';
@@ -616,6 +659,14 @@ html[lang="cn"] .nav-logo::after {
     text-align: center;
     transform: translateY(-6px);
     transition: transform 0.35s ease;
+
+    /* Force Vertical Stacking */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    /* Space elements slightly */
 }
 
 .hub-card-center h2 {
@@ -2078,7 +2129,31 @@ body {
     cursor: pointer;
     line-height: 1;
     color: #000000;
-    /* Pure Black */
+}
+
+/* Ensure Close Button is visible on Dark Theme (Composition Modal - Desktop & Mobile) */
+.modal-content.dark-theme .modal-close {
+    position: fixed !important;
+    top: 2rem !important;
+    right: 2rem !important;
+    z-index: 10001 !important;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+.modal-content.dark-theme .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Modal Content Grid */
@@ -2921,7 +2996,6 @@ body {
         /* If user wants total replacement, we hide logo? Let's keep logo as "Close" anchor for now or just toggle */
     }
 
-    /* 3. Education Image Position & Layout */
     .edu-overview {
         background-position: center bottom !important;
         align-items: flex-start !important;
@@ -2929,6 +3003,8 @@ body {
         padding-bottom: 50% !important;
         /* More space for background image effectively? */
     }
+
+
 
     /* Fix: Center the frosted text box */
     .overview-band {
@@ -2950,6 +3026,13 @@ body {
     .card-scroll-wrapper {
         padding-right: 20% !important;
         scroll-padding-right: 20%;
+    }
+
+    /* 6. Life Hero Text on Mobile - 30% Smaller */
+    .life-hero-text {
+        font-size: 2.1rem !important;
+        /* 3rem * 0.7 = 2.1rem */
+        padding: 0 1.5rem !important;
     }
 
     /* 6. Business Card (Field Innovation) Layout */
@@ -2977,6 +3060,56 @@ body {
     .modal-h3 {
         margin-top: 1.5rem !important;
         padding-left: 0.5rem !important;
+    }
+
+    /* 8. Fix Composition Modal Exit Button & Text */
+    .modal-close {
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        z-index: 10001 !important;
+        background: rgba(0, 0, 0, 0.5);
+        /* Background for visibility */
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #fff !important;
+    }
+
+    .comp-content {
+        padding: 1.5rem !important;
+        /* Reduce padding from 4rem */
+        text-align: left !important;
+    }
+
+    /* Remove border and alignment fixes */
+    .comp-section {
+        text-align: left !important;
+        border: none !important;
+        /* Remove the golden line */
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* User Request: Completely remove Framing Statement box and line on mobile */
+    .comp-meta+.comp-section {
+        display: none !important;
+    }
+
+    .emphasis-quote {
+        font-size: 1rem !important;
+        /* Smaller font */
+        line-height: 1.5 !important;
+        text-align: left !important;
+    }
+
+    .comp-section-title {
+        text-align: left !important;
+        padding-left: 0 !important;
+        /* Reset padding since border is gone */
     }
 
     /* 8. Master Chamber Slides */
@@ -3220,4 +3353,485 @@ body {
         font-size: 0.875rem !important;
         /* 30% reduction from 1.25rem/1.1rem/1rem */
     }
+}
+
+/* =========================
+   Index Page Editorial Anchor (Global)
+   Verified placement outside media queries
+   ========================= */
+/* =========================
+   Index Page Editorial Anchor (Global)
+   Verified placement outside media queries
+   ========================= */
+.editorial-anchor {
+    width: 100vw;
+    /* Ensure full viewport width */
+    margin-left: calc(-50vw + 50%);
+    /* Break out of any parent container centering if needed */
+    margin-right: calc(-50vw + 50%);
+    padding-block: clamp(4rem, 8vw, 6rem);
+
+    background-color: #f4f2ee !important;
+    /* Requested background */
+
+    /* Textured Separator Line (Etched effect) */
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 4rem;
+    /* Spacing from cards */
+}
+
+.editorial-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 2.2rem;
+    line-height: 1.6;
+    color: #000000 !important;
+    font-weight: 400;
+    text-shadow: none !important;
+}
+
+.editorial-content p {
+    margin-bottom: 0;
+    width: 100%;
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+/* Layout Classes */
+.editorial-opener {
+    text-align: center;
+    margin-bottom: 3rem !important;
+    padding: 0 10%;
+}
+
+.editorial-text-left {
+    text-align: left;
+    padding-right: 25%;
+    margin-bottom: 2rem !important;
+}
+
+.editorial-text-right {
+    text-align: right;
+    padding-left: 25%;
+    margin-bottom: 2rem !important;
+}
+
+.editorial-closer {
+    text-align: center;
+    margin-top: 4rem !important;
+    padding: 1rem 10% 0;
+    position: relative;
+    /* De-emphasize as requested */
+    font-size: 0.8em;
+    font-weight: 300;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Chinese Poetic Typography override */
+html[lang="cn"] .editorial-content {
+    font-family: 'HYXingKai', 'STXingkai', 'Xingkai SC', 'KaiTi', 'STKaiti', 'BiauKai', serif !important;
+    font-size: 2rem;
+    line-height: 1.8;
+}
+
+/* Mobile Adjustment for Editorial */
+@media (max-width: 768px) {
+    .editorial-content {
+        font-size: 2.2rem;
+        /* Significantly larger to match visual weight of sans-serif */
+        max-width: 95%;
+        margin: 0 auto;
+        line-height: 1.5;
+    }
+
+    /* User Request: Larger font for English editorial on mobile */
+    html[lang="en"] .editorial-content {
+        font-size: 3 rem;
+    }
+
+    .editorial-opener,
+    .editorial-text-left,
+    .editorial-text-right,
+    .editorial-closer {
+        text-align: left !important;
+        padding: 0 !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .editorial-opener {
+        margin-bottom: 1.5rem !important;
+        text-align: center !important;
+    }
+
+    .editorial-closer {
+        margin-top: 2rem !important;
+        text-align: center !important;
+    }
+}
+
+/* =========================
+   My Story Trigger & Modal
+   ========================= */
+/* Story Trigger - Minimalist Design to reduce prominence */
+.story-trigger-section {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    background-color: #f4f2ee;
+    padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.story-trigger-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #8a8a8a;
+    /* Muted color */
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: none;
+}
+
+.story-trigger-btn {
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 2.5rem;
+    /* Wide elegant padding */
+    border: 1px solid #C5A086;
+    /* Gold Border */
+    border-radius: 100px;
+    /* Pill/Oval shape */
+    transition: all 0.4s ease;
+    opacity: 0.8;
+    position: relative;
+    overflow: hidden;
+}
+
+.story-trigger-btn:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+    background: #fff;
+    box-shadow:
+        0 4px 15px rgba(197, 160, 134, 0.15),
+        0 0 0 1px #C5A086 inset;
+    /* Double border effect */
+}
+
+.story-btn-text {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #5A4635;
+    letter-spacing: 0.05em;
+}
+
+.story-btn-icon {
+    font-size: 1rem;
+    color: #C5A086;
+    transition: transform 0.3s ease;
+}
+
+.story-trigger-btn:hover .story-btn-icon {
+    transform: translateX(5px);
+}
+
+/* New Hub CTA Styles to be added to HTML */
+.hub-card-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: white;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.hub-card:hover .hub-card-cta {
+    background: white;
+    color: #1a1a1a;
+    border-color: white;
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* Modal Overlay */
+.story-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.98);
+    /* High opacity white */
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.story-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.story-modal-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.story-close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    font-size: 3rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    z-index: 10;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.story-close-btn:hover {
+    color: #C5A086;
+}
+
+/* Carousel */
+.story-carousel-container {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.story-track {
+    display: flex;
+    width: 300%;
+    /* 3 slides */
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.story-slide {
+    width: 100vw;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.story-card {
+    max-width: 600px;
+    text-align: center;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Current slide animation trigger handled by JS (optional) or just run on modal open */
+.story-modal.active .story-card {
+    opacity: 1;
+    /* Simple fallback */
+    transform: translateY(0);
+}
+
+.story-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+.story-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #000;
+}
+
+.story-flow {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: #C5A086;
+    margin-bottom: 3rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 1rem;
+    background: rgba(197, 160, 134, 0.1);
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.story-desc {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    /* Slightly smaller for density */
+    line-height: 1.8;
+    color: #333;
+    max-width: 650px;
+    /* Widened for better reading line length */
+    margin: 0 auto;
+    max-height: 50vh;
+    /* Limit height */
+    overflow-y: auto;
+    /* Enable scroll */
+    padding-right: 1rem;
+    /* Space for scrollbar */
+    text-align: left;
+    /* Better for long reading */
+}
+
+/* Custom Scrollbar for Story Desc */
+.story-desc::-webkit-scrollbar {
+    width: 6px;
+}
+
+.story-desc::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.story-desc::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* Nav Dots */
+.story-nav-dots {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+@media (max-width: 768px) {
+    .story-nav-dots {
+        display: none;
+    }
+}
+
+.story-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.story-dot.active {
+    background: #000;
+    transform: scale(1.3);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .story-title {
+        font-size: 2rem;
+    }
+
+    .story-flow {
+        font-size: 0.9rem;
+    }
+
+    .story-desc {
+        font-size: 1rem;
+    }
+
+    .story-close-btn {
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2.5rem;
+    }
+
+    /* Mobile Timeline Adjustments */
+    .timeline-sidebar {
+        display: none !important;
+    }
+
+    .timeline-content-col {
+        padding-left: 0;
+        height: auto;
+        overflow: visible;
+    }
+
+    .story-text-scroll {
+        overflow-y: visible;
+        padding-right: 0;
+        height: auto;
+    }
+
+    .timeline-chapter {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        opacity: 1;
+        position: relative;
+    }
+
+    .timeline-chapter:first-child {
+        padding-top: 6rem;
+    }
+
+    /* Fine Divider Line */
+    .timeline-chapter:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 15%;
+        width: 70%;
+        height: 1px;
+        background: linear-gradient(90deg,
+                rgba(197, 160, 134, 0) 0%,
+                rgba(197, 160, 134, 0.4) 50%,
+                rgba(197, 160, 134, 0) 100%);
+    }
+
+    .mobile-chapter-title {
+        display: block !important;
+        color: #C5A086;
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        margin-bottom: 3.5rem;
+        margin-top: 0;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+}
+
+/* Default Desktop State */
+.mobile-chapter-title {
+    display: none;
 }

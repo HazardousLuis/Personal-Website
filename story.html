@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Story | Luis</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Story Page Specific Styles */
+        body {
+            margin: 0;
+            background-color: #000;
+            /* Deep dark background */
+            color: #fff;
+            overflow: hidden;
+            /* Main scroll handled by container */
+        }
+
+        .story-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .story-section {
+            flex: 0 0 100vw;
+            height: 100vh;
+            scroll-snap-align: start;
+            overflow-y: auto;
+            /* Allow vertical scroll */
+            display: block;
+            position: relative;
+            padding: 0;
+            /* Reset padding, handled by inner wrapper */
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Subtle Background Variations */
+        .story-section:nth-child(1) {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        }
+
+        .story-section:nth-child(2) {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        .story-section:nth-child(3) {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+
+        /* Standard Content Wrapper (For non-timeline sections) */
+        .story-content-wrapper {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            /* Re-add padding here */
+        }
+
+        /* Timeline Layout Specific Styles */
+        .story-timeline-layout {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Left Sidebar (Sticky) */
+        .timeline-sidebar {
+            width: 300px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 4rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-line-container {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* The vertical line */
+        .timeline-line-bg {
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-marker-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            opacity: 0.4;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .timeline-marker-wrapper.active {
+            opacity: 1;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #000;
+            border: 2px solid #fff;
+            margin-right: 1.5rem;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .timeline-marker-wrapper.active .timeline-dot {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(197, 160, 134, 0.6);
+        }
+
+        .timeline-label {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 0.05em;
+        }
+
+        /* Right Content Content */
+        .timeline-content-col {
+            flex: 1;
+            padding: 4rem 4rem 4rem 6rem;
+        }
+
+        .timeline-chapter {
+            margin-bottom: 30vh;
+            /* Space between chapters */
+            opacity: 0.3;
+            transition: opacity 1s;
+        }
+
+        .timeline-chapter.active {
+            opacity: 1;
+        }
+
+        .timeline-chapter:last-child {
+            margin-bottom: 50vh;
+        }
+
+        /* Typography */
+        .story-icon-large {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            text-align: center;
+            /* Keep centered for standard layout, override for timeline */
+        }
+
+        .story-page-title {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .story-page-flow {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1.1rem;
+            color: var(--accent-gold, #C5A086);
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgba(197, 160, 134, 0.3);
+            display: inline-block;
+            align-self: center;
+        }
+
+        .story-text-scroll {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1.15rem;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.85);
+            text-align: justify;
+        }
+
+        .story-text-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .story-text-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .story-text-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        /* Fixed Navigation Styles - REMOVED for Global Navbar */
+        /*
+        .story-nav-fixed {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+        }
+
+        .back-link { ... }
+        */
+
+        /* Navbar Overrides to match Projects Page */
+        .navbar {
+            mix-blend-mode: normal !important;
+        }
+
+        .nav-logo,
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+
+        /* Adjust content padding to Account for Navbar (130px approx) */
+        .story-content-wrapper {
+            padding-top: 130px;
+        }
+
+        .timeline-sidebar {
+            padding-top: 130px;
+        }
+
+        .timeline-content-col {
+            padding-top: 130px;
+            /* Aligned with sidebar */
+        }
+
+
+        /* Indicators */
+        .story-indicators {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .indicator-dot.active {
+            background: #fff;
+            transform: scale(1.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .story-timeline-layout {
+                flex-direction: column;
+            }
+
+            .timeline-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 130px 1rem 2rem 1rem;
+                /* Increased top padding for Navbar */
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .timeline-line-container {
+                flex-direction: row;
+                height: auto;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .timeline-line-bg {
+                display: none;
+                /* Hide vertical line on mobile */
+            }
+
+            .timeline-marker-wrapper {
+                flex-direction: column;
+                text-align: center;
+                margin: 0 10px;
+            }
+
+            .timeline-dot {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .timeline-content-col {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-page-title {
+                font-size: 2.5rem;
+            }
+
+            .story-page-flow {
+                font-size: 0.9rem;
+            }
+
+            .story-text-scroll {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar (Replaces Back Button) -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="index.html?skip=true" style="text-decoration: none; color: inherit;">LUIS</a>
+        </div>
+        <ul class="nav-links">
+            <li class="mobile-only"><a href="index.html?skip=true" class="nav-link" data-i18n="nav.home">Home</a></li>
+            <li><a href="education.html" class="nav-link" data-i18n="nav.education">Education</a></li>
+            <li><a href="career.html" class="nav-link" data-i18n="nav.career">Career</a></li>
+            <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="life.html" class="nav-link" data-i18n="nav.life">Life</a></li>
+            <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="story-container" id="storyContainer">
+
+        <!-- Section 1: Music (Custom Timeline Layout) -->
+        <section class="story-section" id="section-music">
+            <!-- Content Injected via Script -->
+            <div id="music-timeline-root" class="story-timeline-layout">
+                <!-- Fallback content if script fails -->
+                <div class="story-content-wrapper">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Section 2: Academics (Custom Timeline Layout) -->
+        <section class="story-section" id="section-acad">
+            <!-- Content Injected via Script -->
+            <div id="acad-timeline-root" class="story-timeline-layout">
+                <!-- Fallback content -->
+                <div class="story-content-wrapper">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Section 3: Leadership (Custom Timeline Layout) -->
+        <section class="story-section" id="section-lead">
+            <!-- Content Injected via Script -->
+            <div id="lead-timeline-root" class="story-timeline-layout">
+                <!-- Fallback content -->
+                <div class="story-content-wrapper">Loading...</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Indicators -->
+    <div class="story-indicators" id="indicators">
+        <div class="indicator-dot active"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+    </div>
+
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Indicator Logic
+            const container = document.getElementById('storyContainer');
+            const dots = document.querySelectorAll('.indicator-dot');
+
+            container.addEventListener('scroll', () => {
+                const index = Math.round(container.scrollLeft / window.innerWidth);
+                dots.forEach((dot, i) => {
+                    if (i === index) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            });
+
+            // --- Generic Timeline Renderer ---
+            const renderTimeline = (sectionKey, rootId, sectionId, iconChar) => {
+                const lang = localStorage.getItem('siteLang') || 'en';
+                const content = window.siteTranslations[lang].home.story[sectionKey];
+                const root = document.getElementById(rootId);
+
+                if (!content || !content.chapters) return;
+
+                let markersHtml = '';
+                let chaptersHtml = '';
+
+                content.chapters.forEach((chap, index) => {
+                    // Marker
+                    // Pass wrapper ID for targeted scrolling
+                    markersHtml += `
+                        <div class="timeline-marker-wrapper" id="marker-${sectionKey}-${index}" onclick="scrollToChapter('${sectionKey}', ${index})">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-label">${chap.title}</div>
+                        </div>
+                    `;
+                    // Chapter Content
+                    chaptersHtml += `
+                        <div class="timeline-chapter" id="chap-${sectionKey}-${index}">
+                            <h3 class="mobile-chapter-title">${chap.title}</h3>
+                            ${chap.content}
+                        </div>
+                    `;
+                });
+
+                root.innerHTML = `
+                    <div class="timeline-sidebar">
+                        <div style="margin-bottom: 2rem;">
+                            <div class="story-icon-large" style="text-align:left; font-size:3rem; margin-bottom:0.5rem;">${iconChar}</div>
+                            <h1 class="story-page-title" style="text-align:left; font-size:3rem; -webkit-text-fill-color: white; margin-bottom: 0.5rem;">${content.title}</h1>
+                            <div class="story-page-flow" style="text-align:left; display:block; border-bottom:none; padding:0; margin-bottom:2rem; font-size: 1rem; opacity: 0.8;">${content.flow}</div>
+                        </div>
+                        <div class="timeline-line-container">
+                            <div class="timeline-line-bg"></div>
+                            ${markersHtml}
+                        </div>
+                    </div>
+                    <div class="timeline-content-col">
+                        <div class="story-text-scroll">
+                            ${chaptersHtml}
+                        </div>
+                    </div>
+                `;
+
+                // Add Scroll Spy for Timeline
+                const section = document.getElementById(sectionId);
+                const chapters = section.querySelectorAll('.timeline-chapter');
+                const markers = section.querySelectorAll('.timeline-marker-wrapper');
+
+                section.addEventListener('scroll', () => {
+                    let currentActive = -1;
+                    const scrollPos = section.scrollTop + (window.innerHeight / 3);
+
+                    chapters.forEach((chap, idx) => {
+                        if (chap.offsetTop <= scrollPos) {
+                            currentActive = idx;
+                        }
+                    });
+
+                    markers.forEach((m, idx) => {
+                        if (idx === currentActive) m.classList.add('active');
+                        else m.classList.remove('active');
+                    });
+
+                    chapters.forEach((c, idx) => {
+                        if (idx === currentActive) c.classList.add('active');
+                        else c.classList.remove('active');
+
+                        if (currentActive === -1 && idx === 0) {
+                            c.classList.add('active');
+                            markers[0].classList.add('active');
+                        }
+                    });
+                });
+
+                // Initial trigger
+                setTimeout(() => section.dispatchEvent(new Event('scroll')), 100);
+            };
+
+            // Render Timelines
+            renderTimeline('music', 'music-timeline-root', 'section-music', '');
+            renderTimeline('acad', 'acad-timeline-root', 'section-acad', '');
+            renderTimeline('lead', 'lead-timeline-root', 'section-lead', '');
+        });
+
+        function scrollToChapter(sectionKey, index) {
+            const chap = document.getElementById('chap-' + sectionKey + '-' + index);
+            const section = document.getElementById('section-' + sectionKey);
+            if (chap && section) {
+                section.scrollTo({
+                    top: chap.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

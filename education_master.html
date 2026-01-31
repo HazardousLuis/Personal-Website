@@ -263,13 +263,21 @@
 
         @media (max-width: 768px) {
             .chamber-title {
-                font-size: 1.1rem !important;
-                /* Approx half of desktop H3 (usually ~2.2rem or 1.5rem depending on base) */
+                font-size: 1.5rem !important;
+                /* Larger title */
             }
 
             .chamber-keywords {
-                font-size: 0.5rem !important;
-                /* Approx half of 1rem */
+                font-size: 0.8rem !important;
+                /* Larger keywords */
+            }
+
+            /* Center Overlay Vertically on Mobile */
+            .chamber-text-overlay {
+                top: 50% !important;
+                bottom: auto !important;
+                transform: translateY(-50%) !important;
+                padding: 0 1rem !important;
             }
         }
 
@@ -326,6 +334,38 @@
                 opacity: 0;
                 /* Hide on mobile to save space or adjust top */
                 display: none;
+            }
+
+            /* User Request: Hide dots and fix height on mobile */
+            .chamber-nav {
+                display: none !important;
+            }
+
+            .chamber-carousel {
+                height: 250px !important;
+            }
+
+            /* User Request: Crop video black bars more aggressively on mobile */
+            .video-crop-container iframe {
+                transform: scale(1.6) !important;
+            }
+
+            /* User Request: Reduce Composition Logic text size by 40% on mobile */
+            .logic-title {
+                font-size: 0.7rem !important;
+                /* Reduced from ~1.1rem */
+            }
+
+            .logic-title+p {
+                font-size: 0.6rem !important;
+                /* Reduced from 0.95rem (40% less is ~0.57) */
+                line-height: 1.4 !important;
+            }
+
+            /* User Request: Crop video black bars on mobile (Zoom in) */
+            .modal-bg-video {
+                transform: scale(1.35);
+                transform-origin: center;
             }
         }
     </style>
@@ -638,7 +678,13 @@
                 `).join('');
 
                 bodyHtml = `
-                    <iframe src="https://iframe.mediadelivery.net/embed/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=true&loop=true&muted=false&controls=false" class="modal-bg-video" style="border:0; width: 100%; height: 100%;" loading="lazy" width="100%" height="100%" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+                    <div class="video-crop-container" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
+                        <iframe src="https://iframe.mediadelivery.net/embed/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=true&loop=true&muted=false&controls=false" 
+                            class="modal-bg-video" 
+                            style="border:0; width: 100%; height: 100%; transform: scale(1.35); transform-origin: center;" 
+                            loading="lazy" allow="autoplay; encrypted-media;" allowfullscreen>
+                        </iframe>
+                    </div>
                     <div class="modal-video-overlay"></div>
                     <div id="chamberCarousel" class="chamber-carousel">
                         ${slidesHtml}

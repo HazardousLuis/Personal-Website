@@ -632,6 +632,7 @@
                          <div class="comp-video-container" style="position: absolute; inset: 0; z-index: 0; overflow: hidden;">
                             <iframe src="https://iframe.mediadelivery.net/embed/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=true&loop=true&muted=true&controls=false" class="comp-video-bg" style="width: 100%; height: 100%; opacity: 0.6; border: 0;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);"></div>
+                            <div class="sound-control-btn" onclick="toggleVideoSound(this)">🔇 Sound</div>
                         </div>
                         <div class="comp-content" style="position: relative; z-index: 1; padding: 4rem;">
                             <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem; color: #fff;">${d.title}</h2>
@@ -684,6 +685,7 @@
                             style="border:0; width: 100%; height: 100%; transform: scale(1.35); transform-origin: center;" 
                             loading="lazy" allow="autoplay; encrypted-media;" allowfullscreen>
                         </iframe>
+                        <div class="sound-control-btn" style="pointer-events: auto;" onclick="toggleVideoSound(this)">🔇 Sound</div>
                     </div>
                     <div class="modal-video-overlay"></div>
                     <div id="chamberCarousel" class="chamber-carousel">
@@ -741,6 +743,25 @@
             // Reset Timer on manual interaction
             stopChamberAutoPlay();
             startChamberAutoPlay();
+        }
+
+        // --- Sound Toggle Logic ---
+        function toggleVideoSound(btn) {
+            const container = btn.parentElement;
+            const iframe = container.querySelector('iframe');
+            if (!iframe) return;
+
+            let src = iframe.src;
+            if (src.includes('muted=true')) {
+                // Unmute
+                iframe.src = src.replace('muted=true', 'muted=false');
+                btn.innerHTML = '🔊 Sound';
+                // Force active class for styling if needed
+            } else {
+                // Mute
+                iframe.src = src.replace('muted=false', 'muted=true');
+                btn.innerHTML = '🔇 Sound';
+            }
         }
 
         function nextChamberSlide() {

@@ -3118,6 +3118,32 @@ body {
         z-index: 100 !important;
     }
 
+    /* Sound Control Button (Mobile Fix) */
+    .sound-control-btn {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 10002;
+        /* Above everything */
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background 0.3s;
+    }
+
+    .sound-control-btn:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
     /* 6. Business Card (Field Innovation) Layout */
     .modal-row {
         flex-direction: column !important;

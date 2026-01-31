@@ -3035,6 +3035,89 @@ body {
         padding: 0 1.5rem !important;
     }
 
+    /* 7. Disable Hover & Mobile Styles for Juilliard Extension (Diagonal) */
+    .diagonal-split-container {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        /* Force full viewport height */
+        min-height: 600px !important;
+        /* Ensure visibility */
+        position: relative !important;
+    }
+
+    .diagonal-item {
+        position: relative !important;
+        width: 100% !important;
+        height: 50% !important;
+        /* Stack vertically */
+        clip-path: none !important;
+        /* Remove diagonal cut */
+        z-index: 1 !important;
+    }
+
+    /* Override specific left/right positioning from desktop */
+    .diagonal-item.left,
+    .diagonal-item.right {
+        clip-path: none !important;
+        width: 100% !important;
+        height: 50% !important;
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+    }
+
+    .diagonal-item-bg {
+        filter: grayscale(0%) !important;
+        /* Always color on mobile */
+    }
+
+    /* Prevent any hover effects */
+    .diagonal-item.left:hover,
+    .diagonal-item.right:hover,
+    .diagonal-split-container:has(.diagonal-item.right:hover) .diagonal-item.left {
+        clip-path: none !important;
+    }
+
+    .diagonal-content {
+        /* Center text in the new rectangular blocks */
+        left: 50% !important;
+        top: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90% !important;
+        text-align: center !important;
+    }
+
+    /* Add "Click to Enter" Play Button indicator */
+    .diagonal-content::after {
+        content: ' ▶';
+        display: inline-block;
+        /* distinct block for click target */
+        font-size: 1.5rem;
+        margin-top: 0.8rem;
+        opacity: 1;
+        font-family: var(--font-heading);
+        color: #fff;
+        background: rgba(0, 0, 0, 0.3);
+        /* visible clickable area */
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        text-align: center;
+        backdrop-filter: blur(2px);
+    }
+
+    /* Ensure content is clickable and on top */
+    .diagonal-content {
+        pointer-events: auto !important;
+        z-index: 100 !important;
+    }
+
     /* 6. Business Card (Field Innovation) Layout */
     .modal-row {
         flex-direction: column !important;

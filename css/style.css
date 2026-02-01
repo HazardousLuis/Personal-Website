@@ -3144,6 +3144,31 @@ body {
         background: rgba(0, 0, 0, 0.8);
     }
 
+    /* Play Video Button (Mobile Manual Play) */
+    .play-video-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 0.6rem 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 30px;
+        font-family: var(--font-heading);
+        font-size: 1rem;
+        cursor: pointer;
+        backdrop-filter: blur(5px);
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 10003;
+    }
+
+    .play-video-btn:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: scale(1.05);
+    }
+
     /* 6. Business Card (Field Innovation) Layout */
     .modal-row {
         flex-direction: column !important;
@@ -3225,11 +3250,22 @@ body {
     .chamber-carousel {
         height: auto !important;
         aspect-ratio: 16/9 !important;
+        margin-top: 10rem !important;
+        /* Move down as requested */
+        position: relative !important;
+        z-index: 10 !important;
     }
 
     .chamber-img {
         object-fit: cover !important;
         height: 100% !important;
+    }
+
+    /* Ensure Play Button is clickable and correctly positioned to Title */
+    .play-video-btn {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        /* z-index is already 10003 globally, should be fine */
     }
 
     /* 9. Composition Card */

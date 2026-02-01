@@ -566,6 +566,7 @@
 
             if (!root) return { title: "Loading...", body: "" };
 
+            const isMobile = window.innerWidth <= 768;
             let d, bodyHtml = "";
 
             if (id === 'focus-1') {
@@ -627,15 +628,25 @@
                     </div>`;
             } else if (id === 'juilliard-composition') {
                 d = root.comp;
+                // Mobile: Autoplay OFF, Play Button ON
+                // Desktop: Autoplay ON (Muted), Sound Button ON
+                const iframeSrc = isMobile
+                    ? `https://iframe.mediadelivery.net/embed/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=false&loop=true&muted=false&controls=true`
+                    : `https://iframe.mediadelivery.net/embed/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=true&loop=true&muted=true&controls=false`;
+
+                const soundBtn = isMobile ? '' : `<div class="sound-control-btn" onclick="toggleVideoSound(this)">🔇 Sound</div>`;
+                const playBtn = isMobile ? `<div class="play-video-btn" onclick="playMobileVideo(this, 'comp')">▶ Play Video</div>` : '';
+
                 bodyHtml = `
                     <div class="comp-case-study" style="position: relative; min-height: 80vh; color: #fff;">
                          <div class="comp-video-container" style="position: absolute; inset: 0; z-index: 0; overflow: hidden;">
-                            <iframe src="https://iframe.mediadelivery.net/embed/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=true&loop=true&muted=true&controls=false" class="comp-video-bg" style="width: 100%; height: 100%; opacity: 0.6; border: 0; pointer-events: auto;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+                            <iframe src="${iframeSrc}" class="comp-video-bg" style="width: 100%; height: 100%; opacity: 0.6; border: 0; pointer-events: auto;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);"></div>
-                            <div class="sound-control-btn" onclick="toggleVideoSound(this)">🔇 Sound</div>
+                            ${soundBtn}
                         </div>
                         <div class="comp-content" style="position: relative; z-index: 1; padding: 4rem;">
                             <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem; color: #fff;">${d.title}</h2>
+                            ${playBtn}
                             <p style="font-style: italic; color: #ccc; margin-bottom: 3rem;">Evening Division at The Juilliard School</p>
                             <div class="comp-overlay-content">
                                 <h1 class="comp-title" style="font-size: 3rem; margin-bottom: 0.5rem; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.8);">${d.subTitle}</h1>
@@ -678,14 +689,25 @@
                     <div class="chamber-dot ${index === 0 ? 'active' : ''}" onclick="setChamberSlide(${index})"></div>
                 `).join('');
 
+                const iframeSrc = isMobile
+                    ? `https://iframe.mediadelivery.net/embed/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=false&loop=true&muted=false&controls=true`
+                    : `https://iframe.mediadelivery.net/embed/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=true&loop=true&muted=true&controls=false`;
+
+                const soundBtn = isMobile ? '' : `<div class="sound-control-btn" style="pointer-events: auto;" onclick="toggleVideoSound(this)">🔇 Sound</div>`;
+                // For Chamber: Video is purely background, title is modal-title.
+                // We'll place Play Button overlaid in top center of the video area.
+                const playBtn = isMobile ? `<div class="play-video-btn" onclick="playMobileVideo(this, 'cham')" style="position: absolute; top: 6.5rem; left: 50%; transform: translateX(-50%); white-space: nowrap;">▶ Play Video</div>` : '';
+
+
                 bodyHtml = `
                     <div class="video-crop-container" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
-                        <iframe src="https://iframe.mediadelivery.net/embed/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=true&loop=true&muted=true&controls=false" 
+                        <iframe src="${iframeSrc}" 
                             class="modal-bg-video" 
                             style="border:0; width: 100%; height: 100%; transform: scale(1.35); transform-origin: center; pointer-events: auto;" 
                             loading="lazy" allow="autoplay; encrypted-media;" allowfullscreen>
                         </iframe>
-                        <div class="sound-control-btn" style="pointer-events: auto;" onclick="toggleVideoSound(this)">🔇 Sound</div>
+                        ${soundBtn}
+                        ${playBtn}
                     </div>
                     <div class="modal-video-overlay"></div>
                     <div id="chamberCarousel" class="chamber-carousel">
@@ -762,6 +784,38 @@
                 iframe.src = src.replace('muted=false', 'muted=true').replace('controls=true', 'controls=false');
                 btn.innerHTML = '🔇 Sound';
                 iframe.style.zIndex = '0'; // Send back
+            }
+        }
+
+        // --- Mobile Play Logic ---
+        function playMobileVideo(btn, type) {
+            // Find iframe relative to button (different structure for Comp vs Cham)
+            let container;
+            if (type === 'comp') {
+                // Button is in .comp-content, iframe is in .comp-video-container (prev sibling)
+                const contentDiv = btn.parentElement;
+                container = contentDiv.previousElementSibling;
+            } else {
+                // Button is in .video-crop-container, iframe is sibling
+                container = btn.parentElement;
+            }
+
+            const iframe = container.querySelector('iframe');
+            if (iframe) {
+                // Ensure autoplay=true and muted=false
+                // Also ensures controls=true
+                let newSrc = iframe.src;
+                if (newSrc.includes('autoplay=false')) {
+                    newSrc = newSrc.replace('autoplay=false', 'autoplay=true');
+                }
+                if (newSrc.includes('muted=true')) {
+                    newSrc = newSrc.replace('muted=true', 'muted=false');
+                }
+                // Just force update
+                iframe.src = newSrc;
+
+                // Hide button
+                btn.style.display = 'none';
             }
         }
 

@@ -630,7 +630,7 @@
                 bodyHtml = `
                     <div class="comp-case-study" style="position: relative; min-height: 80vh; color: #fff;">
                          <div class="comp-video-container" style="position: absolute; inset: 0; z-index: 0; overflow: hidden;">
-                            <iframe src="https://iframe.mediadelivery.net/embed/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=true&loop=true&muted=true&controls=false" class="comp-video-bg" style="width: 100%; height: 100%; opacity: 0.6; border: 0;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+                            <iframe src="https://iframe.mediadelivery.net/embed/586532/68b8ddfb-29ed-4453-b91e-e71bbdabe4d7?autoplay=true&loop=true&muted=true&controls=false" class="comp-video-bg" style="width: 100%; height: 100%; opacity: 0.6; border: 0; pointer-events: auto;" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);"></div>
                             <div class="sound-control-btn" onclick="toggleVideoSound(this)">🔇 Sound</div>
                         </div>
@@ -682,7 +682,7 @@
                     <div class="video-crop-container" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
                         <iframe src="https://iframe.mediadelivery.net/embed/586532/f2da2c01-73ff-41a3-87dc-1e624a5be2f4?autoplay=true&loop=true&muted=true&controls=false" 
                             class="modal-bg-video" 
-                            style="border:0; width: 100%; height: 100%; transform: scale(1.35); transform-origin: center;" 
+                            style="border:0; width: 100%; height: 100%; transform: scale(1.35); transform-origin: center; pointer-events: auto;" 
                             loading="lazy" allow="autoplay; encrypted-media;" allowfullscreen>
                         </iframe>
                         <div class="sound-control-btn" style="pointer-events: auto;" onclick="toggleVideoSound(this)">🔇 Sound</div>
@@ -753,14 +753,15 @@
 
             let src = iframe.src;
             if (src.includes('muted=true')) {
-                // Unmute
-                iframe.src = src.replace('muted=true', 'muted=false');
+                // Unmute & Show Controls (so user can play if autoplay is blocked)
+                iframe.src = src.replace('muted=true', 'muted=false').replace('controls=false', 'controls=true');
                 btn.innerHTML = '🔊 Sound';
-                // Force active class for styling if needed
+                iframe.style.zIndex = '100'; // Bring to front
             } else {
-                // Mute
-                iframe.src = src.replace('muted=false', 'muted=true');
+                // Mute & Hide Controls
+                iframe.src = src.replace('muted=false', 'muted=true').replace('controls=true', 'controls=false');
                 btn.innerHTML = '🔇 Sound';
+                iframe.style.zIndex = '0'; // Send back
             }
         }
 

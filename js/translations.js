@@ -331,215 +331,215 @@ window.siteTranslations = {
                 titleEn: "GoldenCarp Capital",
                 desc: "An early-stage investment and operating studio exploring scalable, risk-aware business models."
             },
-            life: {
-                intro: "\"Practices that shape how I see, listen, and move.\"",
-                see: {
-                    title: "See",
-                    subtitle: "Photography & Vision"
+        },
+        life: {
+            intro: "\"Practices that shape how I see, listen, and move.\"",
+            see: {
+                title: "See",
+                subtitle: "Photography & Vision"
+            },
+            listen: {
+                title: "Listen",
+                subtitle: "Music & Sound"
+            },
+            move: {
+                title: "Move",
+                subtitle: "Kinetic & Travel"
+            },
+            seePage: {
+                loader: {
+                    title: "Developing Vision",
+                    sub: "Curating light, composition, and time."
                 },
-                listen: {
-                    title: "Listen",
-                    subtitle: "Music & Sound"
+                hero: "See",
+                photoTitle: "Photography",
+                photoDesc: "Observing the world as it is. <br><br>Photography is an act of attention—a discipline of noticing light, composition, and the fleeting moments that define our reality.",
+                calligTitle: "Calligraphy & Painting",
+                calligDesc: "Gestural practices of rhythm, structure, and restraint. <br><br>In the movement of the brush, I find a dialogue between control and flow, tradition and personal expression.",
+                btn: "See More",
+                paintingModal: {
+                    titleCn: "血铸长城",
+                    titleEn: "Blood-Forged Great Wall",
+                    meta: "Oil painting & calligraphy, 2025<br>Oil on canvas, 16 × 20 in<br>Calligraphy, four-foot format (two sheets)",
+                    desc: "Inspired by the wartime photography of Sha Fei, <i>Blood-Forged Great Wall</i> reflects on collective memory rather than individual heroism. The oil painting reconstructs the Great Wall as both landscape and symbol — a site where fire, smoke, and human endurance converge.<br><br>The accompanying calligraphy inscribes the original poem <i>Blood-Forged Great Wall</i>, its forceful brushwork echoing the urgency of wartime signals.",
+                    poemTitle: "Original Poem"
                 },
-                move: {
-                    title: "Move",
-                    subtitle: "Kinetic & Travel"
-                },
-                seePage: {
-                    loader: {
-                        title: "Developing Vision",
-                        sub: "Curating light, composition, and time."
+                slideshow: {
+                    hawaii: {
+                        groupLabel: "Hawaiian Islands, 2025",
+                        navRight: "Florida",
+                        slides: [
+                            { title: "The Departure", desc: "A journey is not simply a departure from daily life." },
+                            { title: "Nature", desc: "Watching manta rays forage revealed the fragile boundary between observation and disturbance." },
+                            { title: "Culture", desc: "A conversation with a Japanese couple opened a window into deep affinity." },
+                            { title: "Applied Knowledge", desc: "Abstract knowledge reconnected with physical space and lived history." },
+                            { title: "Self-Awareness", desc: "Getting lost nearly cost me a flight. Travel quietly reorganizes perception." }
+                        ]
                     },
-                    hero: "See",
-                    photoTitle: "Photography",
-                    photoDesc: "Observing the world as it is. <br><br>Photography is an act of attention—a discipline of noticing light, composition, and the fleeting moments that define our reality.",
-                    calligTitle: "Calligraphy & Painting",
-                    calligDesc: "Gestural practices of rhythm, structure, and restraint. <br><br>In the movement of the brush, I find a dialogue between control and flow, tradition and personal expression.",
-                    btn: "See More",
-                    paintingModal: {
-                        titleCn: "血铸长城",
-                        titleEn: "Blood-Forged Great Wall",
-                        meta: "Oil painting & calligraphy, 2025<br>Oil on canvas, 16 × 20 in<br>Calligraphy, four-foot format (two sheets)",
-                        desc: "Inspired by the wartime photography of Sha Fei, <i>Blood-Forged Great Wall</i> reflects on collective memory rather than individual heroism. The oil painting reconstructs the Great Wall as both landscape and symbol — a site where fire, smoke, and human endurance converge.<br><br>The accompanying calligraphy inscribes the original poem <i>Blood-Forged Great Wall</i>, its forceful brushwork echoing the urgency of wartime signals.",
-                        poemTitle: "Original Poem"
+                    florida: {
+                        groupLabel: "Florida, 2025",
+                        navLeft: "Hawaii",
+                        navRight: "West Coast",
+                        slides: [
+                            { title: "Coastal Rhythms", desc: "Observation shifted between serenity, excess, and immediacy." },
+                            { title: "Leisure", desc: "Leisure here is not escape, but a sustained cadence." },
+                            { title: "Stillness", desc: "Attention settles on gradients of blue and gold. Nothing demands urgency." },
+                            { title: "Immediacy", desc: "Walls speak loudly. Street art as a direct, sun-fed form of expression." },
+                            { title: "Composite Portrait", desc: "Romance appears in moments of pause, allowing surroundings to speak first." }
+                        ]
                     },
-                    slideshow: {
-                        hawaii: {
-                            groupLabel: "Hawaiian Islands, 2025",
-                            navRight: "Florida",
-                            slides: [
-                                { title: "The Departure", desc: "A journey is not simply a departure from daily life." },
-                                { title: "Nature", desc: "Watching manta rays forage revealed the fragile boundary between observation and disturbance." },
-                                { title: "Culture", desc: "A conversation with a Japanese couple opened a window into deep affinity." },
-                                { title: "Applied Knowledge", desc: "Abstract knowledge reconnected with physical space and lived history." },
-                                { title: "Self-Awareness", desc: "Getting lost nearly cost me a flight. Travel quietly reorganizes perception." }
-                            ]
-                        },
-                        florida: {
-                            groupLabel: "Florida, 2025",
-                            navLeft: "Hawaii",
-                            navRight: "West Coast",
-                            slides: [
-                                { title: "Coastal Rhythms", desc: "Observation shifted between serenity, excess, and immediacy." },
-                                { title: "Leisure", desc: "Leisure here is not escape, but a sustained cadence." },
-                                { title: "Stillness", desc: "Attention settles on gradients of blue and gold. Nothing demands urgency." },
-                                { title: "Immediacy", desc: "Walls speak loudly. Street art as a direct, sun-fed form of expression." },
-                                { title: "Composite Portrait", desc: "Romance appears in moments of pause, allowing surroundings to speak first." }
-                            ]
-                        },
-                        westcoast: {
-                            groupLabel: "U.S. West Coast, 2024–2025",
-                            navLeft: "Florida",
-                            slides: [
-                                { title: "Santa Monica", desc: "At Santa Monica, sunset frames unplanned moments — a young man splashing seawater, seabirds cutting sharp lines." },
-                                { title: "Redwoods", desc: "Three hours south, the redwood forests stand — trunks wide enough to contain roads." },
-                                { title: "Apple Park", desc: "Apple Park gathers glass and geometry into a circular horizon, while beneath Stanford’s arcades, code and philosophy share the same light." },
-                                { title: "Golden Gate Bridge", desc: "The orange cables of the Golden Gate Bridge cut through fog, establishing a rhythm of engineered intent." },
-                                { title: "Highway 1", desc: "Along Highway 1, cliffs shear the Pacific into ribbons of blue and gold. Waves inscribe slow-moving scores into rock faces." },
-                                { title: "Getty Center", desc: "Modernist architecture at the Getty Center offers counterpoint to the organic coast. Freedom here is rhythmic, plural, and shared." },
-                                { title: "Constructed Futures", desc: "From coastal cities to constructed futures, observation shifts between deep time and lived immediacy." },
-                                { title: "Transit", desc: "Rusted railways and short-range trams mark the pulse of city transit, weaving through the dense verticality." },
-                                { title: "Dusk", desc: "As dusk settles, the landscape glows amber-gold. These scenes register as quiet evidence of patience and proportion." },
-                                { title: "Yosemite", desc: "In Yosemite, morning fog drifts across sheer granite faces. El Capitan reflects the first light of day." },
-                                { title: "Flow", desc: "Meltwater feeds Yosemite Falls, scattering persistent rainbows at the valley floor." },
-                                { title: "Victorian Cascade", desc: "Victorian houses cascade down the streets. Here, ocean tides, keystrokes, and church bells coexist." },
-                                { title: "Spectrum", desc: "Together, the West Coast emerges as a spectrum of time, material, and belief. Photography aligns nature’s endurance with fleeting gestures." }
-                            ]
-                        }
-                    }
-                },
-                listenPage: {
-                    heroTitle: "A disciplined practice of time, listening, and resonance.",
-                    heroDesc: "Sound, for me, is not an accessory to expression, but a way of inhabiting time.<br>Across performance, collaboration, and composition, music becomes a shared space — shaped by structure, attention, and restraint.",
-                    polygons: {
-                        p1: "Performance",
-                        p2: "Collaboration",
-                        p3: "Composition"
-                    },
-                    modals: {
-                        perfTitle: "Chopin — Scherzo No. 2",
-                        perfSub: "A study in form, tension, and architectural clarity.",
-                        perfDesc: "This performance centers on structural articulation rather than virtuosity.<br>Contrast, acceleration, and release are treated as architectural elements — allowing the scherzo’s dramatic surface to remain grounded in proportion and continuity.",
-                        liveTitle: "Sound shared in presence.",
-                        liveDesc: "I perform not to reproduce recordings, but to restore proximity.<br>In a small concert setting, sound travels without compression — breath, touch, and resonance unfold in real time, shared by everyone in the room.",
-                        collabTitle: "Selected Collaborative Album",
-                        collabSub: "Listening as a shared discipline.",
-                        collabDesc: "This album documents a sustained period of collaboration with campus vocalists. Across diverse repertoires and voices, the piano steps away from solo authority and becomes a responsive surface — shaping tempo, harmony, and silence in service of the human voice.",
-                        compTitle: "Lover’s Bay Waltz · 情侣路圆舞曲",
-                        compSub: "for flute, viola, and harp",
-                        compMeta: "Composition, 2025<br>Dedicated to Lover’s Road, Zhuhai",
-                        compDesc: "Lover’s Bay Waltz is a chamber work composed in memory of Lover’s Road in Zhuhai, the place where I was born. Rather than depicting a specific landscape, the piece traces a rhythm — one shaped by coastline, light, and the slow accumulation of memory.<br><br>Written for flute, viola, and harp, the waltz unfolds as a restrained circulation of sound. Motion emerges without urgency; repetition functions as return rather than insistence.",
-                        compLink: "View Full Orchestral Case Study \"A Spark Ignites the Horizon\" →"
-                    }
-                },
-                movePage: {
-                    heroTitle: "MOVE",
-                    heroSub: "Learning through motion.",
-                    heroDesc: "Movement, for me, is not escape but alignment —<br>between body, environment, and attention.<br>Each practice teaches a different way of inhabiting the world.",
-                    cards: {
-                        hiking: "Hiking",
-                        golf: "Golf",
-                        racing: "Racing Car",
-                        snowboard: "Snowboarding",
-                        travel: "Travel"
-                    },
-                    modals: {
-                        hiking: { title: "Hiking", sub: "Becoming part of the landscape.", desc: "Hiking dissolves the boundary between self and terrain. Step by step, attention shifts outward, aligning breath and rhythm with the mountains — a quiet practice of Daoist unity rather than conquest." },
-                        golf: { title: "Golf", sub: "Reading time through seasons.", desc: "Golf slows perception. Across changing light, wind, and seasons, the game becomes a dialogue with variation. It is a shared journey—teaching patience, adjustment, and the joy of mutual encouragement and connection on the course." },
-                        racing: { title: "Racing Car", sub: "Releasing controlled wildness.", desc: "On the track, instinct and precision converge. Racing offers a sanctioned space for speed, risk, and intensity — where restraint and wildness are held in balance rather than opposition." },
-                        snowboard: { title: "Snowboarding", sub: "Learning resilience through repetition.", desc: "Snowboarding measures progress in falls as much as in runs. Each descent tests endurance and resolve, reinforcing the discipline of getting up — again and again — in thinner air and colder silence." },
-                        travel: { title: "Travel", sub: "Expanding the radius of understanding.", desc: "Travel widens perception beyond familiarity. By encountering different landscapes, customs, and social rhythms, movement becomes education — cultivating perspective, empathy, and practical wisdom." }
+                    westcoast: {
+                        groupLabel: "U.S. West Coast, 2024–2025",
+                        navLeft: "Florida",
+                        slides: [
+                            { title: "Santa Monica", desc: "At Santa Monica, sunset frames unplanned moments — a young man splashing seawater, seabirds cutting sharp lines." },
+                            { title: "Redwoods", desc: "Three hours south, the redwood forests stand — trunks wide enough to contain roads." },
+                            { title: "Apple Park", desc: "Apple Park gathers glass and geometry into a circular horizon, while beneath Stanford’s arcades, code and philosophy share the same light." },
+                            { title: "Golden Gate Bridge", desc: "The orange cables of the Golden Gate Bridge cut through fog, establishing a rhythm of engineered intent." },
+                            { title: "Highway 1", desc: "Along Highway 1, cliffs shear the Pacific into ribbons of blue and gold. Waves inscribe slow-moving scores into rock faces." },
+                            { title: "Getty Center", desc: "Modernist architecture at the Getty Center offers counterpoint to the organic coast. Freedom here is rhythmic, plural, and shared." },
+                            { title: "Constructed Futures", desc: "From coastal cities to constructed futures, observation shifts between deep time and lived immediacy." },
+                            { title: "Transit", desc: "Rusted railways and short-range trams mark the pulse of city transit, weaving through the dense verticality." },
+                            { title: "Dusk", desc: "As dusk settles, the landscape glows amber-gold. These scenes register as quiet evidence of patience and proportion." },
+                            { title: "Yosemite", desc: "In Yosemite, morning fog drifts across sheer granite faces. El Capitan reflects the first light of day." },
+                            { title: "Flow", desc: "Meltwater feeds Yosemite Falls, scattering persistent rainbows at the valley floor." },
+                            { title: "Victorian Cascade", desc: "Victorian houses cascade down the streets. Here, ocean tides, keystrokes, and church bells coexist." },
+                            { title: "Spectrum", desc: "Together, the West Coast emerges as a spectrum of time, material, and belief. Photography aligns nature’s endurance with fleeting gestures." }
+                        ]
                     }
                 }
             },
-            contact: {
-                title: "Let's Connect",
-                subtitle: "Open to collaborations, conversations, and new ideas.<br>Reach out via email or connect on social platforms.",
-                emailLabel: "Email",
-                linkedInLabel: "LinkedIn",
-                instaLabel: "Instagram",
-                wechatLabel: "WeChat",
-                wechatSub: "Official Account",
-                biliLabel: "Bilibili",
-                biliSub: "Content Creator"
+            listenPage: {
+                heroTitle: "A disciplined practice of time, listening, and resonance.",
+                heroDesc: "Sound, for me, is not an accessory to expression, but a way of inhabiting time.<br>Across performance, collaboration, and composition, music becomes a shared space — shaped by structure, attention, and restraint.",
+                polygons: {
+                    p1: "Performance",
+                    p2: "Collaboration",
+                    p3: "Composition"
+                },
+                modals: {
+                    perfTitle: "Chopin — Scherzo No. 2",
+                    perfSub: "A study in form, tension, and architectural clarity.",
+                    perfDesc: "This performance centers on structural articulation rather than virtuosity.<br>Contrast, acceleration, and release are treated as architectural elements — allowing the scherzo’s dramatic surface to remain grounded in proportion and continuity.",
+                    liveTitle: "Sound shared in presence.",
+                    liveDesc: "I perform not to reproduce recordings, but to restore proximity.<br>In a small concert setting, sound travels without compression — breath, touch, and resonance unfold in real time, shared by everyone in the room.",
+                    collabTitle: "Selected Collaborative Album",
+                    collabSub: "Listening as a shared discipline.",
+                    collabDesc: "This album documents a sustained period of collaboration with campus vocalists. Across diverse repertoires and voices, the piano steps away from solo authority and becomes a responsive surface — shaping tempo, harmony, and silence in service of the human voice.",
+                    compTitle: "Lover’s Bay Waltz · 情侣路圆舞曲",
+                    compSub: "for flute, viola, and harp",
+                    compMeta: "Composition, 2025<br>Dedicated to Lover’s Road, Zhuhai",
+                    compDesc: "Lover’s Bay Waltz is a chamber work composed in memory of Lover’s Road in Zhuhai, the place where I was born. Rather than depicting a specific landscape, the piece traces a rhythm — one shaped by coastline, light, and the slow accumulation of memory.<br><br>Written for flute, viola, and harp, the waltz unfolds as a restrained circulation of sound. Motion emerges without urgency; repetition functions as return rather than insistence.",
+                    compLink: "View Full Orchestral Case Study \"A Spark Ignites the Horizon\" →"
+                }
             },
-            careerPages: {
-                common: {
-                    back: "Back"
+            movePage: {
+                heroTitle: "MOVE",
+                heroSub: "Learning through motion.",
+                heroDesc: "Movement, for me, is not escape but alignment —<br>between body, environment, and attention.<br>Each practice teaches a different way of inhabiting the world.",
+                cards: {
+                    hiking: "Hiking",
+                    golf: "Golf",
+                    racing: "Racing Car",
+                    snowboard: "Snowboarding",
+                    travel: "Travel"
                 },
-                finance: {
-                    title: "Financial & Market Analysis",
-                    bocom: {
-                        title: "Bank of Communications, Guangdong Branch",
-                        s1Title: "System Entry",
-                        s1Text: "I entered the retail commercial banking system at its most concrete interface: the point where institutional financial products meet individual and corporate clients. Through front-desk operations and cross-departmental rotation, I was exposed to the full spectrum of everyday banking activities—account services, credit products, wealth management, and loan issuance—within a highly standardized organizational structure.",
-                        s2Title: "Operational Dynamics",
-                        s2Text: "Working alongside relationship managers, I began to understand how financial products are translated into practice. Product positioning, regulatory constraints, and client communication jointly determine implementation. I observed how trust, financial literacy, and process discipline shape client decision-making, and how risk awareness is embedded into routine service operations rather than treated as an isolated function.",
-                        s3Title: "Applied Understanding",
-                        s3Text: "This early exposure formed my baseline understanding of how financial systems operate under real-world constraints—an understanding that later informed my approach to market analysis. Seeing how products are explained, adopted, and constrained at the front line fundamentally shaped how I interpret market behavior beyond purely quantitative signals."
-                    },
-                    columbia: {
-                        title: "Columbia Industrial Engineering & Operations Research",
-                        s1Title: "Market Mechanics",
-                        s1Text: "I transitioned from institutional finance to the secondary market, entering the equity investment system where price, liquidity, and expectation interact continuously. My role focused on analyzing publicly traded equities through technical structures, thematic rotations, and capital flow dynamics, while managing a diversified portfolio under explicit risk constraints.",
-                        s2Title: "Structure & Flow",
-                        s2Text: "Through systematic observation, I learned that market movements are driven by the interaction match between trend structure, capital behavior, and regime shifts. Technical patterns became tools for contextualizing market states rather than isolated prediction. I developed a practical understanding of drawdown control, position sizing, and how diversification behaves differently across market phases.",
-                        s3Title: "Forecasting & Risk",
-                        s3Text: "Extending analysis to macro-linked assets, I integrated real estate indices and FX dynamics using econometric models (VAR, ARIMA) and machine learning. This experience cemented the realization that market predictability is structurally limited by policy shocks and expectation regimes—a core principle guiding my work in macro modeling and portfolio construction."
-                    }
-                },
-                product: {
-                    title: "Product & Systems Execution",
-                    brainco: {
-                        header: "Assistant Project Manager · BrainCo (Shenzhen)",
-                        role: "PRODUCT SYSTEMS EXECUTION",
-                        desc: "I worked inside a cross-functional product R&D organization spanning design, software, hardware, mechanical, project, and user research. My role is to keep development moving across the full loop—from design intent to trial production, quality validation, factory feedback, and certification readiness. I learned that the real work is rarely 'one department’s problem': progress depends on translating issues into actionable standards, alignment timelines, and closing the loop between engineering decisions and manufacturing reality.",
-                        tags: "<span class='card-tag'>Program Coordination</span><span class='card-tag'>Cross-functional</span><span class='card-tag'>Validation</span><span class='card-tag'>Manufacturing Feedback</span><span class='card-tag'>Compliance Readiness</span>"
-                    },
-                    brainai: {
-                        header: "Robotic Hand Kit · Trial Production Loop",
-                        role: "BRAINAI QUALITY & RAMP-UP",
-                        desc: "I supported trial production by treating 'specs' as executable quality standards: cross-checking BOM, 2D drawings, and spec sheets with engineering teams, then tracing issues found in assembly back to design and process assumptions. In factory settings, I helped identify fit-and-finish failures (gap, fastening, surface processing) and coordinate corrective actions—from fixture updates to part tolerance and process adjustments—while tracking validation items such as drop, vibration, thermal/humidity stress, and durability tests.",
-                        tags: "<span class='card-tag'>BOM & Spec Control</span><span class='card-tag'>DFM/DFT</span><span class='card-tag'>Failure Triage</span><span class='card-tag'>Reliability Testing</span><span class='card-tag'>Factory Coordination</span>"
-                    },
-                    morbius: {
-                        header: "Smart Prosthetics · Sealing & Mechanical Integration",
-                        role: "MORBIUS CERTIFICATION CONSTRAINTS",
-                        desc: "This project highlighted how certification requirements reshape design. I participated in resolving mechanical interference and dimensional mismatch by separating root causes (height, flatness, burrs) from symptoms, then evaluating practical countermeasures (rework, machining, shimming, controlled material removal). In parallel, I joined discussions and experiments around dust/water protection—sealing interfaces, gasket strategy, and protective coatings—to ensure consistency between trial builds and the certified configuration, including supplier control and material traceability.",
-                        tags: "<span class='card-tag'>Mechanical Fit</span><span class='card-tag'>Tolerance Strategy</span><span class='card-tag'>IP Protection</span><span class='card-tag'>Supplier Traceability</span><span class='card-tag'>Certification Build</span>"
-                    },
-                    morpheus: {
-                        header: "Sleep Headband · Test → Feedback → Refinement",
-                        role: "MORPHEUS USER EXPERIENCE TO DESIGN",
-                        desc: "In later-stage testing, I focused on turning subjective experience into actionable design improvements: packaging usability, instruction clarity, comfort and safety, interaction sensitivity, portability, and perceived efficacy. Compared with production-facing triage in other projects, my role here leaned toward structured feedback: proposing refinements during evaluation, and supporting small design experiments (e.g., button height adjustment, assembly improvements). This reinforced a key lesson: good product work is the discipline of mapping 'what users feel' to changes engineering can ship.",
-                        tags: "<span class='card-tag'>UX Evaluation</span><span class='card-tag'>Instruction Design</span><span class='card-tag'>Comfort & Safety</span><span class='card-tag'>Iteration Experiments</span><span class='card-tag'>Design Translation</span>"
-                    }
-                },
-                regulatory: {
-                    title: "Regulatory & Clinical Foundations",
-                    device: {
-                        title: "Guangdong Provincial Medical Device Quality Supervision and Testing Institute",
-                        role: "Medical Device Quality & Regulatory Testing",
-                        s1Title: "System Entry",
-                        s1Text: "I entered the regulatory testing system as a technical support function serving supervision rather than production. Working within a national-level medical device inspection institute, I participated in quality evaluation workflows that sit between manufacturers, regulators, and public safety—where testing results directly influence certification, market access, and economic consequences.",
-                        s2Title: "System Dynamics",
-                        s2Text: "Through hands-on exposure to physical–mechanical and biochemical testing, I learned how standards are operationalized under strict procedural control. From tensile strength, burst pressure, and liquid penetration tests to filtration efficiency, microbial limits, and residual sterilant analysis, each measurement carried defined uncertainty, traceability requirements, and inter-laboratory comparability constraints. I also observed how deviations—quantified through statistical indicators such as Z-scores—trigger corrective action, equipment audits, and even temporary suspension of testing authority.",
-                        s3Title: "Applied Understanding",
-                        s3Text: "This experience reshaped my understanding of 'accuracy.' Precision was not an abstract ideal but a system property sustained by documentation discipline, environmental control, equipment maintenance, and statistical reasoning. It established a lasting sensitivity to error propagation, model assumptions, and the downstream cost of seemingly minor deviations—an awareness that later informed my approach to biomedical modeling, system validation, and risk-aware decision-making."
-                    },
-                    clinical: {
-                        title: "Guangzhou Haizhu District Traditional Chinese Medicine Hospital",
-                        role: "Clinical Laboratory Practice",
-                        s1Title: "System Entry",
-                        s1Text: "I subsequently entered a clinical laboratory environment where diagnostic testing directly supports patient care. Working with routine clinical assays and sample analysis, I became familiar with the operational rhythm of hospital laboratories and their role in time-sensitive medical decision-making.",
-                        s2Title: "System Dynamics",
-                        s2Text: "Within this setting, quality control was inseparable from daily practice. Equipment calibration, procedural consistency, and result verification were not isolated tasks but embedded safeguards ensuring reliability under workload pressure. Close collaboration with clinicians highlighted how laboratory data must be both technically accurate and contextually interpretable to be clinically meaningful.",
-                        s3Title: "Applied Understanding",
-                        s3Text: "Compared with regulatory testing, clinical practice made the consequences of error immediate and human-centered. Together, these two experiences anchored my appreciation for rigor, responsibility, and constraint-awareness in biomedical systems—principles that continue to guide how I approach engineering, analysis, and modeling across domains."
-                    }
+                modals: {
+                    hiking: { title: "Hiking", sub: "Becoming part of the landscape.", desc: "Hiking dissolves the boundary between self and terrain. Step by step, attention shifts outward, aligning breath and rhythm with the mountains — a quiet practice of Daoist unity rather than conquest." },
+                    golf: { title: "Golf", sub: "Reading time through seasons.", desc: "Golf slows perception. Across changing light, wind, and seasons, the game becomes a dialogue with variation. It is a shared journey—teaching patience, adjustment, and the joy of mutual encouragement and connection on the course." },
+                    racing: { title: "Racing Car", sub: "Releasing controlled wildness.", desc: "On the track, instinct and precision converge. Racing offers a sanctioned space for speed, risk, and intensity — where restraint and wildness are held in balance rather than opposition." },
+                    snowboard: { title: "Snowboarding", sub: "Learning resilience through repetition.", desc: "Snowboarding measures progress in falls as much as in runs. Each descent tests endurance and resolve, reinforcing the discipline of getting up — again and again — in thinner air and colder silence." },
+                    travel: { title: "Travel", sub: "Expanding the radius of understanding.", desc: "Travel widens perception beyond familiarity. By encountering different landscapes, customs, and social rhythms, movement becomes education — cultivating perspective, empathy, and practical wisdom." }
                 }
             }
         },
+        contact: {
+            title: "Let's Connect",
+            subtitle: "Open to collaborations, conversations, and new ideas.<br>Reach out via email or connect on social platforms.",
+            emailLabel: "Email",
+            linkedInLabel: "LinkedIn",
+            instaLabel: "Instagram",
+            wechatLabel: "WeChat",
+            wechatSub: "Official Account",
+            biliLabel: "Bilibili",
+            biliSub: "Content Creator"
+        },
+        careerPages: {
+            common: {
+                back: "Back"
+            },
+            finance: {
+                title: "Financial & Market Analysis",
+                bocom: {
+                    title: "Bank of Communications, Guangdong Branch",
+                    s1Title: "System Entry",
+                    s1Text: "I entered the retail commercial banking system at its most concrete interface: the point where institutional financial products meet individual and corporate clients. Through front-desk operations and cross-departmental rotation, I was exposed to the full spectrum of everyday banking activities—account services, credit products, wealth management, and loan issuance—within a highly standardized organizational structure.",
+                    s2Title: "Operational Dynamics",
+                    s2Text: "Working alongside relationship managers, I began to understand how financial products are translated into practice. Product positioning, regulatory constraints, and client communication jointly determine implementation. I observed how trust, financial literacy, and process discipline shape client decision-making, and how risk awareness is embedded into routine service operations rather than treated as an isolated function.",
+                    s3Title: "Applied Understanding",
+                    s3Text: "This early exposure formed my baseline understanding of how financial systems operate under real-world constraints—an understanding that later informed my approach to market analysis. Seeing how products are explained, adopted, and constrained at the front line fundamentally shaped how I interpret market behavior beyond purely quantitative signals."
+                },
+                columbia: {
+                    title: "Columbia Industrial Engineering & Operations Research",
+                    s1Title: "Market Mechanics",
+                    s1Text: "I transitioned from institutional finance to the secondary market, entering the equity investment system where price, liquidity, and expectation interact continuously. My role focused on analyzing publicly traded equities through technical structures, thematic rotations, and capital flow dynamics, while managing a diversified portfolio under explicit risk constraints.",
+                    s2Title: "Structure & Flow",
+                    s2Text: "Through systematic observation, I learned that market movements are driven by the interaction match between trend structure, capital behavior, and regime shifts. Technical patterns became tools for contextualizing market states rather than isolated prediction. I developed a practical understanding of drawdown control, position sizing, and how diversification behaves differently across market phases.",
+                    s3Title: "Forecasting & Risk",
+                    s3Text: "Extending analysis to macro-linked assets, I integrated real estate indices and FX dynamics using econometric models (VAR, ARIMA) and machine learning. This experience cemented the realization that market predictability is structurally limited by policy shocks and expectation regimes—a core principle guiding my work in macro modeling and portfolio construction."
+                }
+            },
+            product: {
+                title: "Product & Systems Execution",
+                brainco: {
+                    header: "Assistant Project Manager · BrainCo (Shenzhen)",
+                    role: "PRODUCT SYSTEMS EXECUTION",
+                    desc: "I worked inside a cross-functional product R&D organization spanning design, software, hardware, mechanical, project, and user research. My role is to keep development moving across the full loop—from design intent to trial production, quality validation, factory feedback, and certification readiness. I learned that the real work is rarely 'one department’s problem': progress depends on translating issues into actionable standards, alignment timelines, and closing the loop between engineering decisions and manufacturing reality.",
+                    tags: "<span class='card-tag'>Program Coordination</span><span class='card-tag'>Cross-functional</span><span class='card-tag'>Validation</span><span class='card-tag'>Manufacturing Feedback</span><span class='card-tag'>Compliance Readiness</span>"
+                },
+                brainai: {
+                    header: "Robotic Hand Kit · Trial Production Loop",
+                    role: "BRAINAI QUALITY & RAMP-UP",
+                    desc: "I supported trial production by treating 'specs' as executable quality standards: cross-checking BOM, 2D drawings, and spec sheets with engineering teams, then tracing issues found in assembly back to design and process assumptions. In factory settings, I helped identify fit-and-finish failures (gap, fastening, surface processing) and coordinate corrective actions—from fixture updates to part tolerance and process adjustments—while tracking validation items such as drop, vibration, thermal/humidity stress, and durability tests.",
+                    tags: "<span class='card-tag'>BOM & Spec Control</span><span class='card-tag'>DFM/DFT</span><span class='card-tag'>Failure Triage</span><span class='card-tag'>Reliability Testing</span><span class='card-tag'>Factory Coordination</span>"
+                },
+                morbius: {
+                    header: "Smart Prosthetics · Sealing & Mechanical Integration",
+                    role: "MORBIUS CERTIFICATION CONSTRAINTS",
+                    desc: "This project highlighted how certification requirements reshape design. I participated in resolving mechanical interference and dimensional mismatch by separating root causes (height, flatness, burrs) from symptoms, then evaluating practical countermeasures (rework, machining, shimming, controlled material removal). In parallel, I joined discussions and experiments around dust/water protection—sealing interfaces, gasket strategy, and protective coatings—to ensure consistency between trial builds and the certified configuration, including supplier control and material traceability.",
+                    tags: "<span class='card-tag'>Mechanical Fit</span><span class='card-tag'>Tolerance Strategy</span><span class='card-tag'>IP Protection</span><span class='card-tag'>Supplier Traceability</span><span class='card-tag'>Certification Build</span>"
+                },
+                morpheus: {
+                    header: "Sleep Headband · Test → Feedback → Refinement",
+                    role: "MORPHEUS USER EXPERIENCE TO DESIGN",
+                    desc: "In later-stage testing, I focused on turning subjective experience into actionable design improvements: packaging usability, instruction clarity, comfort and safety, interaction sensitivity, portability, and perceived efficacy. Compared with production-facing triage in other projects, my role here leaned toward structured feedback: proposing refinements during evaluation, and supporting small design experiments (e.g., button height adjustment, assembly improvements). This reinforced a key lesson: good product work is the discipline of mapping 'what users feel' to changes engineering can ship.",
+                    tags: "<span class='card-tag'>UX Evaluation</span><span class='card-tag'>Instruction Design</span><span class='card-tag'>Comfort & Safety</span><span class='card-tag'>Iteration Experiments</span><span class='card-tag'>Design Translation</span>"
+                }
+            },
+            regulatory: {
+                title: "Regulatory & Clinical Foundations",
+                device: {
+                    title: "Guangdong Provincial Medical Device Quality Supervision and Testing Institute",
+                    role: "Medical Device Quality & Regulatory Testing",
+                    s1Title: "System Entry",
+                    s1Text: "I entered the regulatory testing system as a technical support function serving supervision rather than production. Working within a national-level medical device inspection institute, I participated in quality evaluation workflows that sit between manufacturers, regulators, and public safety—where testing results directly influence certification, market access, and economic consequences.",
+                    s2Title: "System Dynamics",
+                    s2Text: "Through hands-on exposure to physical–mechanical and biochemical testing, I learned how standards are operationalized under strict procedural control. From tensile strength, burst pressure, and liquid penetration tests to filtration efficiency, microbial limits, and residual sterilant analysis, each measurement carried defined uncertainty, traceability requirements, and inter-laboratory comparability constraints. I also observed how deviations—quantified through statistical indicators such as Z-scores—trigger corrective action, equipment audits, and even temporary suspension of testing authority.",
+                    s3Title: "Applied Understanding",
+                    s3Text: "This experience reshaped my understanding of 'accuracy.' Precision was not an abstract ideal but a system property sustained by documentation discipline, environmental control, equipment maintenance, and statistical reasoning. It established a lasting sensitivity to error propagation, model assumptions, and the downstream cost of seemingly minor deviations—an awareness that later informed my approach to biomedical modeling, system validation, and risk-aware decision-making."
+                },
+                clinical: {
+                    title: "Guangzhou Haizhu District Traditional Chinese Medicine Hospital",
+                    role: "Clinical Laboratory Practice",
+                    s1Title: "System Entry",
+                    s1Text: "I subsequently entered a clinical laboratory environment where diagnostic testing directly supports patient care. Working with routine clinical assays and sample analysis, I became familiar with the operational rhythm of hospital laboratories and their role in time-sensitive medical decision-making.",
+                    s2Title: "System Dynamics",
+                    s2Text: "Within this setting, quality control was inseparable from daily practice. Equipment calibration, procedural consistency, and result verification were not isolated tasks but embedded safeguards ensuring reliability under workload pressure. Close collaboration with clinicians highlighted how laboratory data must be both technically accurate and contextually interpretable to be clinically meaningful.",
+                    s3Title: "Applied Understanding",
+                    s3Text: "Compared with regulatory testing, clinical practice made the consequences of error immediate and human-centered. Together, these two experiences anchored my appreciation for rigor, responsibility, and constraint-awareness in biomedical systems—principles that continue to guide how I approach engineering, analysis, and modeling across domains."
+                }
+            }
+        }
     },
     cn: {
         nav: {

@@ -450,92 +450,92 @@ window.siteTranslations = {
                         snowboard: { title: "Snowboarding", sub: "Learning resilience through repetition.", desc: "Snowboarding measures progress in falls as much as in runs. Each descent tests endurance and resolve, reinforcing the discipline of getting up — again and again — in thinner air and colder silence." },
                         travel: { title: "Travel", sub: "Expanding the radius of understanding.", desc: "Travel widens perception beyond familiarity. By encountering different landscapes, customs, and social rhythms, movement becomes education — cultivating perspective, empathy, and practical wisdom." }
                     }
+                }
+            },
+            contact: {
+                title: "Let's Connect",
+                subtitle: "Open to collaborations, conversations, and new ideas.<br>Reach out via email or connect on social platforms.",
+                emailLabel: "Email",
+                linkedInLabel: "LinkedIn",
+                instaLabel: "Instagram",
+                wechatLabel: "WeChat",
+                wechatSub: "Official Account",
+                biliLabel: "Bilibili",
+                biliSub: "Content Creator"
+            },
+            careerPages: {
+                common: {
+                    back: "Back"
                 },
-                contact: {
-                    title: "Let's Connect",
-                    subtitle: "Open to collaborations, conversations, and new ideas.<br>Reach out via email or connect on social platforms.",
-                    emailLabel: "Email",
-                    linkedInLabel: "LinkedIn",
-                    instaLabel: "Instagram",
-                    wechatLabel: "WeChat",
-                    wechatSub: "Official Account",
-                    biliLabel: "Bilibili",
-                    biliSub: "Content Creator"
+                finance: {
+                    title: "Financial & Market Analysis",
+                    bocom: {
+                        title: "Bank of Communications, Guangdong Branch",
+                        s1Title: "System Entry",
+                        s1Text: "I entered the retail commercial banking system at its most concrete interface: the point where institutional financial products meet individual and corporate clients. Through front-desk operations and cross-departmental rotation, I was exposed to the full spectrum of everyday banking activities—account services, credit products, wealth management, and loan issuance—within a highly standardized organizational structure.",
+                        s2Title: "Operational Dynamics",
+                        s2Text: "Working alongside relationship managers, I began to understand how financial products are translated into practice. Product positioning, regulatory constraints, and client communication jointly determine implementation. I observed how trust, financial literacy, and process discipline shape client decision-making, and how risk awareness is embedded into routine service operations rather than treated as an isolated function.",
+                        s3Title: "Applied Understanding",
+                        s3Text: "This early exposure formed my baseline understanding of how financial systems operate under real-world constraints—an understanding that later informed my approach to market analysis. Seeing how products are explained, adopted, and constrained at the front line fundamentally shaped how I interpret market behavior beyond purely quantitative signals."
+                    },
+                    columbia: {
+                        title: "Columbia Industrial Engineering & Operations Research",
+                        s1Title: "Market Mechanics",
+                        s1Text: "I transitioned from institutional finance to the secondary market, entering the equity investment system where price, liquidity, and expectation interact continuously. My role focused on analyzing publicly traded equities through technical structures, thematic rotations, and capital flow dynamics, while managing a diversified portfolio under explicit risk constraints.",
+                        s2Title: "Structure & Flow",
+                        s2Text: "Through systematic observation, I learned that market movements are driven by the interaction match between trend structure, capital behavior, and regime shifts. Technical patterns became tools for contextualizing market states rather than isolated prediction. I developed a practical understanding of drawdown control, position sizing, and how diversification behaves differently across market phases.",
+                        s3Title: "Forecasting & Risk",
+                        s3Text: "Extending analysis to macro-linked assets, I integrated real estate indices and FX dynamics using econometric models (VAR, ARIMA) and machine learning. This experience cemented the realization that market predictability is structurally limited by policy shocks and expectation regimes—a core principle guiding my work in macro modeling and portfolio construction."
+                    }
                 },
-                careerPages: {
-                    common: {
-                        back: "Back"
+                product: {
+                    title: "Product & Systems Execution",
+                    brainco: {
+                        header: "Assistant Project Manager · BrainCo (Shenzhen)",
+                        role: "PRODUCT SYSTEMS EXECUTION",
+                        desc: "I worked inside a cross-functional product R&D organization spanning design, software, hardware, mechanical, project, and user research. My role is to keep development moving across the full loop—from design intent to trial production, quality validation, factory feedback, and certification readiness. I learned that the real work is rarely 'one department’s problem': progress depends on translating issues into actionable standards, alignment timelines, and closing the loop between engineering decisions and manufacturing reality.",
+                        tags: "<span class='card-tag'>Program Coordination</span><span class='card-tag'>Cross-functional</span><span class='card-tag'>Validation</span><span class='card-tag'>Manufacturing Feedback</span><span class='card-tag'>Compliance Readiness</span>"
                     },
-                    finance: {
-                        title: "Financial & Market Analysis",
-                        bocom: {
-                            title: "Bank of Communications, Guangdong Branch",
-                            s1Title: "System Entry",
-                            s1Text: "I entered the retail commercial banking system at its most concrete interface: the point where institutional financial products meet individual and corporate clients. Through front-desk operations and cross-departmental rotation, I was exposed to the full spectrum of everyday banking activities—account services, credit products, wealth management, and loan issuance—within a highly standardized organizational structure.",
-                            s2Title: "Operational Dynamics",
-                            s2Text: "Working alongside relationship managers, I began to understand how financial products are translated into practice. Product positioning, regulatory constraints, and client communication jointly determine implementation. I observed how trust, financial literacy, and process discipline shape client decision-making, and how risk awareness is embedded into routine service operations rather than treated as an isolated function.",
-                            s3Title: "Applied Understanding",
-                            s3Text: "This early exposure formed my baseline understanding of how financial systems operate under real-world constraints—an understanding that later informed my approach to market analysis. Seeing how products are explained, adopted, and constrained at the front line fundamentally shaped how I interpret market behavior beyond purely quantitative signals."
-                        },
-                        columbia: {
-                            title: "Columbia Industrial Engineering & Operations Research",
-                            s1Title: "Market Mechanics",
-                            s1Text: "I transitioned from institutional finance to the secondary market, entering the equity investment system where price, liquidity, and expectation interact continuously. My role focused on analyzing publicly traded equities through technical structures, thematic rotations, and capital flow dynamics, while managing a diversified portfolio under explicit risk constraints.",
-                            s2Title: "Structure & Flow",
-                            s2Text: "Through systematic observation, I learned that market movements are driven by the interaction match between trend structure, capital behavior, and regime shifts. Technical patterns became tools for contextualizing market states rather than isolated prediction. I developed a practical understanding of drawdown control, position sizing, and how diversification behaves differently across market phases.",
-                            s3Title: "Forecasting & Risk",
-                            s3Text: "Extending analysis to macro-linked assets, I integrated real estate indices and FX dynamics using econometric models (VAR, ARIMA) and machine learning. This experience cemented the realization that market predictability is structurally limited by policy shocks and expectation regimes—a core principle guiding my work in macro modeling and portfolio construction."
-                        }
+                    brainai: {
+                        header: "Robotic Hand Kit · Trial Production Loop",
+                        role: "BRAINAI QUALITY & RAMP-UP",
+                        desc: "I supported trial production by treating 'specs' as executable quality standards: cross-checking BOM, 2D drawings, and spec sheets with engineering teams, then tracing issues found in assembly back to design and process assumptions. In factory settings, I helped identify fit-and-finish failures (gap, fastening, surface processing) and coordinate corrective actions—from fixture updates to part tolerance and process adjustments—while tracking validation items such as drop, vibration, thermal/humidity stress, and durability tests.",
+                        tags: "<span class='card-tag'>BOM & Spec Control</span><span class='card-tag'>DFM/DFT</span><span class='card-tag'>Failure Triage</span><span class='card-tag'>Reliability Testing</span><span class='card-tag'>Factory Coordination</span>"
                     },
-                    product: {
-                        title: "Product & Systems Execution",
-                        brainco: {
-                            header: "Assistant Project Manager · BrainCo (Shenzhen)",
-                            role: "PRODUCT SYSTEMS EXECUTION",
-                            desc: "I worked inside a cross-functional product R&D organization spanning design, software, hardware, mechanical, project, and user research. My role is to keep development moving across the full loop—from design intent to trial production, quality validation, factory feedback, and certification readiness. I learned that the real work is rarely 'one department’s problem': progress depends on translating issues into actionable standards, alignment timelines, and closing the loop between engineering decisions and manufacturing reality.",
-                            tags: "<span class='card-tag'>Program Coordination</span><span class='card-tag'>Cross-functional</span><span class='card-tag'>Validation</span><span class='card-tag'>Manufacturing Feedback</span><span class='card-tag'>Compliance Readiness</span>"
-                        },
-                        brainai: {
-                            header: "Robotic Hand Kit · Trial Production Loop",
-                            role: "BRAINAI QUALITY & RAMP-UP",
-                            desc: "I supported trial production by treating 'specs' as executable quality standards: cross-checking BOM, 2D drawings, and spec sheets with engineering teams, then tracing issues found in assembly back to design and process assumptions. In factory settings, I helped identify fit-and-finish failures (gap, fastening, surface processing) and coordinate corrective actions—from fixture updates to part tolerance and process adjustments—while tracking validation items such as drop, vibration, thermal/humidity stress, and durability tests.",
-                            tags: "<span class='card-tag'>BOM & Spec Control</span><span class='card-tag'>DFM/DFT</span><span class='card-tag'>Failure Triage</span><span class='card-tag'>Reliability Testing</span><span class='card-tag'>Factory Coordination</span>"
-                        },
-                        morbius: {
-                            header: "Smart Prosthetics · Sealing & Mechanical Integration",
-                            role: "MORBIUS CERTIFICATION CONSTRAINTS",
-                            desc: "This project highlighted how certification requirements reshape design. I participated in resolving mechanical interference and dimensional mismatch by separating root causes (height, flatness, burrs) from symptoms, then evaluating practical countermeasures (rework, machining, shimming, controlled material removal). In parallel, I joined discussions and experiments around dust/water protection—sealing interfaces, gasket strategy, and protective coatings—to ensure consistency between trial builds and the certified configuration, including supplier control and material traceability.",
-                            tags: "<span class='card-tag'>Mechanical Fit</span><span class='card-tag'>Tolerance Strategy</span><span class='card-tag'>IP Protection</span><span class='card-tag'>Supplier Traceability</span><span class='card-tag'>Certification Build</span>"
-                        },
-                        morpheus: {
-                            header: "Sleep Headband · Test → Feedback → Refinement",
-                            role: "MORPHEUS USER EXPERIENCE TO DESIGN",
-                            desc: "In later-stage testing, I focused on turning subjective experience into actionable design improvements: packaging usability, instruction clarity, comfort and safety, interaction sensitivity, portability, and perceived efficacy. Compared with production-facing triage in other projects, my role here leaned toward structured feedback: proposing refinements during evaluation, and supporting small design experiments (e.g., button height adjustment, assembly improvements). This reinforced a key lesson: good product work is the discipline of mapping 'what users feel' to changes engineering can ship.",
-                            tags: "<span class='card-tag'>UX Evaluation</span><span class='card-tag'>Instruction Design</span><span class='card-tag'>Comfort & Safety</span><span class='card-tag'>Iteration Experiments</span><span class='card-tag'>Design Translation</span>"
-                        }
+                    morbius: {
+                        header: "Smart Prosthetics · Sealing & Mechanical Integration",
+                        role: "MORBIUS CERTIFICATION CONSTRAINTS",
+                        desc: "This project highlighted how certification requirements reshape design. I participated in resolving mechanical interference and dimensional mismatch by separating root causes (height, flatness, burrs) from symptoms, then evaluating practical countermeasures (rework, machining, shimming, controlled material removal). In parallel, I joined discussions and experiments around dust/water protection—sealing interfaces, gasket strategy, and protective coatings—to ensure consistency between trial builds and the certified configuration, including supplier control and material traceability.",
+                        tags: "<span class='card-tag'>Mechanical Fit</span><span class='card-tag'>Tolerance Strategy</span><span class='card-tag'>IP Protection</span><span class='card-tag'>Supplier Traceability</span><span class='card-tag'>Certification Build</span>"
                     },
-                    regulatory: {
-                        title: "Regulatory & Clinical Foundations",
-                        device: {
-                            title: "Guangdong Provincial Medical Device Quality Supervision and Testing Institute",
-                            role: "Medical Device Quality & Regulatory Testing",
-                            s1Title: "System Entry",
-                            s1Text: "I entered the regulatory testing system as a technical support function serving supervision rather than production. Working within a national-level medical device inspection institute, I participated in quality evaluation workflows that sit between manufacturers, regulators, and public safety—where testing results directly influence certification, market access, and economic consequences.",
-                            s2Title: "System Dynamics",
-                            s2Text: "Through hands-on exposure to physical–mechanical and biochemical testing, I learned how standards are operationalized under strict procedural control. From tensile strength, burst pressure, and liquid penetration tests to filtration efficiency, microbial limits, and residual sterilant analysis, each measurement carried defined uncertainty, traceability requirements, and inter-laboratory comparability constraints. I also observed how deviations—quantified through statistical indicators such as Z-scores—trigger corrective action, equipment audits, and even temporary suspension of testing authority.",
-                            s3Title: "Applied Understanding",
-                            s3Text: "This experience reshaped my understanding of 'accuracy.' Precision was not an abstract ideal but a system property sustained by documentation discipline, environmental control, equipment maintenance, and statistical reasoning. It established a lasting sensitivity to error propagation, model assumptions, and the downstream cost of seemingly minor deviations—an awareness that later informed my approach to biomedical modeling, system validation, and risk-aware decision-making."
-                        },
-                        clinical: {
-                            title: "Guangzhou Haizhu District Traditional Chinese Medicine Hospital",
-                            role: "Clinical Laboratory Practice",
-                            s1Title: "System Entry",
-                            s1Text: "I subsequently entered a clinical laboratory environment where diagnostic testing directly supports patient care. Working with routine clinical assays and sample analysis, I became familiar with the operational rhythm of hospital laboratories and their role in time-sensitive medical decision-making.",
-                            s2Title: "System Dynamics",
-                            s2Text: "Within this setting, quality control was inseparable from daily practice. Equipment calibration, procedural consistency, and result verification were not isolated tasks but embedded safeguards ensuring reliability under workload pressure. Close collaboration with clinicians highlighted how laboratory data must be both technically accurate and contextually interpretable to be clinically meaningful.",
-                            s3Title: "Applied Understanding",
-                            s3Text: "Compared with regulatory testing, clinical practice made the consequences of error immediate and human-centered. Together, these two experiences anchored my appreciation for rigor, responsibility, and constraint-awareness in biomedical systems—principles that continue to guide how I approach engineering, analysis, and modeling across domains."
-                        }
+                    morpheus: {
+                        header: "Sleep Headband · Test → Feedback → Refinement",
+                        role: "MORPHEUS USER EXPERIENCE TO DESIGN",
+                        desc: "In later-stage testing, I focused on turning subjective experience into actionable design improvements: packaging usability, instruction clarity, comfort and safety, interaction sensitivity, portability, and perceived efficacy. Compared with production-facing triage in other projects, my role here leaned toward structured feedback: proposing refinements during evaluation, and supporting small design experiments (e.g., button height adjustment, assembly improvements). This reinforced a key lesson: good product work is the discipline of mapping 'what users feel' to changes engineering can ship.",
+                        tags: "<span class='card-tag'>UX Evaluation</span><span class='card-tag'>Instruction Design</span><span class='card-tag'>Comfort & Safety</span><span class='card-tag'>Iteration Experiments</span><span class='card-tag'>Design Translation</span>"
+                    }
+                },
+                regulatory: {
+                    title: "Regulatory & Clinical Foundations",
+                    device: {
+                        title: "Guangdong Provincial Medical Device Quality Supervision and Testing Institute",
+                        role: "Medical Device Quality & Regulatory Testing",
+                        s1Title: "System Entry",
+                        s1Text: "I entered the regulatory testing system as a technical support function serving supervision rather than production. Working within a national-level medical device inspection institute, I participated in quality evaluation workflows that sit between manufacturers, regulators, and public safety—where testing results directly influence certification, market access, and economic consequences.",
+                        s2Title: "System Dynamics",
+                        s2Text: "Through hands-on exposure to physical–mechanical and biochemical testing, I learned how standards are operationalized under strict procedural control. From tensile strength, burst pressure, and liquid penetration tests to filtration efficiency, microbial limits, and residual sterilant analysis, each measurement carried defined uncertainty, traceability requirements, and inter-laboratory comparability constraints. I also observed how deviations—quantified through statistical indicators such as Z-scores—trigger corrective action, equipment audits, and even temporary suspension of testing authority.",
+                        s3Title: "Applied Understanding",
+                        s3Text: "This experience reshaped my understanding of 'accuracy.' Precision was not an abstract ideal but a system property sustained by documentation discipline, environmental control, equipment maintenance, and statistical reasoning. It established a lasting sensitivity to error propagation, model assumptions, and the downstream cost of seemingly minor deviations—an awareness that later informed my approach to biomedical modeling, system validation, and risk-aware decision-making."
+                    },
+                    clinical: {
+                        title: "Guangzhou Haizhu District Traditional Chinese Medicine Hospital",
+                        role: "Clinical Laboratory Practice",
+                        s1Title: "System Entry",
+                        s1Text: "I subsequently entered a clinical laboratory environment where diagnostic testing directly supports patient care. Working with routine clinical assays and sample analysis, I became familiar with the operational rhythm of hospital laboratories and their role in time-sensitive medical decision-making.",
+                        s2Title: "System Dynamics",
+                        s2Text: "Within this setting, quality control was inseparable from daily practice. Equipment calibration, procedural consistency, and result verification were not isolated tasks but embedded safeguards ensuring reliability under workload pressure. Close collaboration with clinicians highlighted how laboratory data must be both technically accurate and contextually interpretable to be clinically meaningful.",
+                        s3Title: "Applied Understanding",
+                        s3Text: "Compared with regulatory testing, clinical practice made the consequences of error immediate and human-centered. Together, these two experiences anchored my appreciation for rigor, responsibility, and constraint-awareness in biomedical systems—principles that continue to guide how I approach engineering, analysis, and modeling across domains."
                     }
                 }
             }

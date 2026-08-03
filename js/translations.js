@@ -540,7 +540,7 @@ window.siteTranslations = {
                 },
                 pal: {
                     title: "PAL Advisory Ltd.",
-                    role: "Analyst Intern · Apr 2026 – Jul 2026",
+                    role: "Capital Markets Compliance & Risk Advisory",
                     s1Title: "System Entry",
                     s1Text: "At PAL Advisory in Hong Kong, I worked where corporate operations meet capital-market regulation. Through on-site due diligence, internal-control audits, and compliance reviews for HKEX-listed and pre-IPO companies, I learned how governance frameworks are tested against the evidence of daily business practice.",
                     s2Title: "System Dynamics",
@@ -947,7 +947,7 @@ window.siteTranslations = {
                 },
                 pal: {
                     title: "PAL Advisory Ltd.",
-                    role: "分析师实习生 · 2026年4月–7月",
+                    role: "资本市场合规与风险咨询",
                     s1Title: "系统切入",
                     s1Text: "在香港 PAL Advisory，我的工作位于企业运营与资本市场监管的交汇处。通过为港交所上市及拟上市公司开展现场尽职调查、内部控制审计与合规审查，我了解到治理框架如何在日常业务证据中接受检验。",
                     s2Title: "系统动态",

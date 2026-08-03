@@ -760,9 +760,15 @@
 }
 
 /* Regulatory Page Cards */
+/* Card 0: PAL Advisory — ends at the exact color where Card 1 begins. */
+.career-cards-slider .reg-card-3 {
+    background: linear-gradient(90deg, #07131f 0%, #183d52 100%) !important;
+    color: #ffffff;
+}
+
 /* Card 1: Device Testing */
 .career-cards-slider .reg-card-1 {
-    background: linear-gradient(90deg, #08101a 60%, #1c3d5e 100%) !important;
+    background: linear-gradient(90deg, #183d52 0%, #7890a0 100%) !important;
     color: #ffffff;
 }
 
@@ -785,7 +791,7 @@
 
 /* Card 2: Clinical Lab */
 .career-cards-slider .reg-card-2 {
-    background: linear-gradient(90deg, #1c3d5e 0%, #ffffff 100%) !important;
+    background: linear-gradient(90deg, #7890a0 0%, #ffffff 100%) !important;
     color: #ffffff;
 }
 

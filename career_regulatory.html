@@ -142,12 +142,26 @@
             .reg-card-3 { order: 1; }
 
             .career-cards-slider .company-name-spanning {
-                position: static;
-                transform: none;
-                width: 100%;
+                position: static !important;
+                top: auto !important;
+                right: auto !important;
+                left: auto !important;
+                display: block !important;
+                align-self: stretch !important;
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 auto !important;
+                padding: 0 1rem;
+                box-sizing: border-box;
+                transform: none !important;
                 font-size: clamp(1.85rem, 8vw, 2.7rem);
                 line-height: 1.12;
                 text-align: center;
+            }
+
+            .career-cards-slider .company-name-spanning::before,
+            .career-cards-slider .company-name-spanning::after {
+                display: none !important;
             }
 
             .career-cards-slider .accordion-left-panel,

@@ -9,6 +9,174 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <style>
+        /* Regulatory page: give long-form experience copy a calmer reading rhythm. */
+        .career-cards-slider {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .career-cards-slider .experience-card.accordion-card {
+            max-width: none;
+            margin: 0;
+            padding: 11.5rem clamp(4rem, 7vw, 7.5rem) 4rem;
+            gap: clamp(4rem, 7vw, 8rem);
+            color: #f7f3ee;
+        }
+
+        .reg-card-1 {
+            order: 2;
+            background:
+                radial-gradient(circle at 78% 24%, rgba(124, 181, 193, 0.22), transparent 32%),
+                radial-gradient(circle at 12% 82%, rgba(198, 154, 109, 0.12), transparent 38%),
+                linear-gradient(128deg, #102b3a 0%, #1b4555 48%, #102b38 100%);
+        }
+
+        .reg-card-2 {
+            order: 3;
+            background:
+                radial-gradient(circle at 82% 16%, rgba(159, 182, 156, 0.24), transparent 34%),
+                radial-gradient(circle at 16% 88%, rgba(211, 177, 128, 0.12), transparent 40%),
+                linear-gradient(128deg, #20362f 0%, #3e594a 48%, #1d302b 100%);
+        }
+
+        .reg-card-3 {
+            order: 1;
+            background:
+                radial-gradient(circle at 76% 20%, rgba(194, 164, 105, 0.28), transparent 29%),
+                radial-gradient(circle at 18% 78%, rgba(92, 139, 151, 0.22), transparent 42%),
+                linear-gradient(126deg, #0b202a 0%, #183a46 45%, #0d2630 100%);
+        }
+
+        .career-cards-slider .company-name-spanning {
+            position: absolute;
+            top: 7.5rem;
+            left: clamp(4rem, 7vw, 7.5rem);
+            width: min(52rem, 62vw);
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.2vw, 3.6rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: #f7f3ee;
+        }
+
+        .career-cards-slider .accordion-left-panel {
+            flex: 1.08;
+            min-width: 0;
+            justify-content: center;
+        }
+
+        .career-cards-slider .role-title {
+            color: rgba(247, 243, 238, 0.72);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .career-cards-slider .accordion-item {
+            border-bottom-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .career-cards-slider .accordion-header {
+            padding: 1.15rem 0;
+            color: #f7f3ee;
+            font-size: clamp(1.25rem, 1.55vw, 1.55rem);
+            line-height: 1.3;
+        }
+
+        .career-cards-slider .accordion-text {
+            max-width: 68ch;
+            padding: 0.25rem 0 1.4rem;
+            color: rgba(247, 243, 238, 0.84);
+            font-size: clamp(0.98rem, 1.05vw, 1.1rem);
+            line-height: 1.78;
+        }
+
+        .career-cards-slider .accordion-right-panel {
+            flex: 0.92;
+            min-width: 0;
+        }
+
+        .career-cards-slider .reg-img-cover {
+            width: 100%;
+            max-height: 55vh;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 3px;
+            filter: saturate(0.82) contrast(1.06);
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38), 0 0 0 10px rgba(255, 255, 255, 0.025);
+        }
+
+        @media (max-width: 900px) {
+            .career-subpage-body {
+                padding-top: 0 !important;
+                overflow-y: auto !important;
+            }
+
+            .career-cards-slider {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+                overflow: visible;
+            }
+
+            .career-cards-slider .experience-card.accordion-card {
+                width: 100%;
+                min-height: 100vh;
+                padding: 8.75rem 1.5rem 3rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2.25rem;
+                overflow: visible;
+            }
+
+            .reg-card-1 { order: 2; }
+            .reg-card-2 { order: 3; }
+            .reg-card-3 { order: 1; }
+
+            .career-cards-slider .company-name-spanning {
+                position: static;
+                width: 100%;
+                font-size: clamp(2rem, 9vw, 3rem);
+                line-height: 1.12;
+            }
+
+            .career-cards-slider .accordion-left-panel,
+            .career-cards-slider .accordion-right-panel {
+                width: 100%;
+            }
+
+            .career-cards-slider .role-title {
+                margin-bottom: 1rem !important;
+            }
+
+            .career-cards-slider .accordion-header {
+                padding: 1rem 0;
+                font-size: 1.25rem;
+            }
+
+            .career-cards-slider .accordion-text {
+                font-size: 1rem;
+                line-height: 1.72;
+            }
+
+            .career-cards-slider .reg-img-cover {
+                max-height: 18rem;
+            }
+
+            .career-cards-slider .finance-arrow-prev,
+            .career-cards-slider .finance-arrow-next {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body class="career-subpage-body">
@@ -120,6 +288,12 @@
                 onclick="document.querySelector('.reg-card-2').scrollIntoView({behavior: 'smooth'})">
                 &rsaquo;
             </div>
+
+            <!-- Arrow Prev -->
+            <div class="finance-arrow-prev"
+                onclick="document.querySelector('.reg-card-3').scrollIntoView({behavior: 'smooth'})">
+                &lsaquo;
+            </div>
         </div>
 
         <!-- Card 2: Clinical Lab -->
@@ -196,6 +370,76 @@
             <div class="finance-arrow-prev"
                 onclick="document.querySelector('.reg-card-1').scrollIntoView({behavior: 'smooth'})">
                 &lsaquo;
+            </div>
+        </div>
+
+        <!-- Card 3: PAL Advisory -->
+        <div class="experience-card accordion-card reg-card-3">
+            <div class="company-name-spanning" data-i18n="careerPages.regulatory.pal.title">PAL Advisory Ltd.</div>
+
+            <div class="accordion-left-panel">
+                <div class="role-title" style="display: block; margin-bottom: 2rem;"
+                    data-i18n="careerPages.regulatory.pal.role">Analyst Intern · Apr 2026 – Jul 2026</div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.regulatory.pal.s1Title">
+                        System Entry
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.regulatory.pal.s1Text">
+                            At PAL Advisory in Hong Kong, I worked where corporate operations meet capital-market
+                            regulation. Through on-site due diligence, internal-control audits, and compliance reviews
+                            for HKEX-listed and pre-IPO companies, I learned how governance frameworks are tested
+                            against the evidence of daily business practice.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.regulatory.pal.s2Title">
+                        System Dynamics
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.regulatory.pal.s2Text">
+                            I cross-referenced current SFC and HKEX statutory updates with enforcement cases to refine
+                            six regulatory training frameworks. In parallel, I analyzed strategic placements and
+                            corporate restructurings, mapping transaction structures, control gaps, and mitigation
+                            options so regulatory requirements could inform practical management decisions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)"
+                        data-i18n="careerPages.regulatory.pal.s3Title">
+                        Applied Understanding
+                        <span class="accordion-icon">^</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="accordion-text" data-i18n="careerPages.regulatory.pal.s3Text">
+                            I also built Python scrapers to track HKEX trading suspensions and cross-border public
+                            tenders, turning daily disclosures into structured business-development intelligence, and
+                            re-engineered ESG calculation models to improve client data workflows. The experience
+                            showed me that effective compliance depends on combining precise interpretation with
+                            repeatable systems, timely information, and commercially aware judgment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-right-panel">
+                <img loading="lazy" src="https://personal-website-images.b-cdn.net/career_regulatory.jpg"
+                    alt="Hong Kong regulatory advisory" class="reg-img-cover">
+            </div>
+
+            <!-- Arrow Next -->
+            <div class="finance-arrow-next"
+                onclick="document.querySelector('.reg-card-1').scrollIntoView({behavior: 'smooth'})">
+                &rsaquo;
             </div>
         </div>
 

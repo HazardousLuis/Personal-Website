@@ -537,6 +537,16 @@ window.siteTranslations = {
                     s2Text: "Within this setting, quality control was inseparable from daily practice. Equipment calibration, procedural consistency, and result verification were not isolated tasks but embedded safeguards ensuring reliability under workload pressure. Close collaboration with clinicians highlighted how laboratory data must be both technically accurate and contextually interpretable to be clinically meaningful.",
                     s3Title: "Applied Understanding",
                     s3Text: "Compared with regulatory testing, clinical practice made the consequences of error immediate and human-centered. Together, these two experiences anchored my appreciation for rigor, responsibility, and constraint-awareness in biomedical systems—principles that continue to guide how I approach engineering, analysis, and modeling across domains."
+                },
+                pal: {
+                    title: "PAL Advisory Ltd.",
+                    role: "Analyst Intern · Apr 2026 – Jul 2026",
+                    s1Title: "System Entry",
+                    s1Text: "At PAL Advisory in Hong Kong, I worked where corporate operations meet capital-market regulation. Through on-site due diligence, internal-control audits, and compliance reviews for HKEX-listed and pre-IPO companies, I learned how governance frameworks are tested against the evidence of daily business practice.",
+                    s2Title: "System Dynamics",
+                    s2Text: "I cross-referenced current SFC and HKEX statutory updates with enforcement cases to refine six regulatory training frameworks. In parallel, I analyzed strategic placements and corporate restructurings, mapping transaction structures, control gaps, and mitigation options so regulatory requirements could inform practical management decisions.",
+                    s3Title: "Applied Understanding",
+                    s3Text: "I also built Python scrapers to track HKEX trading suspensions and cross-border public tenders, turning daily disclosures into structured business-development intelligence, and re-engineered ESG calculation models to improve client data workflows. The experience showed me that effective compliance depends on combining precise interpretation with repeatable systems, timely information, and commercially aware judgment."
                 }
             }
         }
@@ -934,6 +944,16 @@ window.siteTranslations = {
                     s2Text: "在此环境中，质量控制与日常实践密不可分。设备校准、程序一致性及结果验证并非孤立任务，而是嵌入在工作负荷压力下确保可靠性的保障措施。与临床医生的密切协作凸显了实验室数据必须兼具技术准确性与情境可解读性，才能具有临床意义。",
                     s3Title: "应用理解",
                     s3Text: "与法规检测相比，临床实践使得误差的后果变得即时且以人为中心。这两段经历共同锚定了我对生物医学系统中严谨性、责任感及约束意识的推崇——这些原则持续指导着我在跨领域的工程、分析及建模工作。"
+                },
+                pal: {
+                    title: "PAL Advisory Ltd.",
+                    role: "分析师实习生 · 2026年4月–7月",
+                    s1Title: "系统切入",
+                    s1Text: "在香港 PAL Advisory，我的工作位于企业运营与资本市场监管的交汇处。通过为港交所上市及拟上市公司开展现场尽职调查、内部控制审计与合规审查，我了解到治理框架如何在日常业务证据中接受检验。",
+                    s2Title: "系统动态",
+                    s2Text: "我将最新的证监会及港交所法规更新与执法案例交叉比对，优化了六套监管培训框架。同时，我分析战略配售与企业重组项目，梳理交易结构、控制缺口及风险缓释方案，使监管要求能够转化为切实可行的管理决策。",
+                    s3Title: "应用理解",
+                    s3Text: "我还开发了 Python 爬虫，自动追踪港交所每日停牌信息与跨境公共招标，将公开披露转化为结构化的业务拓展情报，并重构 ESG 计算模型以改善客户数据流程。这段经历让我认识到，有效合规依赖于精准解读、可重复执行的系统、及时信息与商业判断的结合。"
                 }
             }
         },

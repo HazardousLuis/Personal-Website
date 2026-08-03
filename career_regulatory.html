@@ -38,17 +38,17 @@
 
         .reg-card-1 {
             order: 2;
-            background: linear-gradient(90deg, #18333d 0%, #29433f 100%);
+            background: linear-gradient(90deg, #08101a 60%, #1c3d5e 100%) !important;
         }
 
         .reg-card-2 {
             order: 3;
-            background: linear-gradient(90deg, #29433f 0%, #3a5143 100%);
+            background: linear-gradient(90deg, #1c3d5e 0%, #ffffff 100%) !important;
         }
 
         .reg-card-3 {
             order: 1;
-            background: linear-gradient(90deg, #07131f 0%, #18333d 100%);
+            background: linear-gradient(90deg, #07131f 0%, #08101a 100%) !important;
         }
 
         .career-cards-slider .company-name-spanning {
@@ -111,6 +111,13 @@
             border-radius: 3px;
             filter: saturate(0.82) contrast(1.06);
             box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38), 0 0 0 10px rgba(255, 255, 255, 0.025);
+        }
+
+        .career-cards-slider .reg-card-3 .reg-img-cover {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            object-position: center;
         }
 
         @media (max-width: 900px) {
@@ -449,8 +456,8 @@
 
             <div class="accordion-right-panel">
                 <img loading="lazy"
-                    src="https://images.unsplash.com/photo-1750594248812-500d3c91640a?auto=format&amp;fit=crop&amp;q=82&amp;w=1800"
-                    alt="Hong Kong Central financial district skyline" class="reg-img-cover">
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/HKEX_Hall.JPG/1920px-HKEX_Hall.JPG"
+                    alt="Hong Kong Exchanges and Clearing trading hall" class="reg-img-cover">
             </div>
 
             <!-- Arrow Next -->

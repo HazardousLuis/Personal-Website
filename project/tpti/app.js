@@ -1,5 +1,5 @@
 import {profile,resultFor} from './scoring.js';
-import {findMatch,interestGroups,personalityReason,rankDemos,tripReason} from './matching.js';
+import {dimensionMatch,findMatch,interestGroups,personalityReason,rankDemos,tripReason} from './matching.js';
 const root=document.querySelector('#app');
 const endpoint=new URL('./api/responses',location.href);
 const storageKey='trawithu:web:v1';
@@ -99,7 +99,8 @@ function profileCard(kind){
   if(kind!=='radar')return `<div class="panel profile"><img class="profile-art" src="${portrait}" alt="你的与游角色"><div class="axes">${labels}</div></div><p class="role-copy">${esc(result.role)}</p>`;
   return radarChart(axes)+`<p class="radar-role">${esc(result.radarRole)}</p>`;
 }
-function radarChart(axes, scope='quiz'){
+function radarChart(axes, scope='quiz', comparison){
+  const matches=axes.map((axis,i)=>dimensionMatch(i,comparison?.[i]?.value,axis.value));
   const point=(r,i)=>[[130,130-r],[130+r,130],[130,130+r],[130-r,130]][i];
   const vertices=axes.map((axis,i)=>point(axis.value*.64,i));
   const ring=r=>axes.map((_,i)=>point(r,i).join(',')).join(' ');
@@ -109,13 +110,13 @@ function radarChart(axes, scope='quiz'){
     if(x===ex&&y===ey)return '';
     return `<linearGradient id="${scope}-radar-edge-${i}" gradientUnits="userSpaceOnUse" x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"><stop stop-color="${axes[i].color}"/><stop offset="1" stop-color="${axes[next].color}"/></linearGradient>`;
   }).join('');
-  const chart=`<svg class="radar" viewBox="0 0 260 260" role="img" aria-label="${esc(axes.map(a=>a.name+' '+a.value).join('，'))}">
+  const chart=`<svg class="radar" viewBox="0 0 260 260" role="img" aria-label="${esc(axes.map((axis,i)=>[axis.name,axis.value,matches[i]].filter(value=>value!=='').join(' ')).join('，'))}">
     <defs><radialGradient id="${scope}-radar-fill" gradientUnits="userSpaceOnUse" cx="130" cy="130" r="65"><stop stop-color="#5690f4" stop-opacity=".51"/><stop offset="1" stop-color="#f370b1" stop-opacity=".50"/></radialGradient>${edges}</defs>
     ${[16,32,48,64].map(r=>`<polygon points="${ring(r)}" fill="none" stroke="${color(r)}"/>`).join('')}
     <polygon points="${vertices.map(p=>p.join(',')).join(' ')}" fill="url(#${scope}-radar-fill)"/>
     ${vertices.map(([x,y],i)=>{const [ex,ey]=vertices[(i+1)%4];return x===ex&&y===ey?'':`<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}" stroke="url(#${scope}-radar-edge-${i})" stroke-width="2"/>`;}).join('')}
     ${vertices.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="3.3" fill="${axes[i].color}"/>`).join('')}
-    <g text-anchor="middle" fill="#393055" font-size="13" font-weight="650">${[[130,51],[225,135],[130,217],[35,135]].map(([x,y],i)=>`<text x="${x}" y="${y}">${axes[i].name}</text>`).join('')}</g></svg>`;
+    <g text-anchor="middle" fill="#393055" font-size="13" font-weight="650">${[[130,51],[225,135],[130,217],[35,135]].map(([x,y],i)=>`<text x="${x}" y="${y}"${matches[i]?' class="radar-match"':''}>${axes[i].name}${matches[i]?`<tspan x="${x}" dy="14" font-size="9">${matches[i]}</tspan>`:''}</text>`).join('')}</g></svg>`;
   return `<div class="panel radar-panel">${chart}</div>`;
 }
 const introFeedback = [
@@ -230,7 +231,7 @@ function render(){
           ${shared.length?`<section><h4>共同主题</h4><div class="interest-tags">${shared.map(interestTag).join('')}</div></section>`:''}
           <section><h4>节奏与玩法</h4><p>${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
         </section>
-        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity')}
+        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity',myAxes)}
         ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
         </article><p class="match-disclaimer">${disclaimer}</p>`;
     }else{
@@ -251,7 +252,7 @@ function render(){
       const tags=buddy.tags?.map(interestTag).join('');
       const axes=buddy.scores?.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
       return `<details><summary>${esc(buddy.nickname)} <span>查看资料 ›</span></summary>
-        ${axes?personaRow(axes,path(esc(buddy.portrait)),'搭子的与游 Q 版形象')+radarChart(axes,'participant-'+index):''}
+        ${axes?personaRow(axes,path(esc(buddy.portrait)),'搭子的与游 Q 版形象')+radarChart(axes,'participant-'+index,myAxes):''}
         <h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div></details>`;
     });
     content+=`<section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>

@@ -1,0 +1,82 @@
+import { createServer } from 'node:http';
+import { readFile, mkdir, readdir } from 'node:fs/promises';
+import { DatabaseSync } from 'node:sqlite';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
+import { randomUUID } from 'node:crypto';
+import bank from './questions.cjs';
+
+const root = fileURLToPath(new URL('.', import.meta.url));
+const dataDir = process.env.TPTI_DATA_DIR || join(root, 'data');
+await mkdir(dataDir, { recursive: true });
+const db = new DatabaseSync(join(dataDir, 'responses.sqlite'));
+db.exec('CREATE TABLE IF NOT EXISTS responses(id TEXT PRIMARY KEY, submitted_at TEXT NOT NULL, answers TEXT NOT NULL, feedback TEXT NOT NULL)');
+const save = db.prepare('INSERT OR IGNORE INTO responses VALUES (?, ?, ?, ?)');
+const pages = bank.pages.filter(p => !['register','verify'].includes(p.kind));
+const questions = [...pages.filter(p => p.options), ...bank.money];
+const send = (res, status, body) => {
+  res.writeHead(status, { 'Content-Type':'application/json; charset=utf-8', 'Cache-Control':'no-store' });
+  res.end(JSON.stringify(body));
+};
+const files = new Map([['/','index.html'],['/index.html','index.html'],['/app.js','app.js'],['/scoring.js','scoring.js'],['/style.css','style.css'],['/questions.json','questions.json']]);
+for (const name of ['logo.png','project-logo.png','default-male.png','default-female.png','story-time.jpg','story-pace.jpg','story-money.jpg']) files.set('/assets/'+name,'assets/'+name);
+for (const name of await readdir(join(root,'../../project/tpti/assets'))) {
+  if (/^[a-z0-9-]+\.webp$/.test(name)) files.set('/assets/'+name,'assets/'+name);
+}
+const types = {json:'application/json; charset=utf-8',html:'text/html; charset=utf-8',js:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8',png:'image/png',jpg:'image/jpeg',webp:'image/webp'};
+const server = createServer(async (req,res) => {
+  const pathname = new URL(req.url,'http://localhost').pathname;
+  if (req.method === 'GET' && pathname === '/project/tpti') { res.writeHead(308,{Location:'/project/tpti/'}); return res.end(); }
+  const route = pathname.replace(/^\/project\/tpti(?=\/)/,'');
+  try {
+    if (req.method === 'GET' && route === '/api/questions') return send(res,200,{pages,money:bank.money});
+    if (req.method === 'POST' && route === '/api/responses') {
+      if (!req.headers['content-type']?.startsWith('application/json')) return send(res,415,{error:'请求格式不正确'});
+      const chunks=[]; let size=0;
+      for await (const chunk of req) {
+        size += chunk.length;
+        if (size > 16384) return send(res,413,{error:'内容过长'});
+        chunks.push(chunk);
+      }
+      let body;
+      try { body=JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { return send(res,400,{error:'请求格式不正确'}); }
+      if (!body || typeof body.feedback !== 'string' || body.feedback.length > 500 || !body.answers || !/^[a-f\d-]{36}$/i.test(body.id || '')) return send(res,400,{error:'请检查答卷内容'});
+      const answers={};
+      for (const question of questions) {
+        const value=body.answers[question.id];
+        const valid = v => Number.isInteger(v) && v >= 0 && v < question.options.length;
+        if (question.kind === 'multi') {
+          if (!Array.isArray(value) || !value.length || !value.every(valid) || new Set(value).size !== value.length ||
+            (value.length > 1 && value.some(v => question.exclusive?.includes(v)))) return send(res,400,{error:'还有题目未完成'});
+        } else if (!valid(value)) return send(res,400,{error:'还有题目未完成'});
+        answers[question.id]=value;
+      }
+      save.run(body.id || randomUUID(),new Date().toISOString(),JSON.stringify(answers),body.feedback.trim());
+      return send(res,200,{saved:true});
+    }
+    if (req.method === 'GET' && pathname === '/project') {
+      res.writeHead(308, {Location:'/project/'});
+      return res.end();
+    }
+    if (req.method === 'GET' && ['/project/','/project/index.html'].includes(pathname)) {
+      const page = await readFile(join(root,'../../project/index.html'));
+      res.writeHead(200, {'Content-Type':types.html});
+      return res.end(page);
+    }
+    if (req.method === 'GET' && !pathname.startsWith('/project/tpti/') && /^\/(?:[\w-]+\.html|(?:css|js)\/[\w-]+\.(?:css|js))$/.test(pathname)) {
+      const file = await readFile(join(root, '../..', pathname.slice(1))).catch(() => null);
+      if (!file) return send(res,404,{error:'页面不存在'});
+      res.writeHead(200, {'Content-Type':types[pathname.split('.').pop()], 'X-Content-Type-Options':'nosniff'});
+      return res.end(file);
+    }
+    if (req.method !== 'GET' || !files.has(route)) return send(res,404,{error:'页面不存在'});
+    const file = files.get(route);
+    const data = await readFile(join(root,'../../project/tpti',file));
+    res.writeHead(200,{'Content-Type':types[file.split('.').pop()],'X-Content-Type-Options':'nosniff'});
+    res.end(data);
+  } catch (error) {
+    console.error(error.message);
+    if (!res.headersSent) send(res,500,{error:'暂时无法提交，请稍后重试'});
+  }
+});
+server.listen(Number(process.env.PORT || 4173),process.env.HOST || '127.0.0.1',() => console.log('TPTI preview ready'));

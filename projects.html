@@ -241,6 +241,16 @@
                 padding-left: 1.2rem;
             }
         }
+
+            .project-logo-link:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 20px; }
+        .project-logo-link {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px;
+            box-sizing: border-box;
+        }
+
+        .project-logo-link .project-logo-img { height: 100%; width: 100%; }
     </style>
 </head>
 
@@ -266,7 +276,7 @@
 
         <!-- Tab Nav -->
         <div class="project-tabs">
-            <div class="project-tab active" onclick="switchTab('xia')" data-i18n="projects.xia.tab">XiaJourney</div>
+            <div class="project-tab active" onclick="switchTab('xia')" data-i18n="projects.xia.tab">TraWithU</div>
             <div class="project-tab" onclick="switchTab('carp')" data-i18n="projects.carp.tab">GoldenCarp</div>
 
             <!-- Floating Indicator Arrow -->
@@ -275,17 +285,17 @@
 
         <!-- Project 1: XiaJourney -->
         <div id="xia" class="project-content active">
-            <div class="project-logo-container">
-                <img loading="lazy" src="https://personal-website-images.b-cdn.net/project_xiajourney_logo.jpg"
-                    alt="XiaJourney Logo" class="project-logo-img">
-            </div>
+            <a class="project-logo-container project-logo-link" href="project/" aria-label="进入与游项目">
+                <img loading="lazy" src="project/tpti/assets/project-logo.png"
+                    alt="与游 TraWithU" class="project-logo-img">
+            </a>
 
             <div class="project-text-block">
-                <div class="project-title-cn" data-i18n="projects.xia.titleCn">侠旅</div>
-                <div class="project-title-en" data-i18n="projects.xia.titleEn">XiaJourney</div>
+                <div class="project-title-cn" data-i18n="projects.xia.titleCn">与游</div>
+                <div class="project-title-en" data-i18n="projects.xia.titleEn">TraWithU</div>
 
                 <p class="project-desc" data-i18n="projects.xia.desc">
-                    Designing immersive journeys into living cultures, beyond tourism and spectacle.
+                    Travel together with people who share your pace and curiosity.
                 </p>
             </div>
         </div>

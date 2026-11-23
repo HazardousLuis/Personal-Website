@@ -258,7 +258,7 @@ function render(){
     const previewNote=resultsPreview
       ? (hasCompletedQuiz?'本页使用本机已完成的答卷预览，':'本页使用示例答卷预览，')+'不会提交答卷。' : '';
     const exampleNote=buddies.some(buddy=>buddy.fictional)
-      ? (resultsPreview?'问卷搭子均为虚拟示例。':'问卷搭子列表可能包含虚拟示例。') : '';
+      ? '问卷搭子可能包含示例。' : '';
     content+=`<p class="match-disclaimer">${disclaimer}${previewNote}${exampleNote}</p>
       <section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}

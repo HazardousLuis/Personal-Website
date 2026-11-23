@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/project/tpti/api/responses", "destination": "/api/tpti-responses" }
+  ]
+}

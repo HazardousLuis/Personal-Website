@@ -320,10 +320,10 @@ window.siteTranslations = {
         },
         projects: {
             xia: {
-                tab: "XiaJourney",
-                titleCn: "侠旅",
-                titleEn: "XiaJourney",
-                desc: "Designing immersive journeys into living cultures, beyond tourism and spectacle."
+                tab: "TraWithU",
+                titleCn: "与游",
+                titleEn: "TraWithU",
+                desc: "Travel together with people who share your pace and curiosity."
             },
             carp: {
                 tab: "GoldenCarp",
@@ -959,10 +959,10 @@ window.siteTranslations = {
         },
         projects: {
             xia: {
-                tab: "侠旅",
-                titleCn: "侠旅",
-                titleEn: "XiaJourney",
-                desc: "非徒观光，而在深入生活。<br>设计沉浸式旅程，探寻鲜活文化的脉搏。"
+                tab: "与游",
+                titleCn: "与游",
+                titleEn: "TraWithU",
+                desc: "遇见同频的人，去更远的地方。"
             },
             carp: {
                 tab: "鲤鱼投资",

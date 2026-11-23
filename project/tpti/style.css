@@ -397,7 +397,6 @@ html{scrollbar-gutter:stable}
 .shell .result-box p{color:#45365d;line-height:1.6}
 .shell .result-box .radar-panel{background:linear-gradient(140deg,#f1f5ff,#fff3fb);border-radius:13px}
 .shell .celebrity-card .result-box a{display:inline-block;margin-top:8px}
-.shell .demo-badge{color:#914570;background:#f9e4f4;border-radius:9px;padding:3px 7px;white-space:nowrap}
 .shell .participant-card summary{color:#4a5991}
 .shell .celebrity-card .photo-credit{margin:5px auto;color:#715f85}
 .shell .interest-tag,.shell .interest-chip:is([class*="tag-tone-"]){display:inline-flex;align-items:center;border:1px solid var(--tag-border);border-radius:12px;background:var(--tag-bg);color:var(--tag-ink);padding:6px 11px;font-size:.875rem;line-height:1.4;font-weight:650}
@@ -422,6 +421,15 @@ html{scrollbar-gutter:stable}
 .shell .participant-card details+details{margin-top:9px}
 .shell .done .business-contact{font-size:.86rem;margin:14px 0 0}
 .shell .business-contact a{color:#674783;overflow-wrap:anywhere}
+.shell .match-reasons>section{padding:12px 0}
+.shell .match-reasons>section+section{border-top:1px solid #eaddf2}
+.shell .match-reasons h4{margin:0 0 5px;color:#455d9d;font-size:.94rem}
+.shell .match-reasons>section:last-child h4{color:#8c4475}
+.shell .match-reasons p{margin:0}
+.shell .match-reasons .interest-tags{margin-top:6px}
+.shell .participant-card .participant-note{margin:0 0 10px}
+.shell .participant-card .celebrity-persona{margin-top:10px}
+.shell .participant-card details[open] summary{padding-bottom:10px;border-bottom:1px solid #eaddf2}
 .shell .birth-fields .birth-picker{display:block;appearance:none;text-align:center;text-align-last:center;min-height:48px;padding:10px 28px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%236f50aa' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center}
 .shell .axes .axis .pin{position:absolute;top:50%;transform:translate(-50%,-50%);box-sizing:border-box}
 .shell .body .chapter-art,.shell .body .story-art{width:auto;max-width:100%;height:auto;max-height:min(44svh,380px);margin-left:auto;margin-right:auto;border-radius:20px}

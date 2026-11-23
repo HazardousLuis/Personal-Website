@@ -48,6 +48,12 @@ const interestClass=tag=>{
   return 'tag-tone-'+(index<0?'other':index);
 };
 const interestTag=tag=>`<span class="interest-tag ${interestClass(tag)}">${esc(tag)}</span>`;
+const personaRow=(axes,image,alt)=>{
+  const {code,name}=resultFor(axes,'');
+  const formatted=code.replace(/([A-Z]{2})([A-Z]{2})$/u,'$1-$2');
+  return `<div class="celebrity-persona"><img class="participant-art" src="${image}" alt="${alt}"><div>
+    <p class="persona-code">${esc(formatted)}</p><p class="persona-name">${esc(name)}</p></div></div>`;
+};
 const encyclopedia=person=>{
   const entries={'Jimmy Chin':'/item/%E9%87%91%E5%9B%BD%E5%A8%81/23305784','小约翰可汗':'/item/%E5%B0%8F%E7%BA%A6%E7%BF%B0%E5%8F%AF%E6%B1%97/55677637'};
   const query=person.name.split(' · ').at(-1);
@@ -201,15 +207,17 @@ function render(){
         `<span class="initial-avatar" aria-label="姓名头像">${esc(Array.from(person.name)[0])}</span>`;
       const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>`:'';
       const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
-      const persona=resultFor(axes,style.label);
-      const personaCode=persona.code.replace(/([A-Z]{2})([A-Z]{2})$/u,'$1-$2');
       content=`${title('谁是你的合拍搭子？')}<article class="panel celebrity-card">
         <header class="celebrity-header">${image}<p class="result-kicker">你的名人搭子</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
         <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(interestTag).join('')}</div>
         <a href="${esc(encyclopedia(person))}" target="_blank" rel="noopener noreferrer">他的百科 ↗</a></section>
-        <section class="result-box"><h3>你们哪里合拍？</h3><p><strong>相处与分工</strong> ${esc(personalityReason(match,myAxes))}</p>${shared.length?`<p>共同主题：${esc(shared.join('、'))}。</p>`:''}<p><strong>节奏与玩法</strong> ${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
+        <section class="result-box match-reasons"><h3>你们哪里合拍？</h3>
+          <section><h4>相处与分工</h4><p>${esc(personalityReason(match,myAxes))}</p></section>
+          ${shared.length?`<section><h4>共同主题</h4><div class="interest-tags">${shared.map(interestTag).join('')}</div></section>`:''}
+          <section><h4>节奏与玩法</h4><p>${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
+        </section>
         <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity')}
-        <div class="celebrity-persona"><img class="participant-art" src="${illustration}" alt="旅行主题 Q 版示意"><div><p class="persona-code">${esc(personaCode)}</p><p class="persona-name">${esc(persona.name)}</p></div></div></section>${credit}
+        ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
         </article><p class="match-disclaimer">${disclaimer}</p>`;
     }else{
       content=`${title('谁是你的合拍搭子？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
@@ -228,11 +236,12 @@ function render(){
     const details=buddies.map((buddy,index)=>{
       const tags=buddy.tags?.map(interestTag).join('');
       const axes=buddy.scores?.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
-      return `<details><summary>${esc(buddy.nickname)} ${buddy.fictional?'<small class="demo-badge">虚拟搭子</small>':''} <span>查看资料 ›</span></summary>
-        <img class="participant-art" src="${path(esc(buddy.portrait))}" alt="搭子的与游 Q 版形象">${axes?radarChart(axes,'participant-'+index):''}
+      return `<details><summary>${esc(buddy.nickname)} <span>查看资料 ›</span></summary>
+        ${axes?personaRow(axes,path(esc(buddy.portrait)),'搭子的与游 Q 版形象')+radarChart(axes,'participant-'+index):''}
         <h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div></details>`;
     });
     content+=`<section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
+      ${buddies.some(buddy=>buddy.fictional)?'<p class="note participant-note">候选包含虚拟示例。</p>':''}
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){

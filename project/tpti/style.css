@@ -427,7 +427,6 @@ html{scrollbar-gutter:stable}
 .shell .match-reasons>section:last-child h4{color:#8c4475}
 .shell .match-reasons p{margin:0}
 .shell .match-reasons .interest-tags{margin-top:6px}
-.shell .participant-card .participant-note{margin:0 0 10px}
 .shell .participant-card .celebrity-persona{margin-top:10px}
 .shell .participant-card details[open] summary{padding-bottom:10px;border-bottom:1px solid #eaddf2}
 .shell .radar .radar-match{fill:#b82b6d;font-weight:750}

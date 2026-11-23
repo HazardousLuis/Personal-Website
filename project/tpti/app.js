@@ -233,7 +233,7 @@ function render(){
         </section>
         <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity',myAxes)}
         ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
-        </article><p class="match-disclaimer">${disclaimer}</p>`;
+        </article>`;
     }else{
       content=`${title('谁是你的合拍搭子？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
       if(catalog===undefined)Promise.all([fetch('./celebrities.json',{cache:'no-cache'}).then(response=>{
@@ -255,11 +255,14 @@ function render(){
         ${axes?personaRow(axes,path(esc(buddy.portrait)),'搭子的与游 Q 版形象')+radarChart(axes,'participant-'+index,myAxes):''}
         <h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div></details>`;
     });
-    content+=`<section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
-      ${buddies.some(buddy=>buddy.fictional)?'<p class="note participant-note">候选包含虚拟示例。</p>':''}
+    const previewNote=resultsPreview
+      ? (hasCompletedQuiz?'本页使用本机已完成的答卷预览，':'本页使用示例答卷预览，')+'不会提交答卷。' : '';
+    const exampleNote=buddies.some(buddy=>buddy.fictional)
+      ? (resultsPreview?'问卷搭子均为虚拟示例。':'问卷搭子列表可能包含虚拟示例。') : '';
+    content+=`<p class="match-disclaimer">${disclaimer}${previewNote}${exampleNote}</p>
+      <section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
-    if(resultsPreview)content+=`<p class="note">${hasCompletedQuiz?'根据本机已完成的答卷预览。':'当前浏览器没有已完成的答卷，正在展示示例。'} 此页不会提交答卷，问卷搭子仅展示虚拟示例。</p>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
     content=generation(q);

@@ -39,7 +39,7 @@ export function findMatch(catalog, {activities, selected, highlights, axes}) {
 
 export function dimensionMatch(index, own, other) {
   if(!Number.isFinite(own)||!Number.isFinite(other))return '';
-  if(Math.abs(own-other)<=12)return '高度近似';
+  if(Math.abs(own-other)<=20)return '高度近似';
   const low=index===0?35:33;
   if((index===0||index===3)&&Math.min(own,other)<=low&&Math.max(own,other)>=100-low)return '高度互补';
   return '';

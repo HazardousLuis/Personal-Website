@@ -1,5 +1,5 @@
 export const interestGroups = [
-  {name:'球类与运动', icon:'🏸', items:['羽毛球','乒乓球','桌球','足球','篮球','网球','游泳']},
+  {name:'球类与运动', icon:'🏸', items:['羽毛球','乒乓球','桌球','足球','篮球','网球','游泳','高尔夫']},
   {name:'户外与自然', icon:'🌿', items:['徒步','骑行','露营','攀岩','观鸟','桨板','滑雪','潜水']},
   {name:'视觉艺术', icon:'🎨', items:['摄影','绘画','插画','看展','建筑','手工']},
   {name:'音乐', icon:'🎵', items:['音乐现场','唱歌','吉他','钢琴','贝斯','架子鼓','古筝']},
@@ -46,21 +46,42 @@ export function personalityReason({person,gaps}, axes) {
     pair(2,'你们都适合留出空档，逛累了就找个地方坐一会儿。','你们都适合多安排几站，一起把想看的地方串起来。','你们的行程密度接近，适合一天挑几站，也给路上留足时间。'),
     pair(3,'你们都更适合出发前先定好主要安排。','你们都愿意把行程留得灵活一些，遇到喜欢的地方可以临时改。','你们都适合先确定大致路线，再商量哪些安排可以临时调整。')
   ];
-  const strengths = [2,1,0,3].sort((a,b)=>gaps[a]-gaps[b]);
+  const strengths = [0,3,1].sort((a,b)=>gaps[a]-gaps[b]);
   const plan = axes[3].value<=33&&person.scores[3]>=67
-    ? '安排上可以互补：你先定好主线，对方在想象场景中负责临时发现和调整。'
+    ? '你可以先订好交通和集合时间，对方在想象场景里负责临时挑顺路的小站。'
     : axes[3].value>=67&&person.scores[3]<=33
-      ? '安排上可以互补：对方先定好主线，你可以负责临时发现和调整。' : '';
-  if(gaps[strengths[0]]>30)return plan || '你们的风格有差异。这次更适合从共同想玩的活动开始，出发前先约好节奏。';
-  if(plan)return reasons[strengths[0]]+' '+plan;
+      ? '对方可以先定下交通和集合时间，你负责在路上发现值得多停一会儿的地方。' : '';
+  const social = axes[0].value>=65&&person.scores[0]<=35
+    ? '可以由你先开话题、和当地人打招呼，对方留心沿途的细节，再找个安静处聊发现。'
+    : axes[0].value<=35&&person.scores[0]>=65
+      ? '遇到需要问路或和店主交流的场合，可以让对方先开口，你负责观察和挑下一站。' : '';
+  const complement=plan||social;
+  if(gaps[strengths[0]]>30)return complement || '从一个共同想玩的活动开始。出发前各说一个想保留的安排，抵达后再一起决定下一站。';
+  if(complement)return reasons[strengths[0]]+' '+complement;
   return strengths.slice(0,2).filter(i=>gaps[i]<=30).map(i=>reasons[i]).join(' ');
 }
 
-export function matchDemo(demos, axes, interests) {
-  return demos.reduce((best,demo)=>{
+export function rankDemos(demos, axes, interests) {
+  return demos.map(demo=>{
     const distance=demo.scores.reduce((sum,value,i)=>sum+Math.abs(value-axes[i].value),0);
     const shared=demo.tags.filter(tag=>interests.has(tag)).length;
     const score=1-distance/400+.18*shared;
-    return !best||score>best.score?{demo,score}:best;
-  },null)?.demo ?? null;
+    return {demo,score};
+  }).sort((a,b)=>b.score-a.score).map(({demo})=>demo);
+}
+
+
+export function tripReason({person,style}, axes, activities) {
+  const pace = value => value<44?'偏舒缓':value>56?'偏紧凑':'疏密适中';
+  const own=pace(axes[2].value), other=pace(person.scores[2]);
+  const rhythm=own===other
+    ? '你们的节奏都'+own+'。'
+    : '你偏向'+own.replace('偏','')+'，对方在这个想象场景里'+other+'，可以把当天分成一段主行程和一段自由时间。';
+  const selected=activities.includes(travelStyles.indexOf(style));
+  const lead=selected?'你也选了'+style.label+'。':'可以从对方公开作品中的'+style.label+'主题试一趟。';
+  const detail={
+    'Jimmy Chin':'早上先留一段时间走观景步道，午后在一个取景点停下来拍照，提前约好集合点和回程时间。',
+    '小约翰可汗':'选一座城市历史博物馆和附近的老街。先看相关展品，再到街上找展览提到的建筑或地名。'
+  };
+  return rhythm+' '+lead+' '+(detail[person.name]||style.scene);
 }

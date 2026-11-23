@@ -23,12 +23,12 @@ async function prepareMatching(body) {
     portrait:'personality-'+group+'-'+variant+'.webp'};
 }
 
-function bestParticipant(me, candidates) {
+function rankedParticipants(me, candidates) {
   const compare = (first, second) => first.filter(value=>second.includes(value)).length / new Set([...first,...second]).size;
-  let best = null;
+  const ranked = [];
+  const interests = [...me.tags,...me.highlights];
   for(const candidate of candidates){
     if(!candidate || candidate.hideRadar || !Array.isArray(candidate.scores) || !Array.isArray(candidate.tags))continue;
-    const interests = [...me.tags,...me.highlights];
     const shared = interests.filter(tag=>candidate.tags.includes(tag)).length;
     const activity = compare(me.activities,candidate.activities);
     const similarity = axis => 1-Math.abs(me.scores[axis]-candidate.scores[axis])/100;
@@ -37,11 +37,12 @@ function bestParticipant(me, candidates) {
     if(interests.length&&candidate.tags.length)factors.push([15,shared/interests.length]);
     const score = factors.reduce((sum,[weight,value])=>sum+weight*value,0)/
       factors.reduce((sum,[weight])=>sum+weight,0);
-    if(!best || score>best.score) best={score,candidate};
+    ranked.push({score,candidate});
   }
-  if(!best)return null;
-  const {nickname,scores,tags,portrait,hideRadar}=best.candidate;
-  return hideRadar ? {nickname,hidden:true} : {nickname,tags,portrait,scores};
+  return ranked.sort((a,b)=>b.score-a.score).slice(0,3).map(({candidate})=>{
+    const {nickname,scores,tags,portrait}=candidate;
+    return {nickname,tags,portrait,scores};
+  });
 }
 
 // Update the public directory and retrieve candidates atomically. Quiz responses use a separate key.
@@ -73,8 +74,8 @@ async function matchParticipant(body, redis) {
   const excluded = body.excludeMatching === true;
   const candidates = await redis(['EVAL',updateAndRead,2,prefix+PUBLIC_KEY,prefix+INDEX_KEY,body.id,
     body.shareProfile&&!excluded&&!me.hideRadar?JSON.stringify(me):'',Date.now(),MAX_MATCH_PROFILES-1,excluded?'1':'0']);
-  if(excluded)return {participant:null};
-  return {participant:bestParticipant(me,candidates.map(candidate=>JSON.parse(candidate)))};
+  const participants=excluded?[]:rankedParticipants(me,candidates.map(candidate=>JSON.parse(candidate)));
+  return {participant:participants[0]??null,participants};
 }
 
-module.exports = {prepareMatching,bestParticipant,matchParticipant,MAX_MATCH_PROFILES};
+module.exports = {prepareMatching,rankedParticipants,matchParticipant,MAX_MATCH_PROFILES};

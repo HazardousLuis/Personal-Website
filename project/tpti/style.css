@@ -400,6 +400,28 @@ html{scrollbar-gutter:stable}
 .shell .demo-badge{color:#914570;background:#f9e4f4;border-radius:9px;padding:3px 7px;white-space:nowrap}
 .shell .participant-card summary{color:#4a5991}
 .shell .celebrity-card .photo-credit{margin:5px auto;color:#715f85}
+.shell .interest-tag,.shell .interest-chip:is([class*="tag-tone-"]){display:inline-flex;align-items:center;border:1px solid var(--tag-border);border-radius:12px;background:var(--tag-bg);color:var(--tag-ink);padding:6px 11px;font-size:.875rem;line-height:1.4;font-weight:650}
+.shell .tag-tone-0{--tag-bg:#fde8f1;--tag-border:#f5cde0;--tag-ink:#883a61}
+.shell .tag-tone-1{--tag-bg:#e5f5df;--tag-border:#cce8bf;--tag-ink:#356337}
+.shell .tag-tone-2{--tag-bg:#e8edff;--tag-border:#d4ddff;--tag-ink:#405981}
+.shell .tag-tone-3{--tag-bg:#f0e6fa;--tag-border:#e1d0f3;--tag-ink:#6b4388}
+.shell .tag-tone-4{--tag-bg:#fff0dd;--tag-border:#f3ddbc;--tag-ink:#79501f}
+.shell .tag-tone-5{--tag-bg:#e1f4f5;--tag-border:#c9e8eb;--tag-ink:#295f67}
+.shell .tag-tone-6{--tag-bg:#f7eedf;--tag-border:#ebdeca;--tag-ink:#695131}
+.shell .tag-tone-other{--tag-bg:#f2edf8;--tag-border:#e5dbef;--tag-ink:#675578}
+.shell .interest-chip:is([class*="tag-tone-"])[aria-pressed=true]{border-color:var(--tag-ink);box-shadow:0 0 0 1px var(--tag-ink)}
+.shell .name-card .note,.shell .celebrity-card .result-box .note{text-align:left}
+.shell .profile-private-choice{margin:auto auto 0;padding-top:28px;text-align:center}
+.shell .profile-private-choice p{margin:0 0 12px;color:#786187}
+.shell .profile-private-choice .hide-quiz-profile{padding:0 0 4px}
+.shell .celebrity-header :is(.celebrity-photo,.initial-avatar){width:clamp(112px,30vw,148px);height:clamp(112px,30vw,148px);margin-bottom:12px}
+.shell .celebrity-persona{display:grid;grid-template-columns:minmax(84px,42%) minmax(0,1fr);align-items:center;gap:12px;text-align:left}
+.shell .celebrity-persona .participant-art{height:clamp(105px,28vw,156px);object-position:left center;margin:6px 0}
+.shell .celebrity-persona .persona-code{font-weight:750;color:#475eac;letter-spacing:.05em}
+.shell .celebrity-persona .persona-name{margin-top:13px;color:#863e73;font-weight:750}
+.shell .participant-card details+details{margin-top:9px}
+.shell .done .business-contact{font-size:.86rem;margin:14px 0 0}
+.shell .business-contact a{color:#674783;overflow-wrap:anywhere}
 .shell .birth-fields .birth-picker{display:block;appearance:none;text-align:center;text-align-last:center;min-height:48px;padding:10px 28px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%236f50aa' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center}
 .shell .axes .axis .pin{position:absolute;top:50%;transform:translate(-50%,-50%);box-sizing:border-box}
 .shell .body .chapter-art,.shell .body .story-art{width:auto;max-width:100%;height:auto;max-height:min(44svh,380px);margin-left:auto;margin-right:auto;border-radius:20px}

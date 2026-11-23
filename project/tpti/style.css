@@ -424,6 +424,7 @@ html{scrollbar-gutter:stable}
 .shell .match-reasons>section{padding:12px 0}
 .shell .match-reasons>section+section{border-top:1px solid #eaddf2}
 .shell .match-reasons h4{margin:0 0 5px;color:#455d9d}
+.shell .match-reasons>section:first-of-type h4{color:#fa0176}
 .shell .match-reasons>section:last-child h4{color:#8c4475}
 .shell .match-reasons p{margin:0}
 .shell .match-reasons :is(h4,p){font-size:inherit}

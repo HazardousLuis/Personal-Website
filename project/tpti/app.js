@@ -1,4 +1,5 @@
 import {profile,resultFor} from './scoring.js';
+import {findMatch,interestGroups} from './matching.js';
 const root=document.querySelector('#app');
 const endpoint=new URL('./api/responses',location.href);
 const storageKey='trawithu:web:v1';
@@ -8,19 +9,49 @@ function loadDraft(){
 const saved=loadDraft();
 const answers=saved.answers||{};
 let id=saved.id || (globalThis.crypto.randomUUID?.() ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const x=crypto.getRandomValues(new Uint8Array(1))[0]&15;return (c==='x'?x:(x&3)|8).toString(16)}));
-let birthMonth=saved.birthMonth||'';
+delete answers.birthMonth;
+const interests=new Set(saved.interests||[]);
+const highlights=new Set(saved.highlights||[]);
+const predefined=new Set(interestGroups.flatMap(group=>group.items));
+const openGroups=new Set();
+let catalog, resumeIndex=saved.resumeIndex||0;
+let nickname=saved.nickname||'', shareProfile=saved.shareProfile===true, hideRadar=saved.hideRadar===true;
+let participant, participantError=false, matchRequest;
+const payload=()=>({id,answers,nickname,shareProfile,hideRadar,feedback,
+  interests:[...interests].filter(tag=>predefined.has(tag)),highlights:[...highlights].filter(tag=>predefined.has(tag))});
+function requestMatch(){
+  if(matchRequest)return;
+  const request=fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload(),feedback:undefined,action:'match'}),signal:AbortSignal.timeout(12000)});
+  matchRequest=request;
+  request.then(async response=>{
+    if(!response.ok)throw new Error('Matching unavailable');
+    participant=(await response.json()).participant;
+  }).catch(()=>{participantError=true;}).finally(()=>{
+    matchRequest=null;
+    if(steps[index].kind==='celebrity')render();
+  });
+}
 let index=saved.index||0, feedback=saved.feedback||'', busy=false;
 const {pages,money}=await fetch('./questions.json',{cache:'no-cache'}).then(r=>r.json());
-const steps=[...pages,...money.map((q,i)=>({...q,phase:i+1})),{kind:'money-complete'},{kind:'results'},{kind:'feedback'},{kind:'done'}];
+const steps=[...pages,...money.map((q,i)=>({...q,phase:i+1})),{kind:'money-complete'},{kind:'results'},{kind:'interests'},{kind:'nickname'},{kind:'celebrity'},{kind:'feedback'},{kind:'done'}];
 if (!saved.version && index >= pages.length + money.length) index += 1;
+if ((saved.version||0)<3 && index===steps.length-4) index+=3;
 index=Math.min(Math.max(index,0),steps.length-1);
+if(index>0 && steps[index].kind!=='done' && !answers.adultConfirmed){resumeIndex=index;index=0;}
 const path=name=>'./assets/'+name;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:2,id,index,answers,feedback,birthMonth}));
-const move=offset=>{index+=offset;save();render();scrollTo(0,0);root.querySelector('h1')?.focus();};
+const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,shareProfile,hideRadar,interests:[...interests],highlights:[...highlights]}));
+const move=offset=>{
+  index+=offset;
+  save();
+  render();
+  root.querySelector('h1')?.focus({preventScroll:true});
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+};
 const button=label=>`<button class="primary" data-next>${label}</button>`;
 const art=gender=>path(gender===1?'default-female.webp':'default-male.webp');
-const brand=()=>`<div class="mark"><span class="cn">与游</span><span class="en">TraWithU</span></div>`;
+const brand=()=>`<div class="mark"><span class="brand-line"><img src="./assets/youyou-backpack.webp" alt=""><span class="cn">与游</span></span><span class="en">TraWithU</span></div>`;
+const disclaimer='本测评与名人搭子结果仅供娱乐，不作参考。名人的性格及旅行风格为根据公开作品作出的娱乐推测，未经本人确认，不代表真实人格、本人意见或与游合作。请勿将结果作为择伴、行程或其他实际决策依据。';
 function look(){
   const axes=profile(answers);
   const picks=answers.activities||[];
@@ -33,6 +64,9 @@ function profileCard(kind){
   const {axes,result,portrait}=look();
   const labels=axes.slice(0,kind==='summary'?3:4).map(({low,high,value},i)=>`<div class="axis"><div>${axes[i].name}</div><div class="track"><i class="pin" style="left:${value}%;background:${axes[i].color};border-color:${axes[i].color}"></i></div><div class="scale"><span>${low}</span><span>${high}</span></div></div>`).join('');
   if(kind!=='radar')return `<div class="panel profile"><img class="profile-art" src="${portrait}" alt="你的与游角色"><div class="axes">${labels}</div></div><p class="role-copy">${esc(result.role)}</p>`;
+  return radarChart(axes)+`<p class="radar-role">${esc(result.radarRole)}</p>`;
+}
+function radarChart(axes){
   const point=(r,i)=>[[130,130-r],[130+r,130],[130,130+r],[130-r,130]][i];
   const vertices=axes.map((axis,i)=>point(axis.value*.64,i));
   const ring=r=>axes.map((_,i)=>point(r,i).join(',')).join(' ');
@@ -49,7 +83,7 @@ function profileCard(kind){
     ${vertices.map(([x,y],i)=>{const [ex,ey]=vertices[(i+1)%4];return x===ex&&y===ey?'':`<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}" stroke="url(#radar-edge-${i})" stroke-width="2"/>`;}).join('')}
     ${vertices.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="3.3" fill="${axes[i].color}"/>`).join('')}
     <g text-anchor="middle" fill="#393055" font-size="13" font-weight="650">${[[130,51],[225,135],[130,217],[35,135]].map(([x,y],i)=>`<text x="${x}" y="${y}">${axes[i].name}</text>`).join('')}</g></svg>`;
-  return `<div class="panel radar-panel">${chart}</div><p class="radar-role">${esc(result.radarRole)}</p>`;
+  return `<div class="panel radar-panel">${chart}</div>`;
 }
 const introFeedback = [
   '你愿意先聊两句，能让刚认识的搭子更快放松。路上遇到有意思的人或地方，也可以把自己的好奇分享给大家。',
@@ -129,6 +163,57 @@ function render(){
     const {portrait,result}=look();
     content=`${title('你的 TPTI 旅行人格卡')}<div class="registration-preview"><img src="${portrait}" alt="与游旅行人格角色"><span class="type-code">${esc(result.code)}</span><strong>${esc(result.name)}</strong><span class="type-detail">${esc(result.detail)}</span></div>`;
     action=button('继续');
+  }else if(q.kind==='interests'){
+    const chip=(tag,attr,label,pressed)=>`<button type="button" class="interest-chip" ${attr}="${esc(tag)}" aria-pressed="${pressed}">${esc(label)}</button>`;
+    const picked=[...interests].map(tag=>`<li><span>${esc(tag)}</span><div>${chip(tag,'data-highlight',highlights.has(tag)?'★ 已置顶':'☆ 置顶',highlights.has(tag))}${chip(tag,'data-interest','移除',false)}</div></li>`).join('');
+    content=`${title('平时想和搭子一起做什么？')}<p class="description">可多选。最想和搭子一起做的事可以置顶，最多三项。</p>
+      <div class="interest-list">${interestGroups.map((group,i)=>`<details data-group="${i}" ${openGroups.has(String(i))?'open':''}><summary>${group.icon} ${esc(group.name)}</summary><div class="interest-tags">${group.items.map(tag=>chip(tag,'data-interest',tag,interests.has(tag))).join('')}</div></details>`).join('')}</div>
+      ${picked?`<section class="panel picked-interests"><h2 class="prompt">已选兴趣</h2><ul>${picked}</ul></section>`:''}
+      <form class="custom-interest"><label for="custom-interest">其他兴趣</label><div><input id="custom-interest" maxlength="12" placeholder="最多 6 个字"><button class="interest-chip" type="submit">添加</button></div><p class="note" role="status"></p></form>`;
+    action=button(interests.size?'继续':'跳过兴趣');
+  }else if(q.kind==='nickname'){
+    content=`${title('搭子该怎么称呼你？')}<form id="nickname-form" class="panel name-card">
+      <label for="nickname">昵称</label><input id="nickname" maxlength="32" autocomplete="off" placeholder="1–16 个字" value="${esc(nickname)}" required>
+      <label><input type="checkbox" name="share" ${shareProfile?'checked':''}>加入用户搭子池，让后续参与者有机会匹配到我</label>
+      <label><input type="checkbox" name="hide" ${hideRadar?'checked':''}>隐藏我的测评资料，仅展示昵称</label>
+      <p class="note">加入后，与你匹配到的参与者可以查看昵称、雷达图、Q 版形象和预设兴趣。选择隐藏后，只有昵称可见，你的测评资料仍用于匹配。</p>
+      <p id="name-error" role="alert"></p></form>`;
+    action='<button class="primary" type="submit" form="nickname-form">查看我的搭子</button>';
+  }else if(q.kind==='celebrity'){
+    const match=catalog&&findMatch(catalog,{activities:answers.activities||[],selected:[...interests],highlights:[...highlights],axes:look().axes});
+    if(match){
+      const {person,style,shared}=match;
+      const illustration=path('personality-'+(style.label==='自然观察'||style.label==='户外探索'?'2':'0')+'-0.webp');
+      const photo=person.photo;
+      const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}"><p class="photo-credit">摄影 <a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>（缩略图）</p>`:
+        '<div class="celebrity-mark" aria-hidden="true">✦</div>';
+      content=`${title('你的灵感搭子是谁？')}<article class="panel celebrity-card">
+        ${image}<h2>${esc(person.name)}</h2><span class="celebrity-style">${esc(style.label)} · 娱乐推测</span>
+        <details class="celebrity-detail"><summary>查看名人搭子资料</summary><img class="participant-art" src="${illustration}" alt="旅行主题 Q 版示意"><p>${esc(person.description)}</p><div class="interest-tags">${person.tags.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('')}</div>
+        <h3>为什么会选到这位？</h3><p>${shared.length?'你选中的共同主题：'+esc(shared.join('、'))+'。':'这次结果主要参照你的旅行玩法和节奏。'}</p>
+        <h3>一起出游的想象</h3><p>${esc(style.scene)}</p>
+        <a href="${esc(person.source)}" target="_blank" rel="noopener noreferrer">查看公开作品与资料 ↗</a>
+        </details></article><p class="match-disclaimer">${disclaimer}</p>`;
+    }else{
+      content=`${title('你的灵感搭子是谁？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
+      if(catalog===undefined)fetch('./celebrities.json').then(response=>{
+        if(!response.ok)throw new Error('Catalog unavailable');
+        return response.json();
+      }).then(data=>{catalog=data;}).catch(()=>{catalog=null;}).finally(()=>{
+        if(steps[index].kind==='celebrity')render();
+      });
+    }
+    action=button('继续').replace('data-next',catalog===undefined||participant===undefined&&!participantError?'data-next disabled':'data-next');
+    if(participant===undefined&&!participantError)requestMatch();
+    const tags=participant?.tags?.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('');
+    const axes=participant?.scores?.map((value,i)=>({...look().axes[i],value,color:'#8a65bd'}));
+    const participantDetail=participant?.hidden
+      ? '<p class="note">这位搭子选择隐藏测评资料。</p>'
+      : participant ? `<img class="participant-art" src="${path(esc(participant.portrait))}" alt="搭子的与游 Q 版形象">${axes?radarChart(axes):''}<h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div>` : '';
+    content+=`<section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
+      ${participant?`<details><summary>${esc(participant.nickname)} <span>查看资料 ›</span></summary>${participantDetail}</details>`:
+        `<p class="note">${participantError?'用户匹配暂时无法加载。':participant===undefined?'正在匹配…':'暂时没有其他加入搭子池的用户。'}</p>`}
+      ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
     content=generation(q);
@@ -143,12 +228,7 @@ function render(){
       const isGender=q.kind==='gender';
       content+=`<div class="portrait-group">${isGender?'<h2 class="prompt">请选择你的性别</h2>':''}<div class="grid">${choices(q)}</div></div>`;
       if(isGender){
-        const now=new Date();
-        const [year,month]=birthMonth.split('-');
-        const options=(values,selected,suffix)=>values.map(value=>`<option value="${value}" ${value===selected?'selected':''}>${value}${suffix}</option>`).join('');
-        const years=Array.from({length:now.getFullYear()-1899},(_,i)=>String(now.getFullYear()-i));
-        const months=Array.from({length:12},(_,i)=>String(i+1).padStart(2,'0'));
-        content+=`<div class="birth-section"><p class="prompt" id="birth-label">请选择出生年月</p><div class="birth-fields" role="group" aria-labelledby="birth-label"><select id="birth-year" class="birth-picker" aria-label="出生年份"><option value="">年份</option>${options(years,year,' 年')}</select><select id="birth-month" class="birth-picker" aria-label="出生月份"><option value="">月份</option>${options(months,month,' 月')}</select></div></div><details class="policy"><summary>答卷与隐私说明</summary><p class="note">出生年月仅保留在当前设备，提交时保存答题选项和可选建议。</p></details>`;
+        content+=`<label class="adult-confirm"><input id="adult-confirm" type="checkbox" ${answers.adultConfirmed?'checked':''}>我已满 18 岁</label><details class="policy"><summary>娱乐测评与答卷说明</summary><p class="note">${disclaimer}</p><p class="note">年龄声明和自填兴趣仅保存在当前设备。提交时保存昵称、答题选项、预设兴趣及选填建议，用于改进测评。请勿在建议中填写联系方式。</p></details>`;
         action=button('继续');
       }
     }else if(q.kind==='campus'){
@@ -206,19 +286,19 @@ function render(){
     carouselTimer=undefined;
     sceneIndex=0;
   }
-  const year=root.querySelector('#birth-year');
-  const month=root.querySelector('#birth-month');
-  if(year&&month){
-    const update=()=>{
-      const now=new Date();
-      const limit=Number(year.value)===now.getFullYear()?now.getMonth()+1:12;
-      for(const option of month.options)option.disabled=Number(option.value)>limit;
-      if(Number(month.value)>limit)month.value='';
-      birthMonth=year.value||month.value?`${year.value}-${month.value}`:'';
-      root.querySelector('[data-next]').disabled=answers.gender===undefined||!year.value||!month.value;
-    };
-    for(const field of [year,month])field.addEventListener('change',()=>{update();save();});
+  const adult=root.querySelector('#adult-confirm');
+  if(adult){
+    const next=root.querySelector('[data-next]');
+    const update=()=>{next.disabled=answers.gender===undefined||!adult.checked;};
+    adult.addEventListener('change',()=>{answers.adultConfirmed=adult.checked;update();save();});
     update();
+  }
+  for(const group of root.querySelectorAll('[data-group]')){
+    group.addEventListener('toggle',()=>{
+      if(!group.isConnected)return;
+      if(group.open)openGroups.add(group.dataset.group);
+      else openGroups.delete(group.dataset.group);
+    });
   }
   const field=root.querySelector('textarea');
   field?.addEventListener('input',()=>{feedback=field.value;save();root.querySelector('[data-submit]').textContent=feedback.trim()?'提交答卷与建议':'提交答卷';});
@@ -226,9 +306,34 @@ function render(){
 root.addEventListener('click',async event=>{
   const target=event.target.closest('button');
   if(!target||busy)return;
+  if(matchRequest&&target.hasAttribute('data-back'))return;
   const q=steps[index];
+  if(target.hasAttribute('data-retry-match')){participantError=false;requestMatch();render();return;}
   if(target.hasAttribute('data-back'))return move(q.phase===1?-2:-1);
-  if(target.hasAttribute('data-next'))return move(1);
+  if(target.hasAttribute('data-next')){
+    if(index===0&&resumeIndex){
+      const destination=resumeIndex;
+      resumeIndex=0;
+      return move(destination);
+    }
+    return move(1);
+  }
+  if(target.dataset.interest!==undefined || target.dataset.highlight!==undefined){
+    const {interest,highlight}=target.dataset;
+    if(interest!==undefined){
+      if(interests.has(interest)){interests.delete(interest);highlights.delete(interest);}
+      else interests.add(interest);
+    }else if(highlights.has(highlight))highlights.delete(highlight);
+    else if(highlights.size<3)highlights.add(highlight);
+    else{
+      root.querySelector('.custom-interest [role=status]').textContent='最多置顶 3 项兴趣。';
+      return;
+    }
+    save();render();
+    [...root.querySelectorAll('[data-interest],[data-highlight]')].find(el=>
+      interest!==undefined ? el.dataset.interest===interest : el.dataset.highlight===highlight)?.focus({preventScroll:true});
+    return;
+  }
   if(target.dataset.choice!==undefined){
     const option=Number(target.dataset.choice);
     if(q.kind==='multi'){
@@ -254,7 +359,7 @@ root.addEventListener('click',async event=>{
     busy=true;target.disabled=true;
     document.querySelector('#error').textContent='';
     try{
-      const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,answers,feedback})});
+      const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())});
       if(!res.ok||!(await res.json()).saved)throw Error();
       move(1);
     }catch{
@@ -262,5 +367,33 @@ root.addEventListener('click',async event=>{
       target.disabled=false;
     }finally{busy=false;}
   }
+});
+root.addEventListener('submit',event=>{
+  if(event.target.id==='nickname-form'){
+    event.preventDefault();
+    const form=event.target;
+    const name=form.elements.nickname.value.trim();
+    if(!name||Array.from(name).length>16||/[\p{C}@]|\d{6}/u.test(name)){
+      root.querySelector('#name-error').textContent='请填写 1–16 个字的昵称，避免使用联系方式。';
+      return;
+    }
+    nickname=name;
+    shareProfile=form.elements.share.checked;
+    hideRadar=form.elements.hide.checked;
+    participant=undefined;
+    participantError=false;
+    move(1);
+    return;
+  }
+  if(!event.target.matches('.custom-interest'))return;
+  event.preventDefault();
+  const tag=event.target.querySelector('input').value.trim().replace(/^[#＃]+/u,'').trim();
+  if(!tag||Array.from(tag).length>6){
+    event.target.querySelector('[role=status]').textContent='请输入 1 至 6 个字。';
+    return;
+  }
+  interests.add(tag);
+  save();render();
+  root.querySelector('#custom-interest')?.focus();
 });
 render();

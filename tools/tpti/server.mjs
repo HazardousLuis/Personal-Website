@@ -6,23 +6,29 @@ import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import bank from './questions.cjs';
 import validation from './validate.cjs';
+import participants from './participants.cjs';
 const {validateResponse}=validation;
+const {prepareMatching,bestParticipant,MAX_MATCH_PROFILES}=participants;
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const dataDir = process.env.TPTI_DATA_DIR || join(root, 'data');
 await mkdir(dataDir, { recursive: true });
 const db = new DatabaseSync(join(dataDir, 'responses.sqlite'));
 db.exec('CREATE TABLE IF NOT EXISTS responses(id TEXT PRIMARY KEY, submitted_at TEXT NOT NULL, answers TEXT NOT NULL, feedback TEXT NOT NULL)');
+db.exec('CREATE TABLE IF NOT EXISTS participant_profiles(id TEXT PRIMARY KEY, updated_at INTEGER NOT NULL, profile TEXT NOT NULL)');
 const save = db.prepare('INSERT OR IGNORE INTO responses VALUES (?, ?, ?, ?)');
+const publish = db.prepare('INSERT OR REPLACE INTO participant_profiles VALUES (?, ?, ?)');
+const unpublish = db.prepare('DELETE FROM participant_profiles WHERE id = ?');
+const candidates = db.prepare('SELECT profile FROM participant_profiles WHERE id <> ? ORDER BY updated_at DESC LIMIT ?');
 const pages = bank.pages.filter(p => !['register','verify'].includes(p.kind));
 const send = (res, status, body) => {
   res.writeHead(status, { 'Content-Type':'application/json; charset=utf-8', 'Cache-Control':'no-store' });
   res.end(JSON.stringify(body));
 };
-const files = new Map([['/','index.html'],['/index.html','index.html'],['/app.js','app.js'],['/scoring.js','scoring.js'],['/style.css','style.css'],['/questions.json','questions.json']]);
+const files = new Map([['/','index.html'],['/index.html','index.html'],['/app.js','app.js'],['/scoring.js','scoring.js'],['/style.css','style.css'],['/questions.json','questions.json'],['/matching.js','matching.js'],['/celebrities.json','celebrities.json']]);
 for (const name of ['logo.png','project-logo.png','default-male.png','default-female.png','story-time.jpg','story-pace.jpg','story-money.jpg']) files.set('/assets/'+name,'assets/'+name);
 for (const name of await readdir(join(root,'../../project/tpti/assets'))) {
-  if (/^[a-z0-9-]+\.webp$/.test(name)) files.set('/assets/'+name,'assets/'+name);
+  if (/^[a-z0-9-]+\.(?:webp|jpg)$/.test(name)) files.set('/assets/'+name,'assets/'+name);
 }
 const types = {json:'application/json; charset=utf-8',html:'text/html; charset=utf-8',js:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8',png:'image/png',jpg:'image/jpeg',webp:'image/webp'};
 const server = createServer(async (req,res) => {
@@ -41,8 +47,21 @@ const server = createServer(async (req,res) => {
       }
       let body;
       try { body=JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { return send(res,400,{error:'请求格式不正确'}); }
+      if(body?.action==='match'){
+        const participant=await prepareMatching(body);
+        if(!participant)return send(res,400,{error:'请检查昵称及答卷'});
+        if(body.shareProfile)publish.run(body.id,Date.now(),JSON.stringify(participant));
+        else unpublish.run(body.id);
+        const matches=candidates.all(body.id,MAX_MATCH_PROFILES).map(row=>JSON.parse(row.profile));
+        return send(res,200,{participant:bestParticipant(participant,matches)});
+      }
       const answers=validateResponse(body);
       if (!answers) return send(res,400,{error:'请检查答卷是否完整'});
+      if(body.nickname!==undefined){
+        const details=await prepareMatching(body);
+        if(!details)return send(res,400,{error:'请检查昵称及答卷'});
+        Object.assign(answers,{nickname:details.nickname,interests:details.tags,interestHighlights:details.highlights});
+      }
       save.run(body.id || randomUUID(),new Date().toISOString(),JSON.stringify(answers),body.feedback.trim());
       return send(res,200,{saved:true});
     }

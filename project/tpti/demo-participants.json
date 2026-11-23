@@ -1,0 +1,482 @@
+[
+  {
+    "nickname": "松针来信",
+    "scores": [
+      26,
+      80,
+      31,
+      63
+    ],
+    "tags": [
+      "徒步",
+      "观鸟",
+      "摄影"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "榆岛十三",
+    "scores": [
+      41,
+      77,
+      47,
+      74
+    ],
+    "tags": [
+      "骑行",
+      "摄影",
+      "露营"
+    ],
+    "portrait": "personality-1-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "雾里放映厅",
+    "scores": [
+      25,
+      59,
+      29,
+      37
+    ],
+    "tags": [
+      "电影",
+      "看展",
+      "阅读"
+    ],
+    "portrait": "personality-2-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "蓝桥午后三点",
+    "scores": [
+      56,
+      62,
+      36,
+      55
+    ],
+    "tags": [
+      "咖啡",
+      "城市漫步",
+      "建筑"
+    ],
+    "portrait": "personality-3-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "梨白收音机",
+    "scores": [
+      43,
+      51,
+      45,
+      32
+    ],
+    "tags": [
+      "音乐现场",
+      "吉他",
+      "唱歌"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "西窗的纸船",
+    "scores": [
+      30,
+      62,
+      26,
+      48
+    ],
+    "tags": [
+      "手工",
+      "插画",
+      "非遗"
+    ],
+    "portrait": "personality-1-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "鹿栖站台",
+    "scores": [
+      46,
+      87,
+      51,
+      76
+    ],
+    "tags": [
+      "徒步",
+      "铁路",
+      "摄影"
+    ],
+    "portrait": "personality-2-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "沿江第七码头",
+    "scores": [
+      75,
+      81,
+      64,
+      80
+    ],
+    "tags": [
+      "骑行",
+      "桨板",
+      "游泳"
+    ],
+    "portrait": "personality-3-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "江边有铅笔",
+    "scores": [
+      34,
+      58,
+      34,
+      39
+    ],
+    "tags": [
+      "绘画",
+      "建筑",
+      "看展"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "乌桕路过",
+    "scores": [
+      52,
+      73,
+      42,
+      64
+    ],
+    "tags": [
+      "观鸟",
+      "露营",
+      "茶"
+    ],
+    "portrait": "personality-1-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "溯溪小路",
+    "scores": [
+      62,
+      89,
+      78,
+      58
+    ],
+    "tags": [
+      "徒步",
+      "攀岩",
+      "桨板"
+    ],
+    "portrait": "personality-2-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "nori在南边",
+    "scores": [
+      80,
+      69,
+      61,
+      73
+    ],
+    "tags": [
+      "本地小吃",
+      "逛市集",
+      "城市漫步"
+    ],
+    "portrait": "personality-3-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "橘洲手账",
+    "scores": [
+      48,
+      62,
+      46,
+      40
+    ],
+    "tags": [
+      "博物馆",
+      "非遗",
+      "手工"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "斜杠风筝线",
+    "scores": [
+      73,
+      85,
+      71,
+      69
+    ],
+    "tags": [
+      "足球",
+      "骑行",
+      "露营"
+    ],
+    "portrait": "personality-1-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "真空留声机",
+    "scores": [
+      44,
+      71,
+      45,
+      58
+    ],
+    "tags": [
+      "唱歌",
+      "音乐现场",
+      "贝斯"
+    ],
+    "portrait": "personality-2-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "桥洞看潮",
+    "scores": [
+      61,
+      74,
+      53,
+      80
+    ],
+    "tags": [
+      "摄影",
+      "游泳",
+      "潜水"
+    ],
+    "portrait": "personality-3-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "北井的白噪音",
+    "scores": [
+      24,
+      55,
+      32,
+      75
+    ],
+    "tags": [
+      "阅读",
+      "咖啡",
+      "电影"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "九点前上山",
+    "scores": [
+      57,
+      79,
+      76,
+      21
+    ],
+    "tags": [
+      "登山",
+      "徒步",
+      "露营"
+    ],
+    "portrait": "personality-1-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "Neon十六拍",
+    "scores": [
+      84,
+      64,
+      60,
+      55
+    ],
+    "tags": [
+      "架子鼓",
+      "音乐现场",
+      "唱歌"
+    ],
+    "portrait": "personality-2-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "槐序散页",
+    "scores": [
+      40,
+      64,
+      36,
+      42
+    ],
+    "tags": [
+      "博物馆",
+      "阅读",
+      "戏剧"
+    ],
+    "portrait": "personality-3-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "码头边的mori",
+    "scores": [
+      59,
+      83,
+      55,
+      71
+    ],
+    "tags": [
+      "城市漫步",
+      "逛市集",
+      "摄影"
+    ],
+    "portrait": "personality-0-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "阿澄的副本",
+    "scores": [
+      72,
+      66,
+      59,
+      68
+    ],
+    "tags": [
+      "桌游",
+      "密室逃脱",
+      "电子游戏"
+    ],
+    "portrait": "personality-1-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "晴川39",
+    "scores": [
+      64,
+      56,
+      58,
+      41
+    ],
+    "tags": [
+      "羽毛球",
+      "乒乓球",
+      "桌球"
+    ],
+    "portrait": "personality-2-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "石阶慢两拍",
+    "scores": [
+      28,
+      49,
+      22,
+      48
+    ],
+    "tags": [
+      "茶",
+      "建筑",
+      "城市漫步"
+    ],
+    "portrait": "personality-3-3.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "沉木与墨",
+    "scores": [
+      36,
+      68,
+      28,
+      35
+    ],
+    "tags": [
+      "古筝",
+      "绘画",
+      "非遗"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "宇宙余温42",
+    "scores": [
+      67,
+      76,
+      48,
+      66
+    ],
+    "tags": [
+      "电影",
+      "戏剧",
+      "音乐现场"
+    ],
+    "portrait": "personality-1-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "雾港弧线",
+    "scores": [
+      77,
+      83,
+      81,
+      60
+    ],
+    "tags": [
+      "滑雪",
+      "网球",
+      "攀岩"
+    ],
+    "portrait": "personality-2-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "晚班面包房",
+    "scores": [
+      55,
+      57,
+      33,
+      59
+    ],
+    "tags": [
+      "烘焙",
+      "咖啡",
+      "本地小吃"
+    ],
+    "portrait": "personality-3-0.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "纸盒里的月台",
+    "scores": [
+      32,
+      72,
+      41,
+      53
+    ],
+    "tags": [
+      "摄影",
+      "城市漫步",
+      "博物馆"
+    ],
+    "portrait": "personality-0-2.webp",
+    "fictional": true
+  },
+  {
+    "nickname": "两点四赫兹",
+    "scores": [
+      70,
+      81,
+      66,
+      79
+    ],
+    "tags": [
+      "桌游",
+      "剧本杀",
+      "密室逃脱"
+    ],
+    "portrait": "personality-1-0.webp",
+    "fictional": true
+  }
+]

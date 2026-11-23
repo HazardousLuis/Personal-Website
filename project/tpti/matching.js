@@ -9,11 +9,11 @@ export const interestGroups = [
 ];
 
 const travelStyles = [
-  {label:'人文体验', tags:['博物馆','看展','建筑','手工','非遗','阅读','戏剧'], scene:'挑一场展或一间手作工作室，边逛边聊作品里的故事。', axes:{2:36}},
-  {label:'自然观察', tags:['观鸟','徒步','摄影','潜水'], scene:'在清晨走一段观景路线，遇到喜欢的风景就停下来拍照。', axes:{1:68,2:35}},
-  {label:'城市与在地美食', tags:['城市漫步','逛市集','本地小吃','咖啡','茶','烘焙','建筑'], scene:'从一条老街逛到当地市集，各挑一样没试过的小吃。', axes:{1:72,2:46}},
-  {label:'户外探索', tags:['徒步','骑行','露营','攀岩','桨板','滑雪','潜水'], scene:'一起挑一条难度合适的户外路线，把最想看的风景设成终点。', axes:{1:84,2:65}},
-  {label:'休闲与现场体验', tags:['咖啡','茶','音乐现场','电影','桌游','唱歌','钢琴','电子游戏','篮球','网球'], scene:'各选一个喜欢的活动，结束后找个地方坐下慢慢聊。', axes:{2:29}}
+  {label:'人文体验', tags:['博物馆','看展','建筑','手工','非遗','阅读','戏剧'], scene:'挑一场展或一间手作工作室，边逛边聊作品里的故事。'},
+  {label:'自然观察', tags:['观鸟','徒步','摄影','潜水'], scene:'在清晨走一段观景路线，遇到喜欢的风景就停下来拍照。'},
+  {label:'城市与在地美食', tags:['城市漫步','逛市集','本地小吃','咖啡','茶','烘焙','建筑'], scene:'从一条老街逛到当地市集，各挑一样没试过的小吃。'},
+  {label:'户外探索', tags:['徒步','骑行','露营','攀岩','桨板','滑雪','潜水'], scene:'一起挑一条难度合适的户外路线，把最想看的风景设成终点。'},
+  {label:'休闲与现场体验', tags:['咖啡','茶','音乐现场','电影','桌游','唱歌','钢琴','电子游戏','篮球','网球'], scene:'各选一个喜欢的活动，结束后找个地方坐下慢慢聊。'}
 ];
 
 export function findMatch(catalog, {activities, selected, highlights, axes}) {
@@ -26,13 +26,41 @@ export function findMatch(catalog, {activities, selected, highlights, axes}) {
     const themeTags = person.tags.filter(tag => style.tags.includes(tag));
     if (!themeTags.length) return null;
     const activity = activities.includes(index) ? 1 : 0;
-    const inferred = Object.entries(style.axes);
-    const fit = inferred.reduce((sum,[axis,value]) => sum + (1-Math.abs(axes[axis].value-value)/100),0)/inferred.length;
+    const gaps = person.scores.map((value,axis) => Math.abs(axes[axis].value-value));
+    const fit = 1-(gaps[0]*.25+gaps[1]*.25+gaps[2]*.35+gaps[3]*.15)/100;
     const score = totalWeight
-      ? 0.6*(sharedWeight/totalWeight) + 0.25*activity + 0.15*fit
-      : 0.55*activity + 0.45*fit;
-    return {person,style,score,shared:shared.map(([tag])=>tag),themeTags};
+      ? 0.35*(sharedWeight/totalWeight) + 0.22*activity + 0.43*fit
+      : 0.35*activity + 0.65*fit;
+    return {person,style,score,shared:shared.map(([tag])=>tag),themeTags,gaps};
   })).filter(Boolean);
   ranked.sort((a,b)=>b.score-a.score || b.themeTags.length-a.themeTags.length);
   return ranked[0];
+}
+
+export function personalityReason({person,gaps}, axes) {
+  const pair = (i, low, high, middle) => axes[i].value < 44 && person.scores[i] < 44 ? low :
+    axes[i].value > 56 && person.scores[i] > 56 ? high : middle;
+  const reasons = [
+    pair(0,'你们都适合留一点安静时间，熟悉之后再慢慢聊。','你们都适合边走边聊，把路上的发现分享给对方。','想象中，你们喜欢交流的程度接近，一起活动时比较容易找到舒服的相处方式。'),
+    pair(1,'你们都更容易从熟悉的路线和玩法开始。','你们都偏向尝新，适合一起挑些没试过的地方。','你们尝新的程度相近，可以在熟悉的行程里留一站给新鲜体验。'),
+    pair(2,'你们都适合留出空档，逛累了就找个地方坐一会儿。','你们都适合多安排几站，一起把想看的地方串起来。','你们的行程密度接近，适合一天挑几站，也给路上留足时间。'),
+    pair(3,'你们都更适合出发前先定好主要安排。','你们都愿意把行程留得灵活一些，遇到喜欢的地方可以临时改。','你们都适合先确定大致路线，再商量哪些安排可以临时调整。')
+  ];
+  const strengths = [2,1,0,3].sort((a,b)=>gaps[a]-gaps[b]);
+  const plan = axes[3].value<=33&&person.scores[3]>=67
+    ? '安排上可以互补：你先定好主线，对方在想象场景中负责临时发现和调整。'
+    : axes[3].value>=67&&person.scores[3]<=33
+      ? '安排上可以互补：对方先定好主线，你可以负责临时发现和调整。' : '';
+  if(gaps[strengths[0]]>30)return plan || '你们的风格有差异。这次更适合从共同想玩的活动开始，出发前先约好节奏。';
+  if(plan)return reasons[strengths[0]]+' '+plan;
+  return strengths.slice(0,2).filter(i=>gaps[i]<=30).map(i=>reasons[i]).join(' ');
+}
+
+export function matchDemo(demos, axes, interests) {
+  return demos.reduce((best,demo)=>{
+    const distance=demo.scores.reduce((sum,value,i)=>sum+Math.abs(value-axes[i].value),0);
+    const shared=demo.tags.filter(tag=>interests.has(tag)).length;
+    const score=1-distance/400+.18*shared;
+    return !best||score>best.score?{demo,score}:best;
+  },null)?.demo ?? null;
 }

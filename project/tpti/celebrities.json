@@ -6,8 +6,19 @@
       "非遗",
       "本地小吃"
     ],
-    "description": "四川乡间手作与传统饮食",
-    "source": "https://www.youtube.com/channel/UCoC47do520os_4DBMEFGg4A"
+    "source": "https://www.youtube.com/channel/UCoC47do520os_4DBMEFGg4A",
+    "photo": {
+      "fileName": "creator-01.jpg",
+      "source": "https://www.youtube.com/channel/UCoC47do520os_4DBMEFGg4A",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      30,
+      71,
+      31,
+      29
+    ],
+    "bio": "以四川乡村生活为主题的视频创作者。作品常从采集原料开始，完整记录一道家常菜或一件传统手作是怎么完成的。"
   },
   {
     "name": "滇西小哥",
@@ -15,8 +26,19 @@
       "本地小吃",
       "茶"
     ],
-    "description": "从云南乡间采食材，做当地家常菜",
-    "source": "https://www.youtube.com/channel/UCQG_fzADCunBTV1KwjkfAQQ"
+    "source": "https://www.youtube.com/channel/UCQG_fzADCunBTV1KwjkfAQQ",
+    "photo": {
+      "fileName": "creator-02.jpg",
+      "source": "https://www.youtube.com/channel/UCQG_fzADCunBTV1KwjkfAQQ",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      44,
+      67,
+      37,
+      36
+    ],
+    "bio": "来自云南的美食视频创作者。她的频道常跟着季节选食材，把山野收获和家里的饭桌放进同一段故事。"
   },
   {
     "name": "食贫道 · 饼叔",
@@ -25,16 +47,38 @@
       "电影",
       "城市漫步"
     ],
-    "description": "用食物和人文纪录片走进当地日常",
-    "source": "https://space.bilibili.com/125526"
+    "source": "https://space.bilibili.com/125526",
+    "photo": {
+      "fileName": "creator-03.jpg",
+      "source": "https://www.youtube.com/@shipindao",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      72,
+      82,
+      53,
+      45
+    ],
+    "bio": "美食与人文纪录片创作者张竣，观众也叫他饼叔。《东瀛大宝荐》等作品会从一顿饭聊到城市生活和当地人的经历。"
   },
   {
     "name": "美食作家王刚",
     "tags": [
       "本地小吃"
     ],
-    "description": "分享川菜和中华烹饪技法",
-    "source": "https://www.youtube.com/@chefwang"
+    "source": "https://www.youtube.com/@chefwang",
+    "photo": {
+      "fileName": "creator-04.jpg",
+      "source": "https://www.youtube.com/@chefwang",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      47,
+      61,
+      46,
+      23
+    ],
+    "bio": "以川菜技法和家常菜教学为主的美食创作者。镜头常呈现食材处理、火候和下锅顺序等烹饪细节。"
   },
   {
     "name": "Tim · 影视飓风",
@@ -42,8 +86,19 @@
       "摄影",
       "电影"
     ],
-    "description": "用影像记录现场，并公开制作过程",
-    "source": "https://space.bilibili.com/946974"
+    "source": "https://space.bilibili.com/946974",
+    "scores": [
+      59,
+      88,
+      73,
+      39
+    ],
+    "bio": "影视飓风的创作者 Tim，经常出现在器材测试、影像制作和外拍挑战中，也会展示一段视频是如何拍出来的。",
+    "photo": {
+      "fileName": "portrait-05.jpg",
+      "source": "https://www.youtube.com/@mediastorm6801",
+      "author": "官方频道头像"
+    }
   },
   {
     "name": "何同学",
@@ -51,8 +106,19 @@
       "摄影",
       "手工"
     ],
-    "description": "把创意实验和影像制作结合",
-    "source": "https://space.bilibili.com/163637592"
+    "source": "https://space.bilibili.com/163637592",
+    "scores": [
+      47,
+      84,
+      49,
+      27
+    ],
+    "bio": "以科技和创意实验见长的中国视频创作者。其作品经常从一个生活问题开始，再通过设计、制作和影像把想法做出来。",
+    "photo": {
+      "fileName": "creator-05.jpg",
+      "source": "https://www.youtube.com/@HTXStudio",
+      "author": "官方频道头像"
+    }
   },
   {
     "name": "小约翰可汗",
@@ -60,24 +126,52 @@
       "阅读",
       "博物馆"
     ],
-    "description": "用人物故事讲世界史",
-    "source": "https://space.bilibili.com/23947287"
+    "source": "https://space.bilibili.com/23947287",
+    "photo": {
+      "fileName": "creator-07.jpg",
+      "source": "https://www.youtube.com/@wbclg",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      45,
+      84,
+      38,
+      28
+    ],
+    "bio": "哔哩哔哩历史知识区创作者，代表系列有《奇葩小国》和《硬核狠人》。他擅长从冷门国家和人物切入，用密集的史料、故事和幽默讲近现代史。"
   },
   {
     "name": "老番茄",
     "tags": [
       "电子游戏"
     ],
-    "description": "以游戏视频和解说为代表",
-    "source": "https://space.bilibili.com/546195"
+    "source": "https://space.bilibili.com/546195",
+    "scores": [
+      56,
+      66,
+      52,
+      58
+    ],
+    "bio": "哔哩哔哩游戏区视频创作者，以游戏实况和带有故事感的解说见长，常从角色视角重讲游戏经历。"
   },
   {
     "name": "手工耿",
     "tags": [
       "手工"
     ],
-    "description": "创作和展示机械手作",
-    "source": "https://www.youtube.com/@HandyGeng"
+    "source": "https://www.youtube.com/@HandyGeng",
+    "photo": {
+      "fileName": "creator-09.jpg",
+      "source": "https://www.youtube.com/@HandyGeng",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      37,
+      87,
+      42,
+      65
+    ],
+    "bio": "以机械手作视频走红的创作者。作品常用金属和机械结构，把日常里很小的点子做成出人意料的装置。"
   },
   {
     "name": "Mark Wiens",
@@ -85,8 +179,19 @@
       "本地小吃",
       "逛市集"
     ],
-    "description": "把当地小吃和市场放在旅程中心",
-    "source": "https://migrationology.com/about/"
+    "source": "https://migrationology.com/about/",
+    "photo": {
+      "fileName": "creator-10.jpg",
+      "source": "https://www.youtube.com/@MarkWiens",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      78,
+      88,
+      62,
+      68
+    ],
+    "bio": "Migrationology 的创作者和旅行美食博主。他常以市场、路边摊和家庭餐桌为线索，走访当地厨师和摊主。"
   },
   {
     "name": "Sonny Side",
@@ -95,8 +200,19 @@
       "逛市集",
       "电影"
     ],
-    "description": "走访当地市场和食摊，拍美食纪录片",
-    "source": "https://www.youtube.com/@BestEverFoodReviewShow"
+    "source": "https://www.youtube.com/@BestEverFoodReviewShow",
+    "photo": {
+      "fileName": "creator-11.jpg",
+      "source": "https://www.youtube.com/@BestEverFoodReviewShow",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      86,
+      87,
+      69,
+      66
+    ],
+    "bio": "《Best Ever Food Review Show》的主持人，通过食物纪录各地生活。节目常把露天市场、家庭厨房与地方饮食习俗放在一起。"
   },
   {
     "name": "Mike Chen",
@@ -104,8 +220,19 @@
       "本地小吃",
       "逛市集"
     ],
-    "description": "走访城市餐馆、夜市和小吃摊",
-    "source": "https://www.youtube.com/@StrictlyDumpling"
+    "source": "https://www.youtube.com/@StrictlyDumpling",
+    "photo": {
+      "fileName": "creator-12.jpg",
+      "source": "https://www.youtube.com/@StrictlyDumpling",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      68,
+      76,
+      68,
+      59
+    ],
+    "bio": "美食频道 Strictly Dumpling 的创作者。内容常从夜市、餐馆和地方小吃展开，也记录不同城市的用餐体验。"
   },
   {
     "name": "Trevor James",
@@ -113,8 +240,19 @@
       "本地小吃",
       "逛市集"
     ],
-    "description": "跟着街头小吃深入城市",
-    "source": "https://www.youtube.com/@thefoodranger"
+    "source": "https://www.youtube.com/@thefoodranger",
+    "photo": {
+      "fileName": "creator-13.jpg",
+      "source": "https://www.youtube.com/@thefoodranger",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      82,
+      86,
+      72,
+      70
+    ],
+    "bio": "The Food Ranger 创作者，以街头美食旅行为主。他常把点单、摊主交谈和街区环境都拍进节目。"
   },
   {
     "name": "Jun Yoshizuki",
@@ -122,8 +260,19 @@
       "本地小吃",
       "手工"
     ],
-    "description": "拍摄在日本亲手准备食材与烹饪的过程",
-    "source": "https://www.youtube.com/@JunsKitchen"
+    "source": "https://www.youtube.com/@JunsKitchen",
+    "photo": {
+      "fileName": "creator-14.jpg",
+      "source": "https://www.youtube.com/@JunsKitchen",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      33,
+      61,
+      33,
+      31
+    ],
+    "bio": "JunsKitchen 创作者，在日本拍摄家庭料理与食材准备。画面常保留洗切、调味和烹饪的细节。"
   },
   {
     "name": "Jamie Oliver",
@@ -131,8 +280,19 @@
       "本地小吃",
       "烘焙"
     ],
-    "description": "通过食谱和节目分享家常料理",
-    "source": "https://www.jamieoliver.com/"
+    "source": "https://www.jamieoliver.com/",
+    "photo": {
+      "fileName": "creator-15.jpg",
+      "source": "https://www.youtube.com/@JamieOliver",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      74,
+      65,
+      61,
+      43
+    ],
+    "bio": "英国厨师、食谱作者和节目主持人。他的内容包括家庭料理、烘焙和面向普通家庭的烹饪教学。"
   },
   {
     "name": "Gordon Ramsay",
@@ -140,8 +300,19 @@
       "本地小吃",
       "电影"
     ],
-    "description": "用旅行节目探索不同地区的食材与烹饪",
-    "source": "https://www.nationalgeographic.com/tv/shows/gordon-ramsay-uncharted"
+    "source": "https://www.nationalgeographic.com/tv/shows/gordon-ramsay-uncharted",
+    "photo": {
+      "fileName": "creator-16.jpg",
+      "source": "https://www.youtube.com/@GordonRamsay",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      85,
+      83,
+      79,
+      43
+    ],
+    "bio": "英国厨师与电视主持人，也主持《Gordon Ramsay: Uncharted》。在这档旅行节目中，他会与当地人寻找食材并学习做法。"
   },
   {
     "name": "Samin Nosrat",
@@ -149,16 +320,38 @@
       "本地小吃",
       "阅读"
     ],
-    "description": "通过食谱与写作记录各地的烹饪方法",
-    "source": "https://www.saltfatacidheat.com/"
+    "source": "https://www.saltfatacidheat.com/",
+    "scores": [
+      65,
+      75,
+      44,
+      47
+    ],
+    "bio": "厨师与作家，是《Salt, Fat, Acid, Heat》的作者及同名纪录片主持人。作品结合烹饪方法、食材和地方饮食故事。",
+    "photo": {
+      "fileName": "portrait-17.jpg",
+      "source": "https://www.kunstmann.de/autorinnen/samin-nosrat",
+      "author": "Kunstmann · Aya Brackett"
+    }
   },
   {
     "name": "Claire Saffitz",
     "tags": [
       "烘焙"
     ],
-    "description": "分享甜点制作和烘焙实验",
-    "source": "https://www.youtube.com/@ClaireSaffitzxDessertPerson"
+    "source": "https://www.youtube.com/@ClaireSaffitzxDessertPerson",
+    "scores": [
+      38,
+      69,
+      41,
+      24
+    ],
+    "bio": "《Dessert Person》作者及烘焙视频创作者。她会把甜点配方拆成易观察的步骤，也展示失败后如何调整。",
+    "photo": {
+      "fileName": "creator-18.jpg",
+      "source": "https://www.youtube.com/@csaffitz",
+      "author": "官方频道头像"
+    }
   },
   {
     "name": "Joshua Weissman",
@@ -166,8 +359,19 @@
       "烘焙",
       "本地小吃"
     ],
-    "description": "做烘焙与日常料理实验",
-    "source": "https://www.youtube.com/@JoshuaWeissman"
+    "source": "https://www.youtube.com/@JoshuaWeissman",
+    "photo": {
+      "fileName": "creator-19.jpg",
+      "source": "https://www.youtube.com/@JoshuaWeissman",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      68,
+      75,
+      68,
+      37
+    ],
+    "bio": "美国料理与烘焙创作者，视频里经常比较不同做法，并测试经典料理在家庭厨房里的实现方式。"
   },
   {
     "name": "Nick DiGiovanni",
@@ -175,8 +379,19 @@
       "本地小吃",
       "烘焙"
     ],
-    "description": "以料理挑战和食谱创作见长",
-    "source": "https://www.nickdigiovanni.com/"
+    "source": "https://www.nickdigiovanni.com/",
+    "photo": {
+      "fileName": "creator-20.jpg",
+      "source": "https://www.youtube.com/@NickDiGiovanni",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      78,
+      80,
+      74,
+      59
+    ],
+    "bio": "料理视频创作者及食谱作者，常以烹饪挑战、食材比较和合作短片呈现做饭过程。"
   },
   {
     "name": "Drew Binsky",
@@ -184,8 +399,19 @@
       "城市漫步",
       "电影"
     ],
-    "description": "通过旅行影像讲述各地居民的故事",
-    "source": "https://drewbinsky.com/about/"
+    "source": "https://drewbinsky.com/about/",
+    "photo": {
+      "fileName": "creator-21.jpg",
+      "source": "https://www.youtube.com/@DrewBinsky",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      90,
+      93,
+      72,
+      79
+    ],
+    "bio": "全球旅行视频创作者。作品常通过与各地居民的交流来介绍目的地，关注语言、风俗和日常生活。"
   },
   {
     "name": "Eva zu Beck",
@@ -193,8 +419,19 @@
       "徒步",
       "露营"
     ],
-    "description": "拍摄自驾、野外露营和远途探访",
-    "source": "https://www.youtube.com/@evazubeck"
+    "source": "https://www.youtube.com/@evazubeck",
+    "photo": {
+      "fileName": "creator-22.jpg",
+      "source": "https://www.youtube.com/@evazubeck",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      53,
+      94,
+      57,
+      73
+    ],
+    "bio": "旅行纪录片创作者，作品包括偏远地区探访、陆路旅行和露营，常记录途中遇到的自然环境和人。"
   },
   {
     "name": "Lexie Alford",
@@ -202,8 +439,19 @@
       "城市漫步",
       "摄影"
     ],
-    "description": "用旅行影像记录跨国探索",
-    "source": "https://www.youtube.com/@LexieLimitless"
+    "source": "https://www.youtube.com/@LexieLimitless",
+    "photo": {
+      "fileName": "creator-23.jpg",
+      "source": "https://www.youtube.com/@LexieLimitless",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      66,
+      94,
+      80,
+      43
+    ],
+    "bio": "以长线环球旅行和影像创作闻名。她的作品包含跨国探访，也关注规划一段长途探险所经历的准备和变化。"
   },
   {
     "name": "Kara Buchanan",
@@ -212,8 +460,19 @@
       "骑行",
       "城市漫步"
     ],
-    "description": "与 Nate 记录长途旅行及户外挑战",
-    "source": "https://karaandnate.com/about-us/"
+    "source": "https://karaandnate.com/about-us/",
+    "photo": {
+      "fileName": "creator-24.jpg",
+      "source": "https://www.youtube.com/@karaandnate",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      73,
+      86,
+      71,
+      65
+    ],
+    "bio": "Kara and Nate 的旅行视频创作者之一，频道记录全球旅行，以及徒步、交通体验和户外挑战。"
   },
   {
     "name": "Nate Buchanan",
@@ -222,8 +481,19 @@
       "露营",
       "徒步"
     ],
-    "description": "节目中有骑行和户外长途挑战",
-    "source": "https://www.youtube.com/@karaandnate"
+    "source": "https://www.youtube.com/@karaandnate",
+    "photo": {
+      "fileName": "creator-25.jpg",
+      "source": "https://www.youtube.com/@karaandnate",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      66,
+      87,
+      79,
+      49
+    ],
+    "bio": "Kara and Nate 的旅行视频创作者之一，频道里常记录骑行等长途户外挑战和旅行计划的执行过程。"
   },
   {
     "name": "Chris Broad",
@@ -232,8 +502,19 @@
       "本地小吃",
       "电影"
     ],
-    "description": "拍摄日本城市、乡镇与饮食文化",
-    "source": "https://www.youtube.com/@AbroadinJapan"
+    "source": "https://www.youtube.com/@AbroadinJapan",
+    "photo": {
+      "fileName": "creator-26.jpg",
+      "source": "https://www.youtube.com/@AbroadinJapan",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      59,
+      78,
+      53,
+      57
+    ],
+    "bio": "Abroad in Japan 的英国创作者，长期拍摄日本各地的旅行、人文和饮食。从城市街区到地方小镇都有记录。"
   },
   {
     "name": "Joey Bizinger",
@@ -241,8 +522,19 @@
       "电子游戏",
       "城市漫步"
     ],
-    "description": "制作游戏与动漫相关内容，也记录日本街区",
-    "source": "https://www.youtube.com/@TheAnimeMan"
+    "source": "https://www.youtube.com/@TheAnimeMan",
+    "photo": {
+      "fileName": "creator-27.jpg",
+      "source": "https://www.youtube.com/@TheAnimeMan",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      66,
+      67,
+      55,
+      69
+    ],
+    "bio": "以 The Anime Man 频道闻名，公开作品涉及动画、游戏和日本生活，也拍摄街区和文化体验。"
   },
   {
     "name": "Connor Colquhoun",
@@ -250,8 +542,19 @@
       "骑行",
       "电子游戏"
     ],
-    "description": "公开记录长距离慈善骑行和游戏内容",
-    "source": "https://www.youtube.com/@CDawgVA"
+    "source": "https://www.youtube.com/@CDawgVA",
+    "photo": {
+      "fileName": "creator-28.jpg",
+      "source": "https://www.youtube.com/@CDawgVA",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      74,
+      82,
+      70,
+      62
+    ],
+    "bio": "以 CDawgVA 为名活跃的视频创作者。他做游戏内容，也组织并记录了多次在日本进行的慈善长途骑行。"
   },
   {
     "name": "Marques Brownlee",
@@ -259,8 +562,19 @@
       "摄影",
       "电子游戏"
     ],
-    "description": "以科技和影像内容创作为代表",
-    "source": "https://www.youtube.com/@mkbhd"
+    "source": "https://www.youtube.com/@mkbhd",
+    "photo": {
+      "fileName": "creator-29.jpg",
+      "source": "https://www.youtube.com/@mkbhd",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      48,
+      73,
+      52,
+      26
+    ],
+    "bio": "以 MKBHD 为名创作科技内容，代表作品包括消费电子评测、访谈和制作幕后，擅长用影像呈现设计细节。"
   },
   {
     "name": "Peter McKinnon",
@@ -269,8 +583,19 @@
       "咖啡",
       "电影"
     ],
-    "description": "摄影教学、短片与咖啡主题内容",
-    "source": "https://www.youtube.com/@PeterMcKinnon"
+    "source": "https://www.youtube.com/@PeterMcKinnon",
+    "photo": {
+      "fileName": "creator-30.jpg",
+      "source": "https://www.youtube.com/@PeterMcKinnon",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      68,
+      79,
+      51,
+      70
+    ],
+    "bio": "加拿大摄影与视频创作者，分享摄影实践、影片制作和日常创作过程，也常出现咖啡等生活主题。"
   },
   {
     "name": "Chris Burkard",
@@ -278,8 +603,19 @@
       "摄影",
       "徒步"
     ],
-    "description": "以偏远地区、户外与海岸影像闻名",
-    "source": "https://www.chrisburkard.com/About/FAQ"
+    "source": "https://www.chrisburkard.com/About/FAQ",
+    "scores": [
+      41,
+      90,
+      54,
+      55
+    ],
+    "bio": "户外摄影师与旅行创作者，作品覆盖偏远海岸、寒冷地区与自然风景，常在户外环境中进行拍摄。",
+    "photo": {
+      "fileName": "portrait-31.jpg",
+      "source": "https://alphauniverse.com/artisans/burkard/",
+      "author": "Sony Alpha Universe · Ben Moon"
+    }
   },
   {
     "name": "Jimmy Chin",
@@ -289,14 +625,20 @@
       "滑雪",
       "电影"
     ],
-    "description": "把登山攀岩与探险影像结合",
     "source": "https://www.usa.canon.com/learning/inspiration/explorers-of-light/jimmy-chin",
     "photo": {
       "fileName": "celebrity-chin.jpg",
       "author": "LucaFazPhoto",
       "source": "https://commons.wikimedia.org/wiki/File:Jimmy_Chin_at_the_83rd_Venice_International_Film_Festival.jpg",
       "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-    }
+    },
+    "scores": [
+      45,
+      94,
+      75,
+      28
+    ],
+    "bio": "登山者、摄影师和纪录片导演。其影像常结合高山探险与团队协作，《徒手攀岩》等项目让他广为人知。"
   },
   {
     "name": "Cristina Mittermeier",
@@ -304,8 +646,19 @@
       "摄影",
       "潜水"
     ],
-    "description": "以海洋和自然保护影像见长",
-    "source": "https://www.cristinamittermeier.com/"
+    "source": "https://www.cristinamittermeier.com/",
+    "scores": [
+      51,
+      87,
+      39,
+      42
+    ],
+    "bio": "海洋保护摄影师与视觉艺术家，常通过水下影像和自然保护故事关注海洋生态。",
+    "photo": {
+      "fileName": "creator-33.jpg",
+      "source": "https://www.cristinamittermeier.com/",
+      "author": "官网照片 · Anna Heupel"
+    }
   },
   {
     "name": "Paul Nicklen",
@@ -313,8 +666,19 @@
       "摄影",
       "潜水"
     ],
-    "description": "拍摄极地与海洋野生动物",
-    "source": "https://paulnicklen.com/"
+    "source": "https://paulnicklen.com/",
+    "scores": [
+      38,
+      91,
+      39,
+      34
+    ],
+    "bio": "加拿大摄影师与海洋保护创作者。作品关注极地、海洋野生动物和保护议题，常需要较长时间观察环境。",
+    "photo": {
+      "fileName": "creator-34.jpg",
+      "source": "https://paulnicklen.com/About/",
+      "author": "Paul Nicklen 官网照片"
+    }
   },
   {
     "name": "Alex Honnold",
@@ -322,14 +686,20 @@
       "攀岩",
       "徒步"
     ],
-    "description": "常在山地进行攀登，也制作攀岩播客",
     "source": "https://www.alexhonnold.com/about",
     "photo": {
       "fileName": "celebrity-honnold.jpg",
       "author": "Christopher Michel",
       "source": "https://commons.wikimedia.org/wiki/File:Alex_Honnold_in_2022.jpg",
       "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-    }
+    },
+    "scores": [
+      26,
+      94,
+      71,
+      19
+    ],
+    "bio": "美国攀岩者及攀岩播客主持人，以《徒手攀岩》受到关注，也长期公开分享攀登经历。"
   },
   {
     "name": "Kilian Jornet",
@@ -338,16 +708,38 @@
       "滑雪",
       "骑行"
     ],
-    "description": "长期进行山地远距离挑战和滑雪登山",
-    "source": "https://kilianjornet.cat/"
+    "source": "https://kilianjornet.cat/",
+    "photo": {
+      "fileName": "creator-36.jpg",
+      "source": "https://www.youtube.com/@kilianjornet",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      31,
+      95,
+      91,
+      32
+    ],
+    "bio": "来自西班牙比利牛斯山区的山地运动员。其公开项目涉及越野耐力、滑雪登山和跨山地长线探索。"
   },
   {
     "name": "Magnus Midtbø",
     "tags": [
       "攀岩"
     ],
-    "description": "通过视频分享攀岩训练和挑战",
-    "source": "https://www.youtube.com/@magmidt"
+    "source": "https://www.youtube.com/@magmidt",
+    "photo": {
+      "fileName": "creator-37.jpg",
+      "source": "https://www.youtube.com/@magmidt",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      57,
+      86,
+      68,
+      62
+    ],
+    "bio": "挪威攀岩创作者，视频会记录在不同岩馆和户外进行的挑战，也常与其他运动者合作。"
   },
   {
     "name": "Nims Purja",
@@ -356,8 +748,19 @@
       "徒步",
       "电影"
     ],
-    "description": "以高海拔登山与探险纪录片闻名",
-    "source": "https://www.nimsdai.com/"
+    "source": "https://www.nimsdai.com/",
+    "photo": {
+      "fileName": "creator-38.jpg",
+      "source": "https://www.youtube.com/@nimsdai",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      68,
+      96,
+      88,
+      33
+    ],
+    "bio": "以高海拔登山和登山纪录片闻名，公开项目以山地挑战、远行和团队执行为主。"
   },
   {
     "name": "Jonna Jinton",
@@ -367,8 +770,19 @@
       "绘画",
       "手工"
     ],
-    "description": "记录北欧乡野、手作和传统歌唱",
-    "source": "https://www.youtube.com/@jonnajinton"
+    "source": "https://www.youtube.com/@jonnajinton",
+    "photo": {
+      "fileName": "creator-39.jpg",
+      "source": "https://www.youtube.com/@jonnajinton",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      28,
+      73,
+      22,
+      63
+    ],
+    "bio": "瑞典影像创作者，公开内容记录北欧乡野生活、手作、绘画与传统歌唱。"
   },
   {
     "name": "Cecilia Blomdahl",
@@ -377,8 +791,19 @@
       "徒步",
       "咖啡"
     ],
-    "description": "记录斯瓦尔巴群岛的自然与家居生活",
-    "source": "https://www.youtube.com/@CeciliaBlomdahl"
+    "source": "https://www.youtube.com/@CeciliaBlomdahl",
+    "photo": {
+      "fileName": "creator-40.jpg",
+      "source": "https://www.youtube.com/@CeciliaBlomdahl",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      39,
+      83,
+      31,
+      71
+    ],
+    "bio": "记录斯瓦尔巴群岛生活的视频创作者，作品常拍到严寒环境里的自然景观、家居日常和户外散步。"
   },
   {
     "name": "Hannah Lee Duggan",
@@ -387,8 +812,19 @@
       "手工",
       "徒步"
     ],
-    "description": "记录露营车生活和木屋改造",
-    "source": "https://www.youtube.com/@hannahleeduggan"
+    "source": "https://www.youtube.com/@hannahleeduggan",
+    "photo": {
+      "fileName": "creator-41.jpg",
+      "source": "https://www.youtube.com/@hannahleeduggan",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      27,
+      85,
+      38,
+      78
+    ],
+    "bio": "生活方式视频创作者，常拍摄露营车旅行、木屋改造和自己动手做东西的过程。"
   },
   {
     "name": "Beau Miles",
@@ -397,8 +833,19 @@
       "骑行",
       "电影"
     ],
-    "description": "把日常环境里的户外挑战拍成短片",
-    "source": "https://beaumiles.com/"
+    "source": "https://beaumiles.com/",
+    "photo": {
+      "fileName": "creator-42.jpg",
+      "source": "https://www.youtube.com/@BeauMiles",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      45,
+      91,
+      58,
+      80
+    ],
+    "bio": "澳大利亚户外短片创作者，把徒步、骑行和日常环境中的小型探险拍成影片。"
   },
   {
     "name": "Adam Savage",
@@ -406,24 +853,57 @@
       "手工",
       "电影"
     ],
-    "description": "公开展示道具、模型和手工制作",
-    "source": "https://www.youtube.com/@tested"
+    "source": "https://www.youtube.com/@tested",
+    "photo": {
+      "fileName": "creator-43.jpg",
+      "source": "https://www.youtube.com/@tested",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      58,
+      78,
+      57,
+      28
+    ],
+    "bio": "《MythBusters》前主持人和 Tested 创作者，公开内容常记录模型、道具和工坊制作的细节。"
   },
   {
     "name": "Simone Giertz",
     "tags": [
       "手工"
     ],
-    "description": "设计、制作并展示原创装置",
-    "source": "https://www.youtube.com/@simonegiertz"
+    "source": "https://www.youtube.com/@simonegiertz",
+    "photo": {
+      "fileName": "creator-44.jpg",
+      "source": "https://www.youtube.com/@simonegiertz",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      41,
+      83,
+      45,
+      52
+    ],
+    "bio": "瑞典设计和工程内容创作者，通过视频展示原创装置从构思、制作到测试的过程。"
   },
   {
     "name": "Mark Rober",
     "tags": [
       "手工"
     ],
-    "description": "以工程实验和创意制作见长",
-    "source": "https://www.youtube.com/@MarkRober"
+    "source": "https://www.youtube.com/@MarkRober",
+    "photo": {
+      "fileName": "creator-45.jpg",
+      "source": "https://www.youtube.com/@MarkRober",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      71,
+      87,
+      66,
+      29
+    ],
+    "bio": "工程与科学视频创作者，以原创装置和实验视频见长，常通过制作和复测让观众看懂一个点子。"
   },
   {
     "name": "Critical Role · Matthew Mercer",
@@ -431,8 +911,19 @@
       "桌游",
       "戏剧"
     ],
-    "description": "主持并参与实况桌上角色扮演表演",
-    "source": "https://critrole.com/members/matthew-mercer/"
+    "source": "https://critrole.com/members/matthew-mercer/",
+    "photo": {
+      "fileName": "creator-46.jpg",
+      "source": "https://www.youtube.com/@criticalrole",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      82,
+      79,
+      55,
+      59
+    ],
+    "bio": "配音演员，也是《Critical Role》的主持人与桌面角色扮演主持人，公开作品以即兴叙事和桌游表演见长。"
   },
   {
     "name": "Ludwig Ahgren",
@@ -440,8 +931,19 @@
       "电子游戏",
       "桌游"
     ],
-    "description": "进行游戏直播并制作游戏活动",
-    "source": "https://www.youtube.com/@Ludwig"
+    "source": "https://www.youtube.com/@Ludwig",
+    "photo": {
+      "fileName": "creator-47.jpg",
+      "source": "https://www.youtube.com/@Ludwig",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      85,
+      75,
+      71,
+      70
+    ],
+    "bio": "游戏与直播创作者，内容包括游戏实况、节目策划和多人游戏活动。"
   },
   {
     "name": "Jacob Collier",
@@ -450,8 +952,19 @@
       "钢琴",
       "唱歌"
     ],
-    "description": "公开演出和创作以多乐器及人声编排见长",
-    "source": "https://www.jacobcollier.com/"
+    "source": "https://www.jacobcollier.com/",
+    "photo": {
+      "fileName": "creator-48.jpg",
+      "source": "https://www.youtube.com/@jacobcollier",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      79,
+      92,
+      57,
+      76
+    ],
+    "bio": "英国音乐人，公开作品以多乐器、人声编排和现场即兴见长，演出中也常邀请观众参与。"
   },
   {
     "name": "Laufey",
@@ -460,8 +973,19 @@
       "唱歌",
       "钢琴"
     ],
-    "description": "创作和演出融合爵士的流行音乐",
-    "source": "https://www.laufeymusic.com/"
+    "source": "https://www.laufeymusic.com/",
+    "photo": {
+      "fileName": "creator-49.jpg",
+      "source": "https://www.youtube.com/@laufey",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      51,
+      72,
+      37,
+      44
+    ],
+    "bio": "冰岛华裔音乐人，以把爵士和流行写作结合的歌曲闻名。公开演出常结合歌唱、钢琴和弦乐。"
   },
   {
     "name": "周杰伦",
@@ -470,7 +994,18 @@
       "钢琴",
       "电影"
     ],
-    "description": "音乐创作与舞台演出涵盖钢琴，也参与电影",
-    "source": "https://www.youtube.com/@jaychou"
+    "source": "https://www.youtube.com/@jaychou",
+    "photo": {
+      "fileName": "creator-50.jpg",
+      "source": "https://www.youtube.com/@jaychou",
+      "author": "官方频道头像"
+    },
+    "scores": [
+      56,
+      77,
+      58,
+      42
+    ],
+    "bio": "华语流行歌手、词曲创作者和演员。钢琴与跨风格编曲是其作品的重要元素，也曾参与电影创作。"
   }
 ]

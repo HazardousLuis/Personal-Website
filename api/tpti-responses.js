@@ -42,6 +42,7 @@ module.exports = async function handler(req, res) {
     const details=body.nickname===undefined?null:await prepareMatching(body);
     if(body.nickname!==undefined&&!details)return res.status(400).json({error:'请检查昵称及答卷'});
     const response = {id:body.id, submittedAt:new Date().toISOString(), answers, feedback:body.feedback.trim(),
+      ...(body.questionVersion===2?{questionVersion:2}:{}),
       ...(details?{nickname:details.nickname,interests:details.tags,interestHighlights:details.highlights}:{})};
     const result = await redis(['HSETNX','tpti:responses:v1',body.id,JSON.stringify(response)]);
     if (![0,1].includes(result)) throw new Error('Redis did not accept the response');

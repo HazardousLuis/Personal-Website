@@ -25,10 +25,12 @@ const send = (res, status, body) => {
   res.writeHead(status, { 'Content-Type':'application/json; charset=utf-8', 'Cache-Control':'no-store' });
   res.end(JSON.stringify(body));
 };
-const files = new Map([['/','index.html'],['/index.html','index.html'],['/app.js','app.js'],['/scoring.js','scoring.js'],['/style.css','style.css'],['/questions.json','questions.json'],['/matching.js','matching.js'],['/celebrities.json','celebrities.json']]);
+const files = new Map(['/index.html','/app.js','/scoring.js','/style.css','/questions.json','/matching.js',
+  '/celebrities.json','/demo-participants.json'].map(file=>[file,file.slice(1)]));
+files.set('/','index.html');
 for (const name of ['logo.png','project-logo.png','default-male.png','default-female.png','story-time.jpg','story-pace.jpg','story-money.jpg']) files.set('/assets/'+name,'assets/'+name);
 for (const name of await readdir(join(root,'../../project/tpti/assets'))) {
-  if (/^[a-z0-9-]+\.(?:webp|jpg)$/.test(name)) files.set('/assets/'+name,'assets/'+name);
+  if (/^[a-z0-9-]+\.(?:webp|jpg|png)$/.test(name)) files.set('/assets/'+name,'assets/'+name);
 }
 const types = {json:'application/json; charset=utf-8',html:'text/html; charset=utf-8',js:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8',png:'image/png',jpg:'image/jpeg',webp:'image/webp'};
 const server = createServer(async (req,res) => {
@@ -50,8 +52,9 @@ const server = createServer(async (req,res) => {
       if(body?.action==='match'){
         const participant=await prepareMatching(body);
         if(!participant)return send(res,400,{error:'请检查昵称及答卷'});
-        if(body.shareProfile)publish.run(body.id,Date.now(),JSON.stringify(participant));
+        if(body.shareProfile&&!body.excludeMatching&&!participant.hideRadar)publish.run(body.id,Date.now(),JSON.stringify(participant));
         else unpublish.run(body.id);
+        if(body.excludeMatching===true)return send(res,200,{participant:null});
         const matches=candidates.all(body.id,MAX_MATCH_PROFILES).map(row=>JSON.parse(row.profile));
         return send(res,200,{participant:bestParticipant(participant,matches)});
       }

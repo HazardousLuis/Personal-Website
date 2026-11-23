@@ -27,7 +27,7 @@ function bestParticipant(me, candidates) {
   const compare = (first, second) => first.filter(value=>second.includes(value)).length / new Set([...first,...second]).size;
   let best = null;
   for(const candidate of candidates){
-    if(!candidate || !Array.isArray(candidate.scores) || !Array.isArray(candidate.tags))continue;
+    if(!candidate || candidate.hideRadar || !Array.isArray(candidate.scores) || !Array.isArray(candidate.tags))continue;
     const interests = [...me.tags,...me.highlights];
     const shared = interests.filter(tag=>candidate.tags.includes(tag)).length;
     const activity = compare(me.activities,candidate.activities);
@@ -54,6 +54,7 @@ else
   redis.call('HDEL', KEYS[1], id)
   redis.call('ZREM', KEYS[2], id)
 end
+if ARGV[5] == '1' then return {} end
 local ids = redis.call('ZREVRANGE', KEYS[2], 0, tonumber(ARGV[4]))
 local results = {}
 for _, other in ipairs(ids) do
@@ -69,8 +70,10 @@ async function matchParticipant(body, redis) {
   const me = await prepareMatching(body);
   if(!me)return null;
   const prefix = process.env.VERCEL_ENV === 'preview' ? 'preview:' : '';
+  const excluded = body.excludeMatching === true;
   const candidates = await redis(['EVAL',updateAndRead,2,prefix+PUBLIC_KEY,prefix+INDEX_KEY,body.id,
-    body.shareProfile?JSON.stringify(me):'',Date.now(),MAX_MATCH_PROFILES-1]);
+    body.shareProfile&&!excluded&&!me.hideRadar?JSON.stringify(me):'',Date.now(),MAX_MATCH_PROFILES-1,excluded?'1':'0']);
+  if(excluded)return {participant:null};
   return {participant:bestParticipant(me,candidates.map(candidate=>JSON.parse(candidate)))};
 }
 

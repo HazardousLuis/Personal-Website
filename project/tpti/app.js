@@ -1,5 +1,5 @@
 import {profile,resultFor} from './scoring.js';
-import {findMatch,interestGroups} from './matching.js';
+import {findMatch,interestGroups,personalityReason,matchDemo} from './matching.js';
 const root=document.querySelector('#app');
 const endpoint=new URL('./api/responses',location.href);
 const storageKey='trawithu:web:v1';
@@ -15,9 +15,10 @@ const highlights=new Set(saved.highlights||[]);
 const predefined=new Set(interestGroups.flatMap(group=>group.items));
 const openGroups=new Set();
 let catalog, resumeIndex=saved.resumeIndex||0;
-let nickname=saved.nickname||'', shareProfile=saved.shareProfile===true, hideRadar=saved.hideRadar===true;
+let nickname=saved.nickname||'', hideRadar=saved.hideRadar===true, privacySet=saved.privacySet===true;
+let demos=[];
 let participant, participantError=false, matchRequest;
-const payload=()=>({id,answers,nickname,shareProfile,hideRadar,feedback,
+const payload=()=>({id,answers,nickname,shareProfile:!hideRadar,hideRadar,excludeMatching:hideRadar,feedback,questionVersion:2,
   interests:[...interests].filter(tag=>predefined.has(tag)),highlights:[...highlights].filter(tag=>predefined.has(tag))});
 function requestMatch(){
   if(matchRequest)return;
@@ -37,10 +38,11 @@ const steps=[...pages,...money.map((q,i)=>({...q,phase:i+1})),{kind:'money-compl
 if (!saved.version && index >= pages.length + money.length) index += 1;
 if ((saved.version||0)<3 && index===steps.length-4) index+=3;
 index=Math.min(Math.max(index,0),steps.length-1);
+if(!privacySet && ['celebrity','feedback'].includes(steps[index].kind))index=steps.findIndex(step=>step.kind==='nickname');
 if(index>0 && steps[index].kind!=='done' && !answers.adultConfirmed){resumeIndex=index;index=0;}
 const path=name=>'./assets/'+name;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,shareProfile,hideRadar,interests:[...interests],highlights:[...highlights]}));
+const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,interests:[...interests],highlights:[...highlights]}));
 const move=offset=>{
   index+=offset;
   save();
@@ -66,7 +68,7 @@ function profileCard(kind){
   if(kind!=='radar')return `<div class="panel profile"><img class="profile-art" src="${portrait}" alt="你的与游角色"><div class="axes">${labels}</div></div><p class="role-copy">${esc(result.role)}</p>`;
   return radarChart(axes)+`<p class="radar-role">${esc(result.radarRole)}</p>`;
 }
-function radarChart(axes){
+function radarChart(axes, scope='quiz'){
   const point=(r,i)=>[[130,130-r],[130+r,130],[130,130+r],[130-r,130]][i];
   const vertices=axes.map((axis,i)=>point(axis.value*.64,i));
   const ring=r=>axes.map((_,i)=>point(r,i).join(',')).join(' ');
@@ -74,13 +76,13 @@ function radarChart(axes){
   const edges=vertices.map(([x,y],i)=>{
     const next=(i+1)%4,[ex,ey]=vertices[next];
     if(x===ex&&y===ey)return '';
-    return `<linearGradient id="radar-edge-${i}" gradientUnits="userSpaceOnUse" x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"><stop stop-color="${axes[i].color}"/><stop offset="1" stop-color="${axes[next].color}"/></linearGradient>`;
+    return `<linearGradient id="${scope}-radar-edge-${i}" gradientUnits="userSpaceOnUse" x1="${x}" y1="${y}" x2="${ex}" y2="${ey}"><stop stop-color="${axes[i].color}"/><stop offset="1" stop-color="${axes[next].color}"/></linearGradient>`;
   }).join('');
   const chart=`<svg class="radar" viewBox="0 0 260 260" role="img" aria-label="${esc(axes.map(a=>a.name+' '+a.value).join('，'))}">
-    <defs><radialGradient id="radar-fill" gradientUnits="userSpaceOnUse" cx="130" cy="130" r="65"><stop stop-color="#5690f4" stop-opacity=".51"/><stop offset="1" stop-color="#f370b1" stop-opacity=".50"/></radialGradient>${edges}</defs>
+    <defs><radialGradient id="${scope}-radar-fill" gradientUnits="userSpaceOnUse" cx="130" cy="130" r="65"><stop stop-color="#5690f4" stop-opacity=".51"/><stop offset="1" stop-color="#f370b1" stop-opacity=".50"/></radialGradient>${edges}</defs>
     ${[16,32,48,64].map(r=>`<polygon points="${ring(r)}" fill="none" stroke="${color(r)}"/>`).join('')}
-    <polygon points="${vertices.map(p=>p.join(',')).join(' ')}" fill="url(#radar-fill)"/>
-    ${vertices.map(([x,y],i)=>{const [ex,ey]=vertices[(i+1)%4];return x===ex&&y===ey?'':`<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}" stroke="url(#radar-edge-${i})" stroke-width="2"/>`;}).join('')}
+    <polygon points="${vertices.map(p=>p.join(',')).join(' ')}" fill="url(#${scope}-radar-fill)"/>
+    ${vertices.map(([x,y],i)=>{const [ex,ey]=vertices[(i+1)%4];return x===ex&&y===ey?'':`<line x1="${x}" y1="${y}" x2="${ex}" y2="${ey}" stroke="url(#${scope}-radar-edge-${i})" stroke-width="2"/>`;}).join('')}
     ${vertices.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="3.3" fill="${axes[i].color}"/>`).join('')}
     <g text-anchor="middle" fill="#393055" font-size="13" font-weight="650">${[[130,51],[225,135],[130,217],[35,135]].map(([x,y],i)=>`<text x="${x}" y="${y}">${axes[i].name}</text>`).join('')}</g></svg>`;
   return `<div class="panel radar-panel">${chart}</div>`;
@@ -173,46 +175,46 @@ function render(){
     action=button(interests.size?'继续':'跳过兴趣');
   }else if(q.kind==='nickname'){
     content=`${title('搭子该怎么称呼你？')}<form id="nickname-form" class="panel name-card">
-      <label for="nickname">昵称</label><input id="nickname" maxlength="32" autocomplete="off" placeholder="1–16 个字" value="${esc(nickname)}" required>
-      <label><input type="checkbox" name="share" ${shareProfile?'checked':''}>加入用户搭子池，让后续参与者有机会匹配到我</label>
-      <label><input type="checkbox" name="hide" ${hideRadar?'checked':''}>隐藏我的测评资料，仅展示昵称</label>
-      <p class="note">加入后，与你匹配到的参与者可以查看昵称、雷达图、Q 版形象和预设兴趣。选择隐藏后，只有昵称可见，你的测评资料仍用于匹配。</p>
-      <p id="name-error" role="alert"></p></form>`;
+      <label for="nickname">昵称</label><input id="nickname" name="nickname" maxlength="32" autocomplete="off" placeholder="1–16 个字" value="${esc(nickname)}" required>
+      <p class="note">默认参与趣味匹配，与你匹配的参与者可以查看昵称、雷达图、Q 版形象和预设兴趣。</p>
+      <p id="name-error" role="alert"></p></form><label class="hide-quiz-profile"><input type="checkbox" name="hide" form="nickname-form" ${hideRadar?'checked':''}>隐藏我的测评资料，不允许用于趣味匹配</label>`;
     action='<button class="primary" type="submit" form="nickname-form">查看我的搭子</button>';
   }else if(q.kind==='celebrity'){
-    const match=catalog&&findMatch(catalog,{activities:answers.activities||[],selected:[...interests],highlights:[...highlights],axes:look().axes});
+    const myAxes=look().axes;
+    const match=catalog&&findMatch(catalog,{activities:answers.activities||[],selected:[...interests],highlights:[...highlights],axes:myAxes});
     if(match){
       const {person,style,shared}=match;
       const illustration=path('personality-'+(style.label==='自然观察'||style.label==='户外探索'?'2':'0')+'-0.webp');
       const photo=person.photo;
-      const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}"><p class="photo-credit">摄影 <a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>（缩略图）</p>`:
-        '<div class="celebrity-mark" aria-hidden="true">✦</div>';
-      content=`${title('你的灵感搭子是谁？')}<article class="panel celebrity-card">
-        ${image}<h2>${esc(person.name)}</h2><span class="celebrity-style">${esc(style.label)} · 娱乐推测</span>
-        <details class="celebrity-detail"><summary>查看名人搭子资料</summary><img class="participant-art" src="${illustration}" alt="旅行主题 Q 版示意"><p>${esc(person.description)}</p><div class="interest-tags">${person.tags.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('')}</div>
-        <h3>为什么会选到这位？</h3><p>${shared.length?'你选中的共同主题：'+esc(shared.join('、'))+'。':'这次结果主要参照你的旅行玩法和节奏。'}</p>
-        <h3>一起出游的想象</h3><p>${esc(style.scene)}</p>
-        <a href="${esc(person.source)}" target="_blank" rel="noopener noreferrer">查看公开作品与资料 ↗</a>
-        </details></article><p class="match-disclaimer">${disclaimer}</p>`;
+      const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}的头像"><p class="photo-credit"><a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a>${photo.license?` · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>`:''}</p>`:
+        `<span class="initial-avatar" aria-label="姓名头像">${esc(Array.from(person.name)[0])}</span>`;
+      const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
+      content=`${title('谁是你的合拍搭子？')}<article class="panel celebrity-card">
+        <header class="celebrity-header">${image}<p class="result-kicker">你的名人搭子</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
+        <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('')}</div>
+        <a href="${esc(person.source)}" target="_blank" rel="noopener noreferrer">查看公开作品 ↗</a></section>
+        <section class="result-box"><h3>你们哪里合拍？</h3><p>${esc(personalityReason(match,myAxes))}</p>${shared.length?`<p>共同主题：${esc(shared.join('、'))}。</p>`:''}<p>${esc(style.scene)}</p></section>
+        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity')}
+        <img class="participant-art" src="${illustration}" alt="旅行主题 Q 版示意"></section>
+        </article><p class="match-disclaimer">${disclaimer}</p>`;
     }else{
-      content=`${title('你的灵感搭子是谁？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
-      if(catalog===undefined)fetch('./celebrities.json').then(response=>{
+      content=`${title('谁是你的合拍搭子？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
+      if(catalog===undefined)Promise.all([fetch('./celebrities.json',{cache:'no-cache'}).then(response=>{
         if(!response.ok)throw new Error('Catalog unavailable');
         return response.json();
-      }).then(data=>{catalog=data;}).catch(()=>{catalog=null;}).finally(()=>{
+      }),fetch('./demo-participants.json').then(response=>response.ok?response.json():[]).catch(()=>[])]).then(([data,samples])=>{catalog=data;demos=samples;}).catch(()=>{catalog=null;}).finally(()=>{
         if(steps[index].kind==='celebrity')render();
       });
     }
     action=button('继续').replace('data-next',catalog===undefined||participant===undefined&&!participantError?'data-next disabled':'data-next');
     if(participant===undefined&&!participantError)requestMatch();
-    const tags=participant?.tags?.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('');
-    const axes=participant?.scores?.map((value,i)=>({...look().axes[i],value,color:'#8a65bd'}));
-    const participantDetail=participant?.hidden
-      ? '<p class="note">这位搭子选择隐藏测评资料。</p>'
-      : participant ? `<img class="participant-art" src="${path(esc(participant.portrait))}" alt="搭子的与游 Q 版形象">${axes?radarChart(axes):''}<h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div>` : '';
+    const buddy=hideRadar?null:participant??(participant===null?matchDemo(demos,myAxes,interests):null);
+    const tags=buddy?.tags?.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('');
+    const axes=buddy?.scores?.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
+    const participantDetail=buddy?`<img class="participant-art" src="${path(esc(buddy.portrait))}" alt="搭子的与游 Q 版形象">${axes?radarChart(axes,'participant'):''}<h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div>`:'';
     content+=`<section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
-      ${participant?`<details><summary>${esc(participant.nickname)} <span>查看资料 ›</span></summary>${participantDetail}</details>`:
-        `<p class="note">${participantError?'用户匹配暂时无法加载。':participant===undefined?'正在匹配…':'暂时没有其他加入搭子池的用户。'}</p>`}
+      ${buddy?`<details><summary>${esc(buddy.nickname)} ${buddy.fictional?'<small class="demo-badge">虚拟搭子</small>':''} <span>查看资料 ›</span></summary>${participantDetail}</details>`:
+        `<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participant===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
@@ -378,8 +380,8 @@ root.addEventListener('submit',event=>{
       return;
     }
     nickname=name;
-    shareProfile=form.elements.share.checked;
     hideRadar=form.elements.hide.checked;
+    privacySet=true;
     participant=undefined;
     participantError=false;
     move(1);

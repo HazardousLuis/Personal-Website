@@ -8,7 +8,7 @@ import bank from './questions.cjs';
 import validation from './validate.cjs';
 import participants from './participants.cjs';
 const {validateResponse}=validation;
-const {prepareMatching,bestParticipant,MAX_MATCH_PROFILES}=participants;
+const {prepareMatching,rankedParticipants,MAX_MATCH_PROFILES}=participants;
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const dataDir = process.env.TPTI_DATA_DIR || join(root, 'data');
@@ -54,9 +54,10 @@ const server = createServer(async (req,res) => {
         if(!participant)return send(res,400,{error:'请检查昵称及答卷'});
         if(body.shareProfile&&!body.excludeMatching&&!participant.hideRadar)publish.run(body.id,Date.now(),JSON.stringify(participant));
         else unpublish.run(body.id);
-        if(body.excludeMatching===true)return send(res,200,{participant:null});
+        if(body.excludeMatching===true)return send(res,200,{participant:null,participants:[]});
         const matches=candidates.all(body.id,MAX_MATCH_PROFILES).map(row=>JSON.parse(row.profile));
-        return send(res,200,{participant:bestParticipant(participant,matches)});
+        const shortlist=rankedParticipants(participant,matches);
+        return send(res,200,{participant:shortlist[0]??null,participants:shortlist});
       }
       const answers=validateResponse(body);
       if (!answers) return send(res,400,{error:'请检查答卷是否完整'});

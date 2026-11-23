@@ -1,5 +1,5 @@
 import {profile,resultFor} from './scoring.js';
-import {findMatch,interestGroups,personalityReason,matchDemo} from './matching.js';
+import {findMatch,interestGroups,personalityReason,rankDemos,tripReason} from './matching.js';
 const root=document.querySelector('#app');
 const endpoint=new URL('./api/responses',location.href);
 const storageKey='trawithu:web:v1';
@@ -17,7 +17,7 @@ const openGroups=new Set();
 let catalog, resumeIndex=saved.resumeIndex||0;
 let nickname=saved.nickname||'', hideRadar=saved.hideRadar===true, privacySet=saved.privacySet===true;
 let demos=[];
-let participant, participantError=false, matchRequest;
+let participants, participantError=false, matchRequest;
 const payload=()=>({id,answers,nickname,shareProfile:!hideRadar,hideRadar,excludeMatching:hideRadar,feedback,questionVersion:2,
   interests:[...interests].filter(tag=>predefined.has(tag)),highlights:[...highlights].filter(tag=>predefined.has(tag))});
 function requestMatch(){
@@ -26,7 +26,8 @@ function requestMatch(){
   matchRequest=request;
   request.then(async response=>{
     if(!response.ok)throw new Error('Matching unavailable');
-    participant=(await response.json()).participant;
+    const data=await response.json();
+    participants=data.participants??(data.participant?[data.participant]:[]);
   }).catch(()=>{participantError=true;}).finally(()=>{
     matchRequest=null;
     if(steps[index].kind==='celebrity')render();
@@ -42,6 +43,16 @@ if(!privacySet && ['celebrity','feedback'].includes(steps[index].kind))index=ste
 if(index>0 && steps[index].kind!=='done' && !answers.adultConfirmed){resumeIndex=index;index=0;}
 const path=name=>'./assets/'+name;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const interestClass=tag=>{
+  const index=interestGroups.findIndex(group=>group.items.includes(tag));
+  return 'tag-tone-'+(index<0?'other':index);
+};
+const interestTag=tag=>`<span class="interest-tag ${interestClass(tag)}">${esc(tag)}</span>`;
+const encyclopedia=person=>{
+  const entries={'Jimmy Chin':'/item/%E9%87%91%E5%9B%BD%E5%A8%81/23305784','小约翰可汗':'/item/%E5%B0%8F%E7%BA%A6%E7%BF%B0%E5%8F%AF%E6%B1%97/55677637'};
+  const query=person.name.split(' · ').at(-1);
+  return 'https://baike.baidu.com'+(entries[person.name]||'/search/word?word='+encodeURIComponent(query));
+};
 const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,interests:[...interests],highlights:[...highlights]}));
 const move=offset=>{
   index+=offset;
@@ -155,7 +166,7 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><div class="done"><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1 class="title" tabindex="-1">遇见同频的人<br>去更远的地方</h1><p>平台开发中，敬请期待</p></div></div>`;
+    root.innerHTML=`<div class="shell"><div class="done"><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1 class="title" tabindex="-1">遇见同频的人<br>去更远的地方</h1><p>平台开发中，敬请期待</p><p class="business-contact">商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div></div>`;
     return;
   }
   if(q.kind==='feedback'){
@@ -166,8 +177,8 @@ function render(){
     content=`${title('你的 TPTI 旅行人格卡')}<div class="registration-preview"><img src="${portrait}" alt="与游旅行人格角色"><span class="type-code">${esc(result.code)}</span><strong>${esc(result.name)}</strong><span class="type-detail">${esc(result.detail)}</span></div>`;
     action=button('继续');
   }else if(q.kind==='interests'){
-    const chip=(tag,attr,label,pressed)=>`<button type="button" class="interest-chip" ${attr}="${esc(tag)}" aria-pressed="${pressed}">${esc(label)}</button>`;
-    const picked=[...interests].map(tag=>`<li><span>${esc(tag)}</span><div>${chip(tag,'data-highlight',highlights.has(tag)?'★ 已置顶':'☆ 置顶',highlights.has(tag))}${chip(tag,'data-interest','移除',false)}</div></li>`).join('');
+    const chip=(tag,attr,label,pressed)=>`<button type="button" class="interest-chip ${attr==='data-interest'&&label===tag?interestClass(tag):''}" ${attr}="${esc(tag)}" aria-pressed="${pressed}">${esc(label)}</button>`;
+    const picked=[...interests].map(tag=>`<li>${interestTag(tag)}<div>${chip(tag,'data-highlight',highlights.has(tag)?'★ 已置顶':'☆ 置顶',highlights.has(tag))}${chip(tag,'data-interest','移除',false)}</div></li>`).join('');
     content=`${title('平时想和搭子一起做什么？')}<p class="description">可多选。最想和搭子一起做的事可以置顶，最多三项。</p>
       <div class="interest-list">${interestGroups.map((group,i)=>`<details data-group="${i}" ${openGroups.has(String(i))?'open':''}><summary>${group.icon} ${esc(group.name)}</summary><div class="interest-tags">${group.items.map(tag=>chip(tag,'data-interest',tag,interests.has(tag))).join('')}</div></details>`).join('')}</div>
       ${picked?`<section class="panel picked-interests"><h2 class="prompt">已选兴趣</h2><ul>${picked}</ul></section>`:''}
@@ -177,7 +188,7 @@ function render(){
     content=`${title('搭子该怎么称呼你？')}<form id="nickname-form" class="panel name-card">
       <label for="nickname">昵称</label><input id="nickname" name="nickname" maxlength="32" autocomplete="off" placeholder="1–16 个字" value="${esc(nickname)}" required>
       <p class="note">默认参与趣味匹配，与你匹配的参与者可以查看昵称、雷达图、Q 版形象和预设兴趣。</p>
-      <p id="name-error" role="alert"></p></form><label class="hide-quiz-profile"><input type="checkbox" name="hide" form="nickname-form" ${hideRadar?'checked':''}>隐藏我的测评资料，不允许用于趣味匹配</label>`;
+      <p id="name-error" role="alert"></p></form><div class="profile-private-choice"><p>或</p><label class="hide-quiz-profile"><input type="checkbox" name="hide" form="nickname-form" ${hideRadar?'checked':''}>隐藏我的测评资料，不允许用于趣味匹配</label></div>`;
     action='<button class="primary" type="submit" form="nickname-form">查看我的搭子</button>';
   }else if(q.kind==='celebrity'){
     const myAxes=look().axes;
@@ -186,16 +197,19 @@ function render(){
       const {person,style,shared}=match;
       const illustration=path('personality-'+(style.label==='自然观察'||style.label==='户外探索'?'2':'0')+'-0.webp');
       const photo=person.photo;
-      const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}的头像"><p class="photo-credit"><a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a>${photo.license?` · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>`:''}</p>`:
+      const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}的头像">`:
         `<span class="initial-avatar" aria-label="姓名头像">${esc(Array.from(person.name)[0])}</span>`;
+      const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>`:'';
       const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
+      const persona=resultFor(axes,style.label);
+      const personaCode=persona.code.replace(/([A-Z]{2})([A-Z]{2})$/u,'$1-$2');
       content=`${title('谁是你的合拍搭子？')}<article class="panel celebrity-card">
         <header class="celebrity-header">${image}<p class="result-kicker">你的名人搭子</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
-        <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('')}</div>
-        <a href="${esc(person.source)}" target="_blank" rel="noopener noreferrer">查看公开作品 ↗</a></section>
-        <section class="result-box"><h3>你们哪里合拍？</h3><p>${esc(personalityReason(match,myAxes))}</p>${shared.length?`<p>共同主题：${esc(shared.join('、'))}。</p>`:''}<p>${esc(style.scene)}</p></section>
+        <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(interestTag).join('')}</div>
+        <a href="${esc(encyclopedia(person))}" target="_blank" rel="noopener noreferrer">他的百科 ↗</a></section>
+        <section class="result-box"><h3>你们哪里合拍？</h3><p><strong>相处与分工</strong> ${esc(personalityReason(match,myAxes))}</p>${shared.length?`<p>共同主题：${esc(shared.join('、'))}。</p>`:''}<p><strong>节奏与玩法</strong> ${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
         <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity')}
-        <img class="participant-art" src="${illustration}" alt="旅行主题 Q 版示意"></section>
+        <div class="celebrity-persona"><img class="participant-art" src="${illustration}" alt="旅行主题 Q 版示意"><div><p class="persona-code">${esc(personaCode)}</p><p class="persona-name">${esc(persona.name)}</p></div></div></section>${credit}
         </article><p class="match-disclaimer">${disclaimer}</p>`;
     }else{
       content=`${title('谁是你的合拍搭子？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
@@ -206,15 +220,20 @@ function render(){
         if(steps[index].kind==='celebrity')render();
       });
     }
-    action=button('继续').replace('data-next',catalog===undefined||participant===undefined&&!participantError?'data-next disabled':'data-next');
-    if(participant===undefined&&!participantError)requestMatch();
-    const buddy=hideRadar?null:participant??(participant===null?matchDemo(demos,myAxes,interests):null);
-    const tags=buddy?.tags?.map(tag=>`<span class="celebrity-tag">${esc(tag)}</span>`).join('');
-    const axes=buddy?.scores?.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
-    const participantDetail=buddy?`<img class="participant-art" src="${path(esc(buddy.portrait))}" alt="搭子的与游 Q 版形象">${axes?radarChart(axes,'participant'):''}<h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div>`:'';
+    action=button('继续').replace('data-next',catalog===undefined||participants===undefined&&!participantError?'data-next disabled':'data-next');
+    if(participants===undefined&&!participantError)requestMatch();
+    const ranked=participants??[];
+    const buddies=hideRadar||participants===undefined?[]:
+      [...ranked,...rankDemos(demos,myAxes,interests)].slice(0,3);
+    const details=buddies.map((buddy,index)=>{
+      const tags=buddy.tags?.map(interestTag).join('');
+      const axes=buddy.scores?.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
+      return `<details><summary>${esc(buddy.nickname)} ${buddy.fictional?'<small class="demo-badge">虚拟搭子</small>':''} <span>查看资料 ›</span></summary>
+        <img class="participant-art" src="${path(esc(buddy.portrait))}" alt="搭子的与游 Q 版形象">${axes?radarChart(axes,'participant-'+index):''}
+        <h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div></details>`;
+    });
     content+=`<section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
-      ${buddy?`<details><summary>${esc(buddy.nickname)} ${buddy.fictional?'<small class="demo-badge">虚拟搭子</small>':''} <span>查看资料 ›</span></summary>${participantDetail}</details>`:
-        `<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participant===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
+      ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
@@ -382,7 +401,7 @@ root.addEventListener('submit',event=>{
     nickname=name;
     hideRadar=form.elements.hide.checked;
     privacySet=true;
-    participant=undefined;
+    participants=undefined;
     participantError=false;
     move(1);
     return;

@@ -7,6 +7,7 @@ function loadDraft(){
   try{return JSON.parse(localStorage.getItem(storageKey)||'{}')||{};}catch{return {};}
 }
 const saved=loadDraft();
+const resultsPreview=new URLSearchParams(location.search).get('preview')==='results';
 const answers=saved.answers||{};
 let id=saved.id || (globalThis.crypto.randomUUID?.() ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const x=crypto.getRandomValues(new Uint8Array(1))[0]&15;return (c==='x'?x:(x&3)|8).toString(16)}));
 delete answers.birthMonth;
@@ -35,12 +36,25 @@ function requestMatch(){
 }
 let index=saved.index||0, feedback=saved.feedback||'', busy=false;
 const {pages,money}=await fetch('./questions.json',{cache:'no-cache'}).then(r=>r.json());
+const hasCompletedQuiz=[...pages.filter(page=>page.options),...money].every(question=>answers[question.id]!==undefined);
+if(resultsPreview&&!hasCompletedQuiz){
+  Object.assign(answers,{gender:0,activities:[0],intro:2,chat:1,evening:2,walk:1,food:3,route:0,pace:1,rest:3,firstDay:0,stay:1});
+  interests.clear();
+  highlights.clear();
+  interests.add('博物馆');
+  interests.add('阅读');
+  hideRadar=false;
+}
 const steps=[...pages,...money.map((q,i)=>({...q,phase:i+1})),{kind:'money-complete'},{kind:'results'},{kind:'interests'},{kind:'nickname'},{kind:'celebrity'},{kind:'feedback'},{kind:'done'}];
 if (!saved.version && index >= pages.length + money.length) index += 1;
 if ((saved.version||0)<3 && index===steps.length-4) index+=3;
 index=Math.min(Math.max(index,0),steps.length-1);
 if(!privacySet && ['celebrity','feedback'].includes(steps[index].kind))index=steps.findIndex(step=>step.kind==='nickname');
 if(index>0 && steps[index].kind!=='done' && !answers.adultConfirmed){resumeIndex=index;index=0;}
+if(resultsPreview){
+  index=steps.findIndex(step=>step.kind==='celebrity');
+  participants=[];
+}
 const path=name=>'./assets/'+name;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const interestClass=tag=>{
@@ -168,7 +182,7 @@ function render(){
   clearInterval(typingTimer);
   clearTimeout(generationTimer);
   const q=steps[index];
-  const back=index>0?'<button class="back" aria-label="返回上一页" data-back>‹</button>':'';
+  const back=index>0&&!resultsPreview?'<button class="back" aria-label="返回上一页" data-back>‹</button>':'';
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
@@ -228,7 +242,7 @@ function render(){
         if(steps[index].kind==='celebrity')render();
       });
     }
-    action=button('继续').replace('data-next',catalog===undefined||participants===undefined&&!participantError?'data-next disabled':'data-next');
+    action=resultsPreview?'':button('继续').replace('data-next',catalog===undefined||participants===undefined&&!participantError?'data-next disabled':'data-next');
     if(participants===undefined&&!participantError)requestMatch();
     const ranked=participants??[];
     const buddies=hideRadar||participants===undefined?[]:
@@ -244,6 +258,7 @@ function render(){
       ${buddies.some(buddy=>buddy.fictional)?'<p class="note participant-note">候选包含虚拟示例。</p>':''}
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
+    if(resultsPreview)content+=`<p class="note">${hasCompletedQuiz?'根据本机已完成的答卷预览。':'当前浏览器没有已完成的答卷，正在展示示例。'} 此页不会提交答卷，问卷搭子仅展示虚拟示例。</p>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
     content=generation(q);

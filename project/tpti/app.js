@@ -7,6 +7,7 @@ function loadDraft(){
   try{return JSON.parse(localStorage.getItem(storageKey)||'{}')||{};}catch{return {};}
 }
 const saved=loadDraft();
+const manageLocal=new URLSearchParams(location.search).get('manage')==='local';
 const resultsPreview=new URLSearchParams(location.search).get('preview')==='results';
 const answers=saved.answers||{};
 let id=saved.id || (globalThis.crypto.randomUUID?.() ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const x=crypto.getRandomValues(new Uint8Array(1))[0]&15;return (c==='x'?x:(x&3)|8).toString(16)}));
@@ -180,6 +181,13 @@ function generation(q){
   return `<h1 class="title" tabindex="-1">你的 TPTI 旅行人格卡，马上揭晓！</h1><div class="panel">${statuses.slice(0,active+1).map((label,i)=>`<div class="status-row"><div class="status"><span>${label}</span><span class="status-mark">${i<active?'✓':'○'}</span></div>${i===active?`<div class="status-track"><div class="progress-fill status-animate" style="--from:0%;--to:${q.phase?48:100}%"></div></div>`:''}</div>`).join('')}</div><h2 class="prompt">和搭子出发时，与游能帮什么？</h2><div class="scenes" aria-label="搭子出行场景">${scenes.map(scene=>`<article class="scenario panel"><div class="eyebrow">${esc(scene.icon)} ${esc(scene.title)}</div><div class="conflict">${esc(scene.conflict)}</div><div class="solution">${esc(scene.solution)}</div><img class="story-art" src="${scene.art}" alt=""></article>`).join('')}</div>`;
 }
 function render(){
+  if(manageLocal){
+    root.innerHTML=`<div class="shell"><section class="body"><h1 class="title">本机测评记录</h1>
+      <p class="description">${saved.id?'当前浏览器有本机记录'+(saved.nickname?'（'+esc(saved.nickname)+'）':'')+'。':'当前浏览器没有本机测评记录。'}</p>
+      ${saved.id?'<button class="primary" data-clear-local>清除本机测评记录</button>':''}
+      </section></div>`;
+    return;
+  }
   clearInterval(typingTimer);
   clearTimeout(generationTimer);
   const q=steps[index];
@@ -354,6 +362,11 @@ function render(){
 }
 root.addEventListener('click',async event=>{
   const target=event.target.closest('button');
+  if(target?.hasAttribute('data-clear-local')&&manageLocal){
+    localStorage.removeItem(storageKey);
+    location.reload();
+    return;
+  }
   if(!target||busy)return;
   if(matchRequest&&target.hasAttribute('data-back'))return;
   const q=steps[index];

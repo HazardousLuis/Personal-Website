@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import bank from './questions.cjs';
+import validation from './validate.cjs';
+const {validateResponse}=validation;
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const dataDir = process.env.TPTI_DATA_DIR || join(root, 'data');
@@ -13,7 +15,6 @@ const db = new DatabaseSync(join(dataDir, 'responses.sqlite'));
 db.exec('CREATE TABLE IF NOT EXISTS responses(id TEXT PRIMARY KEY, submitted_at TEXT NOT NULL, answers TEXT NOT NULL, feedback TEXT NOT NULL)');
 const save = db.prepare('INSERT OR IGNORE INTO responses VALUES (?, ?, ?, ?)');
 const pages = bank.pages.filter(p => !['register','verify'].includes(p.kind));
-const questions = [...pages.filter(p => p.options), ...bank.money];
 const send = (res, status, body) => {
   res.writeHead(status, { 'Content-Type':'application/json; charset=utf-8', 'Cache-Control':'no-store' });
   res.end(JSON.stringify(body));
@@ -40,17 +41,8 @@ const server = createServer(async (req,res) => {
       }
       let body;
       try { body=JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { return send(res,400,{error:'请求格式不正确'}); }
-      if (!body || typeof body.feedback !== 'string' || body.feedback.length > 500 || !body.answers || !/^[a-f\d-]{36}$/i.test(body.id || '')) return send(res,400,{error:'请检查答卷内容'});
-      const answers={};
-      for (const question of questions) {
-        const value=body.answers[question.id];
-        const valid = v => Number.isInteger(v) && v >= 0 && v < question.options.length;
-        if (question.kind === 'multi') {
-          if (!Array.isArray(value) || !value.length || !value.every(valid) || new Set(value).size !== value.length ||
-            (value.length > 1 && value.some(v => question.exclusive?.includes(v)))) return send(res,400,{error:'还有题目未完成'});
-        } else if (!valid(value)) return send(res,400,{error:'还有题目未完成'});
-        answers[question.id]=value;
-      }
+      const answers=validateResponse(body);
+      if (!answers) return send(res,400,{error:'请检查答卷是否完整'});
       save.run(body.id || randomUUID(),new Date().toISOString(),JSON.stringify(answers),body.feedback.trim());
       return send(res,200,{saved:true});
     }

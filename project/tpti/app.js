@@ -1,5 +1,5 @@
 import {profile,resultFor} from './scoring.js';
-import {dimensionMatch,findMatch,interestGroups,personalityReason,rankDemos,tripReason} from './matching.js';
+import {dimensionMatch,findMatch,interestGroups,personalityReason,buddyScore,minimumBuddyScore,tripReason} from './matching.js';
 const root=document.querySelector('#app');
 const endpoint=new URL('./api/responses',location.href);
 const storageKey='trawithu:web:v1';
@@ -90,7 +90,7 @@ const move=offset=>{
 };
 const button=label=>`<button class="primary" data-next>${label}</button>`;
 const art=gender=>path(gender===1?'default-female.webp':'default-male.webp');
-const agePortrait=(gender,option)=>path('age-v3-'+(gender===1?1:0)+'-'+option+'.webp');
+const agePortrait=(gender,option)=>path('age-v4-'+(gender===1?1:0)+'-'+option+'.webp');
 const agePreloads=new Map();
 function preloadAgePortraits(gender){
   if(agePreloads.has(gender))return;
@@ -233,7 +233,7 @@ function render(){
       const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>`:'';
       const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
       content+=`<article class="panel celebrity-card">
-        <header class="celebrity-header">${image}<p class="result-kicker">${person.group==='历史人物'?'你的历史人物搭子':'你的名人搭子'}</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
+        <header class="celebrity-header">${image}<p class="result-kicker">${person.group==='历史人物'?'你的历史人物搭子':'你的名人搭子'}</p><h2>${esc(person.name)}</h2><p class="match-score">匹配度 ${match.score}/100</p><p class="entertainment-note">娱乐用途，不做参考</p></header>
         <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(interestTag).join('')}</div>
         <a href="${esc(person.group?person.source:encyclopedia(person))}" target="_blank" rel="noopener noreferrer">${person.group?'人物资料 ↗':'他的百科 ↗'}</a></section>
         <section class="result-box match-reasons"><h3>你们哪里合拍？</h3>
@@ -255,13 +255,16 @@ function render(){
     }
     action=resultsPreview?'':button('继续').replace('data-next',catalog===undefined||participants===undefined&&!participantError?'data-next disabled':'data-next');
     if(participants===undefined&&!participantError)requestMatch();
-    const ranked=participants??[];
+    const ownMatchProfile={scores:myAxes.map(axis=>axis.value),activities:answers.activities,budget:answers.budget,
+      tags:[...interests].filter(tag=>predefined.has(tag)),highlights:[...highlights]};
+    const samples=demos.map(demo=>({...demo,score:buddyScore(ownMatchProfile,demo)}));
     const buddies=hideRadar||participants===undefined?[]:
-      [...ranked,...rankDemos(demos,myAxes,interests)].slice(0,3);
+      [...participants,...samples].filter(buddy=>buddy.score>=minimumBuddyScore)
+        .sort((a,b)=>b.score-a.score).slice(0,3);
     const details=buddies.map((buddy,index)=>{
       const tags=buddy.tags?.map(interestTag).join('');
       const axes=buddy.scores?.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
-      return `<details><summary>${esc(buddy.nickname)} <span>查看资料 ›</span></summary>
+      return `<details><summary>${esc(buddy.nickname)} <span><strong class="match-score">${buddy.score}/100</strong> · 查看资料 ›</span></summary>
         ${axes?personaRow(axes,path(esc(buddy.portrait)),'搭子的与游 Q 版形象')+radarChart(axes,'participant-'+index,myAxes):''}
         <h3>兴趣爱好</h3><div class="interest-tags">${tags||'暂无公开兴趣'}</div></details>`;
     });
@@ -270,7 +273,7 @@ function render(){
     const exampleNote=buddies.some(buddy=>buddy.fictional)
       ? '问卷搭子可能包含示例。' : '';
     content+=`<p class="match-disclaimer">${disclaimer}${previewNote}${exampleNote}</p>
-      <section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2>
+      <section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2><p class="note">按匹配度排序，展示 ${minimumBuddyScore} 分及以上的搭子。</p>
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){

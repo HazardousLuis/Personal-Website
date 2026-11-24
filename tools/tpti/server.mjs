@@ -56,7 +56,7 @@ const server = createServer(async (req,res) => {
         else unpublish.run(body.id);
         if(body.excludeMatching===true)return send(res,200,{participant:null,participants:[]});
         const matches=candidates.all(body.id,MAX_MATCH_PROFILES).map(row=>JSON.parse(row.profile));
-        const shortlist=rankedParticipants(participant,matches);
+        const shortlist=await rankedParticipants(participant,matches);
         return send(res,200,{participant:shortlist[0]??null,participants:shortlist});
       }
       const answers=validateResponse(body);

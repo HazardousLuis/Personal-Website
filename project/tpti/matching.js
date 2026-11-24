@@ -27,23 +27,27 @@ export function findMatch(catalog, {activities, selected, highlights, axes}) {
     if (!themeTags.length) return null;
     const activity = activities.includes(index) ? 1 : 0;
     const gaps = person.scores.map((value,axis) => Math.abs(axes[axis].value-value));
-    const fit = 1-(gaps[0]*.25+gaps[1]*.25+gaps[2]*.35+gaps[3]*.15)/100;
+    const fit = (axisFit(0,axes[0].value,person.scores[0])*.25 + axisFit(1,axes[1].value,person.scores[1])*.25 + axisFit(2,axes[2].value,person.scores[2])*.35 + axisFit(3,axes[3].value,person.scores[3])*.15);
     const score = totalWeight
       ? 0.35*(sharedWeight/totalWeight) + 0.22*activity + 0.43*fit
       : 0.35*activity + 0.65*fit;
     const localRelevance=person.group||/\p{Script=Han}/u.test(person.name)?0.06:0;
-    return {person,style,score:score+localRelevance,shared:shared.map(([tag])=>tag),themeTags,gaps};
+    return {person,style,score:Math.round(score*100),localRelevance,shared:shared.map(([tag])=>tag),themeTags,gaps};
   })).filter(Boolean);
-  ranked.sort((a,b)=>b.score-a.score || b.themeTags.length-a.themeTags.length);
+  ranked.sort((a,b)=>b.score-a.score || b.localRelevance-a.localRelevance || b.themeTags.length-a.themeTags.length);
   return ranked[0];
 }
 
 export function dimensionMatch(index, own, other) {
   if(!Number.isFinite(own)||!Number.isFinite(other))return '';
-  if(Math.abs(own-other)<=20)return '高度近似';
   const low=index===0?35:33;
   if((index===0||index===3)&&Math.min(own,other)<=low&&Math.max(own,other)>=100-low)return '高度互补';
-  return '';
+  return index!==3&&Math.abs(own-other)<=20?'高度近似':'';
+}
+
+function axisFit(index, own, other) {
+  if(dimensionMatch(index,own,other)==='高度互补')return 1;
+  return 1-Math.abs(own-other)/100;
 }
 
 export function personalityReason({person,gaps}, axes) {
@@ -70,15 +74,24 @@ export function personalityReason({person,gaps}, axes) {
   return strengths.slice(0,2).filter(i=>gaps[i]<=30).map(i=>reasons[i]).join(' ');
 }
 
-export function rankDemos(demos, axes, interests) {
-  return demos.map(demo=>{
-    const distance=demo.scores.reduce((sum,value,i)=>sum+Math.abs(value-axes[i].value),0);
-    const shared=demo.tags.filter(tag=>interests.has(tag)).length;
-    const score=1-distance/400+.18*shared;
-    return {demo,score};
-  }).sort((a,b)=>b.score-a.score).map(({demo})=>demo);
-}
+export const minimumBuddyScore = 65;
 
+export function buddyScore(me, other) {
+  if(other?.hideRadar || !Array.isArray(other?.scores) || other.scores.length!==4 ||
+    !other.scores.every(value=>Number.isFinite(value)&&value>=0&&value<=100))return null;
+  const factors = [[15,0],[5,1],[20,2],[15,3]].map(([weight,i])=>[weight,axisFit(i,me.scores[i],other.scores[i])]);
+  if(me.activities?.length&&other.activities?.length){
+    const total=new Set([...me.activities,...other.activities]).size;
+    const shared=me.activities.filter(value=>other.activities.includes(value)).length;
+    factors.push([30,shared/total]);
+  }
+  if(Number.isInteger(me.budget)&&Number.isInteger(other.budget))factors.push([15,1-Math.abs(me.budget-other.budget)/3]);
+  if(me.tags.length&&Array.isArray(other.tags)){
+    const weights=me.tags.map(tag=>[me.highlights.includes(tag)?2:1,other.tags.includes(tag)]);
+    factors.push([15,weights.reduce((sum,[weight,shared])=>sum+(shared?weight:0),0)/weights.reduce((sum,[weight])=>sum+weight,0)]);
+  }
+  return Math.round(100*factors.reduce((sum,[weight,fit])=>sum+weight*fit,0)/factors.reduce((sum,[weight])=>sum+weight,0));
+}
 
 export function tripReason({person,style}, axes, activities) {
   const pace = value => value<44?'偏舒缓':value>56?'偏紧凑':'疏密适中';

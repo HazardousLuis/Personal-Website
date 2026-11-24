@@ -451,3 +451,14 @@ html{scrollbar-gutter:stable}
 .shell .report-money>div {display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 14px;padding:9px 0;border-top:1px solid #ede4f5}
 .shell .report-money dt {font-weight:650}
 .shell .report-money dd {margin:0;color:#60547b}
+
+.shell .body.page-age .portrait img {
+  height:clamp(128px,55cqw,255px);
+  object-position:center;
+  padding:5px;
+}
+@media (max-height:650px) and (orientation:landscape) {
+  .shell .body.page-age .portrait img {height:clamp(118px,36svh,200px)}
+}
+.shell .match-score {color:#974676;font-weight:750}
+.shell .participant-card summary span {float:none;margin-inline-start:8px;white-space:nowrap}

@@ -23,26 +23,14 @@ async function prepareMatching(body) {
     portrait:'personality-'+group+'-'+variant+'.webp'};
 }
 
-function rankedParticipants(me, candidates) {
-  const compare = (first, second) => first.filter(value=>second.includes(value)).length / new Set([...first,...second]).size;
-  const ranked = [];
-  const interests = [...me.tags,...me.highlights];
-  for(const candidate of candidates){
-    if(!candidate || candidate.hideRadar || !Array.isArray(candidate.scores) || !Array.isArray(candidate.tags))continue;
-    const shared = interests.filter(tag=>candidate.tags.includes(tag)).length;
-    const activity = compare(me.activities,candidate.activities);
-    const similarity = axis => 1-Math.abs(me.scores[axis]-candidate.scores[axis])/100;
-    const factors = [[30,activity],[20,similarity(2)],[15,similarity(0)],[5,similarity(1)]];
-    if(Number.isInteger(candidate.budget))factors.push([15,1-Math.abs(me.budget-candidate.budget)/3]);
-    if(interests.length&&candidate.tags.length)factors.push([15,shared/interests.length]);
-    const score = factors.reduce((sum,[weight,value])=>sum+weight*value,0)/
-      factors.reduce((sum,[weight])=>sum+weight,0);
-    ranked.push({score,candidate});
-  }
-  return ranked.sort((a,b)=>b.score-a.score).slice(0,3).map(({candidate})=>{
+async function rankedParticipants(me, candidates) {
+  const {buddyScore,minimumBuddyScore} = await import('../../project/tpti/matching.js');
+  return candidates.flatMap(candidate=>{
+    const score=buddyScore(me,candidate);
+    if(score===null||score<minimumBuddyScore)return [];
     const {nickname,scores,tags,portrait}=candidate;
-    return {nickname,tags,portrait,scores};
-  });
+    return [{nickname,scores,tags,portrait,score}];
+  }).sort((a,b)=>b.score-a.score).slice(0,3);
 }
 
 // Update the public directory and retrieve candidates atomically. Quiz responses use a separate key.
@@ -74,7 +62,7 @@ async function matchParticipant(body, redis) {
   const excluded = body.excludeMatching === true;
   const candidates = await redis(['EVAL',updateAndRead,2,prefix+PUBLIC_KEY,prefix+INDEX_KEY,body.id,
     body.shareProfile&&!excluded&&!me.hideRadar?JSON.stringify(me):'',Date.now(),MAX_MATCH_PROFILES-1,excluded?'1':'0']);
-  const participants=excluded?[]:rankedParticipants(me,candidates.map(candidate=>JSON.parse(candidate)));
+  const participants=excluded?[]:await rankedParticipants(me,candidates.map(candidate=>JSON.parse(candidate)));
   return {participant:participants[0]??null,participants};
 }
 

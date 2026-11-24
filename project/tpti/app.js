@@ -121,9 +121,9 @@ function radarChart(axes, scope='quiz', comparison){
   return `<div class="panel radar-panel">${chart}</div>`;
 }
 const introFeedback = [
-  '你愿意先聊两句，能让刚认识的搭子更快放松。路上遇到有意思的人或地方，也可以把自己的好奇分享给大家。',
-  '你可以慢慢熟悉新搭子。一起看风景、留意对方喜欢的小细节，或安静走一段路，都是建立默契的方式。',
-  '你可以跟着当下的气氛切换。想聊时聊几句，想安静时一起看看风景，也能给搭子留出自己的节奏。'
+  "刚见面时，你愿意先聊两句，搭子就能快一点放松。路上碰到新鲜事，你也乐意招呼大家一起看。",
+  "你不急着跟搭子熟起来。一起看风景，碰到有意思的事聊两句，慢慢就知道彼此喜欢什么。",
+  "你能跟着气氛切换。想聊就聊几句，累了就并肩看风景，也让搭子按自己的节奏来。"
 ];
 const stayPoems = [
   {line:'客路青山外，行舟绿水前。', source:'王湾《次北固山下》'},
@@ -199,7 +199,7 @@ function render(){
     return;
   }
   if(q.kind==='feedback'){
-    content=`<img class="feedback-art" src="${look().portrait}" alt="">${title('请留下您对这份问卷的宝贵建议，谢谢！')}<div class="feedback-card"><label for="feedback">问卷改进建议 <small>选填</small></label><textarea id="feedback" maxlength="500" rows="5" placeholder="写下你的建议…">${esc(feedback)}</textarea></div><p id="error" role="alert"></p>`;
+    content=`<img class="feedback-art" src="${look().portrait}" alt="">${title('请留下您对这份问卷的宝贵建议，谢谢！')}<div class="feedback-card"><label for="feedback">问卷改进建议 <small>选填</small></label><textarea id="feedback" maxlength="500" rows="5" placeholder="哪道题不好选？还有什么旅行场景想加进来？">${esc(feedback)}</textarea></div><p id="error" role="alert"></p>`;
     action=`<button class="primary" data-submit>${feedback.trim()?'提交答卷与建议':'提交答卷'}</button>`;
   }else if(q.kind==='results'){
     const {portrait,result}=look();
@@ -208,7 +208,7 @@ function render(){
   }else if(q.kind==='interests'){
     const chip=(tag,attr,label,pressed)=>`<button type="button" class="interest-chip ${attr==='data-interest'&&label===tag?interestClass(tag):''}" ${attr}="${esc(tag)}" aria-pressed="${pressed}">${esc(label)}</button>`;
     const picked=[...interests].map(tag=>`<li>${interestTag(tag)}<div>${chip(tag,'data-highlight',highlights.has(tag)?'★ 已置顶':'☆ 置顶',highlights.has(tag))}${chip(tag,'data-interest','移除',false)}</div></li>`).join('');
-    content=`${title('平时想和搭子一起做什么？')}<p class="description">可多选。最想和搭子一起做的事可以置顶，最多三项。</p>
+    content=`${title('平时想和搭子一起做什么？')}<p class="description">可以选好几项。最想和搭子一起做的事，最多置顶三项。</p>
       <div class="interest-list">${interestGroups.map((group,i)=>`<details data-group="${i}" ${openGroups.has(String(i))?'open':''}><summary>${group.icon} ${esc(group.name)}</summary><div class="interest-tags">${group.items.map(tag=>chip(tag,'data-interest',tag,interests.has(tag))).join('')}</div></details>`).join('')}</div>
       ${picked?`<section class="panel picked-interests"><h2 class="prompt">已选兴趣</h2><ul>${picked}</ul></section>`:''}
       <form class="custom-interest"><label for="custom-interest">其他兴趣</label><div><input id="custom-interest" maxlength="12" placeholder="最多 6 个字"><button class="interest-chip" type="submit">添加</button></div><p class="note" role="status"></p></form>`;
@@ -239,7 +239,7 @@ function render(){
           ${shared.length?`<section><h4>共同主题</h4><div class="interest-tags">${shared.map(interestTag).join('')}</div></section>`:''}
           <section><h4>节奏与玩法</h4><p>${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
         </section>
-        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">依据公开作品风格设定。雷达图是娱乐推测，并非本人测评。</p>${radarChart(axes,'celebrity',myAxes)}
+        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">这张图根据公开作品里的风格做了趣味推测，名人本人没有填写这份测评。</p>${radarChart(axes,'celebrity',myAxes)}
         ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
         </article>`;
     }else{
@@ -425,7 +425,7 @@ root.addEventListener('click',async event=>{
       if(!res.ok||!(await res.json()).saved)throw Error();
       move(1);
     }catch{
-      document.querySelector('#error').textContent='答卷暂未提交，已保存在本机。请稍后重试。';
+      document.querySelector('#error').textContent='答卷已经保存在这台设备。刚才没提交成功，请稍后再试。';
       target.disabled=false;
     }finally{busy=false;}
   }

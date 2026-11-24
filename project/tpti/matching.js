@@ -49,10 +49,10 @@ export function personalityReason({person,gaps}, axes) {
   const pair = (i, low, high, middle) => axes[i].value < 44 && person.scores[i] < 44 ? low :
     axes[i].value > 56 && person.scores[i] > 56 ? high : middle;
   const reasons = [
-    pair(0,'你们都适合留一点安静时间，熟悉之后再慢慢聊。','你们都适合边走边聊，把路上的发现分享给对方。','想象中，你们喜欢交流的程度接近，一起活动时比较容易找到舒服的相处方式。'),
-    pair(1,'你们都更容易从熟悉的路线和玩法开始。','你们都偏向尝新，适合一起挑些没试过的地方。','你们尝新的程度相近，可以在熟悉的行程里留一站给新鲜体验。'),
-    pair(2,'你们都适合留出空档，逛累了就找个地方坐一会儿。','你们都适合多安排几站，一起把想看的地方串起来。','你们的行程密度接近，适合一天挑几站，也给路上留足时间。'),
-    pair(3,'你们都更适合出发前先定好主要安排。','你们都愿意把行程留得灵活一些，遇到喜欢的地方可以临时改。','你们都适合先确定大致路线，再商量哪些安排可以临时调整。')
+    pair(0,'你们都能享受安静的一段路。遇到有意思的事，再停下来聊聊。','你们都愿意边走边聊，看到有意思的地方会顺手分享。','你们都能聊几句，也能安静走上一段。刚见面可以先从路上看到的东西聊起。'),
+    pair(1,'你们都偏爱熟悉的玩法，可以先从各自去过的地方挑一站。','你们都乐意尝新，可以各挑一个没去过的地方。','可以先安排一站熟悉的，再留一站试点新鲜的。'),
+    pair(2,'你们都喜欢慢一点。一天挑一两个想去的地方，走累了就歇会儿。','你们都喜欢一天多看几处。把顺路的点排在一起，省得来回跑。','你们可以先挑几站最想去的，中间给吃饭和走路留够时间。'),
+    pair(3,'你们都习惯先定下怎么去、几点集合，到了再慢慢逛。','你们都愿意临时改安排，遇到喜欢的地方可以多待一会儿。','先定个大概，把能临时改的几站留出来。')
   ];
   const strengths = [0,3,1].sort((a,b)=>gaps[a]-gaps[b]);
   const plan = axes[3].value<=33&&person.scores[3]>=67
@@ -64,7 +64,7 @@ export function personalityReason({person,gaps}, axes) {
     : axes[0].value<=35&&person.scores[0]>=65
       ? '遇到需要问路或和店主交流的场合，可以让对方先开口，你负责观察和挑下一站。' : '';
   const complement=plan||social;
-  if(gaps[strengths[0]]>30)return complement || '从一个共同想玩的活动开始。出发前各说一个想保留的安排，抵达后再一起决定下一站。';
+  if(gaps[strengths[0]]>30)return complement || '先选一件两个人都想做的事。各留一个一定要去的点，剩下的到时候商量。';
   if(complement)return reasons[strengths[0]]+' '+complement;
   return strengths.slice(0,2).filter(i=>gaps[i]<=30).map(i=>reasons[i]).join(' ');
 }
@@ -84,9 +84,9 @@ export function tripReason({person,style}, axes, activities) {
   const own=pace(axes[2].value), other=pace(person.scores[2]);
   const rhythm=own===other
     ? '你们的节奏都'+own+'。'
-    : '你偏向'+own.replace('偏','')+'，对方在这个想象场景里'+other+'，可以把当天分成一段主行程和一段自由时间。';
+    : '你喜欢'+own.replace('偏','')+'，想象中的搭子'+other+'。可以先一起走一段，之后各留一点自由时间。';
   const selected=activities.includes(travelStyles.indexOf(style));
-  const lead=selected?'你也选了'+style.label+'。':'可以从对方公开作品中的'+style.label+'主题试一趟。';
+  const lead=selected?'你也选了'+style.label+'，可以从这个开始。':'想试试'+style.label+'的话，可以从对方作品里找个点子。';
   const detail={
     'Jimmy Chin':'早上先留一段时间走观景步道，午后在一个取景点停下来拍照，提前约好集合点和回程时间。',
     '小约翰可汗':'选一座城市历史博物馆和附近的老街。先看相关展品，再到街上找展览提到的建筑或地名。'

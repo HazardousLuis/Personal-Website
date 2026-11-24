@@ -155,6 +155,7 @@ function progressBar(){
   const width=current<0?100:(current+(index-start)/(nodes[current]-start))*100/nodes.length;
   return `<div class="progress" role="progressbar" aria-label="问卷进度" aria-valuenow="${Math.round(width)}"><div class="progress-fill" style="width:${width}%"></div>${nodes.map((end,i)=>`<span class="progress-node" style="left:${(i+1)*100/nodes.length}%">${index>=end?'<span class="chapter-check">✓</span>':''}</span>`).join('')}</div>`;
 }
+const goalEndings=['找个搭子','出去散散心','活动组局','出行组织者','人脉关系','善于交际','爱好圈','旅行人格'];
 function choices(q){
   const selected=Array.isArray(answers[q.id])?answers[q.id]:[answers[q.id]];
   const entries=q.options.map((label,id)=>({label,id}));
@@ -167,7 +168,11 @@ function choices(q){
       return `<button class="portrait ${gender?'default-portrait':''} ${on?'selected':gender&&answers.gender!==undefined?'muted-portrait':''}" aria-pressed="${on}" data-choice="${i}"><img src="${image}" alt=""${gender?'':' fetchpriority="high" decoding="async"'}><span class="portrait-label">${esc(label)} <span aria-hidden="true">›</span></span></button>`;
     }
     const icon=q.icons?.[i]||optionIcons[q.id]?.[i]||(q.options[0]==='非常不同意'?agreementIcons[i]:'');
-    return `<button class="choice ${on?'selected':''}" aria-pressed="${on}" data-choice="${i}">${icon?`<span class="icon" aria-hidden="true">${esc(icon)}</span>`:''}<span class="label">${esc(label)}</span>${q.kind==='multi'?`<span class="check" aria-hidden="true">${on?'✓':'□'}</span>`:''}</button>`;
+    const ending=q.id==='goals'?goalEndings[i]:'';
+    const labelText=ending&&label.endsWith(ending)
+      ? esc(label.slice(0,-ending.length))+'<wbr><span class="goal-ending">'+esc(ending)+'</span>'
+      : esc(label);
+    return `<button class="choice ${on?'selected':''}" aria-pressed="${on}" data-choice="${i}">${icon?`<span class="icon" aria-hidden="true">${esc(icon)}</span>`:''}<span class="label">${labelText}</span>${q.kind==='multi'?`<span class="check" aria-hidden="true">${on?'✓':'□'}</span>`:''}</button>`;
   }).join('');
 }
 function generation(q){

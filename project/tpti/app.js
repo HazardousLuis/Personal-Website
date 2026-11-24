@@ -102,13 +102,18 @@ function preloadAgePortraits(gender){
 }
 const brand=()=>`<div class="mark"><span class="brand-line"><img src="./assets/youyou-backpack.webp" alt=""><span class="cn">与游</span></span><span class="en">TraWithU</span></div>`;
 const disclaimer='本测评与名人搭子结果仅供娱乐，不作参考。名人的性格及旅行风格为根据公开作品作出的娱乐推测，未经本人确认，不代表真实人格、本人意见或与游合作。请勿将结果作为择伴、行程或其他实际决策依据。';
+function personalityPortrait(scores, gender, nature){
+  const group=(gender==='female'?1:0)+(nature?2:0);
+  const variant=(scores[0]>=50?0:2)+(scores[1]>=50?0:1);
+  return path('personality-'+group+'-'+variant+'.webp');
+}
 function look(){
   const axes=profile(answers);
   const picks=answers.activities||[];
   const nature=picks.filter(i=>[1,3].includes(i)).length, culture=picks.filter(i=>[0,2].includes(i)).length;
   const flavor=nature>culture?'自然':culture>nature?'人文':nature?'人文与自然':'休闲';
-  const type=(axes[0].value>=50?0:2)+(axes[1].value>=50?0:1);
-  return {axes,result:resultFor(axes,flavor), portrait:path('personality-'+((answers.gender===1?1:0)+(flavor==='自然'?2:0))+'-'+type+'.webp')};
+  const portrait=personalityPortrait(axes.map(axis=>axis.value),answers.gender===1?'female':'male',flavor==='自然');
+  return {axes,result:resultFor(axes,flavor),portrait};
 }
 function radarChart(axes, scope='quiz', comparison){
   const matches=axes.map((axis,i)=>dimensionMatch(i,comparison?.[i]?.value,axis.value));
@@ -231,7 +236,9 @@ function render(){
     const match=catalog&&findMatch(catalog,{activities:answers.activities||[],selected:[...interests],highlights:[...highlights],axes:myAxes});
     if(match){
       const {person,style,shared}=match;
-      const illustration=path('personality-'+(style.label==='自然观察'||style.label==='户外探索'?'2':'0')+'-0.webp');
+      const illustration=['female','male'].includes(person.portraitGender)
+        ? personalityPortrait(person.scores,person.portraitGender,['自然观察','户外探索'].includes(style.label))
+        : '';
       const photo=person.photo;
       const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}的头像">`:
         `<span class="initial-avatar" aria-label="姓名头像">${esc(Array.from(person.name)[0])}</span>`;
@@ -247,7 +254,7 @@ function render(){
           <section><h4>节奏与玩法</h4><p>${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
         </section>
         <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">雷达图和旅行主题是根据公开作品与节目设定的趣味推测，未经本人确认。</p>${radarChart(axes,'celebrity',myAxes)}
-        ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
+        ${illustration?personaRow(axes,illustration,'旅行主题 Q 版示意'):''}</section>${credit}
         </article>`;
     }else{
       content+=`<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;

@@ -379,7 +379,7 @@ label{display:block;font-weight:700;margin:24px 0 8px}label small{color:#655c79;
 .shell .participant-art{width:100%;height:140px;object-fit:contain;margin:10px 0}
 .shell .participant-card .radar{width:min(100%,300px);height:auto;margin:0 auto}
 .shell .participant-card .radar-panel{margin-top:5px}
-.shell .celebrity-photo{display:block;width:112px;height:112px;object-fit:cover;border-radius:20px}
+.shell .celebrity-photo{display:block;height:auto;border-radius:20px}
 .shell .celebrity-card .photo-credit{font-size:.72rem}
 html{scrollbar-gutter:stable}
 #app{overflow-anchor:none}
@@ -387,7 +387,7 @@ html{scrollbar-gutter:stable}
 .shell .page-nickname{justify-content:flex-start;padding-top:clamp(32px,11svh,106px)}
 .shell .hide-quiz-profile{display:flex;justify-content:center;align-items:center;gap:9px;margin:auto auto 0;padding:36px 0 4px;color:#584176;font-size:.9rem;text-align:center}
 .shell .celebrity-header{text-align:center;padding:5px 0 16px}
-.shell .celebrity-photo,.shell .initial-avatar{width:104px;height:104px;margin:0 auto;border-radius:28px;box-shadow:0 8px 24px #6650a52e}
+.shell .celebrity-photo,.shell .initial-avatar{margin:0 auto;border-radius:28px;box-shadow:0 8px 24px #6650a52e}
 .shell .initial-avatar{display:grid;place-items:center;background:linear-gradient(135deg,#dbebff,#fbdbea);color:#7150a1;font-size:2.4rem;font-weight:800}
 .shell .result-kicker{color:#4a63a6;font-size:.85rem;font-weight:750}
 .shell .celebrity-header h2{color:#5a3985;font-size:clamp(25px,6vw,38px);margin:5px 0}
@@ -413,7 +413,8 @@ html{scrollbar-gutter:stable}
 .shell .profile-private-choice{margin:auto auto 0;padding-top:28px;text-align:center}
 .shell .profile-private-choice p{margin:0 0 12px;color:#786187}
 .shell .profile-private-choice .hide-quiz-profile{padding:0 0 4px}
-.shell .celebrity-header :is(.celebrity-photo,.initial-avatar){width:clamp(112px,30vw,148px);height:clamp(112px,30vw,148px);margin-bottom:12px}
+.shell .celebrity-header :is(.celebrity-photo,.initial-avatar){width:clamp(112px,30vw,148px);max-width:100%;margin-bottom:12px}
+.shell .celebrity-header .initial-avatar{aspect-ratio:1}
 .shell .celebrity-persona{display:grid;grid-template-columns:minmax(84px,42%) minmax(0,1fr);align-items:center;gap:12px;text-align:left}
 .shell .celebrity-persona .participant-art{height:clamp(105px,28vw,156px);object-position:left center;margin:6px 0}
 .shell .celebrity-persona .persona-code{font-weight:750;color:#475eac;letter-spacing:.05em}

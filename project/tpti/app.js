@@ -258,7 +258,7 @@ function render(){
           ${shared.length?`<section><h4>共同主题</h4><div class="interest-tags">${shared.map(interestTag).join('')}</div></section>`:''}
           <section><h4>节奏与玩法</h4><p>${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
         </section>
-        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">雷达图和旅行主题是根据公开作品与节目设定的趣味推测，未经本人确认。</p>${radarChart(axes,'celebrity',myAxes)}
+        <section class="result-box"><h3>TPTI 旅行风格推测</h3>${radarChart(axes,'celebrity',myAxes)}
         ${illustration?personaRow(axes,illustration,'旅行主题 Q 版示意'):''}</section>${credit}
         </article>`;
     }else{

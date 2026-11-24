@@ -23,9 +23,17 @@ async function prepareMatching(body) {
     portrait:'personality-'+group+'-'+variant+'.webp'};
 }
 
+const normalizedNickname=name=>name.trim().normalize('NFKC').toLowerCase();
+
+// The directory supplies newest profiles first. Select the current profile before scoring.
 async function rankedParticipants(me, candidates) {
   const {buddyScore,minimumBuddyScore} = await import('../../project/tpti/matching.js');
+  const seen=new Set([normalizedNickname(me.nickname)]);
   return candidates.flatMap(candidate=>{
+    if(typeof candidate?.nickname!=='string')return [];
+    const nicknameKey=normalizedNickname(candidate.nickname);
+    if(!nicknameKey||seen.has(nicknameKey))return [];
+    seen.add(nicknameKey);
     const score=buddyScore(me,candidate);
     if(score===null||score<minimumBuddyScore)return [];
     const {nickname,scores,tags,portrait}=candidate;

@@ -443,3 +443,11 @@ html{scrollbar-gutter:stable}
 .shell .axes .axis .pin{position:absolute;top:50%;transform:translate(-50%,-50%);box-sizing:border-box}
 .shell .body .chapter-art,.shell .body .story-art{width:auto;max-width:100%;height:auto;max-height:min(44svh,380px);margin-left:auto;margin-right:auto;border-radius:20px}
 .shell .body .story-art{max-height:min(43cqw,230px)}
+
+.shell .self-report {padding:clamp(14px,4cqw,24px)}
+.shell .self-report>.prompt {margin:18px 0 8px}
+.shell .self-report>.radar-panel {background:linear-gradient(140deg,#f1f5ff,#fff3fb)}
+.shell .report-money {margin:0}
+.shell .report-money>div {display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 14px;padding:9px 0;border-top:1px solid #ede4f5}
+.shell .report-money dt {font-weight:650}
+.shell .report-money dd {margin:0;color:#60547b}

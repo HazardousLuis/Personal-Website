@@ -39,7 +39,7 @@ let index=saved.index||0, feedback=saved.feedback||'', busy=false;
 const {pages,money}=await fetch('./questions.json',{cache:'no-cache'}).then(r=>r.json());
 const hasCompletedQuiz=[...pages.filter(page=>page.options),...money].every(question=>answers[question.id]!==undefined);
 if(resultsPreview&&!hasCompletedQuiz){
-  Object.assign(answers,{gender:0,activities:[0],intro:2,chat:1,evening:2,walk:1,food:3,route:0,pace:1,rest:3,firstDay:0,stay:1});
+  Object.assign(answers,{gender:0,activities:[0],intro:2,chat:1,evening:2,walk:1,food:3,route:0,pace:1,rest:3,firstDay:0,stay:1,budget:1,split:0,talk:0});
   interests.clear();
   highlights.clear();
   interests.add('博物馆');
@@ -50,6 +50,12 @@ const steps=[...pages,...money.map((q,i)=>({...q,phase:i+1})),{kind:'money-compl
 if (!saved.version && index >= pages.length + money.length) index += 1;
 if ((saved.version||0)<3 && index===steps.length-4) index+=3;
 index=Math.min(Math.max(index,0),steps.length-1);
+const activeIndex=(position,direction=1)=>{
+  while(steps[position]?.id==='stayFeedback'||steps[position]?.kind==='results')position+=direction;
+  return position;
+};
+index=activeIndex(index);
+if(resumeIndex)resumeIndex=activeIndex(resumeIndex);
 if(!privacySet && ['celebrity','feedback'].includes(steps[index].kind))index=steps.findIndex(step=>step.kind==='nickname');
 if(index>0 && steps[index].kind!=='done' && !answers.adultConfirmed){resumeIndex=index;index=0;}
 if(resultsPreview){
@@ -76,7 +82,7 @@ const encyclopedia=person=>{
 };
 const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,interests:[...interests],highlights:[...highlights]}));
 const move=offset=>{
-  index+=offset;
+  index=activeIndex(index+offset,Math.sign(offset));
   save();
   render();
   root.querySelector('h1')?.focus({preventScroll:true});
@@ -84,7 +90,7 @@ const move=offset=>{
 };
 const button=label=>`<button class="primary" data-next>${label}</button>`;
 const art=gender=>path(gender===1?'default-female.webp':'default-male.webp');
-const agePortrait=(gender,option)=>path('age-v2-'+(gender===1?1:0)+'-'+option+'.webp');
+const agePortrait=(gender,option)=>path('age-v3-'+(gender===1?1:0)+'-'+option+'.webp');
 const agePreloads=new Map();
 function preloadAgePortraits(gender){
   if(agePreloads.has(gender))return;
@@ -103,12 +109,6 @@ function look(){
   const flavor=nature>culture?'自然':culture>nature?'人文':nature?'人文与自然':'休闲';
   const type=(axes[0].value>=50?0:2)+(axes[1].value>=50?0:1);
   return {axes,result:resultFor(axes,flavor), portrait:path('personality-'+((answers.gender===1?1:0)+(flavor==='自然'?2:0))+'-'+type+'.webp')};
-}
-function profileCard(kind){
-  const {axes,result,portrait}=look();
-  const labels=axes.slice(0,kind==='summary'?3:4).map(({low,high,value},i)=>`<div class="axis"><div>${axes[i].name}</div><div class="track"><i class="pin" style="left:${value}%;background:${axes[i].color};border-color:${axes[i].color}"></i></div><div class="scale"><span>${low}</span><span>${high}</span></div></div>`).join('');
-  if(kind!=='radar')return `<div class="panel profile"><img class="profile-art" src="${portrait}" alt="你的与游角色"><div class="axes">${labels}</div></div><p class="role-copy">${esc(result.role)}</p>`;
-  return radarChart(axes)+`<p class="radar-role">${esc(result.radarRole)}</p>`;
 }
 function radarChart(axes, scope='quiz', comparison){
   const matches=axes.map((axis,i)=>dimensionMatch(i,comparison?.[i]?.value,axis.value));
@@ -130,16 +130,6 @@ function radarChart(axes, scope='quiz', comparison){
     <g text-anchor="middle" fill="#393055" font-size="13" font-weight="650">${[[130,51],[225,135],[130,217],[35,135]].map(([x,y],i)=>`<text x="${x}" y="${y}"${matches[i]?' class="radar-match"':''}>${axes[i].name}${matches[i]?`<tspan x="${x}" dy="14" font-size="9">${matches[i]}</tspan>`:''}</text>`).join('')}</g></svg>`;
   return `<div class="panel radar-panel">${chart}</div>`;
 }
-const stayPoems = [
-  {line:'客路青山外，行舟绿水前。', source:'王湾《次北固山下》'},
-  {line:'山重水复疑无路，柳暗花明又一村。', source:'陆游《游山西村》'},
-  {line:'采菊东篱下，悠然见南山。', source:'陶渊明《饮酒·其五》'}
-];
-const stayFeedback = [
-  '按约好的时间出发，大家都知道下一步怎么走。',
-  '和搭子商量一下，给喜欢的地方多留一点时间。',
-  '先享受当下，之后再一起看看怎么走。'
-];
 const optionIcons = {
   goals:['🧳','🍃','🎟','📣','🤝','💬','🎨','🧭'],
   intro:['🌞','🌙','✨'], chat:['🫧','💬','🗨'], speak:['🌧','⛅','☀'],
@@ -206,10 +196,6 @@ function render(){
   if(q.kind==='feedback'){
     content=`<img class="feedback-art" src="${look().portrait}" alt="">${title('请留下您对这份问卷的宝贵建议，谢谢！')}<div class="feedback-card"><label for="feedback">问卷改进建议 <small>选填</small></label><textarea id="feedback" maxlength="500" rows="5" placeholder="哪道题不好选？还有什么旅行场景想加进来？">${esc(feedback)}</textarea></div><p id="error" role="alert"></p>`;
     action=`<button class="primary" data-submit>${feedback.trim()?'提交答卷与建议':'提交答卷'}</button>`;
-  }else if(q.kind==='results'){
-    const {portrait,result}=look();
-    content=`${title('你的 TPTI 旅行人格卡')}<div class="registration-preview"><img src="${portrait}" alt="与游旅行人格角色"><span class="type-code">${esc(result.code)}</span><strong>${esc(result.name)}</strong><span class="type-detail">${esc(result.detail)}</span></div>`;
-    action=button('继续');
   }else if(q.kind==='interests'){
     const chip=(tag,attr,label,pressed)=>`<button type="button" class="interest-chip ${attr==='data-interest'&&label===tag?interestClass(tag):''}" ${attr}="${esc(tag)}" aria-pressed="${pressed}">${esc(label)}</button>`;
     const picked=[...interests].map(tag=>`<li>${interestTag(tag)}<div>${chip(tag,'data-highlight',highlights.has(tag)?'★ 已置顶':'☆ 置顶',highlights.has(tag))}${chip(tag,'data-interest','移除',false)}</div></li>`).join('');
@@ -223,9 +209,20 @@ function render(){
       <label for="nickname">昵称</label><input id="nickname" name="nickname" maxlength="32" autocomplete="off" placeholder="1–16 个字" value="${esc(nickname)}" required>
       <p class="note">默认参与趣味匹配，与你匹配的参与者可以查看昵称、雷达图、Q 版形象和预设兴趣。</p>
       <p id="name-error" role="alert"></p></form><div class="profile-private-choice"><p>或</p><label class="hide-quiz-profile"><input type="checkbox" name="hide" form="nickname-form" ${hideRadar?'checked':''}>隐藏我的测评资料，不允许用于趣味匹配</label></div>`;
-    action='<button class="primary" type="submit" form="nickname-form">查看我的搭子</button>';
+    action='<button class="primary" type="submit" form="nickname-form">查看我的 TPTI 报告</button>';
   }else if(q.kind==='celebrity'){
-    const myAxes=look().axes;
+    const {axes:myAxes,result,portrait}=look();
+    const moneyRows=[['budget','每日预算'],['split','结账方式'],['talk','出发前主动聊预算和分账']].map(([id,label])=>{
+      const answer=money.find(question=>question.id===id)?.options[answers[id]];
+      return answer?`<div><dt>${esc(label)}</dt><dd>${esc(answer)}</dd></div>`:'';
+    }).join('');
+    content=`${title('我的 TPTI 报告')}<section class="panel self-report">
+      ${personaRow(myAxes,portrait,'你的与游旅行人格角色')}
+      <p class="note">${esc(result.detail)}</p><p>${esc(result.role)}</p>
+      <h2 class="prompt">我的旅行偏好</h2>
+      ${radarChart(myAxes,'self')}
+      ${moneyRows?`<h2 class="prompt">我的出游预算与分账</h2><dl class="report-money">${moneyRows}</dl>`:''}
+      </section><h2 class="prompt">和谁更合拍？</h2>`;
     const match=catalog&&findMatch(catalog,{activities:answers.activities||[],selected:[...interests],highlights:[...highlights],axes:myAxes});
     if(match){
       const {person,style,shared}=match;
@@ -235,7 +232,7 @@ function render(){
         `<span class="initial-avatar" aria-label="姓名头像">${esc(Array.from(person.name)[0])}</span>`;
       const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>`:'';
       const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
-      content=`${title('谁是你的合拍搭子？')}<article class="panel celebrity-card">
+      content+=`<article class="panel celebrity-card">
         <header class="celebrity-header">${image}<p class="result-kicker">${person.group==='历史人物'?'你的历史人物搭子':'你的名人搭子'}</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
         <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(interestTag).join('')}</div>
         <a href="${esc(person.group?person.source:encyclopedia(person))}" target="_blank" rel="noopener noreferrer">${person.group?'人物资料 ↗':'他的百科 ↗'}</a></section>
@@ -248,7 +245,7 @@ function render(){
         ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
         </article>`;
     }else{
-      content=`${title('谁是你的合拍搭子？')}<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
+      content+=`<p class="description">${catalog===null?'名人资料暂时无法加载，可直接继续。':'正在整理匹配结果…'}</p>`;
       if(catalog===undefined)Promise.all([fetch('./celebrities.json',{cache:'no-cache'}).then(response=>{
         if(!response.ok)throw new Error('Catalog unavailable');
         return response.json();
@@ -297,17 +294,12 @@ function render(){
       content+=`<div class="panel review"><div class="review-heading"><strong class="eyebrow">用户分享</strong><span class="stars" aria-hidden="true">★★★★★</span></div><div class="quote">“以前到了才知道，搭子想一天打卡五站，我只想慢慢逛。与游把游玩节奏和预算先摆出来，我们出发前就知道哪些要一起玩、哪笔钱要先商量。”</div><div class="sample-credit">模拟体验分享</div></div><div class="panel campus-schools"><div class="eyebrow">与游校园体验计划</div><div class="note">拟邀请高校</div><div class="school-grid">${['香港中文大学（深圳）','深圳大学','南方科技大学','哈尔滨工业大学（深圳）'].map(s=>`<span>${s}</span>`).join('')}</div></div><p class="note">需求人数为原型阶段的情景估算。</p>`;
       action=button('继续');
     }else if(['illustrated','fork'].includes(q.kind)){
-      const stay=answers.stay??0;
-      const image=q.id==='social'?'chapter-social.webp':q.kind==='fork'?'chapter-fork.webp':'stay-'+stay+'.webp';
-      content+=`<img class="chapter-art ${q.id==='stayFeedback'?'stay-art':''}" src="${path(image)}" alt="">`;
+      const image=q.kind==='fork'?'chapter-fork.webp':'chapter-social.webp';
+      content+=`<img class="chapter-art" src="${path(image)}" alt="">`;
       if(q.description)content+=`<p class="description chapter-copy">${esc(q.description)}</p>`;
-      if(q.id==='stayFeedback'){
-        const poem=stayPoems[stay];
-        content+=`<div class="panel poem"><div>${esc(poem.line)}</div><div class="note">——${esc(poem.source)}</div><p class="description">${esc(stayFeedback[stay])}</p></div>`;
-      }
       action=button('继续');
     }else if(['summary','radar'].includes(q.kind)){
-      content+=profileCard(q.kind)+`<p class="chapter-next">${esc(q.description)}</p>`;
+      content+=`<p class="chapter-next">${esc(q.description)}</p>`;
       action=button('继续');
     }else if(q.options){
       if(q.id==='goals')kind='goals';

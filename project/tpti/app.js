@@ -233,7 +233,7 @@ function render(){
     }).join('');
     content=`${title('我的 TPTI 报告')}<section class="panel self-report">
       ${personaRow(myAxes,portrait,'你的与游旅行人格角色')}
-      <p class="note">${esc(result.detail)}</p><p>${esc(result.role)}</p>
+      <p class="note self-report-detail">${esc(result.detail)}</p><p>${esc(result.role)}</p>
       <h2 class="prompt">我的旅行偏好</h2>
       ${radarChart(myAxes,'self')}
       ${moneyRows?`<h2 class="prompt">我的出游预算与分账</h2><dl class="report-money">${moneyRows}</dl>`:''}

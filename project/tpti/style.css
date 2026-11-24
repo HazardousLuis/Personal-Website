@@ -447,6 +447,7 @@ html{scrollbar-gutter:stable}
 .shell .body .story-art{max-height:min(43cqw,230px)}
 
 .shell .self-report {padding:clamp(14px,4cqw,24px)}
+.shell .self-report-detail::before {content:"";display:block;width:32px;height:1px;margin:0 auto 10px;background:#dfd3ee}
 .shell .self-report>.prompt {margin:18px 0 8px}
 .shell .self-report>.radar-panel {background:linear-gradient(140deg,#f1f5ff,#fff3fb)}
 .shell .report-money {margin:0}

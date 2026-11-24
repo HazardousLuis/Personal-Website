@@ -10,7 +10,12 @@ const saved=loadDraft();
 const manageLocal=new URLSearchParams(location.search).get('manage')==='local';
 const resultsPreview=new URLSearchParams(location.search).get('preview')==='results';
 const answers=saved.answers||{};
-let id=saved.id || (globalThis.crypto.randomUUID?.() ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const x=crypto.getRandomValues(new Uint8Array(1))[0]&15;return (c==='x'?x:(x&3)|8).toString(16)}));
+const newResponseId=()=>(globalThis.crypto.randomUUID?.() ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const x=crypto.getRandomValues(new Uint8Array(1))[0]&15;return (c==='x'?x:(x&3)|8).toString(16)}));
+let id=saved.id||newResponseId();
+const nicknameKey=name=>'trawithu:response-id:'+name.normalize('NFKC').toLowerCase();
+if(saved.nickname&&saved.id&&!resultsPreview&&!manageLocal&&!localStorage.getItem(nicknameKey(saved.nickname))){
+  localStorage.setItem(nicknameKey(saved.nickname),saved.id);
+}
 delete answers.birthMonth;
 const interests=new Set(saved.interests||[]);
 const highlights=new Set(saved.highlights||[]);
@@ -448,6 +453,9 @@ root.addEventListener('submit',event=>{
       root.querySelector('#name-error').textContent='请填写 1–16 个字的昵称，避免使用联系方式。';
       return;
     }
+    const key=nicknameKey(name);
+    id=localStorage.getItem(key)||(nickname&&nicknameKey(nickname)!==key?newResponseId():id);
+    localStorage.setItem(key,id);
     nickname=name;
     hideRadar=form.elements.hide.checked;
     privacySet=true;

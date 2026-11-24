@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
     const response = {id:body.id, submittedAt:new Date().toISOString(), answers, feedback:body.feedback.trim(),
       ...(body.questionVersion===2?{questionVersion:2}:{}),
       ...(details?{nickname:details.nickname,interests:details.tags,interestHighlights:details.highlights}:{})};
-    const result = await redis(['HSETNX','tpti:responses:v1',body.id,JSON.stringify(response)]);
+    const result = await redis([details?'HSET':'HSETNX','tpti:responses:v1',body.id,JSON.stringify(response)]);
     if (![0,1].includes(result)) throw new Error('Redis did not accept the response');
     return res.status(200).json({saved:true});
   } catch {

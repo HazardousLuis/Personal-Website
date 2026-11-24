@@ -17,6 +17,7 @@ const db = new DatabaseSync(join(dataDir, 'responses.sqlite'));
 db.exec('CREATE TABLE IF NOT EXISTS responses(id TEXT PRIMARY KEY, submitted_at TEXT NOT NULL, answers TEXT NOT NULL, feedback TEXT NOT NULL)');
 db.exec('CREATE TABLE IF NOT EXISTS participant_profiles(id TEXT PRIMARY KEY, updated_at INTEGER NOT NULL, profile TEXT NOT NULL)');
 const save = db.prepare('INSERT OR IGNORE INTO responses VALUES (?, ?, ?, ?)');
+const replaceResponse = db.prepare('INSERT OR REPLACE INTO responses VALUES (?, ?, ?, ?)');
 const publish = db.prepare('INSERT OR REPLACE INTO participant_profiles VALUES (?, ?, ?)');
 const unpublish = db.prepare('DELETE FROM participant_profiles WHERE id = ?');
 const candidates = db.prepare('SELECT profile FROM participant_profiles WHERE id <> ? ORDER BY updated_at DESC LIMIT ?');
@@ -66,7 +67,8 @@ const server = createServer(async (req,res) => {
         if(!details)return send(res,400,{error:'请检查昵称及答卷'});
         Object.assign(answers,{nickname:details.nickname,interests:details.tags,interestHighlights:details.highlights});
       }
-      save.run(body.id || randomUUID(),new Date().toISOString(),JSON.stringify(answers),body.feedback.trim());
+      const writeResponse=body.nickname===undefined?save:replaceResponse;
+      writeResponse.run(body.id || randomUUID(),new Date().toISOString(),JSON.stringify(answers),body.feedback.trim());
       return send(res,200,{saved:true});
     }
     if (req.method === 'GET' && pathname === '/project') {

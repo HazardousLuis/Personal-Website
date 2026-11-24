@@ -31,7 +31,8 @@ export function findMatch(catalog, {activities, selected, highlights, axes}) {
     const score = totalWeight
       ? 0.35*(sharedWeight/totalWeight) + 0.22*activity + 0.43*fit
       : 0.35*activity + 0.65*fit;
-    return {person,style,score,shared:shared.map(([tag])=>tag),themeTags,gaps};
+    const localRelevance=person.group||/\p{Script=Han}/u.test(person.name)?0.06:0;
+    return {person,style,score:score+localRelevance,shared:shared.map(([tag])=>tag),themeTags,gaps};
   })).filter(Boolean);
   ranked.sort((a,b)=>b.score-a.score || b.themeTags.length-a.themeTags.length);
   return ranked[0];
@@ -91,5 +92,5 @@ export function tripReason({person,style}, axes, activities) {
     'Jimmy Chin':'早上先留一段时间走观景步道，午后在一个取景点停下来拍照，提前约好集合点和回程时间。',
     '小约翰可汗':'选一座城市历史博物馆和附近的老街。先看相关展品，再到街上找展览提到的建筑或地名。'
   };
-  return rhythm+' '+lead+' '+(detail[person.name]||style.scene);
+  return rhythm+' '+lead+' '+(person.tripScene||detail[person.name]||style.scene);
 }

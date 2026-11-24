@@ -84,6 +84,16 @@ const move=offset=>{
 };
 const button=label=>`<button class="primary" data-next>${label}</button>`;
 const art=gender=>path(gender===1?'default-female.webp':'default-male.webp');
+const agePortrait=(gender,option)=>path('age-v2-'+(gender===1?1:0)+'-'+option+'.webp');
+const agePreloads=new Map();
+function preloadAgePortraits(gender){
+  if(agePreloads.has(gender))return;
+  agePreloads.set(gender,Array.from({length:4},(_,option)=>{
+    const image=new Image();
+    image.src=agePortrait(gender,option);
+    return image;
+  }));
+}
 const brand=()=>`<div class="mark"><span class="brand-line"><img src="./assets/youyou-backpack.webp" alt=""><span class="cn">与游</span></span><span class="en">TraWithU</span></div>`;
 const disclaimer='本测评与名人搭子结果仅供娱乐，不作参考。名人的性格及旅行风格为根据公开作品作出的娱乐推测，未经本人确认，不代表真实人格、本人意见或与游合作。请勿将结果作为择伴、行程或其他实际决策依据。';
 function look(){
@@ -120,11 +130,6 @@ function radarChart(axes, scope='quiz', comparison){
     <g text-anchor="middle" fill="#393055" font-size="13" font-weight="650">${[[130,51],[225,135],[130,217],[35,135]].map(([x,y],i)=>`<text x="${x}" y="${y}"${matches[i]?' class="radar-match"':''}>${axes[i].name}${matches[i]?`<tspan x="${x}" dy="14" font-size="9">${matches[i]}</tspan>`:''}</text>`).join('')}</g></svg>`;
   return `<div class="panel radar-panel">${chart}</div>`;
 }
-const introFeedback = [
-  "刚见面时，你愿意先聊两句，搭子就能快一点放松。路上碰到新鲜事，你也乐意招呼大家一起看。",
-  "你不急着跟搭子熟起来。一起看风景，碰到有意思的事聊两句，慢慢就知道彼此喜欢什么。",
-  "你能跟着气氛切换。想聊就聊几句，累了就并肩看风景，也让搭子按自己的节奏来。"
-];
 const stayPoems = [
   {line:'客路青山外，行舟绿水前。', source:'王湾《次北固山下》'},
   {line:'山重水复疑无路，柳暗花明又一村。', source:'陆游《游山西村》'},
@@ -151,7 +156,7 @@ const scenes = [
 ];
 
 const chapterEnds=['social','explore','planning','radar','generate'].map(id=>steps.findIndex(q=>q.id===id));
-let typingTimer, carouselTimer, generationTimer, sceneIndex=0;
+let carouselTimer, generationTimer, sceneIndex=0;
 const heading=q=>q.heading ? esc(q.heading.lead)+'<span class="heading-tail">'+esc(q.heading.tail)+'</span>' : esc(q.title);
 function progressBar(){
   const nodes=[...chapterEnds,steps.length-3];
@@ -162,13 +167,14 @@ function progressBar(){
 }
 function choices(q){
   const selected=Array.isArray(answers[q.id])?answers[q.id]:[answers[q.id]];
-  return q.options.map((label,i)=>{
+  const entries=q.options.map((label,id)=>({label,id}));
+  if(q.options[0]==='非常不同意')entries.reverse();
+  return entries.map(({label,id:i})=>{
     const on=selected.includes(i);
     if(['age','gender'].includes(q.kind)){
       const gender=q.kind==='gender';
-      const image=gender?art(i):path('age-'+(answers.gender===1?1:0)+'-'+i+'.webp');
-      const ghost=gender?'':`<img class="age-ghost" src="${art(answers.gender)}" alt="">`;
-      return `<button class="portrait ${gender?'default-portrait':''} ${on?'selected':gender&&answers.gender!==undefined?'muted-portrait':''}" aria-pressed="${on}" data-choice="${i}">${ghost}<img class="${gender?'':'age-variant'}" src="${image}" alt=""><span class="portrait-label">${esc(label)} <span aria-hidden="true">›</span></span></button>`;
+      const image=gender?art(i):agePortrait(answers.gender,i);
+      return `<button class="portrait ${gender?'default-portrait':''} ${on?'selected':gender&&answers.gender!==undefined?'muted-portrait':''}" aria-pressed="${on}" data-choice="${i}"><img src="${image}" alt=""${gender?'':' fetchpriority="high" decoding="async"'}><span class="portrait-label">${esc(label)} <span aria-hidden="true">›</span></span></button>`;
     }
     const icon=q.icons?.[i]||optionIcons[q.id]?.[i]||(q.options[0]==='非常不同意'?agreementIcons[i]:'');
     return `<button class="choice ${on?'selected':''}" aria-pressed="${on}" data-choice="${i}">${icon?`<span class="icon" aria-hidden="true">${esc(icon)}</span>`:''}<span class="label">${esc(label)}</span>${q.kind==='multi'?`<span class="check" aria-hidden="true">${on?'✓':'□'}</span>`:''}</button>`;
@@ -188,7 +194,6 @@ function render(){
       </section></div>`;
     return;
   }
-  clearInterval(typingTimer);
   clearTimeout(generationTimer);
   const q=steps[index];
   const back=index>0&&!resultsPreview?'<button class="back" aria-label="返回上一页" data-back>‹</button>':'';
@@ -231,9 +236,9 @@ function render(){
       const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>`:'';
       const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
       content=`${title('谁是你的合拍搭子？')}<article class="panel celebrity-card">
-        <header class="celebrity-header">${image}<p class="result-kicker">你的名人搭子</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
+        <header class="celebrity-header">${image}<p class="result-kicker">${person.group==='历史人物'?'你的历史人物搭子':'你的名人搭子'}</p><h2>${esc(person.name)}</h2><p class="entertainment-note">娱乐用途，不做参考</p></header>
         <section class="result-box"><h3>这位是谁？</h3><p>${esc(person.bio)}</p><div class="interest-tags">${person.tags.map(interestTag).join('')}</div>
-        <a href="${esc(encyclopedia(person))}" target="_blank" rel="noopener noreferrer">他的百科 ↗</a></section>
+        <a href="${esc(person.group?person.source:encyclopedia(person))}" target="_blank" rel="noopener noreferrer">${person.group?'人物资料 ↗':'他的百科 ↗'}</a></section>
         <section class="result-box match-reasons"><h3>你们哪里合拍？</h3>
           <section><h4>相处与分工</h4><p>${esc(personalityReason(match,myAxes))}</p></section>
           ${shared.length?`<section><h4>共同主题</h4><div class="interest-tags">${shared.map(interestTag).join('')}</div></section>`:''}
@@ -305,26 +310,16 @@ function render(){
       content+=profileCard(q.kind)+`<p class="chapter-next">${esc(q.description)}</p>`;
       action=button('继续');
     }else if(q.options){
+      if(q.id==='goals')kind='goals';
       if(q.options[0]==='非常不同意')content+='<p class="description header-note">你有多同意这句话？</p>';
-      content+=`<div class="${q.id==='stay'?'scene-options':''}">${choices(q)}</div>`;
-      if(q.kind==='feedbackChoice'){
-        content+=`<div class="feedback-slot">${answers.intro===undefined?'':'<div class="panel feedback"><div class="eyebrow">你有自己的旅行优势！</div><span id="typed-feedback"></span></div>'}</div>`;
-      }
-      if(['multi','feedbackChoice'].includes(q.kind)){
-        const enabled=q.kind==='multi'?answers[q.id]?.length:answers[q.id]!==undefined;
-        action=button('继续').replace('data-next',enabled?'data-next':'data-next disabled');
+      content+=`<div class="${q.id==='stay'?'scene-options':q.id==='goals'?'goal-grid':''}">${choices(q)}</div>`;
+      if(q.kind==='multi'){
+        action=button('继续').replace('data-next',answers[q.id]?.length?'data-next':'data-next disabled');
       }
     }
   }
   root.innerHTML=`<div class="shell"><header class="nav">${back}${brand()}</header>${index>0?progressBar():''}<section class="body page-${kind}">${content}</section>${action?`<div class="footer">${action}</div>`:''}${modal}</div>`;
-  const typed=root.querySelector('#typed-feedback');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(typed){
-    const message=introFeedback[answers.intro];
-    let length=0;
-    if(reduced)typed.textContent=message;
-    else typingTimer=setInterval(()=>{typed.textContent=message.slice(0,length+=3);if(length>=message.length)clearInterval(typingTimer);},28);
-  }
   if(q.kind==='generate')generationTimer=setTimeout(()=>move(1),reduced?50:760);
   const carousel=root.querySelector('.scenes');
   if(carousel&&!reduced){
@@ -342,6 +337,12 @@ function render(){
     clearInterval(carouselTimer);
     carouselTimer=undefined;
     sceneIndex=0;
+  }
+  if(q.kind==='gender'&&answers.gender!==undefined)preloadAgePortraits(answers.gender);
+  if(q.kind==='age'){
+    for(const portrait of root.querySelectorAll('.portrait img')){
+      portrait.addEventListener('error',()=>{portrait.src=art(answers.gender);},{once:true});
+    }
   }
   const adult=root.querySelector('#adult-confirm');
   if(adult){
@@ -398,6 +399,7 @@ root.addEventListener('click',async event=>{
   }
   if(target.dataset.choice!==undefined){
     const option=Number(target.dataset.choice);
+    if(q.kind==='gender')preloadAgePortraits(option);
     if(q.kind==='multi'){
       const old=answers[q.id]||[];
       const exclusive=q.exclusive||[];
@@ -414,7 +416,7 @@ root.addEventListener('click',async event=>{
         overlay.inert=true;
         bar.classList.add('status-complete');
         setTimeout(()=>{busy=false;move(1);},matchMedia('(prefers-reduced-motion: reduce)').matches?30:425);
-      }else if(['gender','feedbackChoice'].includes(q.kind)){save();render();}else move(1);
+      }else if(q.kind==='gender'){save();render();}else move(1);
     }
   }
   if(target.hasAttribute('data-submit')){

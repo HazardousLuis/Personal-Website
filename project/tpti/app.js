@@ -235,7 +235,7 @@ function render(){
       const photo=person.photo;
       const image=photo?`<img class="celebrity-photo" src="${path(esc(photo.fileName))}" alt="${esc(person.name)}的头像">`:
         `<span class="initial-avatar" aria-label="姓名头像">${esc(Array.from(person.name)[0])}</span>`;
-      const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>`:'';
+      const credit=photo?.license?`<p class="photo-credit">图片署名：<a href="${esc(photo.source)}" target="_blank" rel="noopener noreferrer">${esc(photo.author)}</a> · <a href="${esc(photo.license)}" target="_blank" rel="noopener noreferrer">${esc(photo.licenseName||"CC BY-SA 4.0")}</a> · 网页缩放版</p>`:'';
       const axes=person.scores.map((value,i)=>({...myAxes[i],value,color:'#8a65bd'}));
       content+=`<article class="panel celebrity-card">
         <header class="celebrity-header">${image}<p class="result-kicker">${person.group==='历史人物'?'你的历史人物搭子':'你的名人搭子'}</p><h2>${esc(person.name)}</h2><p class="match-score">匹配度 ${match.score}/100</p><p class="entertainment-note">娱乐用途，不做参考</p></header>
@@ -246,7 +246,7 @@ function render(){
           ${shared.length?`<section><h4>共同主题</h4><div class="interest-tags">${shared.map(interestTag).join('')}</div></section>`:''}
           <section><h4>节奏与玩法</h4><p>${esc(tripReason(match,myAxes,answers.activities||[]))}</p></section>
         </section>
-        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">这张图根据公开作品里的风格做了趣味推测，名人本人没有填写这份测评。</p>${radarChart(axes,'celebrity',myAxes)}
+        <section class="result-box"><h3>TPTI 旅行风格推测</h3><p class="note">雷达图和旅行主题是根据公开作品与节目设定的趣味推测，未经本人确认。</p>${radarChart(axes,'celebrity',myAxes)}
         ${personaRow(axes,illustration,'旅行主题 Q 版示意')}</section>${credit}
         </article>`;
     }else{

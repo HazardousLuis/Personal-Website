@@ -211,7 +211,7 @@ function render(){
     const scene=root.querySelector('.ending-scene');
     const finish=()=>{
       if(!scene.isConnected)return;
-      scene.innerHTML=`<div class="ending-sign"><div class="ending-icon"><img class="ending-brand" src="./assets/ending-brand.webp" alt="与游 TraWithU"></div><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
+      scene.innerHTML=`<div class="ending-sign"><div class="ending-icon"><img class="ending-brand" src="./assets/ending-brand-clear.png" alt="与游 TraWithU"></div><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
     };
     const images=Array.from(scene.querySelectorAll('img'));
     Promise.allSettled(images.map(img=>img.decode())).then(()=>{

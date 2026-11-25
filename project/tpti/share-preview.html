@@ -1,9 +1,8 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>结果分享预览 · 与游</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f5f2fa;color:#272143;font:16px/1.5 system-ui;text-align:center}main{max-width:430px;margin:auto;padding:24px}button{background:#6554a1;border:0;border-radius:18px;padding:14px 30px;color:white;font:inherit;cursor:pointer}dialog{width:min(94vw,420px);border:0;border-radius:24px;padding:16px;color:inherit}dialog::backdrop{background:#24203988}canvas,img{width:100%;height:auto;border-radius:15px}small{color:#645c73}</style>
-<main><small>分享入口预览 · 示例结果</small><h1>我的 TPTI 报告</h1><img src="./assets/personality-0-0.webp" style="height:145px;object-fit:contain" alt=""><h2>随境探新 · 随行型</h2><p>查看人格雷达图、名人搭子和问卷搭子</p><button id="open">分享到朋友圈</button></main><dialog><img id="poster" alt="旅行人格分享海报"><p>长按保存海报，再到朋友圈选图发布。</p><button onclick="this.closest('dialog').close()">关闭预览</button></dialog>
-<script>
+<main><img id="poster" alt="正在生成完整示例海报"><p id="hint">正在生成海报…</p></main><script>
 const load=async src=>{const i=new Image();i.src=src;await i.decode();return i};
-document.querySelector('#open').onclick=async()=>{
+async function renderPoster(){
 const [art,qr]=await Promise.all(['./assets/personality-0-0.webp','./assets/quiz-entry.png'].map(load));
 const c=document.createElement('canvas');c.width=720;c.height=1450;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,720,1450);g.addColorStop(0,'#e5efff');g.addColorStop(1,'#fce7f1');x.fillStyle=g;x.fillRect(0,0,720,1450);
 function line(t,y,size,color){x.textAlign='center';x.font='bold '+size+'px sans-serif';x.fillStyle=color;x.fillText(t,360,y)}
@@ -30,5 +29,5 @@ line('我的问卷搭子',1153,30,'#494c85');
 line('Milo  84分     /     爬完再说  78分',1200,28,'#43405b');
 x.drawImage(qr,293,1225,134,134);
 line('扫码测测你的旅行人格',1395,24,'#564967');
-line('示例报告 · 匹配仅供娱乐',1430,20,'#756c80');document.querySelector('#poster').src=c.toDataURL();document.querySelector('dialog').showModal()};
-</script></html>
+line('示例报告 · 匹配仅供娱乐',1430,20,'#756c80');document.querySelector('#poster').src=c.toDataURL();document.querySelector('#hint').textContent='长按保存海报，再到朋友圈选图发布。'};
+renderPoster().catch(()=>document.querySelector('#hint').textContent='海报加载失败，请刷新重试。');</script></html>

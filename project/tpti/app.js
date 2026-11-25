@@ -217,7 +217,7 @@ function render(){
     Promise.allSettled(images.map(img=>img.decode())).then(()=>{
       if(!scene.isConnected)return;
       scene.classList.add('ending-ready');
-      setTimeout(finish,4200);
+      setTimeout(finish,3500);
     });
     return;
   }

@@ -494,6 +494,6 @@ html:has(.ending-scene){overflow:hidden;scrollbar-gutter:auto}
 
 @media(prefers-reduced-motion:reduce){.ending-sign h1,.ending-ready .ending-lettering{animation:none}}
 @media (prefers-reduced-motion: no-preference){
-  .ending-scene:has(.ending-sign){animation:ending-page-in .6s ease-out both}
+  .ending-scene:has(.ending-sign){animation:ending-page-in 1s ease-out both}
 }
 @keyframes ending-page-in{from{opacity:0}to{opacity:1}}

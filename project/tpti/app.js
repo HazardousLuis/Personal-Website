@@ -207,11 +207,16 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><div class="done finale"><video class="finale-film" muted playsinline loop preload="auto" poster="./assets/finale-scene.webp" aria-label="与游列车片尾：平台开发中，敬请期待" src="./assets/finale-journey.mp4"></video><footer><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p class="business-contact">商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></footer></div></div>`;
-    const film=root.querySelector('.finale-film');
-    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-      film.play().then(()=>film.parentElement.classList.add('playing')).catch(()=>{film.controls=true});
-    }
+    root.innerHTML=`<div class="shell"><section class="ending-scene"><img src="./assets/finale-scene.webp" alt="列车穿过山湖"><div class="ending-caption"><span>遇见同频的人</span><span>去更远的地方</span></div></section></div>`;
+    const scene=root.querySelector('.ending-scene');
+    const finish=()=>{
+      if(!scene.isConnected)return;
+      scene.innerHTML=`<div class="ending-sign"><svg viewBox="0 0 120 120" width="116" role="img" aria-label="与游微笑背包"><defs><linearGradient id="bag"><stop stop-color="#267aff"/><stop offset="1" stop-color="#ed388a"/></linearGradient></defs><g fill="white" stroke="url(#bag)" stroke-width="5"><path d="M48 25 Q48 6 60 8 Q73 8 73 25"/><rect x="16" y="63" width="88" height="30" rx="9"/><rect x="24" y="23" width="72" height="80" rx="22"/><rect x="37" y="73" width="50" height="28" rx="8"/></g><g class="bag-face" fill="none" stroke="#19234a" stroke-width="4" stroke-linecap="round"><path d="M45 44v4 M75 42l-7 4 7 3 M50 57q10 11 20 0"/></g><text x="60" y="93" font-size="14" fill="#9658aa" text-anchor="middle">与游</text></svg><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
+    };
+    const art=scene.querySelector('img');
+    const start=()=>setTimeout(finish,3200);
+    if(art.complete)start();
+    else {art.onload=start;art.onerror=finish;}
     return;
   }
   if(q.kind==='feedback'){

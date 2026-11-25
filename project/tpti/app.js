@@ -8,12 +8,13 @@ function loadDraft(){
 }
 const saved=loadDraft();
 const manageLocal=new URLSearchParams(location.search).get('manage')==='local';
+const finalePreview=new URLSearchParams(location.search).get('preview')==='finale';
 const resultsPreview=new URLSearchParams(location.search).get('preview')==='results';
 const answers=saved.answers||{};
 const newResponseId=()=>(globalThis.crypto.randomUUID?.() ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const x=crypto.getRandomValues(new Uint8Array(1))[0]&15;return (c==='x'?x:(x&3)|8).toString(16)}));
 let id=saved.id||newResponseId();
 const nicknameKey=name=>'trawithu:response-id:'+name.normalize('NFKC').toLowerCase();
-if(saved.nickname&&saved.id&&!resultsPreview&&!manageLocal&&!localStorage.getItem(nicknameKey(saved.nickname))){
+if(saved.nickname&&saved.id&&!finalePreview&&!resultsPreview&&!manageLocal&&!localStorage.getItem(nicknameKey(saved.nickname))){
   localStorage.setItem(nicknameKey(saved.nickname),saved.id);
 }
 delete answers.birthMonth;
@@ -67,6 +68,7 @@ if(resultsPreview){
   index=steps.findIndex(step=>step.kind==='celebrity');
   participants=[];
 }
+if(finalePreview)index=steps.findIndex(step=>step.kind==='done');
 const path=name=>'./assets/'+name;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const interestClass=tag=>{
@@ -205,7 +207,7 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><div class="done finale"><img class="finale-art" src="./assets/finale-scene.webp" alt="遇见同频的人，去更远的地方"><footer><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p class="business-contact">商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></footer></div></div>`;
+    root.innerHTML=`<div class="shell"><div class="done finale"><div class="finale-window"><img class="finale-art" src="./assets/finale-scene.webp" alt="遇见同频的人，去更远的地方"></div><footer><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p class="business-contact">商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></footer></div></div>`;
     return;
   }
   if(q.kind==='feedback'){

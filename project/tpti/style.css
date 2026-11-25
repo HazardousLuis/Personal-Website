@@ -497,4 +497,6 @@ html:has(.ending-scene){overflow:hidden;scrollbar-gutter:auto}
   .ending-scene:has(.ending-sign){animation:ending-page-in 1s ease-out both}
 }
 @keyframes ending-page-in{from{opacity:0}to{opacity:1}}.report-share-dialog{width:min(92vw,430px);max-height:90vh;border:0;border-radius:20px;padding:16px;text-align:center;color:#393055}.report-share-dialog::backdrop{background:#24203999}.report-share-dialog img{width:100%;height:auto}.report-share-dialog button{padding:8px 18px;border-radius:16px;border:0;color:#594487}.page-celebrity [data-share]{margin-top:18px}
-.shell .page-celebrity button.primary[data-share]{color:#fff;-webkit-text-fill-color:#fff}
+.shell .ending-sign .primary{color:#fff;-webkit-text-fill-color:#fff}
+
+.ending-sign .primary{display:inline-block;width:auto;max-width:100%;padding:12px 24px;font-size:16px;text-decoration:none}

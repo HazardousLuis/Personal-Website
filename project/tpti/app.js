@@ -25,6 +25,7 @@ const openGroups=new Set();
 let catalog, resumeIndex=saved.resumeIndex||0;
 let nickname=saved.nickname||'', hideRadar=saved.hideRadar===true, privacySet=saved.privacySet===true;
 let demos=[];
+let shareData=saved.shareData;
 let participants, participantError=false, matchRequest;
 const payload=()=>({id,answers,nickname,shareProfile:!hideRadar,hideRadar,excludeMatching:hideRadar,feedback,questionVersion:2,
   interests:[...interests].filter(tag=>predefined.has(tag)),highlights:[...highlights].filter(tag=>predefined.has(tag))});
@@ -87,7 +88,7 @@ const encyclopedia=person=>{
   const query=person.name.split(' · ').at(-1);
   return 'https://baike.baidu.com'+(entries[person.name]||'/search/word?word='+encodeURIComponent(query));
 };
-const save=()=>!resultsPreview&&localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,interests:[...interests],highlights:[...highlights]}));
+const save=()=>!resultsPreview&&localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,shareData,interests:[...interests],highlights:[...highlights]}));
 const move=offset=>{
   index=activeIndex(index+offset,Math.sign(offset));
   save();
@@ -211,7 +212,7 @@ function render(){
     const scene=root.querySelector('.ending-scene');
     const finish=()=>{
       if(!scene.isConnected)return;
-      scene.innerHTML=`<div class="ending-sign"><div class="ending-icon"><img class="ending-brand" src="./assets/ending-brand-clear.png" alt="与游 TraWithU"></div><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
+      scene.innerHTML=`<div class="ending-sign"><div class="ending-icon"><img class="ending-brand" src="./assets/ending-brand-clear.png" alt="与游 TraWithU"></div><h1>平台开发中，敬请期待</h1>${shareData?`<button type="button" class="primary" data-share="${esc(JSON.stringify(shareData))}">将测评结果分享到朋友圈</button>`:`<a class="primary ending-share-link" href="./${finalePreview?"share-preview.html":"?preview=results"}">${finalePreview?"预览朋友圈分享海报":"查看报告并生成分享海报"}</a>`}<p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
     };
     const images=Array.from(scene.querySelectorAll('img'));
     Promise.allSettled(images.map(img=>img.decode())).then(()=>{
@@ -306,9 +307,8 @@ function render(){
       <section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2><p class="note">按匹配度排序，展示 ${minimumBuddyScore} 分及以上的搭子。</p>
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
-    const shareData={portrait,name:resultFor(myAxes,'').name,axes:myAxes,star:match?.person.name,score:match?.score,
+    shareData={portrait,name:resultFor(myAxes,'').name,axes:myAxes,star:match?.person.name,score:match?.score,
       buddies:buddies.map(({nickname,score})=>({nickname,score})),note:hideRadar?'本次不参与问卷搭子匹配':participantError?'问卷搭子暂不可用':'暂无符合条件的搭子'};
-    content+=`<button type="button" class="primary" data-share="${esc(JSON.stringify(shareData))}" ${catalog===undefined||participants===undefined&&!participantError?'disabled':''}>分享到朋友圈</button>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
     content=generation(q);

@@ -207,43 +207,18 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><section class="ending-scene"><canvas aria-label="遇见同频的人，去更远的地方"></canvas></section></div>`;
+    root.innerHTML=`<div class="shell"><section class="ending-scene"><div class="ending-poster"><img class="ending-lake" src="./assets/ending-lake.webp" alt="两位旅人坐在列车窗边，望向湖泊和雪山"><img class="ending-lettering" src="./assets/ending-ink.png" alt="遇见同频的人，去更远的地方"></div></section></div>`;
     const scene=root.querySelector('.ending-scene');
     const finish=()=>{
       if(!scene.isConnected)return;
-      scene.innerHTML=`<div class="ending-sign"><img class="ending-brand" src="./assets/ending-brand.webp" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
+      scene.innerHTML=`<div class="ending-sign"><div class="ending-icon"><img class="ending-brand" src="./assets/ending-brand.webp" alt="与游 TraWithU"></div><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
     };
-    const art=new Image();
-    art.onerror=finish;
-    art.onload=()=>{
-      const canvas=scene.querySelector('canvas');
-      canvas.width=art.naturalWidth;
-      canvas.height=art.naturalHeight;
-      const ctx=canvas.getContext('2d');
-      ctx.drawImage(art,0,0);
-      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-        // Restore the two original ink lines from left to right over sampled sky.
-        const w=canvas.width,h=canvas.height;
-        const start=performance.now();
-        function reveal(now){
-          if(!scene.isConnected)return;
-          for(let row=0;row<2;row++){
-            const progress=Math.min(1,Math.max(0,(now-start-row*850)/850));
-            const left=Math.floor(w*(.05+.73*progress));
-            const right=Math.ceil(w*.78);
-            const top=Math.floor(h*(row===0?.084:.165));
-            const bottom=Math.ceil(h*(row===0?.165:.252));
-            ctx.drawImage(art,0,top,right,bottom-top,0,top,right,bottom-top);
-            if(progress<1)ctx.drawImage(art,left,h*.255,right-left,h*.024,left,top,right-left,bottom-top);
-          }
-          if(now-start<1700)requestAnimationFrame(reveal);
-          else ctx.drawImage(art,0,0);
-        }
-        reveal(start);
-      }
+    const images=Array.from(scene.querySelectorAll('img'));
+    Promise.allSettled(images.map(img=>img.decode())).then(()=>{
+      if(!scene.isConnected)return;
+      scene.classList.add('ending-ready');
       setTimeout(finish,3200);
-    };
-    art.src='./assets/finale-scene.webp';
+    });
     return;
   }
   if(q.kind==='feedback'){

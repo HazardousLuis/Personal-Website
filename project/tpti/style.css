@@ -500,3 +500,10 @@ html:has(.ending-scene){overflow:hidden;scrollbar-gutter:auto}
 .shell .ending-sign .primary{color:#fff;-webkit-text-fill-color:#fff}
 
 .ending-sign .primary{display:inline-block;width:auto;max-width:100%;padding:12px 24px;font-size:16px;text-decoration:none}.code-guide{margin:8px auto 14px;text-align:left;color:#605677;font-size:14px}.code-guide summary{cursor:pointer;text-align:center}.code-guide p{margin:8px 0;font-size:inherit}
+.code-guide summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:0 14px;border:1px solid #d9cfee;border-radius:12px;background:#f6f3fb;color:#51426e;font-weight:650}
+.code-guide summary::-webkit-details-marker{display:none}
+.code-guide summary:focus-visible{outline:2px solid #7868ad;outline-offset:2px}
+.code-guide summary span{font-size:.87em;font-weight:500}
+.code-guide .guide-close,.code-guide[open] .guide-open{display:none}
+.code-guide[open] .guide-close{display:inline}
+.guide-letters{border-left:2px solid #c4b4d9;padding-left:12px}

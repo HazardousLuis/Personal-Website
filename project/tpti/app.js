@@ -89,10 +89,10 @@ const personaRow=(axes,image,alt,explain=false)=>{
   if(letters[1]==='F')letters[1]='K';
   if(letters[3]==='P')letters[3]='O';
   const formatted='TPTI · '+letters.slice(0,2).join('')+'-'+letters.slice(2).join('');
-  const guide=explain?`<details class="code-guide"><summary>我的人格代号怎么读？</summary><p><strong>与游旅行人格类型指标</strong><br>TPTI · Travel Personality Type Indicator</p>${letters.map((letter,i)=>{
+  const guide=explain?`<details class="code-guide"><summary>我的人格代号怎么读？<span class="guide-open">展开 ⌄</span><span class="guide-close">收起 ⌃</span></summary><p><strong>与游旅行人格类型指标</strong><br>TPTI · Travel Personality Type Indicator</p><div class="guide-letters">${letters.map((letter,i)=>{
     const [english,meaning]=personaGlossary[i][letter].split(' · ');
     return `<p><b>${letter}</b>（${english}）· ${meaning}</p>`;
-  }).join('')}</details>`:'';
+  }).join('')}</div></details>`:'';
   return `<div class="celebrity-persona"><img class="participant-art" src="${image}" alt="${alt}"><div>
     <p class="persona-code">${esc(formatted)}</p><p class="persona-name">${esc(name)}</p></div></div>${guide}`;
 };

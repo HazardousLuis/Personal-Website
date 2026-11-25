@@ -207,16 +207,43 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><section class="ending-scene"><img src="./assets/finale-scene.webp" alt="列车穿过山湖"><div class="ending-caption"><span>遇见同频的人</span><span>去更远的地方</span></div></section></div>`;
+    root.innerHTML=`<div class="shell"><section class="ending-scene"><canvas aria-label="遇见同频的人，去更远的地方"></canvas></section></div>`;
     const scene=root.querySelector('.ending-scene');
     const finish=()=>{
       if(!scene.isConnected)return;
-      scene.innerHTML=`<div class="ending-sign"><svg viewBox="0 0 120 120" width="116" role="img" aria-label="与游微笑背包"><defs><linearGradient id="bag"><stop stop-color="#267aff"/><stop offset="1" stop-color="#ed388a"/></linearGradient></defs><g fill="white" stroke="url(#bag)" stroke-width="5"><path d="M48 25 Q48 6 60 8 Q73 8 73 25"/><rect x="16" y="63" width="88" height="30" rx="9"/><rect x="24" y="23" width="72" height="80" rx="22"/><rect x="37" y="73" width="50" height="28" rx="8"/></g><g class="bag-face" fill="none" stroke="#19234a" stroke-width="4" stroke-linecap="round"><path d="M45 44v4 M75 42l-7 4 7 3 M50 57q10 11 20 0"/></g><text x="60" y="93" font-size="14" fill="#9658aa" text-anchor="middle">与游</text></svg><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
+      scene.innerHTML=`<div class="ending-sign"><img class="ending-brand" src="./assets/ending-brand.webp" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p>商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></div>`;
     };
-    const art=scene.querySelector('img');
-    const start=()=>setTimeout(finish,3200);
-    if(art.complete)start();
-    else {art.onload=start;art.onerror=finish;}
+    const art=new Image();
+    art.onerror=finish;
+    art.onload=()=>{
+      const canvas=scene.querySelector('canvas');
+      canvas.width=art.naturalWidth;
+      canvas.height=art.naturalHeight;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(art,0,0);
+      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+        // Restore the two original ink lines from left to right over sampled sky.
+        const w=canvas.width,h=canvas.height;
+        const start=performance.now();
+        function reveal(now){
+          if(!scene.isConnected)return;
+          for(let row=0;row<2;row++){
+            const progress=Math.min(1,Math.max(0,(now-start-row*850)/850));
+            const left=Math.floor(w*(.05+.73*progress));
+            const right=Math.ceil(w*.78);
+            const top=Math.floor(h*(row===0?.084:.165));
+            const bottom=Math.ceil(h*(row===0?.165:.252));
+            ctx.drawImage(art,0,top,right,bottom-top,0,top,right,bottom-top);
+            if(progress<1)ctx.drawImage(art,left,h*.255,right-left,h*.024,left,top,right-left,bottom-top);
+          }
+          if(now-start<1700)requestAnimationFrame(reveal);
+          else ctx.drawImage(art,0,0);
+        }
+        reveal(start);
+      }
+      setTimeout(finish,3200);
+    };
+    art.src='./assets/finale-scene.webp';
     return;
   }
   if(q.kind==='feedback'){

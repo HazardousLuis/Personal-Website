@@ -77,11 +77,24 @@ const interestClass=tag=>{
   return 'tag-tone-'+(index<0?'other':index);
 };
 const interestTag=tag=>`<span class="interest-tag ${interestClass(tag)}">${esc(tag)}</span>`;
-const personaRow=(axes,image,alt)=>{
+const personaGlossary=[
+  {Q:'Quiet · 喜欢安静',M:'Mixed · 社交看气氛',A:'Active · 喜欢热聊'},
+  {K:'Known · 偏爱熟悉路线',B:'Balanced · 新旧都喜欢',N:'Novelty-seeking · 喜欢尝新'},
+  {S:'Slow · 喜欢慢逛',E:'Even-paced · 节奏适中',R:'Rapid-paced · 行程紧凑'},
+  {O:'Organized · 喜欢提前安排',C:'Combination · 大致有个计划',F:'Flexible · 随时可调整'}
+];
+const personaRow=(axes,image,alt,explain=false)=>{
   const {code,name}=resultFor(axes,'');
-  const formatted=code.replace(/([A-Z]{2})([A-Z]{2})$/u,'$1-$2');
+  const letters=code.slice(-4).split('');
+  if(letters[1]==='F')letters[1]='K';
+  if(letters[3]==='P')letters[3]='O';
+  const formatted='TPTI · '+letters.slice(0,2).join('')+'-'+letters.slice(2).join('');
+  const guide=explain?`<details class="code-guide"><summary>我的人格代号怎么读？</summary><p>TPTI（Travel Personality Type Indicator）是与游的旅行人格类型指标。</p>${letters.map((letter,i)=>{
+    const [english,meaning]=personaGlossary[i][letter].split(' · ');
+    return `<p><b>${letter}</b>（${english}）· ${meaning}</p>`;
+  }).join('')}</details>`:'';
   return `<div class="celebrity-persona"><img class="participant-art" src="${image}" alt="${alt}"><div>
-    <p class="persona-code">${esc(formatted)}</p><p class="persona-name">${esc(name)}</p></div></div>`;
+    <p class="persona-code">${esc(formatted)}</p><p class="persona-name">${esc(name)}</p></div></div>${guide}`;
 };
 const encyclopedia=person=>{
   const entries={'Jimmy Chin':'/item/%E9%87%91%E5%9B%BD%E5%A8%81/23305784','小约翰可汗':'/item/%E5%B0%8F%E7%BA%A6%E7%BF%B0%E5%8F%AF%E6%B1%97/55677637'};
@@ -246,7 +259,7 @@ function render(){
       return answer?`<div><dt>${esc(label)}</dt><dd>${esc(answer)}</dd></div>`:'';
     }).join('');
     content=`${title('我的 TPTI 报告')}<section class="panel self-report">
-      ${personaRow(myAxes,portrait,'你的与游旅行人格角色')}
+      ${personaRow(myAxes,portrait,'你的与游旅行人格角色',true)}
       <p class="note self-report-detail">${esc(result.detail)}</p><p>${esc(result.role)}</p>
       <h2 class="prompt">我的旅行偏好</h2>
       ${radarChart(myAxes,'self')}

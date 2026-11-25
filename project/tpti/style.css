@@ -473,14 +473,7 @@ html{scrollbar-gutter:stable}
 .shell .finale footer .business-contact,.shell .finale footer a{color:#eef2ff}
 
 .shell .done.finale{position:relative;isolation:isolate;overflow:hidden;padding:0;min-height:100svh;background:#132841}
-.finale-window{position:absolute;inset:0;overflow:hidden}
-.shell .finale-window .finale-art{width:100%;height:100%;object-fit:contain;animation:rail-journey 5s ease-in-out both}
-.finale-window::after{content:"";position:absolute;inset:0;background:linear-gradient(108deg,transparent 40%,#ffd9b04a 50%,transparent 60%);transform:translateX(-110%);animation:rail-light 1.1s 2.7s ease-in-out forwards}
-.shell .finale footer{position:relative;z-index:1;animation:arrival 1s 3.4s both}
-.shell .finale footer img{width:72px;height:72px;border-radius:18px}
-.shell .finale footer h1{margin:18px 0 10px;animation:arrival .8s 3.65s both}
-.shell .finale footer p{animation:arrival .8s 3.85s both}
-@keyframes rail-journey{0%{transform:scale(1);opacity:1}60%{opacity:1}100%{transform:scale(1.065);opacity:.14}}
-@keyframes rail-light{to{transform:translateX(110%)}}
-@keyframes arrival{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.shell .finale-window .finale-art{animation:none;opacity:.14}.finale-window::after{display:none}.shell .finale footer,.shell .finale footer h1,.shell .finale footer p{animation:none}}
+.shell .done .finale-film{display:block;width:100%;height:calc(100svh - 52px);object-fit:contain}
+.shell .finale footer{padding:8px 12px max(8px,env(safe-area-inset-bottom))}
+.shell .finale.playing footer img,.shell .finale.playing footer h1{display:none}
+.shell .finale .business-contact{margin:0}

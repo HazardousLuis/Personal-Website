@@ -207,7 +207,11 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><div class="done finale"><div class="finale-window"><img class="finale-art" src="./assets/finale-scene.webp" alt="遇见同频的人，去更远的地方"></div><footer><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p class="business-contact">商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></footer></div></div>`;
+    root.innerHTML=`<div class="shell"><div class="done finale"><video class="finale-film" muted playsinline loop preload="auto" poster="./assets/finale-scene.webp" aria-label="与游列车片尾：平台开发中，敬请期待" src="./assets/finale-journey.mp4"></video><footer><img src="${path('project-logo.png')}" alt="与游 TraWithU"><h1>平台开发中，敬请期待</h1><p class="business-contact">商业合作 <a href="mailto:luislu@koileapcapital.com">luislu@koileapcapital.com</a></p></footer></div></div>`;
+    const film=root.querySelector('.finale-film');
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      film.play().then(()=>film.parentElement.classList.add('playing')).catch(()=>{film.controls=true});
+    }
     return;
   }
   if(q.kind==='feedback'){

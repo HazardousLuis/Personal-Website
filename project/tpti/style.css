@@ -493,3 +493,7 @@ html:has(.ending-scene){overflow:hidden;scrollbar-gutter:auto}
 .ending-sign a{color:#584489}
 
 @media(prefers-reduced-motion:reduce){.ending-sign h1,.ending-ready .ending-lettering{animation:none}}
+@media (prefers-reduced-motion: no-preference){
+  .ending-scene:has(.ending-sign){animation:ending-page-in .6s ease-out both}
+}
+@keyframes ending-page-in{from{opacity:0}to{opacity:1}}

@@ -207,7 +207,7 @@ function render(){
   const title=text=>`<h1 class="title" tabindex="-1">${text}</h1>`;
   let content='', action='', modal='', kind=q.kind;
   if(q.kind==='done'){
-    root.innerHTML=`<div class="shell"><section class="ending-scene"><div class="ending-poster"><img class="ending-lake" src="./assets/ending-lake.webp" alt="两位旅人坐在列车窗边，望向湖泊和雪山"><img class="ending-lettering" src="./assets/ending-ink.png" alt="遇见同频的人，去更远的地方"></div></section></div>`;
+    root.innerHTML=`<div class="shell"><section class="ending-scene"><div class="ending-poster"><img class="ending-lake" src="./assets/ending-lake.webp" srcset="./assets/ending-lake.webp 705w, ./assets/ending-lake-hd.webp 1410w" sizes="100vw" alt="两位旅人坐在列车窗边，望向湖泊和雪山"><img class="ending-lettering" src="./assets/ending-ink.png" alt="遇见同频的人，去更远的地方"></div></section></div>`;
     const scene=root.querySelector('.ending-scene');
     const finish=()=>{
       if(!scene.isConnected)return;

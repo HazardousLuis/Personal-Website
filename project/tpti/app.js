@@ -89,7 +89,7 @@ const personaRow=(axes,image,alt,explain=false)=>{
   if(letters[1]==='F')letters[1]='K';
   if(letters[3]==='P')letters[3]='O';
   const formatted='TPTI · '+letters.slice(0,2).join('')+'-'+letters.slice(2).join('');
-  const guide=explain?`<details class="code-guide"><summary>我的人格代号怎么读？</summary><p>TPTI（Travel Personality Type Indicator）是与游的旅行人格类型指标。</p>${letters.map((letter,i)=>{
+  const guide=explain?`<details class="code-guide"><summary>我的人格代号怎么读？</summary><p><strong>与游旅行人格类型指标</strong><br>TPTI · Travel Personality Type Indicator</p>${letters.map((letter,i)=>{
     const [english,meaning]=personaGlossary[i][letter].split(' · ');
     return `<p><b>${letter}</b>（${english}）· ${meaning}</p>`;
   }).join('')}</details>`:'';

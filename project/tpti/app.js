@@ -87,7 +87,7 @@ const encyclopedia=person=>{
   const query=person.name.split(' · ').at(-1);
   return 'https://baike.baidu.com'+(entries[person.name]||'/search/word?word='+encodeURIComponent(query));
 };
-const save=()=>localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,interests:[...interests],highlights:[...highlights]}));
+const save=()=>!resultsPreview&&localStorage.setItem(storageKey,JSON.stringify({version:3,id,index,resumeIndex,answers,feedback,nickname,privacySet,hideRadar,interests:[...interests],highlights:[...highlights]}));
 const move=offset=>{
   index=activeIndex(index+offset,Math.sign(offset));
   save();
@@ -223,7 +223,7 @@ function render(){
   }
   if(q.kind==='feedback'){
     content=`<img class="feedback-art" src="${look().portrait}" alt="">${title('请留下您对这份问卷的宝贵建议，谢谢！')}<div class="feedback-card"><label for="feedback">问卷改进建议 <small>选填</small></label><textarea id="feedback" maxlength="500" rows="5" placeholder="哪道题不好选？还有什么旅行场景想加进来？">${esc(feedback)}</textarea></div><p id="error" role="alert"></p>`;
-    action=`<button class="primary" data-submit>${feedback.trim()?'提交答卷与建议':'提交答卷'}</button>`;
+    action=resultsPreview?button('预览片尾'):`<button class="primary" data-submit>${feedback.trim()?'提交答卷与建议':'提交答卷'}</button>`;
   }else if(q.kind==='interests'){
     const chip=(tag,attr,label,pressed)=>`<button type="button" class="interest-chip ${attr==='data-interest'&&label===tag?interestClass(tag):''}" ${attr}="${esc(tag)}" aria-pressed="${pressed}">${esc(label)}</button>`;
     const picked=[...interests].map(tag=>`<li>${interestTag(tag)}<div>${chip(tag,'data-highlight',highlights.has(tag)?'★ 已置顶':'☆ 置顶',highlights.has(tag))}${chip(tag,'data-interest','移除',false)}</div></li>`).join('');
@@ -283,7 +283,7 @@ function render(){
         if(steps[index].kind==='celebrity')render();
       });
     }
-    action=resultsPreview?'':button('继续').replace('data-next',catalog===undefined||participants===undefined&&!participantError?'data-next disabled':'data-next');
+    action=button('继续').replace('data-next',catalog===undefined||participants===undefined&&!participantError?'data-next disabled':'data-next');
     if(participants===undefined&&!participantError)requestMatch();
     const ownMatchProfile={scores:myAxes.map(axis=>axis.value),activities:answers.activities,budget:answers.budget,
       tags:[...interests].filter(tag=>predefined.has(tag)),highlights:[...highlights]};
@@ -387,7 +387,7 @@ function render(){
     });
   }
   const field=root.querySelector('textarea');
-  field?.addEventListener('input',()=>{feedback=field.value;save();root.querySelector('[data-submit]').textContent=feedback.trim()?'提交答卷与建议':'提交答卷';});
+  if(!resultsPreview)field?.addEventListener('input',()=>{feedback=field.value;save();root.querySelector('[data-submit]').textContent=feedback.trim()?'提交答卷与建议':'提交答卷';});
 }
 root.addEventListener('click',async event=>{
   const target=event.target.closest('button');

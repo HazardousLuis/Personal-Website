@@ -306,6 +306,9 @@ function render(){
       <section class="panel participant-card"><h2 class="prompt">与你最合拍的问卷搭子</h2><p class="note">按匹配度排序，展示 ${minimumBuddyScore} 分及以上的搭子。</p>
       ${details.length?details.join(''):`<p class="note">${hideRadar?'你已选择隐藏资料，本次不参与用户匹配。':participantError?'用户匹配暂时无法加载。':participants===undefined?'正在匹配…':'暂时没有符合条件的搭子。'}</p>`}
       ${participantError?'<button class="interest-chip" data-retry-match>重试用户匹配</button>':''}</section>`;
+    const shareData={portrait,name:resultFor(myAxes,'').name,axes:myAxes,star:match?.person.name,score:match?.score,
+      buddies:buddies.map(({nickname,score})=>({nickname,score})),note:hideRadar?'本次不参与问卷搭子匹配':participantError?'问卷搭子暂不可用':'暂无符合条件的搭子'};
+    content+=`<button type="button" class="primary" data-share="${esc(JSON.stringify(shareData))}" ${catalog===undefined||participants===undefined&&!participantError?'disabled':''}>分享到朋友圈</button>`;
   }else if(q.kind==='generate'||q.phase||q.kind==='money-complete'){
     kind='generate';
     content=generation(q);
@@ -388,6 +391,25 @@ function render(){
 }
 root.addEventListener('click',async event=>{
   const target=event.target.closest('button');
+  if(target?.hasAttribute('data-share')){
+    const dialog=document.createElement('dialog');
+    dialog.className='report-share-dialog';
+    dialog.innerHTML='<button type="button" autofocus>关闭海报</button><p role="status">正在生成分享海报…</p><img hidden alt="我的旅行人格与搭子匹配海报">';
+    document.body.append(dialog);
+    dialog.querySelector('button').onclick=()=>dialog.close();
+    dialog.onclose=()=>{dialog.remove();target.focus()};
+    dialog.showModal();
+    try{
+      const {renderPoster}=await import('./share-poster.js');
+      const image=dialog.querySelector('img');
+      image.src=await renderPoster(JSON.parse(target.dataset.share));
+      image.hidden=false;
+      dialog.querySelector('p').textContent='长按保存海报，再到朋友圈选图发布。';
+    }catch{
+      dialog.querySelector('p').textContent='海报生成失败，请关闭后重试。';
+    }
+    return;
+  }
   if(target?.hasAttribute('data-clear-local')&&manageLocal){
     localStorage.removeItem(storageKey);
     location.reload();
